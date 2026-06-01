@@ -5,10 +5,10 @@
   // Список шрифтов. css=null — оригинал. Добавляй новые сюда по мере появления.
   var FONTS = [
     { name: 'Оригинал', css: null },
-    { name: 'Poiret One', css: "'Poiret One', sans-serif", stroke: '0.4px' },
+    { name: 'Poiret One', css: "'Poiret One', sans-serif" },
     { name: 'Onest', css: "'Onest', sans-serif" },
     { name: 'Doloman Pavljenko', css: "'Doloman Pavljenko', sans-serif" },
-    { name: 'Stereonic XS', css: "'Stereonic XS', sans-serif", stroke: '0.5px' },
+    { name: 'Stereonic XS', css: "'Stereonic XS', sans-serif" },
     { name: 'Zerno', css: "'Zerno', sans-serif" },
     { name: 'L&C (наш)', css: "'LC Hairline', sans-serif" }
   ];
