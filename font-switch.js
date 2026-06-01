@@ -49,8 +49,11 @@
       if (f && f.css) {
         el.style.setProperty('font-family', f.css, 'important');
         if (f.weight) el.style.setProperty('font-weight', f.weight, 'important');
-        // просторный межстрочный, чтобы высокие шрифты не наезжали строками
-        el.style.setProperty('line-height', '1.7', 'important');
+        // НЕ трогаем line-height: в Tilda Zero-блоках высота холста и позиции
+        // элементов зафиксированы. Любое увеличение межстрочного раздувает блок
+        // вниз и он наезжает на нижний (тот стоит на фиксированном top). Поэтому
+        // оставляем блоку его родной line-height — прирост высоты минимальный.
+        el.style.removeProperty('line-height');
       } else {
         el.style.removeProperty('font-family');
         el.style.removeProperty('font-weight');
