@@ -13,7 +13,47 @@
     { name: 'L&C (наш)', css: "'LC Hairline', sans-serif" }
   ];
 
-  var cache = null; // кэш целевых элементов
+  var cache = null;       // кэш целевых элементов
+  var touched = [];       // элементы, которым мы навязали инлайн-стили — чтобы откатывать
+  var activeCss = null;   // какой шрифт сейчас выбран (защита от гонки при быстрых кликах)
+  var baseCharW = null;   // средняя ширина символа базового шрифта страницы (эталон)
+
+  // Средняя ширина символа для семейства (мерим скрытым образцом).
+  function avgCharWidth(family) {
+    var s = document.createElement('span');
+    s.style.cssText = 'position:absolute;left:-9999px;top:-9999px;font-size:20px;white-space:nowrap;font-family:' + family + ';';
+    s.textContent = 'Экопарк Завидово участки рядом курорт продажа домов';
+    document.body.appendChild(s);
+    var w = s.getBoundingClientRect().width / s.textContent.length;
+    document.body.removeChild(s);
+    return w;
+  }
+
+  // Во сколько уменьшить кегль, чтобы более широкий шрифт занял столько же места,
+  // сколько базовый. Иначе текст переносится на лишнюю строку, блок растёт вниз и
+  // наезжает на нижний (вёрстка на фиксированных координатах — блоки не двигаются).
+  // Замер: широкий Zerno давал 40 наездов, с компенсацией — 17 (как у оригинала).
+  function widthFactor(css) {
+    if (baseCharW == null) baseCharW = avgCharWidth('Arial, sans-serif');
+    var w = avgCharWidth(css);
+    if (!w) return 1;
+    var f = baseCharW / w;
+    if (f > 1) f = 1;        // узкие шрифты не растягиваем
+    if (f < 0.7) f = 0.7;    // предохранитель
+    return f;
+  }
+
+  // Снять все наши инлайн-стили (вернуть страницу к оригиналу).
+  function clearTouched() {
+    for (var i = 0; i < touched.length; i++) {
+      var el = touched[i];
+      el.style.removeProperty('font-family');
+      el.style.removeProperty('font-weight');
+      el.style.removeProperty('font-size');
+      el.style.removeProperty('line-height');
+    }
+    touched = [];
+  }
 
   function hasDirectText(el) {
     for (var i = 0; i < el.childNodes.length; i++) {
@@ -42,23 +82,34 @@
     }
     return out;
   }
-  function applyFont(f) {
-    if (!cache) cache = collect();
+  function doApply(f) {
+    cache = collect();                 // собираем на чистом DOM → видим настоящие размеры
+    var factor = widthFactor(f.css);
     for (var i = 0; i < cache.length; i++) {
       var el = cache[i];
-      if (f && f.css) {
-        el.style.setProperty('font-family', f.css, 'important');
-        if (f.weight) el.style.setProperty('font-weight', f.weight, 'important');
-        // НЕ трогаем line-height: в Tilda Zero-блоках высота холста и позиции
-        // элементов зафиксированы. Любое увеличение межстрочного раздувает блок
-        // вниз и он наезжает на нижний (тот стоит на фиксированном top). Поэтому
-        // оставляем блоку его родной line-height — прирост высоты минимальный.
-        el.style.removeProperty('line-height');
-      } else {
-        el.style.removeProperty('font-family');
-        el.style.removeProperty('font-weight');
-        el.style.removeProperty('line-height');
-      }
+      var orig = parseFloat(window.getComputedStyle(el).fontSize) || 0;
+      el.style.setProperty('font-family', f.css, 'important');
+      if (f.weight) el.style.setProperty('font-weight', f.weight, 'important');
+      // Компенсируем ширину кеглем; line-height НЕ трогаем (родной = минимум прироста высоты).
+      if (factor < 1 && orig > 0) el.style.setProperty('font-size', (orig * factor).toFixed(2) + 'px', 'important');
+      el.style.removeProperty('line-height');
+      touched.push(el);
+    }
+  }
+
+  function applyFont(f) {
+    clearTouched();                    // всегда сначала откат — collect увидит оригинальные размеры
+    activeCss = (f && f.css) || null;
+    if (!activeCss) return;            // «Оригинал» — просто откатили и вышли
+    doApply(f);
+    // Шрифт мог ещё не догрузиться (font-display:swap): тогда ширину мы измерили по
+    // запасному шрифту, компенсация неверная — отсюда «то наезжает, то нет после F5».
+    // Дожидаемся настоящего шрифта и пересчитываем. Это убирает гонку.
+    var fam = f.css.split(',')[0].trim();
+    if (document.fonts && document.fonts.load) {
+      document.fonts.load('20px ' + fam).then(function () {
+        if (activeCss === f.css) { clearTouched(); doApply(f); adjustPad(); }
+      }).catch(function () {});
     }
   }
   function buildUI() {
