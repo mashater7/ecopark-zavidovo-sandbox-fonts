@@ -7,11 +7,10 @@
     { name: 'Оригинал', css: null },
     { name: 'Poiret One', css: "'Poiret One', sans-serif", stroke: '0.4px' },
     { name: 'Onest', css: "'Onest', sans-serif" },
-    { name: 'Actay Condensed', css: "'Actay Condensed', sans-serif" },
     { name: 'Doloman Pavljenko', css: "'Doloman Pavljenko', sans-serif" },
-    { name: 'Gothic 60', css: "'Gothic 60', sans-serif" },
     { name: 'Stereonic XS', css: "'Stereonic XS', sans-serif", stroke: '0.5px' },
-    { name: 'Zerno', css: "'Zerno', sans-serif" }
+    { name: 'Zerno', css: "'Zerno', sans-serif" },
+    { name: 'L&C (наш)', css: "'LC Hairline', sans-serif" }
   ];
 
   var cache = null; // кэш целевых элементов
