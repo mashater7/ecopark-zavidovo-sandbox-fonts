@@ -5,7 +5,7 @@
   // Список шрифтов. css=null — оригинал. Добавляй новые сюда по мере появления.
   var FONTS = [
     { name: 'Оригинал', css: null },
-    { name: 'Poiret One', css: "'Poiret One', sans-serif" },
+    { name: 'Poiret One', css: "'Poiret One', sans-serif", stroke: '0.4px' },
     { name: 'Onest', css: "'Onest', sans-serif" },
     { name: 'Actay', css: "'Actay', sans-serif" },
     { name: 'Actay Condensed', css: "'Actay Condensed', sans-serif" },
@@ -51,9 +51,12 @@
       if (f && f.css) {
         el.style.setProperty('font-family', f.css, 'important');
         if (f.weight) el.style.setProperty('font-weight', f.weight, 'important');
+        if (f.stroke) { el.style.setProperty('-webkit-text-stroke', f.stroke + ' currentColor'); }
+        else { el.style.removeProperty('-webkit-text-stroke'); }
       } else {
         el.style.removeProperty('font-family');
         el.style.removeProperty('font-weight');
+        el.style.removeProperty('-webkit-text-stroke');
       }
     }
   }
