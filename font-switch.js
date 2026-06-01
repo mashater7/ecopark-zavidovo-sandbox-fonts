@@ -9,8 +9,8 @@
     { name: 'Onest', css: "'Onest', sans-serif" },
     { name: 'Doloman Pavljenko', css: "'Doloman Pavljenko', sans-serif" },
     { name: 'Stereonic XS', css: "'Stereonic XS', sans-serif" },
-    { name: 'Zerno', css: "'Zerno', sans-serif" },
-    { name: 'L&C (наш)', css: "'LC Hairline', sans-serif" }
+    { name: 'Zerno', css: "'Zerno', sans-serif", scale: 0.8 },
+    { name: 'L&C (наш)', css: "'LC Hairline', sans-serif", scale: 0.8 }
   ];
 
   var cache = null;       // кэш целевых элементов
@@ -84,7 +84,8 @@
   }
   function doApply(f) {
     cache = collect();                 // собираем на чистом DOM → видим настоящие размеры
-    var factor = widthFactor(f.css);
+    // f.scale — явный ручной коэффициент (Zerno/Л&С), иначе авто-компенсация по ширине.
+    var factor = f.scale || widthFactor(f.css);
     for (var i = 0; i < cache.length; i++) {
       var el = cache[i];
       var orig = parseFloat(window.getComputedStyle(el).fontSize) || 0;
