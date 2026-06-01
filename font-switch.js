@@ -80,9 +80,18 @@
     note.textContent = 'тест шрифтов — переключай кнопками';
     bar.appendChild(note);
     document.body.appendChild(bar);
+    adjustPad();
   }
 
-  function init() { buildUI(); }
+  // отступ под панель = её реальная высота (чтобы контент не наезжал на мобилке)
+  function adjustPad() {
+    var bar = document.getElementById('font-switcher');
+    if (bar) document.body.style.setProperty('padding-top', bar.offsetHeight + 'px', 'important');
+  }
+  window.addEventListener('resize', adjustPad);
+  window.addEventListener('orientationchange', function () { setTimeout(adjustPad, 200); });
+
+  function init() { buildUI(); adjustPad(); }
   document.addEventListener('DOMContentLoaded', init);
   window.addEventListener('load', init);
   setTimeout(init, 800);

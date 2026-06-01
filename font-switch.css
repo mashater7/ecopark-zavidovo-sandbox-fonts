@@ -14,4 +14,21 @@
 #font-switcher button:hover { background: #3c3c3c; }
 #font-switcher button.active { background: #bb916b; border-color: #bb916b; color: #fff; font-weight: 700; }
 #font-switcher .fs-note { opacity: .6; font-size: 12px; margin-left: auto; }
-body { padding-top: 50px !important; }
+
+/* отступ под панель ставит JS по реальной высоте; это запас на случай, если JS не успел */
+body { padding-top: 50px; }
+
+/* мобильная адаптация: панель в одну строку с горизонтальной прокруткой */
+@media (max-width: 768px) {
+  #font-switcher {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 7px 8px;
+    gap: 5px;
+  }
+  #font-switcher::-webkit-scrollbar { height: 0; }
+  #font-switcher button { flex: 0 0 auto; white-space: nowrap; padding: 8px 11px; font-size: 13px; }
+  #font-switcher .fs-title { flex: 0 0 auto; white-space: nowrap; }
+  #font-switcher .fs-note { display: none; }
+}
