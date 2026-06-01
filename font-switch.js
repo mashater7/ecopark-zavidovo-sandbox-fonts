@@ -5,11 +5,14 @@
   // Список шрифтов. css=null — оригинал. Добавляй новые сюда по мере появления.
   var FONTS = [
     { name: 'Оригинал', css: null },
-    { name: 'Montserrat', css: "'Montserrat', sans-serif", weight: '400' },
-    { name: 'Raleway', css: "'Raleway', sans-serif", weight: '400' },
-    { name: 'Poiret One', css: "'Poiret One', sans-serif", weight: '400' },
-    { name: 'Open Sans', css: "'Open Sans', sans-serif", weight: '400' },
-    { name: 'Onest', css: "'Onest', sans-serif", weight: '400' }
+    { name: 'Poiret One', css: "'Poiret One', sans-serif" },
+    { name: 'Onest', css: "'Onest', sans-serif" },
+    { name: 'Actay', css: "'Actay', sans-serif" },
+    { name: 'Actay Condensed', css: "'Actay Condensed', sans-serif" },
+    { name: 'Deledda Open', css: "'Deledda Open', sans-serif" },
+    { name: 'Doloman Pavljenko', css: "'Doloman Pavljenko', sans-serif" },
+    { name: 'Gothic 60', css: "'Gothic 60', sans-serif" },
+    { name: 'Stereonic XS', css: "'Stereonic XS', sans-serif" }
   ];
 
   var cache = null; // кэш целевых элементов
