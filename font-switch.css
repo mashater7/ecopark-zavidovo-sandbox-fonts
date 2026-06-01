@@ -1,0 +1,17 @@
+/* Панель переключения шрифтов (тест) */
+#font-switcher {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 999999;
+  background: #1f1f1f; color: #fff; padding: 8px 12px;
+  font: 13px/1.2 Arial, sans-serif;
+  display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,.3);
+}
+#font-switcher .fs-title { font-weight: 700; margin-right: 6px; opacity: .85; }
+#font-switcher button {
+  padding: 6px 11px; border: 1px solid #4a4a4a; background: #2e2e2e; color: #fff;
+  cursor: pointer; border-radius: 7px; font-size: 13px; transition: background .15s;
+}
+#font-switcher button:hover { background: #3c3c3c; }
+#font-switcher button.active { background: #bb916b; border-color: #bb916b; color: #fff; font-weight: 700; }
+#font-switcher .fs-note { opacity: .6; font-size: 12px; margin-left: auto; }
+body { padding-top: 50px !important; }
