@@ -49,12 +49,12 @@
       if (f && f.css) {
         el.style.setProperty('font-family', f.css, 'important');
         if (f.weight) el.style.setProperty('font-weight', f.weight, 'important');
-        if (f.stroke) { el.style.setProperty('-webkit-text-stroke', f.stroke + ' currentColor'); }
-        else { el.style.removeProperty('-webkit-text-stroke'); }
+        // просторный межстрочный, чтобы высокие шрифты не наезжали строками
+        el.style.setProperty('line-height', '1.7', 'important');
       } else {
         el.style.removeProperty('font-family');
         el.style.removeProperty('font-weight');
-        el.style.removeProperty('-webkit-text-stroke');
+        el.style.removeProperty('line-height');
       }
     }
   }
