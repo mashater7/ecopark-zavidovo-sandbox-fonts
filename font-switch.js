@@ -8,7 +8,7 @@
     { name: 'Poiret One', css: "'Poiret One', sans-serif" },
     { name: 'Onest', css: "'Onest', sans-serif" },
     { name: 'Doloman Pavljenko', css: "'Doloman Pavljenko', sans-serif" },
-    { name: 'Stereonic XS', css: "'Stereonic XS', sans-serif" },
+    { name: 'Stereonic M', css: "'Stereonic M', sans-serif" },
     { name: 'Zerno', css: "'Zerno', sans-serif", scale: 0.8 },
     { name: 'L&C (наш)', css: "'LC Hairline', sans-serif", scale: 0.8 }
   ];
