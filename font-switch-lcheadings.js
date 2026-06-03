@@ -95,11 +95,14 @@
       if (f.weight) el.style.setProperty('font-weight', f.weight, 'important');
       // Компенсируем ширину кеглем; line-height НЕ трогаем (родной = минимум прироста высоты).
       if (factor < 1 && orig > 0) el.style.setProperty('font-size', (orig * factor).toFixed(2) + 'px', 'important');
-      // Тонкая обводка для «волосковых» шрифтов (LC Hairline): на десктопе при DPR=1
-      // сверхтонкий штрих тоньше пикселя и рассыпается на чёрточки. Обводка дотягивает
-      // его до целого пикселя. currentColor — чтобы цвет совпадал с текстом блока.
-      // Обводка рисуется поверх глифа и НЕ меняет вёрстку → наезды не возвращаются.
-      if (f.stroke) el.style.setProperty('-webkit-text-stroke', f.stroke + 'px currentColor', 'important');
+      // Обводка для «волосковых» шрифтов (LC Hairline): сверхтонкий штрих на десктопе
+      // рассыпается на чёрточки. Делаем её ПРОПОРЦИОНАЛЬНОЙ кеглю (size*0.05, минимум
+      // 0.6px) — тогда L&C плотный на любом размере и при любом зуме браузера, без чёрточек.
+      // Рисуется поверх глифа, currentColor = цвет текста, вёрстку не меняет.
+      if (f.stroke) {
+        var sw = Math.max(0.6, (parseFloat(window.getComputedStyle(el).fontSize) || 16) * 0.05);
+        el.style.setProperty('-webkit-text-stroke', sw.toFixed(2) + 'px currentColor', 'important');
+      }
       el.style.removeProperty('line-height');
       touched.push(el);
     }
