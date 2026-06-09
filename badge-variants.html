@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Плашка «Премиум очередь» — варианты</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Playfair+Display:wght@600;700;800;900&family=Montserrat:wght@600;700;800;900&family=Cormorant+Garamond:wght@600;700&family=Forum&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #f3f1ec; color: #222;
+    font-family: 'Montserrat', Arial, sans-serif;
+    padding: 28px 20px 80px;
+  }
+  h1 { font-size: 22px; font-weight: 800; margin: 0 0 4px; }
+  .sub { color: #777; font-size: 14px; margin: 0 0 26px; }
+  .legend { font-size:13px; color:#555; margin-bottom:22px; line-height:1.6; }
+  .legend b{color:#222;}
+  .grid {
+    display: grid;
+    grid-template-columns: 180px repeat(3, 1fr);
+    gap: 18px;
+    align-items: center;
+    max-width: 1100px;
+  }
+  .col-head, .row-head { font-size: 13px; font-weight: 700; color:#333; }
+  .col-head { text-align:center; padding-bottom:4px; }
+  .row-head { padding-right:8px; }
+  .row-head small{display:block;font-weight:500;color:#888;}
+  .cell {
+    background: #fff; border:1px solid #e7e3da; border-radius:14px;
+    padding: 22px 10px; display:flex; flex-direction:column; align-items:center; gap:10px;
+    min-height: 230px; justify-content:center;
+  }
+  /* badge */
+  .badge { position: relative; width: 180px; height: 180px; transform: rotate(-11deg); filter: drop-shadow(0 6px 14px rgba(0,0,0,.18)); }
+  .badge svg { position:absolute; inset:0; width:100%; height:100%; }
+  .badge .txt {
+    position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center;
+    padding: 0 22px;
+  }
+  .eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; opacity:.95; font-weight:600; }
+  .main { line-height: 1.02; text-transform: uppercase; }
+  .main .l1 { display:block; font-size: 23px; }
+  .main .l2 { display:block; font-size: 23px; }
+  .cap { font-size:12px; color:#888; }
+  /* font families */
+  .f-poiret .eyebrow,.f-poiret .main{font-family:'Poiret One',sans-serif;font-weight:400;}
+  .f-poiret .main{font-size:25px;}
+  .f-serif .eyebrow{font-family:'Montserrat',sans-serif;}
+  .f-serif .main{font-family:'Playfair Display',serif;font-weight:800;}
+  .f-sans .eyebrow,.f-sans .main{font-family:'Montserrat',sans-serif;}
+  .f-sans .main{font-weight:800;letter-spacing:.5px;}
+  .f-sans .main .l1,.f-sans .main .l2{font-size:21px;}
+  .ctx-note{margin-top:40px;font-size:13px;color:#666;}
+</style>
+</head>
+<body>
+<h1>Плашка «Премиум очередь» — варианты</h1>
+<p class="sub">4 цвета × 3 шрифта. Форма-звёздочка сохранена. Текст живой — слова/размер легко поменять.</p>
+<p class="legend">
+  Как выбирать: назови <b>цвет</b> (строка) + <b>шрифт</b> (столбец), например «зелёный + serif».<br>
+  Текст пока: надстрочник «СТАРТ ПРОДАЖ» + «ПРЕМИУМ ОЧЕРЕДЬ» — формулировку потом подгоним.
+</p>
+
+<div class="grid" id="grid"></div>
+
+<p class="ctx-note">Цвета подобраны под сайт: тёплый беж — в тон кнопкам (#bb916b), зелёный — в тон логотипу. Контраст текста проверен под премиум-читаемость.</p>
+
+<script>
+// ---- starburst seal path (refined sunburst) ----
+function seal(spikes, outerR, innerR, cx, cy){
+  var pts=[], step=Math.PI/spikes;
+  for(var i=0;i<spikes*2;i++){
+    var r=(i%2===0)?outerR:innerR;
+    var a=i*step - Math.PI/2;
+    pts.push((cx+r*Math.cos(a)).toFixed(1)+','+(cy+r*Math.sin(a)).toFixed(1));
+  }
+  return 'M'+pts.join('L')+'Z';
+}
+var SEAL = seal(26, 99, 88, 100, 100);
+
+// ---- color variants ----
+var COLORS = [
+  {key:'Золото / графит', bg1:'#2a2a2a', bg2:'#121212', ring:'#caa24a', eyebrow:'#e7c884', main:'#e7c884'},
+  {key:'Зелёный + золото', bg1:'#256241', bg2:'#143d27', ring:'#e6cd93', eyebrow:'#f0dca8', main:'#f7eccf'},
+  {key:'Беж / бронза',     bg1:'#ece1cf', bg2:'#dcc9a9', ring:'#9c7a4d', eyebrow:'#8a6a42', main:'#3c2e1c'},
+  {key:'Чёрно-белый',      bg1:'#161616', bg2:'#000000', ring:'#ffffff', eyebrow:'#c9c9c9', main:'#ffffff'}
+];
+var FONTS = [
+  {key:'Poiret One (как сайт)', cls:'f-poiret'},
+  {key:'Playfair (serif)', cls:'f-serif'},
+  {key:'Montserrat (sans)', cls:'f-sans'}
+];
+
+function badgeHTML(c, fontCls){
+  var gid='g'+Math.random().toString(36).slice(2,8);
+  return '<div class="badge '+fontCls+'">'+
+    '<svg viewBox="0 0 200 200" aria-hidden="true">'+
+      '<defs><radialGradient id="'+gid+'" cx="50%" cy="38%" r="75%">'+
+        '<stop offset="0%" stop-color="'+c.bg1+'"/><stop offset="100%" stop-color="'+c.bg2+'"/>'+
+      '</radialGradient></defs>'+
+      '<path d="'+SEAL+'" fill="url(#'+gid+')"/>'+
+      '<circle cx="100" cy="100" r="78" fill="none" stroke="'+c.ring+'" stroke-width="1.6" opacity="0.85"/>'+
+    '</svg>'+
+    '<div class="txt">'+
+      '<span class="eyebrow" style="color:'+c.eyebrow+'">старт продаж</span>'+
+      '<span class="main" style="color:'+c.main+'"><span class="l1">Премиум</span><span class="l2">очередь</span></span>'+
+    '</div>'+
+  '</div>';
+}
+
+var grid=document.getElementById('grid');
+var html='<div></div>';
+FONTS.forEach(function(f){ html+='<div class="col-head">'+f.key+'</div>'; });
+COLORS.forEach(function(c){
+  html+='<div class="row-head">'+c.key+'</div>';
+  FONTS.forEach(function(f){
+    html+='<div class="cell">'+badgeHTML(c,f.cls)+'<span class="cap">'+c.key+' · '+f.key.split(' ')[0]+'</span></div>';
+  });
+});
+grid.innerHTML=html;
+</script>
+</body>
+</html>
