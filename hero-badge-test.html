@@ -2204,4 +2204,53 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 })();
 </script>
 
+
+
+
+<style id="ppsch-css">
+/* схема: фикс пропорции Завидово + contain, чтобы блок не прыгал при подмене */
+.tn-elem__8446175771699255660371 img{aspect-ratio:1671/799 !important;height:auto !important;width:100% !important;object-fit:contain !important;background:#dfe6df;border-radius:8px;}
+#ppsch-tog{position:absolute;z-index:1000;display:flex;gap:6px;background:#eef1ec;border-radius:34px;padding:5px;font-family:'Poiret One',sans-serif;}
+#ppsch-tog button{border:0;background:transparent;cursor:pointer;border-radius:28px;padding:12px 26px;font-size:18px;color:#5b6b5f;font-family:'Poiret One',sans-serif;white-space:nowrap;-webkit-text-stroke:.2px currentColor;transition:background .15s,color .15s;}
+#ppsch-tog button.active{background:#2f8a4f;color:#fff;}
+@media (max-width:980px){#ppsch-tog{border-radius:28px;}#ppsch-tog button{padding:9px 16px;font-size:14px;}}
+</style>
+<script>
+(function(){
+  var REC='rec844617577', HEAD='8446175771699255595624', IMG='8446175771699255660371';
+  var IMGS={zav:'assets/6e6ddf44___1.jpg', les:'assets/lesnoy-scheme.jpg'};
+  var tog;
+  function imgEl(ab){return ab.querySelector('.tn-elem__'+IMG+' img');}
+  function headAtom(ab){var e=ab.querySelector('.tn-elem__'+HEAD);return e&&(e.querySelector('.tn-atom')||e);}
+  function setS(k,ab){var im=imgEl(ab);if(im){im.setAttribute('src',IMGS[k]);im.removeAttribute('data-original');}
+    var z=document.getElementById('ppsch-zav'),l=document.getElementById('ppsch-les');
+    if(z)z.className=k==='zav'?'active':'';if(l)l.className=k==='les'?'active':'';}
+  function pos(ab){
+    var head=ab.querySelector('.tn-elem__'+HEAD), imEl=ab.querySelector('.tn-elem__'+IMG);
+    if(!head||!imEl||!tog)return;
+    if(window.innerWidth<760){
+      tog.style.top=(head.offsetTop+head.offsetHeight+10)+'px';
+      tog.style.left=imEl.offsetLeft+'px';
+    } else {
+      tog.style.top=head.offsetTop+'px';
+      tog.style.left=Math.max(imEl.offsetLeft,(imEl.offsetLeft+imEl.offsetWidth-tog.offsetWidth))+'px';
+    }
+  }
+  function build(ab){
+    // заголовок — убрать название парка, оставить «Схема посёлка», не менять при свайпе
+    var h=headAtom(ab); if(h) h.textContent='Схема посёлка';
+    tog=document.createElement('div');tog.id='ppsch-tog';
+    tog.innerHTML='<button id="ppsch-zav" class="active">Экопарк Завидово</button><button id="ppsch-les">Экопарк Лесной</button>';
+    ab.appendChild(tog);
+    document.getElementById('ppsch-zav').addEventListener('click',function(){setS('zav',ab);});
+    document.getElementById('ppsch-les').addEventListener('click',function(){setS('les',ab);});
+    setS('zav',ab); pos(ab);
+    [120,400,900,1600,2600].forEach(function(ms){setTimeout(function(){ if(h) h.textContent='Схема посёлка'; pos(ab); },ms);});
+  }
+  var rt;window.addEventListener('resize',function(){var ab=document.querySelector('#'+REC+' .t396__artboard');if(ab){clearTimeout(rt);rt=setTimeout(function(){pos(ab);},120);}});
+  var tries=0,t=setInterval(function(){var rec=document.getElementById(REC);var ab=rec&&rec.querySelector('.t396__artboard');
+    if(ab&&imgEl(ab)&&!document.getElementById('ppsch-tog')){build(ab);clearInterval(t);}else if(++tries>60)clearInterval(t);},300);
+})();
+</script>
+
 </body> </html>
