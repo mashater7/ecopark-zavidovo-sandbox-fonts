@@ -23,8 +23,10 @@
   --muted:#6b6b6b;
   --line:#e6e6e6;
   --bg:#ffffff;
-  --softbg:#f4f5f3;
-  --cyan:#2bb6c4;
+  --softbg:#f5f2f0;
+  --cyan:#9fe3ef;
+  --blue:#007fe2;
+  --pink:#ec0061;
   --maxw:1200px;
 }
 
@@ -41,852 +43,823 @@ body{
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 ul{list-style:none}
+button{font-family:inherit;cursor:pointer}
 
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 
 h1,h2,h3{font-weight:700;text-transform:uppercase;line-height:1.1;color:var(--dark)}
-h2{font-size:40px;margin-bottom:28px}
-.eyebrow{
-  color:var(--green);
-  font-weight:700;
-  letter-spacing:.5px;
-  font-size:14px;
-  text-transform:uppercase;
-  margin-bottom:18px;
-}
+h2{font-size:40px;line-height:1.1;margin-bottom:28px}
+.gr{color:var(--green)}
+.tn{color:var(--tan)}
 
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  font-family:'a-avantetck',Arial,sans-serif;font-weight:700;font-size:15px;
-  border-radius:12px;padding:15px 28px;cursor:pointer;
-  transition:all .2s ease-in-out;border:2px solid transparent;text-align:center;
-}
-.btn-tan{background:var(--tan);color:#fff;border-color:var(--tan)}
-.btn-tan:hover{background:#fff;color:var(--tan)}
-.btn-outline{background:#fff;color:var(--tan);border-color:var(--tan)}
-.btn-outline:hover{background:var(--tan);color:#fff}
-.btn-green{background:var(--green);color:#fff;border-color:var(--green)}
-.btn-green:hover{background:#fff;color:var(--green)}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;font-weight:700;
+  border-radius:12px;padding:16px 30px;font-size:16px;transition:.2s;border:2px solid transparent;text-align:center}
+.btn-tan{background:var(--tan);color:#fff}
+.btn-tan:hover{background:#a87f59}
+.btn-tan-o{background:#fff;color:var(--tan);border-color:var(--tan)}
+.btn-tan-o:hover{background:var(--tan);color:#fff}
+.btn-blue-o{background:#fff;color:var(--blue);border-color:var(--blue);border-radius:30px;padding:12px 28px}
+.btn-blue-o:hover{background:var(--blue);color:#fff}
+.btn-yellow-o{background:#fff;color:#222;border:2px solid #ffd400;border-radius:30px;padding:12px 26px;font-weight:700}
+.btn-pink{background:var(--pink);color:#fff;border-radius:30px}
 
 /* ============ HEADER ============ */
-.header{
-  position:sticky;top:0;z-index:1000;background:#fff;
-  border-bottom:1px solid var(--line);
-}
-.header-inner{
-  display:flex;align-items:center;gap:28px;
-  height:74px;
-}
-.logo img{height:42px;width:auto}
+header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--line)}
+.hdr{display:flex;align-items:center;gap:28px;height:84px}
+.logo img{height:48px;width:auto}
 .nav{display:flex;gap:26px;margin-left:14px}
-.nav a{font-size:15px;font-weight:400;color:var(--dark);transition:color .15s}
+.nav a{font-size:15px;color:var(--dark);white-space:nowrap}
 .nav a:hover{color:var(--green)}
-.header-right{margin-left:auto;display:flex;align-items:center;gap:18px}
-.header-phone{font-weight:700;font-size:16px;white-space:nowrap}
-.header-phone:hover{color:var(--green)}
-.social-ico{display:flex;gap:10px}
-.social-ico a{
-  width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  background:var(--green);transition:transform .15s;
-}
-.social-ico a:hover{transform:translateY(-2px)}
-.social-ico img{width:18px;height:18px}
-.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
-.burger span{width:26px;height:3px;background:var(--dark);border-radius:2px;display:block}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:16px}
+.socials{display:flex;gap:10px}
+.soc{width:38px;height:38px;border-radius:50%;background:var(--dark);display:flex;align-items:center;justify-content:center}
+.soc svg{width:18px;height:18px;fill:#fff}
+.hdr-phone{font-size:17px;font-weight:700;color:var(--dark);white-space:nowrap}
+.hdr-cta{font-size:14px;padding:11px 18px}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:0;padding:6px;margin-left:auto}
+.burger span{width:26px;height:3px;background:var(--dark);border-radius:2px}
 
 /* ============ HERO ============ */
-.hero{padding:48px 0 0}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.hero h1{font-size:48px;margin-bottom:24px}
-.hero h1 .g{color:var(--green)}
-.hero-sub{font-size:17px;color:var(--muted);max-width:480px;margin-bottom:30px}
+.hero{padding:48px 0 36px}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:42px;line-height:1.12;margin-bottom:22px}
+.hero p.sub{font-size:17px;color:var(--muted);max-width:420px;margin-bottom:30px}
 .hero-btns{display:flex;gap:16px;flex-wrap:wrap}
-.hero-visual{position:relative}
-.hero-slider{
-  position:relative;border-radius:18px;overflow:hidden;aspect-ratio:649/520;
-  background:#ddd;
-}
-.hero-slide{
-  position:absolute;inset:0;background-size:cover;background-position:center;
-  opacity:0;transition:opacity .8s ease;
-}
-.hero-slide.active{opacity:1}
-.hero-dots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:3}
-.hero-dots button{width:9px;height:9px;border-radius:50%;border:none;background:rgba(255,255,255,.55);cursor:pointer}
-.hero-dots button.active{background:#fff}
-.hero-badge{
-  position:absolute;top:-26px;left:-26px;width:120px;height:120px;z-index:4;
-  animation:spin 18s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
+.hero-media{position:relative}
+.hero-media img.photo{width:100%;height:380px;object-fit:cover;border-radius:18px}
+.badge{position:absolute;top:-18px;left:-18px;width:104px;height:104px;border-radius:50%;
+  background:var(--cyan);color:#0a5b66;display:flex;align-items:center;justify-content:center;
+  text-align:center;font-weight:700;text-transform:uppercase;font-size:14px;line-height:1.15;
+  box-shadow:0 6px 20px rgba(0,0,0,.12)}
 
-/* ============ ADVANTAGES ============ */
-.adv{padding:46px 0 10px}
-.adv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
-.adv-item{display:flex;flex-direction:column;gap:14px}
-.adv-ico{width:44px;height:44px}
-.adv-ico img{width:44px;height:44px}
-.adv-item p{font-size:15px;color:var(--dark);line-height:1.4}
-
-@media (max-width:900px){
-  .nav,.header-phone,.social-ico{display:none}
-  .burger{display:flex}
-  .hero-grid{grid-template-columns:1fr;gap:32px}
-  .hero h1{font-size:36px}
-  h2{font-size:30px}
-  .adv-grid{grid-template-columns:repeat(2,1fr);gap:24px}
-  .mobile-nav.open{display:flex}
-}
-@media (max-width:560px){
-  .wrap{padding:0 16px}
-  .hero h1{font-size:30px}
-  .adv-grid{grid-template-columns:1fr}
-  h2{font-size:25px}
-}
-
-/* ============ SECTIONS COMMON ============ */
-section{scroll-margin-top:84px}
-.sec{padding:64px 0}
-.sec-soft{background:var(--softbg)}
-.sec-head{margin-bottom:36px}
+/* ============ BENEFITS STRIP ============ */
+.benefits{padding:18px 0 56px}
+.ben-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+.ben{display:flex;flex-direction:column;gap:12px}
+.ben .ic{width:44px;height:44px;color:var(--dark)}
+.ben .ic svg{width:44px;height:44px;stroke:var(--dark);fill:none;stroke-width:1.5}
+.ben p{font-size:15px;color:var(--dark);max-width:230px}
 
 /* ============ PLOTS FILTER ============ */
-.plots{background:var(--green);color:#fff;border-radius:0}
-.plots h2{color:#fff;text-align:center}
-.plots-card{
-  background:#fff;color:var(--dark);border-radius:18px;padding:40px;
-  display:grid;grid-template-columns:repeat(3,1fr);gap:28px 40px;
-}
-.fgroup h4{font-size:14px;text-transform:uppercase;font-weight:700;margin-bottom:14px;color:var(--dark)}
-.fopt{display:flex;align-items:center;gap:9px;margin-bottom:9px;font-size:14px;color:var(--muted);cursor:pointer}
-.fopt input{width:17px;height:17px;accent-color:var(--green);cursor:pointer}
-.plots-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:24px;margin-top:4px}
-.plots-foot .privacy{font-size:12px;color:#9a9a9a;max-width:520px}
-.plots-foot .privacy a{color:var(--green);text-decoration:underline}
-
-/* ============ ABOUT ============ */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.about-text p{margin-bottom:18px;color:var(--muted);font-size:16px}
-.about-img img{border-radius:18px;width:100%;object-fit:cover}
-
-/* ============ MAP ============ */
-.map-wrap{position:relative;border-radius:18px;overflow:hidden;margin-top:28px}
-.map-wrap iframe{width:100%;height:480px;border:0;display:block}
-
-/* ============ SCHEME ============ */
-.scheme-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.scheme-grid img{border-radius:14px;width:100%;height:200px;object-fit:cover}
-.scheme-grid .span2{grid-column:span 2}
-.scheme-actions{display:flex;gap:16px;flex-wrap:wrap;margin-top:28px;justify-content:center}
-
-@media (max-width:900px){
-  .plots-card{grid-template-columns:1fr 1fr;padding:24px;gap:22px}
-  .about-grid{grid-template-columns:1fr;gap:28px}
-  .scheme-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media (max-width:560px){
-  .plots-card{grid-template-columns:1fr}
-  .scheme-grid{grid-template-columns:1fr}
-  .scheme-grid .span2{grid-column:auto}
-}
+.plots{background:var(--softbg);padding:64px 0}
+.plots h2{font-size:40px;margin-bottom:26px}
+.plots-top{display:grid;grid-template-columns:1fr 1.3fr;gap:48px}
+.plots-intro p{font-size:16px;color:var(--muted);margin-bottom:18px;max-width:430px}
+.legend-title{font-size:24px;font-weight:700;text-transform:uppercase;margin:18px 0 16px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px;max-width:360px}
+.legend li{display:flex;align-items:center;gap:12px;font-size:16px;color:var(--dark)}
+.sw{width:26px;height:26px;border-radius:4px;flex:none}
+.map-box{background:#cfcfcf;border-radius:14px;min-height:420px;position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:flex-end;padding:18px}
+.map-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+/* interested form */
+.interested{margin-top:48px;max-width:560px}
+.interested h2{font-size:36px;margin-bottom:14px}
+.interested p{color:var(--muted);margin-bottom:22px}
+.iform{display:flex;flex-direction:column;gap:14px;max-width:560px}
+.iform input{height:58px;border:1px solid var(--line);border-radius:12px;padding:0 20px;font-size:16px;font-family:inherit;background:#fff}
+.iform .consent{font-size:12px;color:#9a9a9a}
+.iform .consent a{color:#9a9a9a;text-decoration:underline}
 
 /* ============ OFFERS ============ */
-.offers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.offer-card{
-  position:relative;border-radius:18px;overflow:hidden;min-height:380px;
-  display:flex;flex-direction:column;justify-content:flex-end;padding:28px;color:#fff;
-  background-size:cover;background-position:center;
-}
-.offer-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.72));z-index:1}
-.offer-card>*{position:relative;z-index:2}
-.offer-tag{font-size:13px;font-weight:700;text-transform:uppercase;color:#ffd9b3;margin-bottom:10px}
-.offer-card h3{color:#fff;font-size:18px;text-transform:none;margin-bottom:18px;line-height:1.3}
-.offer-card .btn{align-self:flex-start}
+.offers{padding:70px 0}
+.offers h2{text-align:center;font-size:44px;margin-bottom:40px}
+.offers h2 .gr{display:inline}
+.off-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.off-card{background:#fff;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.07);padding:28px 26px 30px;
+  display:flex;flex-direction:column;min-height:340px;position:relative}
+.off-tag{position:absolute;top:20px;right:22px;color:var(--pink);font-weight:700;font-size:15px}
+.off-pill{align-self:flex-start;margin-bottom:24px}
+.off-lim{color:var(--green);font-weight:700;font-size:15px;margin-bottom:10px}
+.off-desc{font-weight:700;font-size:18px;color:var(--dark);margin-bottom:auto;line-height:1.35}
+.off-card .btn{margin-top:24px;align-self:flex-start}
 
-/* ============ RESORT / INFRA FEATURES ============ */
-.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.feat-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px}
-.feat-card .dot{width:40px;height:40px;border-radius:10px;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
-.feat-card p{font-size:15px;color:var(--dark)}
-.resort-lead{max-width:680px;color:var(--muted);font-size:17px;margin-bottom:34px}
+/* ============ QUIZ ============ */
+.quiz{padding:0 0 70px}
+.quiz-card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 40px rgba(0,0,0,.06);padding:34px 36px}
+.quiz-head{font-weight:700;font-size:20px;display:flex;align-items:center;gap:10px}
+.quiz-sub{color:var(--muted);margin:6px 0 22px}
+.quiz-q{font-weight:700;font-size:22px;margin-bottom:22px}
+.quiz-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.quiz-opt{border-radius:12px;overflow:hidden;cursor:pointer;position:relative;aspect-ratio:4/3;background:#dfe5dc}
+.quiz-opt img{width:100%;height:100%;object-fit:cover}
+.quiz-opt span{position:absolute;left:0;bottom:0;right:0;background:rgba(255,255,255,.92);font-size:14px;padding:8px 10px}
+.quiz-nav{display:flex;justify-content:space-between;margin-top:26px}
 
-.infra-cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.infra-block h3{font-size:20px;text-transform:none;color:var(--green);margin-bottom:18px}
-.infra-list{display:flex;flex-wrap:wrap;gap:10px}
-.infra-list span{background:#fff;border:1px solid var(--line);border-radius:30px;padding:9px 18px;font-size:14px;color:var(--dark)}
-.infra-cta{margin-top:32px}
+/* ============ ABOUT ============ */
+.about{padding:30px 0 10px}
+.about h2{text-align:center;font-size:44px;margin-bottom:18px}
+.about-lead{text-align:center;max-width:720px;margin:0 auto 50px;color:var(--muted);font-size:17px}
+.feature{display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;align-items:start;padding:34px 0;border-bottom:1px solid var(--line)}
+.feature h3{font-size:30px;line-height:1.15}
+.feature .ph{border-radius:12px;overflow:hidden}
+.feature .ph img{width:100%;height:230px;object-fit:cover}
+.feature .txt p{margin-bottom:14px;color:var(--dark);font-size:16px}
+.feature .txt p.small{color:var(--muted);font-size:14px}
+.tags{margin-top:14px;display:flex;flex-wrap:wrap;gap:14px}
+.tags span{color:var(--muted);font-size:14px}
+
+/* ============ SCHEME ============ */
+.scheme{padding:64px 0}
+.scheme h2{text-align:center;font-size:40px;margin-bottom:34px}
+.scheme-map{position:relative;border-radius:14px;overflow:hidden}
+.scheme-map img{width:100%;display:block}
+.scheme-map .btn{position:absolute;left:24px;bottom:24px}
+.amen-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:24px}
+.amen{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.amen img{width:100%;height:120px;object-fit:cover}
+.amen .cap{display:flex;align-items:center;gap:10px;padding:12px 14px;font-size:14px;font-weight:700}
+
+/* ============ RESORT / KURORT ============ */
+.kurort{padding:50px 0}
+.kurort h2{text-align:center;font-size:38px;margin-bottom:36px;line-height:1.2}
+.kfeat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 60px;max-width:760px;margin:0 auto}
+.kfeat{display:flex;gap:14px;align-items:center}
+.kfeat .sq{width:54px;height:54px;border-radius:12px;background:var(--softbg);display:flex;align-items:center;justify-content:center;flex:none}
+.kfeat .sq svg{width:26px;height:26px;stroke:var(--dark);fill:none;stroke-width:1.5}
+.kfeat span{font-size:15px}
+
+/* ============ INFRASTRUCTURE ============ */
+.infra{padding:50px 0}
+.infra h2{font-size:46px;margin-bottom:44px}
+.infra-grid{display:grid;grid-template-columns:0.8fr 1fr 1fr;gap:40px;align-items:start}
+.infra-intro p{color:var(--muted);margin-bottom:26px;font-size:16px}
+.infra-col h4{font-size:14px;color:var(--muted);font-weight:400;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:8px}
+.infra-row{display:flex;align-items:center;gap:16px;padding:13px 0}
+.infra-row .sq{width:48px;height:48px;border-radius:10px;background:var(--softbg);display:flex;align-items:center;justify-content:center;flex:none}
+.infra-row .sq svg{width:24px;height:24px;stroke:var(--dark);fill:none;stroke-width:1.5}
+.infra-row span{font-size:16px}
 
 /* ============ PLACES ============ */
-.places-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-.place-card{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:3/4;display:flex;flex-direction:column;justify-content:flex-end;padding:22px;color:#fff;background-size:cover;background-position:center}
-.place-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.7));z-index:1}
-.place-card>*{position:relative;z-index:2}
-.place-card h3{color:#fff;font-size:19px;text-transform:none;margin-bottom:14px}
-.place-card .more{font-size:14px;font-weight:700;color:#ffd9b3}
+.places{padding:40px 0 60px}
+.places h2{font-size:46px;margin-bottom:40px}
+.pl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.pl-card{border-radius:12px;overflow:hidden;box-shadow:0 8px 26px rgba(0,0,0,.07);background:#fff}
+.pl-card .img{height:200px;background-size:cover;background-position:center}
+.pl-card .body{padding:18px 18px 22px}
+.pl-card .body h3{font-size:18px;text-transform:none;margin-bottom:14px}
+.pl-card .body a{color:var(--tan);font-weight:700;font-size:15px}
 
-@media (max-width:900px){
-  .offers-grid{grid-template-columns:1fr;}
-  .feat-grid{grid-template-columns:repeat(2,1fr)}
-  .infra-cols{grid-template-columns:1fr;gap:28px}
-  .places-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media (max-width:560px){
-  .feat-grid{grid-template-columns:1fr}
-  .places-grid{grid-template-columns:1fr}
-}
-
-/* ============ SERVICE COMPANY ============ */
-.company-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.company-list{display:flex;flex-direction:column;gap:18px;margin:24px 0 28px}
-.company-list li{display:flex;gap:14px;align-items:flex-start;font-size:16px;color:var(--muted)}
-.company-list li::before{content:"✓";color:var(--green);font-weight:700;flex:none;margin-top:1px}
-.company-img img{border-radius:18px;width:100%;object-fit:cover}
+/* ============ MANAGEMENT ============ */
+.manage{padding:50px 0}
+.manage-top{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:start;margin-bottom:40px}
+.manage-top h2{font-size:34px;line-height:1.2;margin-bottom:18px}
+.manage-top p{color:var(--muted);font-size:16px}
+.mfeat-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.mfeat{display:flex;gap:14px}
+.mfeat .sq{width:46px;height:46px;border-radius:10px;background:var(--softbg);display:flex;align-items:center;justify-content:center;flex:none}
+.mfeat .sq svg{width:24px;height:24px;stroke:var(--dark);fill:none;stroke-width:1.5}
+.mfeat p{font-size:14px;color:var(--muted)}
+.act-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.act-card{border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.act-card .img{height:170px;background-size:cover;background-position:center}
+.act-card .body{padding:18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.act-card .body h3{font-size:17px;text-transform:none}
+.act-card .body p{font-size:13px;color:var(--muted);flex:1}
+.act-card .body .row{display:flex;gap:10px;flex-wrap:wrap}
 
 /* ============ VIDEO CALL ============ */
-.video-call{background:var(--green);color:#fff}
-.video-call h2{color:#fff}
-.video-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:30px}
-.video-msgs{display:flex;gap:16px;flex-wrap:wrap}
-.video-msgs a{width:64px;height:64px;border-radius:16px;background:#fff;display:flex;align-items:center;justify-content:center;transition:transform .15s}
-.video-msgs a:hover{transform:translateY(-3px)}
-.video-msgs img{width:34px;height:34px}
+.video{background:var(--softbg);padding:60px 0}
+.video-card{background:#fff;border-radius:18px;padding:54px 56px;max-width:1100px;margin:0 auto;min-height:300px}
+.video-card h2{font-size:40px;line-height:1.15;margin-bottom:22px}
+.video-card p{color:var(--muted);max-width:480px;margin-bottom:30px;font-size:16px}
+.vsoc{display:flex;gap:18px}
+.vsoc a{width:60px;height:60px;border-radius:50%;background:var(--dark);display:flex;align-items:center;justify-content:center}
+.vsoc a.tan{background:var(--tan)}
+.vsoc svg{width:28px;height:28px;fill:#fff}
 
 /* ============ HOW TO BUY ============ */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px}
-.step .num{width:46px;height:46px;border-radius:50%;background:var(--green);color:#fff;font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-.step p{font-size:15px;color:var(--muted)}
-.howbuy-cta{margin-top:32px;text-align:center}
+.howto{padding:64px 0}
+.howto-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:start}
+.howto h2{font-size:46px;color:var(--green);margin-bottom:22px}
+.howto-left p{color:var(--muted);margin-bottom:30px;font-size:16px;max-width:380px}
+.steps{position:relative}
+.step{display:grid;grid-template-columns:64px 1fr;gap:22px;padding-bottom:36px;position:relative}
+.step:last-child{padding-bottom:0}
+.step .sic{width:64px;height:64px;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:center;background:#fff;z-index:2}
+.step .sic svg{width:30px;height:30px;stroke:var(--dark);fill:none;stroke-width:1.5}
+.step:not(:last-child):before{content:"";position:absolute;left:32px;top:64px;bottom:8px;width:1px;background:var(--line)}
+.step p{color:var(--dark);font-size:16px;padding-top:8px}
 
-/* ============ ANYWHERE ============ */
-.anywhere{background:var(--softbg)}
-.anywhere-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
-.anywhere-text p{color:var(--muted);font-size:17px;margin-bottom:24px}
-.anywhere img{border-radius:18px;width:100%}
+/* ============ REMOTE PURCHASE ============ */
+.remote{position:relative;padding:70px 0}
+.remote-bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.remote-bg:after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.18)}
+.remote .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:stretch}
+.remote-card{background:#fff;border-radius:16px;padding:38px 34px;display:flex;flex-direction:column;justify-content:center}
+.remote-card h2{font-size:34px;line-height:1.15;margin-bottom:18px}
+.remote-card p{color:var(--muted);margin-bottom:24px;font-size:16px}
+.remote-form{background:#fff;border-radius:16px;padding:34px}
+.remote-form .ttl{color:var(--muted);margin-bottom:18px;font-size:15px}
+.remote-form input{height:54px;width:100%;border:1px solid var(--line);border-radius:12px;padding:0 18px;margin-bottom:14px;font-family:inherit;font-size:16px}
+.remote-form .chk{font-size:12px;color:#9a9a9a;display:flex;gap:8px;margin:6px 0 16px}
 
-@media (max-width:900px){
-  .company-grid,.anywhere-grid{grid-template-columns:1fr;gap:28px}
-  .steps{grid-template-columns:1fr}
-}
-
-/* ============ GALLERY ============ */
-.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px}
-.gallery-grid a{display:block;border-radius:14px;overflow:hidden}
-.gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.gallery-grid a:hover img{transform:scale(1.05)}
-.gallery-grid .big{grid-column:span 2;grid-row:span 2}
+/* ============ PHOTO SLIDER ============ */
+.photo{padding:60px 0}
+.photo h2{text-align:center;font-size:40px;margin-bottom:8px}
+.slider-label{text-align:center;font-weight:700;margin-bottom:20px}
+.slider{position:relative;overflow:hidden;border-radius:14px}
+.slides{display:flex;transition:transform .4s ease}
+.slides .slide{min-width:100%;}
+.slides .slide img{width:100%;height:520px;object-fit:cover}
+.sl-btn{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;
+  background:rgba(0,0,0,.45);border:0;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;z-index:3}
+.sl-btn.prev{left:18px}.sl-btn.next{right:18px}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:18px}
+.dots button{width:9px;height:9px;border-radius:50%;background:#cdcdcd;border:0}
+.dots button.on{background:var(--green)}
 
 /* ============ NEWS ============ */
-.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.news-card{border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s;background:#fff}
-.news-card:hover{box-shadow:0 14px 30px rgba(0,0,0,.09);transform:translateY(-3px)}
-.news-card .thumb{aspect-ratio:16/10;background-size:cover;background-position:center;background-color:#e8e8e8}
-.news-card .body{padding:20px;display:flex;flex-direction:column;gap:10px;flex:1}
-.news-card .date{font-size:13px;color:var(--green);font-weight:700}
-.news-card .ttl{font-size:16px;font-weight:700;color:var(--dark);line-height:1.3}
-.news-card .txt{font-size:14px;color:var(--muted);flex:1}
-.news-foot{text-align:center;margin-top:38px}
+.news{padding:50px 0}
+.news h2{text-align:center;font-size:42px;margin-bottom:40px}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.news-card{border-radius:12px;overflow:hidden}
+.news-card .img{height:200px;background-size:cover;background-position:center;border-radius:12px}
+.news-card .date{color:#9a9a9a;font-size:13px;margin:14px 0 8px}
+.news-card h3{font-size:18px;text-transform:none;margin-bottom:8px}
+.news-card p{font-size:14px;color:var(--muted)}
 
 /* ============ FAQ ============ */
-.faq-list{max-width:840px;margin:0 auto}
-.faq-item{border-bottom:1px solid var(--line)}
-.faq-q{width:100%;text-align:left;background:none;border:none;cursor:pointer;
-  padding:22px 40px 22px 0;font-family:inherit;font-size:18px;font-weight:700;color:var(--dark);
-  position:relative}
-.faq-q::after{content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:26px;color:var(--green);transition:transform .2s}
-.faq-item.open .faq-q::after{content:"–"}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;color:var(--muted);font-size:15px}
-.faq-item.open .faq-a{max-height:600px}
-.faq-a-inner{padding:0 0 22px}
-.faq-a ul{margin:8px 0 0 0}
-.faq-a li{position:relative;padding-left:18px;margin-bottom:6px}
-.faq-a li::before{content:"•";position:absolute;left:0;color:var(--green)}
+.faq{padding:50px 0}
+.faq h2{text-align:center;font-size:40px;margin-bottom:36px}
+.acc{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.acc-item{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.acc-q{width:100%;text-align:left;background:none;border:0;padding:22px 26px;font-size:22px;font-weight:700;
+  display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--dark)}
+.acc-q .pl{font-size:26px;color:var(--tan);transition:.2s;flex:none}
+.acc-item.open .acc-q .pl{transform:rotate(45deg)}
+.acc-a{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 26px}
+.acc-item.open .acc-a{max-height:600px;padding-bottom:22px}
+.acc-a .inner{font-size:18px;color:var(--muted)}
+.acc-a ul{margin-top:8px}
+.acc-a li{padding:2px 0}
 
-/* ============ CTA QUESTIONS ============ */
-.cta-q{background:var(--green);color:#fff;text-align:center}
-.cta-q h2{color:#fff}
-.cta-q p{max-width:560px;margin:0 auto 28px;font-size:17px;opacity:.92}
-.cta-form{display:flex;gap:14px;max-width:560px;margin:0 auto;flex-wrap:wrap;justify-content:center}
-.cta-form input{flex:1;min-width:220px;border:none;border-radius:12px;padding:15px 18px;font-family:inherit;font-size:15px}
+/* ============ CONTACT / FOOTER ============ */
+.contacts{padding:60px 0 40px;background:var(--softbg)}
+.contacts h2{font-size:40px;margin-bottom:30px}
+.cont-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.cont-info p{margin-bottom:8px}
+.cont-info a{font-weight:700;font-size:20px}
+.cform{display:flex;flex-direction:column;gap:14px;max-width:480px}
+.cform input{height:54px;border:1px solid var(--line);border-radius:12px;padding:0 18px;font-family:inherit;font-size:16px;background:#fff}
+footer{background:#fff;border-top:1px solid var(--line);padding:36px 0}
+.foot{display:flex;align-items:center;gap:30px;flex-wrap:wrap}
+.foot img{height:44px}
+.foot-nav{display:flex;gap:22px;flex-wrap:wrap}
+.foot-nav a{font-size:14px;color:var(--muted)}
+.foot-right{margin-left:auto;display:flex;align-items:center;gap:16px}
 
-/* ============ CONTACTS ============ */
-.contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
-.contact-block h4{font-size:13px;text-transform:uppercase;color:var(--green);margin-bottom:10px;letter-spacing:.5px}
-.contact-block .big{font-size:22px;font-weight:700;margin-bottom:6px}
-.contact-block p{color:var(--muted);margin-bottom:22px}
-.team{display:flex;gap:20px;flex-wrap:wrap;margin-top:18px}
-.team-card{text-align:center;width:120px}
-.team-card .av{width:96px;height:96px;border-radius:50%;background:#e3e6e1 center/cover;margin:0 auto 10px}
-.team-card .nm{font-weight:700;font-size:15px}
-.team-card .role{font-size:12px;color:var(--muted)}
+/* ============ MOBILE MENU ============ */
+.mmenu{display:none;position:fixed;inset:0;background:#fff;z-index:200;flex-direction:column;padding:30px 24px;gap:20px}
+.mmenu.open{display:flex}
+.mmenu a{font-size:20px;font-weight:700;text-transform:uppercase}
+.mmenu .close{align-self:flex-end;font-size:34px;background:none;border:0;line-height:1}
 
-/* ============ FOOTER ============ */
-.footer{background:#1d2b22;color:#cfd6d0;padding:54px 0 30px}
-.footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;margin-bottom:40px}
-.footer img.flogo{height:46px;filter:brightness(0) invert(1);margin-bottom:18px}
-.footer h5{color:#fff;font-size:14px;text-transform:uppercase;margin-bottom:16px;font-weight:700}
-.footer a{color:#cfd6d0;display:block;margin-bottom:10px;font-size:14px;transition:color .15s}
-.footer a:hover{color:#fff}
-.footer .fsocial{display:flex;gap:12px;margin-top:8px}
-.footer .fsocial a{width:38px;height:38px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;margin:0}
-.footer .fsocial img{width:18px;height:18px}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:#9aa69d}
-
-@media (max-width:900px){
-  .gallery-grid{grid-template-columns:repeat(2,1fr)}
-  .news-grid{grid-template-columns:1fr 1fr}
-  .contacts-grid{grid-template-columns:1fr;gap:32px}
-  .footer-top{grid-template-columns:1fr 1fr;gap:28px}
+/* ============ RESPONSIVE ============ */
+@media(max-width:980px){
+  .nav,.hdr-right .socials,.hdr-cta{display:none}
+  .hdr-right{margin-left:0}
+  .burger{display:flex}
+  .hdr{gap:14px;height:70px}
+  .infra-grid{grid-template-columns:1fr 1fr}
+  .infra-intro{grid-column:1/-1}
 }
-@media (max-width:560px){
-  .gallery-grid{grid-template-columns:1fr;grid-auto-rows:200px}
-  .gallery-grid .big{grid-column:auto;grid-row:auto}
-  .news-grid{grid-template-columns:1fr}
-  .footer-top{grid-template-columns:1fr}
-  .cta-form input{min-width:100%}
+@media(max-width:860px){
+  h2{font-size:30px!important}
+  .hero h1{font-size:30px}
+  .hero-grid,.plots-top,.howto-grid,.manage-top,.remote .wrap,.cont-grid{grid-template-columns:1fr;gap:28px}
+  .ben-grid{grid-template-columns:1fr 1fr;gap:24px}
+  .off-grid,.news-grid,.feature,.kfeat-grid{grid-template-columns:1fr}
+  .quiz-grid{grid-template-columns:1fr 1fr}
+  .amen-grid,.pl-grid,.act-grid{grid-template-columns:1fr 1fr}
+  .infra-grid{grid-template-columns:1fr}
+  .mfeat-grid{grid-template-columns:1fr}
+  .legend{grid-template-columns:1fr 1fr}
+  .feature .ph img{height:200px}
+  .slides .slide img{height:300px}
+  .offers h2,.about h2,.infra h2,.places h2,.howto h2{font-size:30px}
+  .video-card{padding:34px 26px}
+  .remote-card,.remote-form{padding:26px}
 }
-
-/* mobile nav drawer */
-.mobile-nav{
-  display:none;position:fixed;top:74px;left:0;right:0;background:#fff;
-  flex-direction:column;padding:20px 24px;gap:16px;z-index:999;
-  border-bottom:1px solid var(--line);box-shadow:0 12px 24px rgba(0,0,0,.08);
+@media(max-width:560px){
+  .ben-grid,.quiz-grid,.amen-grid,.pl-grid,.act-grid{grid-template-columns:1fr}
+  .wrap{padding:0 18px}
+  .hero-media img.photo{height:260px}
+  .badge{width:84px;height:84px;font-size:12px;top:-12px;left:-12px}
 }
-.mobile-nav a{font-size:17px}
-.mobile-nav .header-phone{display:block}
 </style>
 </head>
 <body>
 
 <!-- ============ HEADER ============ -->
-<header class="header">
-  <div class="wrap header-inner">
-    <a class="logo" href="#top"><img src="https://static.tildacdn.com/tild3830-6461-4832-a631-363736633037/Logo.png" alt="Экопарк Завидово"></a>
+<header>
+  <div class="wrap hdr">
+    <a class="logo" href="#"><img src="assets/00e6327c_Logo.png" alt="Экопарк Завидово"></a>
     <nav class="nav">
       <a href="#about">О поселке</a>
       <a href="#infra">Инфраструктура</a>
       <a href="#plots">Участки</a>
       <a href="#activities">Активности</a>
-      <a href="news.html">Новости</a>
+      <a href="#news">Новости</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <div class="header-right">
-      <a class="header-phone" href="tel:+74997579770">+7 499 757 97 70</a>
-      <a class="btn btn-outline" href="#callback" style="padding:11px 20px">Перезвоните мне</a>
-      <div class="social-ico">
-        <a href="https://wa.me/79201627792" aria-label="WhatsApp"><img src="https://static.tildacdn.com/tild3130-3132-4036-a162-613634336338/Whatsapp.svg" alt="WhatsApp"></a>
-        <a href="https://t.me/ecoparkzavidovo" aria-label="Telegram"><img src="https://static.tildacdn.com/tild6536-6330-4239-b432-346638626438/Telegram.svg" alt="Telegram"></a>
+    <div class="hdr-right">
+      <div class="socials">
+        <a class="soc" href="https://t.me/ecoparkzavidovo" aria-label="Telegram"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.4 13l-4.8-1.5c-1-.3-1-1 .2-1.5L20.5 2.7c.9-.3 1.6.2 1.4 1.6z"/></svg></a>
+        <a class="soc" href="https://wa.me/79201627792" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.7.8-2.7-.2-.3A8 8 0 1 1 12 20zm4.4-5.7c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8.9-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.2 0-.4 0-.5l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-1 2.2c0 1.3 1 2.6 1.1 2.7s1.9 2.9 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.4-.6 1.6-1.2s.2-1 .1-1.2z"/></svg></a>
+        <a class="soc" href="tel:+74994748730" aria-label="Phone"><svg viewBox="0 0 24 24"><path d="M20 15.5c-1.2 0-2.4-.2-3.6-.6-.3-.1-.7 0-1 .3l-2 2a15 15 0 0 1-6.6-6.6l2-2c.3-.3.4-.6.3-1A11.4 11.4 0 0 1 8.5 4c0-.6-.5-1-1-1H4c-.6 0-1 .4-1 1A17 17 0 0 0 20 21c.6 0 1-.4 1-1v-3.5c0-.5-.4-1-1-1z"/></svg></a>
       </div>
+      <a class="hdr-phone" href="tel:+74994748730">+7 499 474 87 30</a>
+      <a class="btn btn-tan-o hdr-cta" href="#contacts">Перезвоните мне</a>
     </div>
     <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
   </div>
 </header>
-<nav class="mobile-nav" id="mobileNav">
+
+<!-- mobile menu -->
+<div class="mmenu" id="mmenu">
+  <button class="close" id="mclose">&times;</button>
   <a href="#about">О поселке</a>
   <a href="#infra">Инфраструктура</a>
   <a href="#plots">Участки</a>
   <a href="#activities">Активности</a>
-  <a href="news.html">Новости</a>
+  <a href="#news">Новости</a>
   <a href="#faq">FAQ</a>
-  <a class="header-phone" href="tel:+74997579770">+7 499 757 97 70</a>
-</nav>
-
-<a id="top"></a>
+  <a href="tel:+74994748730">+7 499 474 87 30</a>
+</div>
 
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-text">
-      <div class="eyebrow">/// КОТТЕДЖНЫЙ ПОСЕЛОК «ЭКОПАРК ЗАВИДОВО»</div>
-      <h1>Участки и дома<br>в поселке рядом<br><span class="g">с курортом Завидово</span></h1>
-      <p class="hero-sub">Постройте дачу рядом с курортной зоной Завидово, в окружении заповедников, лесов и рек. Идеальное место для отдыха от городской суеты.</p>
+      <h1>Участки и дома<br>в поселке рядом<br><span class="gr">с курортом Завидово</span></h1>
+      <p class="sub">Постройте дачу рядом с курортной зоной Завидово в окружении заповедников, лесов и рек. Идеальное место для отдыха от городской суеты.</p>
       <div class="hero-btns">
         <a class="btn btn-tan" href="#plots">Выбрать участок</a>
-        <a class="btn btn-outline" href="#callback">Узнать о поселке</a>
+        <a class="btn btn-tan-o" href="#about">Узнать о поселке</a>
       </div>
     </div>
-    <div class="hero-visual">
-      <img class="hero-badge" src="https://static.tildacdn.com/tild3561-3063-4562-b437-663937663630/__.png" alt="Низкие цены">
-      <div class="hero-slider" id="heroSlider">
-        <div class="hero-slide active" style="background-image:url('https://optim.tildacdn.com/tild6362-3834-4439-b533-623034353662/-/format/webp/31-min.jpg.webp')"></div>
-        <div class="hero-slide" style="background-image:url('https://optim.tildacdn.com/tild6530-3630-4730-b639-626164313361/-/format/webp/01-min.jpg.webp')"></div>
-        <div class="hero-slide" style="background-image:url('https://optim.tildacdn.com/tild3032-3461-4263-b065-623935393937/-/format/webp/02-min.jpg.webp')"></div>
-        <div class="hero-slide" style="background-image:url('https://optim.tildacdn.com/tild3161-6637-4738-a163-333636393830/-/format/webp/12-min.jpg.webp')"></div>
-        <div class="hero-dots" id="heroDots"></div>
-      </div>
+    <div class="hero-media">
+      <img class="photo" src="assets/1bb5f57e_1460556901.jpg" alt="Экопарк Завидово">
+      <div class="badge">Низкие<br>цены</div>
     </div>
   </div>
 </section>
 
-<!-- ============ ADVANTAGES ============ -->
-<section class="adv">
-  <div class="wrap adv-grid">
-    <div class="adv-item">
-      <div class="adv-ico"><img src="https://static.tildacdn.com/tild6630-3237-4162-a366-643362646563/building-2-line_1.svg" alt=""></div>
+<!-- ============ BENEFITS ============ -->
+<section class="benefits">
+  <div class="wrap ben-grid">
+    <div class="ben">
+      <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 21V8l8-5 8 5v13M9 21v-6h6v6"/></svg></span>
       <p>В часе от Москвы по трассе М10</p>
     </div>
-    <div class="adv-item">
-      <div class="adv-ico"><img src="https://static.tildacdn.com/tild3736-6661-4462-b161-636132663061/haze-line_1.svg" alt=""></div>
+    <div class="ben">
+      <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v3M12 20v3M4 12H1M23 12h-3M5 5 7 7M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></span>
       <p>В 10 минутах от курорта Завидово</p>
     </div>
-    <div class="adv-item">
-      <div class="adv-ico"><img src="https://static.tildacdn.com/tild3637-3238-4236-a335-323533393164/key-2-line_1.svg" alt=""></div>
-      <p>Земля под дачи (ДНП). Участки в собственность</p>
+    <div class="ben">
+      <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 21V9l9-6 9 6v12M3 21h18M9 21v-5h6v5"/><path d="M15 12h.01M12 12h.01M9 12h.01"/></svg></span>
+      <p>Земля под дом (ИЖС). Участки в собственность</p>
     </div>
-    <div class="adv-item">
-      <div class="adv-ico"><img src="https://static.tildacdn.com/tild3263-3165-4466-a439-666566386164/bank-card-line_1.svg" alt=""></div>
-      <p>Рассрочка, акции, скидки</p>
+    <div class="ben">
+      <span class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span>
+      <p>Рассрочка, акция, скидки</p>
     </div>
   </div>
 </section>
 
 <!-- ============ PLOTS FILTER ============ -->
-<section class="sec plots" id="plots">
+<section class="plots" id="plots">
   <div class="wrap">
-    <h2>Выберите для себя свободный участок</h2>
-    <form class="plots-card" onsubmit="return false">
-      <div class="fgroup">
-        <h4>Что вас интересует</h4>
-        <label class="fopt"><input type="checkbox">Детская площадка</label>
-        <label class="fopt"><input type="checkbox">Лес</label>
-        <label class="fopt"><input type="checkbox">Спортплощадка</label>
-        <label class="fopt"><input type="checkbox">Пруд</label>
-        <label class="fopt"><input type="checkbox">Супермаркет</label>
-        <label class="fopt"><input type="checkbox">Пляж</label>
-        <label class="fopt"><input type="checkbox">Футбольное поле</label>
+    <h2>Выберите для себя <span class="gr">свободный участок</span></h2>
+    <div class="plots-top">
+      <div class="plots-intro">
+        <p>По мере развития и планировочного расширения поселка цена на участки будут расти, поэтому купить участок уже сегодня — это выгодная инвестиция в будущее.</p>
+        <p>Перед вами расположена интерактивная карта. Нажав на участок вы сможете узнать о нем подробности.</p>
+        <div class="legend-title">Обозначения на карте</div>
+        <ul class="legend">
+          <li><span class="sw" style="background:#09763f"></span>В продаже</li>
+          <li><span class="sw" style="background:#fff705"></span>Бронь</li>
+          <li><span class="sw" style="background:#8691eb"></span>С домом</li>
+          <li><span class="sw" style="background:#808080"></span>Продан</li>
+          <li><span class="sw" style="background:#bf03a0"></span>Акция</li>
+        </ul>
       </div>
-      <div class="fgroup">
-        <h4>Цель покупки</h4>
-        <label class="fopt"><input type="checkbox">Для постоянного проживания</label>
-        <label class="fopt"><input type="checkbox">Для отдыха</label>
-        <label class="fopt"><input type="checkbox">Как инвестицию</label>
-        <h4 style="margin-top:22px">Участок</h4>
-        <label class="fopt"><input type="checkbox">С домом</label>
-        <label class="fopt"><input type="checkbox">Без дома</label>
+      <div class="map-box">
+        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A271c218703bff928dd568060edecfbcd2a784f69a02be0b4f598acedbeff07d7&amp;source=constructor" title="Карта поселка"></iframe>
+        <a class="btn btn-yellow-o" style="position:relative;z-index:2" href="https://yandex.ru/maps/" target="_blank">&rarr; Открыть карту на весь экран &larr;</a>
       </div>
-      <div class="fgroup">
-        <h4>Площадь участка</h4>
-        <label class="fopt"><input type="checkbox">До 8 соток</label>
-        <label class="fopt"><input type="checkbox">9 - 12 соток</label>
-        <label class="fopt"><input type="checkbox">13 - 17 соток</label>
-        <label class="fopt"><input type="checkbox">Более 18 соток</label>
-      </div>
-      <div class="fgroup">
-        <h4>Планируемый бюджет</h4>
-        <label class="fopt"><input type="checkbox">до 600 тыс рублей</label>
-        <label class="fopt"><input type="checkbox">до 1 млн рублей</label>
-        <label class="fopt"><input type="checkbox">до 1,5 млн рублей</label>
-        <label class="fopt"><input type="checkbox">Более 2 млн рублей</label>
-      </div>
-      <div class="fgroup">
-        <h4>Когда планируете покупку</h4>
-        <label class="fopt"><input type="checkbox">В ближайший месяц</label>
-        <label class="fopt"><input type="checkbox">В ближайшие 3 месяца</label>
-        <label class="fopt"><input type="checkbox">В течение 6 месяцев</label>
-        <label class="fopt"><input type="checkbox">В течение года</label>
-      </div>
-      <div class="fgroup">
-        <h4>Что хотите получить</h4>
-        <label class="fopt"><input type="checkbox">Список участков по выбранным параметрам</label>
-        <label class="fopt"><input type="checkbox">Инструкция: Рассрочка 0% без переплат</label>
-        <label class="fopt"><input type="checkbox">Планировки домов</label>
-        <label class="fopt"><input type="checkbox">Презентация КП</label>
-        <label class="fopt"><input type="checkbox">Бесплатная консультация</label>
-      </div>
-      <div class="plots-foot">
-        <p class="privacy">Нажимая кнопку, вы соглашаетесь с <a href="privacy.html">условиями обработки персональных данных</a></p>
-        <a class="btn btn-tan" href="#callback">Получить подборку</a>
-      </div>
-    </form>
-  </div>
-</section>
+    </div>
 
-<!-- ============ ABOUT ============ -->
-<section class="sec" id="about">
-  <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">/// О ПОСЕЛКЕ</div><h2>О Поселке</h2></div>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>Экопарк Завидово — это удачное совмещение экологии, комфортной загородной жизни, удобной транспортной доступности и разнообразных активностей.</p>
-        <p>Коттеджный поселок «Экопарк Завидово» — это новый проект, который стремительно набирает престижность. Стоимость участков будет расти по мере развития инфраструктуры местности. Поэтому приобрести землю сейчас на старте проекта — это выгодная инвестиция.</p>
-        <p>За благоустроенность и безопасность проживания отвечает обслуживающая компания, которая организует комфортную загородную жизнь.</p>
-        <a class="btn btn-tan" href="#callback">Подробнее</a>
-      </div>
-      <div class="about-img">
-        <img src="https://optim.tildacdn.com/tild6635-3033-4731-a137-303465633338/-/format/webp/__1.jpg.webp" alt="Экопарк Завидово">
-      </div>
-    </div>
-    <div class="map-wrap">
-      <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A271c218703bff928dd568060edecfbcd2a784f69a02be0b4f598acedbeff07d7&amp;l=sat%2Cskl&amp;ll=36.544415%2C56.518121&amp;z=15" loading="lazy" title="Карта поселка"></iframe>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SCHEME ============ -->
-<section class="sec sec-soft">
-  <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">/// УЧАСТКИ</div><h2>Схема поселка «Экопарк Завидово»</h2></div>
-    <div class="scheme-grid">
-      <img class="span2" src="https://optim.tildacdn.com/tild3537-3936-4462-b866-646234303138/-/format/webp/Rectangle_2604_19-mi.jpg.webp" alt="Схема участка">
-      <img class="span2" src="https://optim.tildacdn.com/tild6131-3366-4237-b165-313566626630/-/format/webp/Rectangle_2604_15-mi.jpg.webp" alt="Схема участка">
-      <img src="https://optim.tildacdn.com/tild3736-3631-4237-b765-363162356638/-/format/webp/Rectangle_2610_1.jpg.webp" alt="Схема участка">
-      <img src="https://optim.tildacdn.com/tild6361-6265-4639-b133-636535613935/-/format/webp/Rectangle_2604_17-mi.jpg.webp" alt="Схема участка">
-      <img src="https://optim.tildacdn.com/tild6430-3464-4330-b338-646435306338/-/format/webp/Rectangle_2604_16-mi.jpg.webp" alt="Схема участка">
-      <img src="https://optim.tildacdn.com/tild6637-6361-4138-a565-633865326666/-/format/webp/Rectangle_2604_18-mi.jpg.webp" alt="Схема участка">
-      <img src="https://optim.tildacdn.com/tild3333-3261-4863-b138-623539393438/-/format/webp/Rectangle_2608_2.jpg.webp" alt="Схема участка">
-      <img src="https://optim.tildacdn.com/tild3434-3737-4431-b961-353333333837/-/format/webp/Rectangle_2609-min.jpg.webp" alt="Схема участка">
-    </div>
-    <div class="scheme-actions">
-      <a class="btn btn-tan" href="#plots">Выбрать участок</a>
-      <a class="btn btn-outline" href="#callback">Перейти на карту</a>
+    <div class="interested">
+      <h2>Заинтересовал участок?</h2>
+      <p>Оставьте заявку на бронирование и покупку участка прямо сейчас</p>
+      <form class="iform" onsubmit="return false">
+        <input type="tel" placeholder="+ 7 (000) 000-00-00">
+        <button class="btn btn-tan" type="submit">Отправить заявку</button>
+        <span class="consent">Нажимая на кнопку, вы даете согласие на <a href="#">обработку персональных данных</a></span>
+      </form>
     </div>
   </div>
 </section>
 
 <!-- ============ OFFERS ============ -->
-<section class="sec">
+<section class="offers">
   <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">/// АКЦИИ</div><h2>Выгодные предложения</h2></div>
-    <div class="offers-grid">
-      <div class="offer-card" style="background-image:url('https://optim.tildacdn.com/tild6364-3630-4234-b734-633264613566/-/cover/506x500/center/center/-/format/webp/1460556901.jpg.webp')">
-        <div class="offer-tag">Ограниченное предложение · Первый взнос 0</div>
-        <h3>Участки в рассрочку на 12 месяцев без первоначального взноса.</h3>
-        <a class="btn btn-tan" href="#callback">Подробнее</a>
+    <h2><span class="gr">Выгодные</span> предложения</h2>
+    <div class="off-grid">
+      <div class="off-card">
+        <span class="off-tag">Акция</span>
+        <a class="btn btn-yellow-o off-pill" href="#contacts">Скидки!</a>
+        <div class="off-lim">Ограниченное предложение</div>
+        <div class="off-desc">В поселке действует множество различных скидок и акций</div>
+        <a class="btn btn-blue-o" href="#contacts">Подробнее</a>
       </div>
-      <div class="offer-card" style="background-image:url('https://optim.tildacdn.com/tild3732-6366-4637-b538-396139653536/-/cover/506x500/center/center/-/format/webp/1460556900.jpg.webp')">
-        <div class="offer-tag">Выгодное предложение · Рассрочка 0%</div>
-        <h3>Беспроцентная рассрочка на дома и участки на 6, 9 и 12 месяцев.</h3>
-        <a class="btn btn-tan" href="#callback">Подробнее</a>
+      <div class="off-card">
+        <a class="btn btn-yellow-o off-pill" href="#contacts">Первый взнос 0</a>
+        <div class="off-lim">Ограниченное предложение</div>
+        <div class="off-desc">Участки в рассрочку на 12 месяцев без первоначального взноса.</div>
+        <a class="btn btn-blue-o" href="#contacts">Подробнее</a>
       </div>
-      <div class="offer-card" style="background-image:url('https://optim.tildacdn.com/tild6333-6261-4934-a437-343036646163/-/cover/570x840/center/center/-/format/webp/trade-in-1-85836497.png.webp')">
-        <div class="offer-tag">Уникальное предложение · Участки в Трэйд ин!</div>
-        <h3>Обменяем участок в Елдино на участок в посёлке Экопарк Завидово</h3>
-        <a class="btn btn-tan" href="#callback">Подробнее</a>
+      <div class="off-card">
+        <a class="btn btn-yellow-o off-pill" href="#contacts">Рассрочка 0%</a>
+        <div class="off-lim">Ограниченное предложение</div>
+        <div class="off-desc">Беспроцентная рассрочка на дома и участки на 6, 9 и 12 месяцев.</div>
+        <a class="btn btn-blue-o" href="#contacts">Подробнее</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ RESORT ============ -->
-<section class="sec sec-soft" id="infra">
+<!-- ============ QUIZ ============ -->
+<section class="quiz">
   <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">/// КУРОРТ</div><h2>Курорт Завидово рядом с поселком</h2></div>
-    <p class="resort-lead">Завидово — это активно развивающийся туристический центр со своей развитой инфраструктурой для отдыха круглый год.</p>
-    <div class="feat-grid">
-      <div class="feat-card"><div class="dot">✓</div><p>Бесперебойное электричество</p></div>
-      <div class="feat-card"><div class="dot">✓</div><p>Связь и интернет</p></div>
-      <div class="feat-card"><div class="dot">✓</div><p>Наблюдение и безопасность</p></div>
-      <div class="feat-card"><div class="dot">✓</div><p>Обслуживающая компания</p></div>
-      <div class="feat-card"><div class="dot">✓</div><p>Отличные дороги</p></div>
-      <div class="feat-card"><div class="dot">✓</div><p>Река с пляжем</p></div>
-      <div class="feat-card"><div class="dot">✓</div><p>Собственный парк</p></div>
-      <div class="feat-card"><div class="dot">✓</div><p>Детская площадка</p></div>
-      <div class="feat-card"><div class="dot">✓</div><p>Спортивная площадка</p></div>
-      <div class="feat-card"><div class="dot">✓</div><p>Футбольное поле</p></div>
+    <div class="quiz-card">
+      <div class="quiz-head">✅ Ответьте на 7 вопросов</div>
+      <div class="quiz-sub">и получите подбор участков по вашим параметрам</div>
+      <div class="quiz-q">Что Вам важно иметь рядом с участком?</div>
+      <div class="quiz-grid">
+        <label class="quiz-opt"><img src="assets/bea73e06_Rectangle_11_1.jpg" alt=""><span>Детская площадка</span></label>
+        <label class="quiz-opt"><img src="assets/8ffe0e76_CV3WHLM1ItI.jpg" alt=""><span>Лес</span></label>
+        <label class="quiz-opt"><img src="assets/f47c635b_sport-lawn-youth-usa.jpg" alt=""><span>Спортплощадка</span></label>
+        <label class="quiz-opt"><img src="assets/1bb5f57e_1460556901.jpg" alt=""><span>Пруд</span></label>
+        <label class="quiz-opt"><img src="assets/993d53f2_canasta-basica-alime.jpg" alt=""><span>Супермаркет</span></label>
+        <label class="quiz-opt"><img src="assets/1b04ba81_Rectangle_289_1.jpg" alt=""><span>Пляж</span></label>
+        <label class="quiz-opt"><img src="assets/d19388b3_HealthFit-Move.jpg" alt=""><span>Футбольное поле</span></label>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn btn-blue-o">&larr; Назад</button>
+        <button class="btn btn-pink">Далее &rarr;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap">
+    <h2>О поселке</h2>
+    <p class="about-lead">Экопарк Завидово — это удачное совмещение экологии, комфортной загородной жизни, удобной транспортной доступности и разнообразных активностей.</p>
+
+    <div class="feature">
+      <h3>Активный отдых<br>в окрестностях</h3>
+      <div class="ph"><img src="assets/bea73e06_Rectangle_11_1.jpg" alt="Активный отдых"></div>
+      <div class="txt">
+        <p>Прекрасные возможности для спортивных активностей — все виды водного спорта, бег, велоспорт, катание на квадроциклах, гольф, теннис, рыбалка и охота.</p>
+        <p>В округе 5 пляжей с кафе рядом, инструкторы водных видов активностей для взрослых и детей.</p>
+        <div class="tags"><span>#водныйиназемныйспорт</span><span>#грибыиягоды</span><span>#охотаирыбалка</span></div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <h3>Заповедник,<br>леса и реки</h3>
+      <div class="ph"><img src="assets/8ffe0e76_CV3WHLM1ItI.jpg" alt="Заповедник"></div>
+      <div class="txt">
+        <p>В 3-х километрах от поселка располагается национальный заповедник Завидово, аналогов которому нет в мире. По границе поселка протекает река Дойбица, впадающая в Волгу, а в 100 метрах — огромный лесной массив, богатый грибами и ягодами.</p>
+        <p class="small">Согласно оценкам ЮНЕСКО, национальный заповедник «Завидово» — одно из самых чистых в экологическом отношении мест на Земле. Он включен в первый реестр ключевых орнитологических территорий Европы, которые имеют международный статус.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <h3>Безопасность<br>и комфорт</h3>
+      <div class="ph"><img src="assets/1b04ba81_Rectangle_289_1.jpg" alt="Безопасность и комфорт"></div>
+      <div class="txt">
+        <p>Закрытая охраняемая территория, круглосуточная охрана и видеонаблюдение.</p>
+        <p>Обслуживающая компания обеспечивает комфортную среду, чистоту и порядок на территории.</p>
+        <div class="tags"><span># огороженныйпериметр</span><span>#пропускнаясистема</span><span>#видеонаблюдение</span></div>
+      </div>
+    </div>
+
+    <div class="feature" style="border-bottom:0">
+      <h3>Удобная<br>логистика</h3>
+      <div class="ph"><img src="assets/7ae3e0ad_phpThumb_generated_t.jpg" alt="Удобная логистика"></div>
+      <div class="txt">
+        <p>Великолепная транспортная доступность. Добираться на своей машине очень удобно. Собственный выезд на трассу М11, 110 км.</p>
+        <p>Поблизости имеется остановка автобуса, до которой идут прямые автобусы из Конаково, Новозавидовский, Мокшино, Вахонино.</p>
+        <p class="small">В 2 км находится станция Путепроводная Конаковской ветки железной дороги. До нее можно доехать из Москвы, Клина и Твери.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCHEME ============ -->
+<section class="scheme">
+  <div class="wrap">
+    <h2><span class="gr">Схема поселка</span> «Экопарк Завидово»</h2>
+    <div class="scheme-map">
+      <img src="assets/6e6ddf44___1.jpg" alt="Схема поселка Экопарк Завидово">
+      <a class="btn btn-tan" href="#plots">Выбрать участок</a>
+    </div>
+    <div class="amen-grid">
+      <div class="amen"><img src="assets/bea73e06_Rectangle_11_1.jpg" alt=""><div class="cap">🛝 6 детских площадок</div></div>
+      <div class="amen"><img src="assets/d19388b3_HealthFit-Move.jpg" alt=""><div class="cap">🏋 2 площадки work-out</div></div>
+      <div class="amen"><img src="assets/8ffe0e76_CV3WHLM1ItI.jpg" alt=""><div class="cap">🌳 Аллеи, парки и леса</div></div>
+      <div class="amen"><img src="assets/1bb5f57e_1460556901.jpg" alt=""><div class="cap">🏞 Пруд и пляж с рекой</div></div>
+      <div class="amen"><img src="assets/1b04ba81_Rectangle_289_1.jpg" alt=""><div class="cap">🌿 Зоны отдыха</div></div>
+      <div class="amen"><img src="assets/f47c635b_sport-lawn-youth-usa.jpg" alt=""><div class="cap">⚽ Футбольное поле</div></div>
+      <div class="amen"><img src="assets/993d53f2_canasta-basica-alime.jpg" alt=""><div class="cap">🛒 Торговые зоны</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESORT / KURORT ============ -->
+<section class="kurort">
+  <div class="wrap">
+    <h2>Курорт Завидово рядом с поселком</h2>
+    <div class="kfeat-grid">
+      <div class="kfeat"><span class="sq"><svg viewBox="0 0 24 24"><path d="M5 21V8l7-4 7 4v13"/><path d="M10 13h4v8h-4z"/></svg></span><span>Собственный парк</span></div>
+      <div class="kfeat"><span class="sq"><svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="2.5"/><path d="M7 21l2-7M17 21l-2-7M9 14h6M8 10l4-2 4 2"/></svg></span><span>Детская площадка</span></div>
+      <div class="kfeat"><span class="sq"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16M15 4v16M4 9h16M4 15h16"/></svg></span><span>Спортивная площадка</span></div>
+      <div class="kfeat"><span class="sq"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7l1.5 3 3.3.3-2.5 2.2.8 3.2L12 16l-3.1 1.9.8-3.2-2.5-2.2 3.3-.3z"/></svg></span><span>Футбольное поле</span></div>
     </div>
   </div>
 </section>
 
 <!-- ============ INFRASTRUCTURE ============ -->
-<section class="sec">
+<section class="infra" id="infra">
   <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">/// ИНФРАСТРУКТУРА</div><h2>Окружающая инфраструктура</h2></div>
-    <div class="infra-cols">
-      <div class="infra-block">
-        <h3>#дляжизни</h3>
-        <div class="infra-list">
-          <span>Продуктовые магазины</span><span>Заправки</span><span>Аптеки</span>
-          <span>Школы</span><span>Детские сады</span><span>Больницы</span>
-          <span>Магазины для рыбалки и охоты</span>
-        </div>
+    <h2><span>Окружающая</span> <span class="gr">инфраструктура</span></h2>
+    <div class="infra-grid">
+      <div class="infra-intro">
+        <p>На данный момент в окрестностях поселка можно найти практически любую привычную услугу. Инфраструктура вокруг Завидово непрерывно развивается и возможностей будет становиться всё больше</p>
+        <a class="btn btn-tan" href="#contacts">Запись на экскурсию</a>
       </div>
-      <div class="infra-block">
-        <h3>#дляотдыхаиразвлечений</h3>
-        <div class="infra-list">
-          <span>Рестораны, кафе</span><span>SPA-центр</span><span>Пляжный спорт и отдых</span>
-          <span>Яхт Клубы</span><span>Гольф-клуб</span><span>Вертолетная площадка</span>
-          <span>Аэропарк</span>
-        </div>
+      <div class="infra-col">
+        <h4>#дляжизни</h4>
+        <div class="infra-row"><span class="sq"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/><path d="M2 3h3l2.5 12h11l2-8H6"/></svg></span><span>Продуктовые магазины</span></div>
+        <div class="infra-row"><span class="sq"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="9" height="18" rx="1"/><path d="M15 7h3v9a2 2 0 0 1-4 0"/></svg></span><span>Заправки</span></div>
+        <div class="infra-row"><span class="sq"><svg viewBox="0 0 24 24"><rect x="3" y="9" width="13" height="6" rx="3" transform="rotate(45 9 12)"/></svg></span><span>Аптеки</span></div>
+        <div class="infra-row"><span class="sq"><svg viewBox="0 0 24 24"><path d="M4 8l8-4 8 4-8 4z"/><path d="M6 10v5c0 1 3 2 6 2s6-1 6-2v-5"/></svg></span><span>Школы</span></div>
+        <div class="infra-row"><span class="sq"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 13c1 1.5 7 1.5 8 0"/></svg></span><span>Детские сады</span></div>
+        <div class="infra-row"><span class="sq"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 8v6M9 11h6"/></svg></span><span>Больницы</span></div>
+        <div class="infra-row"><span class="sq"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span><span>Магазины для рыбалки и охоты</span></div>
       </div>
-    </div>
-    <div class="infra-cta"><a class="btn btn-tan" href="#callback">Запись на экскурсию</a></div>
-  </div>
-</section>
-
-<!-- ============ PLACES NEARBY ============ -->
-<section class="sec sec-soft">
-  <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">/// ПОБЛИЗОСТИ</div><h2>Места поблизости</h2></div>
-    <div class="places-grid">
-      <a class="place-card" href="where_eat.html" style="background-image:url('assets/303bedd7_ExUhxzbWYAMjPHx.jpg')">
-        <h3>Кафе и рестораны</h3><span class="more">Узнать больше →</span>
-      </a>
-      <a class="place-card" href="where_admire.html" style="background-image:url('assets/b61fcedd_tourist-couple-posin.jpg')">
-        <h3>Достопримечательности</h3><span class="more">Узнать больше →</span>
-      </a>
-      <a class="place-card" href="where_shop.html" style="background-image:url('assets/eda85084_canasta-basica-alime.jpg')">
-        <h3>Магазины</h3><span class="more">Узнать больше →</span>
-      </a>
-      <a class="place-card" href="where_fun.html" style="background-image:url('assets/74360b83_HealthFit-Move.jpg')">
-        <h3>Спорт и отдых</h3><span class="more">Узнать больше →</span>
-      </a>
+      <div class="infra-col">
+        <h4>#дляотдыхаиразвлечений</h4>
+        <div class="infra-row"><span class="sq"><svg viewBox="0 0 24 24"><path d="M7 3v8a2 2 0 0 0 4 0V3M9 11v10M17 3c-1.5 0-2 3-2 5s.5 4 2 4v9"/></svg></span><span>Рестораны, кафе</span></div>
+        <div class="infra-row"><span class="sq"><svg viewBox="0 0 24 24"><path d="M12 3c3 4 5 7 5 10a5 5 0 0 1-10 0c0-3 2-6 5-10z"/></svg></span><span>SPA-центр</span></div>
+        <div class="infra-row"><span class="sq"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5 5l1.5 1.5M17.5 17.5 19 19"/></svg></span><span>Пляжный спорт и отдых</span></div>
+        <div class="infra-row"><span class="sq"><svg viewBox="0 0 24 24"><path d="M3 14h18l-2 5H5z"/><path d="M6 14l3-9 8 4"/></svg></span><span>Яхт Клубы</span></div>
+        <div class="infra-row"><span class="sq"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M12 15v6"/></svg></span><span>Гольф-клуб</span></div>
+        <div class="infra-row"><span class="sq"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="1"/><path d="M9 4v16"/></svg></span><span>Вертолетная площадка</span></div>
+        <div class="infra-row"><span class="sq"><svg viewBox="0 0 24 24"><path d="M2 16l9-3V5a1.5 1.5 0 0 1 3 0v8l8 3v2l-8-2v3l2 2v1l-3.5-1L11 23v-1l2-2v-3z"/></svg></span><span>Аэропарк</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ SERVICE COMPANY ============ -->
-<section class="sec">
-  <div class="wrap company-grid">
-    <div>
-      <div class="eyebrow">/// СЕРВИС</div>
-      <h2>Собственная обслуживающая компания на территории поселка</h2>
-      <p style="color:var(--muted);font-size:16px">За благоустроенность и безопасность проживания отвечает обслуживающая компания, которая организует комфортную загородную жизнь.</p>
-      <ul class="company-list">
-        <li>Круглосуточный пропускной режим, охрана посёлка</li>
-        <li>Соблюдение чистоты, вывоз мусора, уборка снега, чистка дорог</li>
-        <li>Содержание и обслуживание внутри поселковых объектов отдыха, спорта и развлечений</li>
-        <li>Содержание и обслуживание внутри поселковых инженерных объектов</li>
-      </ul>
-      <a class="btn btn-tan" href="#callback">Оставить заявку</a>
+<!-- ============ PLACES ============ -->
+<section class="places" id="activities">
+  <div class="wrap">
+    <h2><span>Места</span> <span class="gr">поблизости</span></h2>
+    <div class="pl-grid">
+      <div class="pl-card"><div class="img" style="background-image:url('assets/8ffe0e76_CV3WHLM1ItI.jpg')"></div><div class="body"><h3>Достопримечательности</h3><a href="#">Узнать больше</a></div></div>
+      <div class="pl-card"><div class="img" style="background-image:url('assets/bea73e06_Rectangle_11_1.jpg')"></div><div class="body"><h3>Спорт и отдых</h3><a href="#">Узнать больше</a></div></div>
+      <div class="pl-card"><div class="img" style="background-image:url('assets/993d53f2_canasta-basica-alime.jpg')"></div><div class="body"><h3>Магазины</h3><a href="#">Узнать больше</a></div></div>
+      <div class="pl-card"><div class="img" style="background-image:url('assets/ec8086fe_tourist-couple-posin.jpg')"></div><div class="body"><h3>Кафе и рестораны</h3><a href="#">Узнать больше</a></div></div>
     </div>
-    <div class="company-img">
-      <img src="https://optim.tildacdn.com/tild3134-3435-4366-b335-653861386236/-/format/webp/09-min.jpg.webp" alt="Обслуживающая компания">
+  </div>
+</section>
+
+<!-- ============ MANAGEMENT ============ -->
+<section class="manage">
+  <div class="wrap">
+    <div class="manage-top">
+      <div>
+        <h2>Собственная обслуживающая компания на территории поселка</h2>
+        <p>За благополучием и безопасностью проживания отвечает обслуживающая компания, которая организует комфортную загородную жизнь.</p>
+      </div>
+      <div class="mfeat-grid">
+        <div class="mfeat"><span class="sq"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></span><p>Круглосуточный прогулочный режим, охрана поселка</p></div>
+        <div class="mfeat"><span class="sq"><svg viewBox="0 0 24 24"><path d="M4 20l4-12 4 12M6 14h4M14 8h6M14 12h6M14 16h6"/></svg></span><p>Соблюдение чистоты, вывоз мусора, чистка дорог</p></div>
+        <div class="mfeat"><span class="sq"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><circle cx="18" cy="9" r="2"/></svg></span><p>Содержание и обслуживание внутри общества, спорт и развлечений</p></div>
+        <div class="mfeat"><span class="sq"><svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"/></svg></span><p>Содержание внутри поселковых объектов</p></div>
+      </div>
+    </div>
+
+    <div class="act-grid">
+      <div class="act-card"><div class="img" style="background-image:url('assets/1b04ba81_Rectangle_289_1.jpg')"></div><div class="body"><h3>Семейный отдых</h3><p>Футбол, волейбол, бадминтон, детский досуг, велопрогулки, пешие прогулки, экскурсии и многое другое.</p><div class="row"><a class="btn btn-blue-o" href="https://vk.com/ecopark.zavidovo">Группа ВК</a><a class="btn btn-blue-o" href="https://t.me/ecoparkzavidovo">Группа ТГ</a></div></div></div>
+      <div class="act-card"><div class="img" style="background-image:url('assets/bea73e06_Rectangle_11_1.jpg')"></div><div class="body"><h3>Пляжный отдых и купание</h3><p>Проведите незабываемые выходные с купанием, водными видами спорта и речными прогулками.</p><div class="row"><a class="btn btn-blue-o" href="#contacts">Подробнее</a></div></div></div>
+      <div class="act-card"><div class="img" style="background-image:url('assets/8ffe0e76_CV3WHLM1ItI.jpg')"></div><div class="body"><h3>Пикник на природе</h3><p>Приезжайте со всей семьей, отдохните и познакомьтесь с поселком.</p><div class="row"><a class="btn btn-blue-o" href="#contacts">Подробнее</a></div></div></div>
+      <div class="act-card"><div class="img" style="background-image:url('assets/f47c635b_sport-lawn-youth-usa.jpg')"></div><div class="body"><h3>Футбол и спорт для всех</h3><p>Участвуйте в спортивных мероприятиях. Бронируйте поле для личной игры.</p><div class="row"><a class="btn btn-blue-o" href="#contacts">Оставить заявку</a></div></div></div>
     </div>
   </div>
 </section>
 
 <!-- ============ VIDEO CALL ============ -->
-<section class="sec video-call" id="activities">
-  <div class="wrap video-inner">
-    <div>
-      <div class="eyebrow" style="color:#cdeede">/// УДОБНО</div>
-      <h2 style="margin-bottom:0">Ознакомьтесь с участком<br>по видеосвязи</h2>
-    </div>
-    <div class="video-msgs">
-      <a href="https://wa.me/79201627792" aria-label="WhatsApp"><img src="https://static.tildacdn.com/tild6437-3864-4339-b930-643864653964/Whatsapp.svg" alt="WhatsApp"></a>
-      <a href="https://t.me/ecoparkzavidovo" aria-label="Telegram"><img src="https://static.tildacdn.com/tild6231-6264-4030-b363-343163393361/Telegram.svg" alt="Telegram"></a>
-      <a href="#callback" aria-label="Vimeo"><img src="https://static.tildacdn.com/tild6639-3764-4637-b863-386130373530/Vimeo.svg" alt="Vimeo"></a>
-      <a href="#callback" aria-label="Max"><img src="https://static.tildacdn.com/tild3031-6231-4337-a532-303731356130/Max_logo_black.svg" alt="Max"></a>
+<section class="video">
+  <div class="wrap">
+    <div class="video-card">
+      <h2>Ознакомьтесь<br>с участком<br><span class="gr">по видеосвязи</span></h2>
+      <p>Мы запустили возможность ознакомиться с интересующим участком по видеосвязи с менеджером. Для этого запишитесь на просмотр в любом мессенджере или просто позвоните.</p>
+      <div class="vsoc">
+        <a href="https://wa.me/79201627792" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm4.4 12.3c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8.9-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.2 0-.4 0-.5l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-1 2.2c0 1.3 1 2.6 1.1 2.7s1.9 2.9 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.4-.6 1.6-1.2s.2-1 .1-1.2z"/></svg></a>
+        <a href="https://t.me/ecoparkzavidovo" aria-label="Telegram"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.4 13l-4.8-1.5c-1-.3-1-1 .2-1.5L20.5 2.7c.9-.3 1.6.2 1.4 1.6z"/></svg></a>
+        <a href="#" aria-label="Max"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H7l-3 4z"/></svg></a>
+        <a class="tan" href="tel:+74994748730" aria-label="Phone"><svg viewBox="0 0 24 24"><path d="M20 15.5c-1.2 0-2.4-.2-3.6-.6-.3-.1-.7 0-1 .3l-2 2a15 15 0 0 1-6.6-6.6l2-2c.3-.3.4-.6.3-1A11.4 11.4 0 0 1 8.5 4c0-.6-.5-1-1-1H4c-.6 0-1 .4-1 1A17 17 0 0 0 20 21c.6 0 1-.4 1-1v-3.5c0-.5-.4-1-1-1z"/></svg></a>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ============ HOW TO BUY ============ -->
-<section class="sec sec-soft">
-  <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">/// ПРОСТО</div><h2>Как купить участок?</h2>
-      <p style="color:var(--muted);font-size:16px;max-width:680px">Работать с нами легко и комфортно. Мы всё подробно расскажем и покажем участок, будем сопровождать вас на всех этапах сделки.</p>
+<section class="howto">
+  <div class="wrap howto-grid">
+    <div class="howto-left">
+      <h2>Как купить участок?</h2>
+      <p>Работать с нами легко и комфортно. Мы всё подробно расскажем и покажем участок, будем сопровождать вас на всех этапах сделки.</p>
+      <a class="btn btn-tan" href="#contacts">Оставить заявку</a>
     </div>
     <div class="steps">
-      <div class="step"><div class="num">1</div><p>Оставьте заявку на сайте или свяжитесь с нами в месседжерах. После консультации мы забронируем за вами интересующий участок.</p></div>
-      <div class="step"><div class="num">2</div><p>Посетите наш офис, который находится непосредственно в поселке. Здесь вы можете вживую ознакомиться с участком и поселком.</p></div>
-      <div class="step"><div class="num">3</div><p>Мы заключаем договор, после чего Вы вносите оплату сразу или мы оформляем рассрочку платежа, покупку на материнский капитал.</p></div>
-      <div class="step"><div class="num">4</div><p>Мы оформляем все необходимые документы и происходит регистрация перехода права собственности на Покупателя.</p></div>
-      <div class="step"><div class="num">5</div><p>Оставьте заявку на звонок менеджера, чтобы оформить сделку удаленно.</p></div>
-    </div>
-    <div class="howbuy-cta"><a class="btn btn-tan" href="#callback">Оставить заявку</a></div>
-  </div>
-</section>
-
-<!-- ============ ANYWHERE ============ -->
-<section class="sec anywhere">
-  <div class="wrap anywhere-grid">
-    <div class="anywhere-text">
-      <div class="eyebrow">/// ОНЛАЙН</div>
-      <h2>Приобретите участок из любой точки мира</h2>
-      <p>Мы добавили для вас возможность купить участок по безопасной сделке из любой точки мира, не приезжая в наш офис!</p>
-      <a class="btn btn-tan" href="#callback">Узнать подробнее</a>
-    </div>
-    <div>
-      <img src="https://optim.tildacdn.com/tild3161-6637-4738-a163-333636393830/-/format/webp/12-min.jpg.webp" alt="Из любой точки мира">
+      <div class="step"><div class="sic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 16 0v5a2 2 0 0 1-2 2h-1v-6h3M7 13H4v6"/></svg></div><p>Оставьте заявку на сайте или свяжитесь с нами в мессенджерах. После консультации мы забронируем за вами интересующий участок.</p></div>
+      <div class="step"><div class="sic"><svg viewBox="0 0 24 24"><path d="M4 21V9l8-5 8 5v12M4 21h16M10 21v-6h4v6"/></svg></div><p>Посетите наш офис, который находится непосредственно в поселке. Здесь вы можете вживую ознакомиться с участком и поселком.</p></div>
+      <div class="step"><div class="sic"><svg viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5z"/><path d="M9 13l2 2 4-4"/></svg></div><p>Мы заключаем договор, после чего Вы вносите оплату сразу или мы оформляем рассрочку платежа, покупку на материнский капитал.</p></div>
+      <div class="step"><div class="sic"><svg viewBox="0 0 24 24"><path d="M3 7h6l2 2h10v10H3z"/></svg></div><p>Мы оформляем все необходимые документы и происходит регистрация перехода права собственности на Покупателя</p></div>
     </div>
   </div>
 </section>
 
-<!-- ============ GALLERY ============ -->
-<section class="sec">
+<!-- ============ REMOTE PURCHASE ============ -->
+<section class="remote">
+  <div class="remote-bg" style="background-image:url('assets/7ae3e0ad_phpThumb_generated_t.jpg')"></div>
   <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">/// ГАЛЕРЕЯ</div><h2>Фото поселка</h2></div>
-    <div class="gallery-grid">
-      <a class="big" href="#"><img src="https://optim.tildacdn.com/tild6362-3834-4439-b533-623034353662/-/format/webp/31-min.jpg.webp" alt="Фото поселка"></a>
-      <a href="#"><img src="https://optim.tildacdn.com/tild6530-3630-4730-b639-626164313361/-/format/webp/01-min.jpg.webp" alt="Фото поселка"></a>
-      <a href="#"><img src="https://optim.tildacdn.com/tild3032-3461-4263-b065-623935393937/-/format/webp/02-min.jpg.webp" alt="Фото поселка"></a>
-      <a href="#"><img src="https://optim.tildacdn.com/tild3134-3435-4366-b335-653861386236/-/format/webp/09-min.jpg.webp" alt="Фото поселка"></a>
-      <a href="#"><img src="https://optim.tildacdn.com/tild3161-6637-4738-a163-333636393830/-/format/webp/12-min.jpg.webp" alt="Фото поселка"></a>
-      <a class="big" href="#"><img src="https://optim.tildacdn.com/tild3533-3437-4136-b264-303765303966/-/format/webp/13-min.jpg.webp" alt="Фото поселка"></a>
-      <a href="#"><img src="assets/0401d83a_17-min.jpg" alt="Фото поселка"></a>
-      <a href="#"><img src="assets/0fbb70c2_25-min.jpg" alt="Фото поселка"></a>
+    <div class="remote-card">
+      <h2>Приобретите участок из <span class="gr">любой точки мира</span></h2>
+      <p>Мы добавили для вас возможность купить участок по безопасной сделке из любой точки мира не приезжая в наш офис!</p>
+      <a class="btn btn-tan-o" style="align-self:flex-start" href="#contacts">Узнать подробнее</a>
     </div>
-  </div>
-</section>
-
-<!-- ============ NEWS ============ -->
-<section class="sec sec-soft" id="news">
-  <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">/// БЛОГ</div><h2>Новости<br>Экопарк Завидово</h2></div>
-    <div class="news-grid">
-      <a class="news-card" href="news.html">
-        <div class="thumb" style="background-image:url('https://optim.tildacdn.com/tild6362-3834-4439-b533-623034353662/-/format/webp/31-min.jpg.webp')"></div>
-        <div class="body"><span class="date">25 Apr, 2026</span><span class="ttl">Топ-10 лучших участков у пруда! 💎🏡</span><span class="txt">С одной стороны — тихий пруд, с другой — благоустроенный сад и прогулочная аллея...</span></div>
-      </a>
-      <a class="news-card" href="news.html">
-        <div class="thumb" style="background-image:url('https://optim.tildacdn.com/tild6530-3630-4730-b639-626164313361/-/format/webp/01-min.jpg.webp')"></div>
-        <div class="body"><span class="date">20 Apr, 2026</span><span class="ttl">Самые доступные участки нашего посёлка</span><span class="txt">Если вы искали выгодный и бюджетный вариант для старта, эти участки — для вас. 💚</span></div>
-      </a>
-      <a class="news-card" href="news.html">
-        <div class="thumb" style="background-image:url('https://optim.tildacdn.com/tild3032-3461-4263-b065-623935393937/-/format/webp/02-min.jpg.webp')"></div>
-        <div class="body"><span class="date">31 Mar, 2026</span><span class="ttl">Весенний Экопарк Завидово</span><span class="txt">Снег сходит, появляется первая зелень, и снова слышно птиц. ✨ Экопарк оживает...</span></div>
-      </a>
-      <a class="news-card" href="news.html">
-        <div class="thumb" style="background-image:url('https://optim.tildacdn.com/tild3134-3435-4366-b335-653861386236/-/format/webp/09-min.jpg.webp')"></div>
-        <div class="body"><span class="date">31 Mar, 2026</span><span class="ttl">Начинаем строительный сезон в экопарке 🛠</span><span class="txt">Уважаемые жители! ✨ В нашем поселке начинается строительный сезон!</span></div>
-      </a>
-      <a class="news-card" href="news.html">
-        <div class="thumb" style="background-image:url('https://optim.tildacdn.com/tild3161-6637-4738-a163-333636393830/-/format/webp/12-min.jpg.webp')"></div>
-        <div class="body"><span class="date">10 Feb, 2026</span><span class="ttl">Панорамы нашего поселка</span><span class="txt">Предлагаем вам ознакомиться с этапами благоустройства и развития территории...</span></div>
-      </a>
-      <a class="news-card" href="news.html">
-        <div class="thumb" style="background-image:url('https://optim.tildacdn.com/tild3533-3437-4136-b264-303765303966/-/format/webp/13-min.jpg.webp')"></div>
-        <div class="body"><span class="date">08 Mar, 2026</span><span class="ttl">Бьюти в Завидово</span><span class="txt">Собрали места в Завидово, где можно провести выходные так, как вы давно хотели...</span></div>
-      </a>
-    </div>
-    <div class="news-foot"><a class="btn btn-tan" href="news.html">Все новости</a></div>
-  </div>
-</section>
-
-<!-- ============ FAQ ============ -->
-<section class="sec" id="faq">
-  <div class="wrap">
-    <div class="sec-head" style="text-align:center"><div class="eyebrow">/// FAQ</div><h2>Ответили на самые популярные вопросы</h2></div>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q">Какая будет ежемесячная плата за содержание посёлка?</button>
-        <div class="faq-a"><div class="faq-a-inner">В стоимость обслуживания входит:
-          <ul>
-            <li>Освещение;</li>
-            <li>Вывоз мусора;</li>
-            <li>Охрана;</li>
-            <li>Видеонаблюдение;</li>
-            <li>Обслуживание парков, прудов и пляжа;</li>
-            <li>Зимой уборка дорог.</li>
-          </ul>
-        </div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Земля в аренде будет или в собственности?</button>
-        <div class="faq-a"><div class="faq-a-inner">Все участки оформляются в собственность. Вы становитесь полноправным владельцем земли.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Какие нормы строительства на участке в поселке?</button>
-        <div class="faq-a"><div class="faq-a-inner">На участках действуют комфортные нормы застройки, позволяющие построить дом для постоянного проживания или дачу. Менеджеры подробно расскажут обо всех условиях.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Какое назначение земли?</button>
-        <div class="faq-a"><div class="faq-a-inner">Земли населённых пунктов / ДНП — для дачного строительства и ведения хозяйства.</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CTA QUESTIONS ============ -->
-<section class="sec cta-q" id="callback">
-  <div class="wrap">
-    <h2>Остались вопросы?</h2>
-    <p>Не хотите ждать звонка? Свяжитесь с нами в месседжере удобным способом или оставьте заявку — мы перезвоним.</p>
-    <form class="cta-form" onsubmit="return false">
+    <form class="remote-form" onsubmit="return false">
+      <div class="ttl">Оставьте заявку на звонок менеджера, чтобы оформить сделку удаленно</div>
       <input type="text" placeholder="Ваше имя">
-      <input type="tel" placeholder="Телефон">
+      <input type="tel" placeholder="+7 (000) 000-00-00">
+      <label class="chk"><input type="checkbox"> Я согласен с условиями обработки персональных данных</label>
       <button class="btn btn-tan" type="submit">Отправить</button>
     </form>
   </div>
 </section>
 
-<!-- ============ CONTACTS ============ -->
-<section class="sec" id="contacts">
+<!-- ============ PHOTO SLIDER ============ -->
+<section class="photo">
   <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">/// КОНТАКТЫ</div><h2>Контакты</h2></div>
-    <div class="contacts-grid">
-      <div class="contact-block">
-        <h4>/// почта и телефон</h4>
-        <a class="big" href="tel:+74997579770">+7 499 757 97 70</a>
-        <a class="big" href="mailto:info@ecoparkz.ru" style="display:block">info@ecoparkz.ru</a>
-        <p>10:00 — 20:00 (без выходных)</p>
-        <h4>/// адрес</h4>
-        <p>Тверская область, Конаковский район, коттеджный посёлок «Экопарк Завидово»</p>
+    <h2>Фото поселка</h2>
+    <div class="slider-label">Лето</div>
+    <div class="slider" id="slider">
+      <div class="slides" id="slides">
+        <div class="slide"><img src="assets/223ce067_01-min.jpg" alt=""></div>
+        <div class="slide"><img src="assets/61120e52_02-min.jpg" alt=""></div>
+        <div class="slide"><img src="assets/a7411ef9_03-min.jpg" alt=""></div>
+        <div class="slide"><img src="assets/ba35707c_04-min.jpg" alt=""></div>
+        <div class="slide"><img src="assets/1ae45eb4_05-min.jpg" alt=""></div>
+        <div class="slide"><img src="assets/47a29926_06-min.jpg" alt=""></div>
       </div>
-      <div class="contact-block">
-        <h4>/// Наши лица</h4>
-        <div class="team">
-          <div class="team-card"><div class="av" style="background-image:url('https://optim.tildacdn.com/tild6530-3630-4730-b639-626164313361/-/format/webp/01-min.jpg.webp')"></div><div class="nm">Эмиль</div><div class="role">Руководитель отдела продаж</div></div>
-          <div class="team-card"><div class="av" style="background-image:url('https://optim.tildacdn.com/tild3032-3461-4263-b065-623935393937/-/format/webp/02-min.jpg.webp')"></div><div class="nm">Александр</div><div class="role">Руководитель проекта</div></div>
-          <div class="team-card"><div class="av" style="background-image:url('https://optim.tildacdn.com/tild3134-3435-4366-b335-653861386236/-/format/webp/09-min.jpg.webp')"></div><div class="nm">Мария</div><div class="role">Менеджер</div></div>
-          <div class="team-card"><div class="av" style="background-image:url('https://optim.tildacdn.com/tild3161-6637-4738-a163-333636393830/-/format/webp/12-min.jpg.webp')"></div><div class="nm">Екатерина</div><div class="role">Менеджер</div></div>
-        </div>
+      <button class="sl-btn prev" id="slPrev">&#8249;</button>
+      <button class="sl-btn next" id="slNext">&#8250;</button>
+    </div>
+    <div class="dots" id="dots"></div>
+  </div>
+</section>
+
+<!-- ============ NEWS ============ -->
+<section class="news" id="news">
+  <div class="wrap">
+    <h2><span class="gr">Новости</span> Экопарк Завидово</h2>
+    <div class="news-grid">
+      <a class="news-card" href="https://ecopark-zavidovo.ru/premium"><div class="img" style="background-image:url('assets/1bb5f57e_1460556901.jpg')"></div><div class="date">25 Apr, 2026</div><h3>Топ-10 лучших участков у пруда! 💎🏡</h3><p>С одной стороны — тихий пруд, с другой — благоустроенный сад и прогулочная аллея. Номера участков в подборке и на фото...</p></a>
+      <a class="news-card" href="https://ecopark-zavidovo.ru/affordable"><div class="img" style="background-image:url('assets/bea73e06_Rectangle_11_1.jpg')"></div><div class="date">20 Apr, 2026</div><h3>Самые доступные участки нашего посёлка</h3><p>Если вы искали выгодный и бюджетный вариант для старта, эти участки — для вас. 💚 Номера участков в подборке и на фото..</p></a>
+      <a class="news-card" href="https://ecopark-zavidovo.ru/spring"><div class="img" style="background-image:url('assets/8ffe0e76_CV3WHLM1ItI.jpg')"></div><div class="date">31 Mar, 2026</div><h3>Весенний Экопарк Завидово</h3><p>Снег сходит, появляется первая зелень, и снова слышно птиц. ✨ Экопарк оживает — начинается сезон строительства и новых проектов. 🏠....</p></a>
+      <a class="news-card" href="https://ecopark-zavidovo.ru/buildseason"><div class="img" style="background-image:url('assets/7ae3e0ad_phpThumb_generated_t.jpg')"></div><div class="date">31 Mar, 2026</div><h3>Начинаем строительный сезон в экопарке 🛠</h3><p>Уважаемые жители! ✨ В нашем поселке начинается строительный сезон! 🛠...</p></a>
+      <a class="news-card" href="https://ecopark-zavidovo.ru/ecoparkview"><div class="img" style="background-image:url('assets/6e6ddf44___1.jpg')"></div><div class="date">10 Feb, 2026</div><h3>Панорамы нашего поселка</h3><p>Предлагаем вам ознакомиться с этапами благоустройства и развития территории посёлка за последние годы. ...</p></a>
+      <a class="news-card" href="https://ecopark-zavidovo.ru/beautyzavidovo"><div class="img" style="background-image:url('assets/c55638df_i_2.jpg')"></div><div class="date">08 Mar, 2026</div><h3>Бьюти в Завидово</h3><p>Собрали места в Завидово, где можно провести выходные так, как вы давно хотели — массаж, баня, бассейн, тишина 👇🏻...</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <h2>Ответили на самые популярные вопросы</h2>
+    <div class="acc">
+      <div class="acc-item">
+        <button class="acc-q">Какая будет ежемесячная плата за содержание посёлка?<span class="pl">+</span></button>
+        <div class="acc-a"><div class="inner">Размер ежемесячной платы — 200 рублей за сотку. В эту стоимость включены:
+          <ul><li>Освещение;</li><li>Вывоз мусора;</li><li>Охрана;</li><li>Видеонаблюдение;</li><li>Обслуживание парков, прудов и пляжа;</li><li>Зимой уборка дорог.</li></ul>
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-q">Земля в аренде будет или в собственности?<span class="pl">+</span></button>
+        <div class="acc-a"><div class="inner">В собственности.</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-q">Какие нормы строительства на участке в поселке?<span class="pl">+</span></button>
+        <div class="acc-a"><div class="inner">При проектировании участка нужно придерживаться актуальных норм и правил строительства на дачном участке. Обязательно нужно учитывать требования по инженерным системам при проектировании и строительстве садового участка и жилого дома.</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-q">Какое назначение земли?<span class="pl">+</span></button>
+        <div class="acc-a"><div class="inner">Вид разрешенного строительства «дачное строительство».</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ FOOTER ============ -->
-<footer class="footer">
+<!-- ============ CONTACTS ============ -->
+<section class="contacts" id="contacts">
   <div class="wrap">
-    <div class="footer-top">
-      <div>
-        <img class="flogo" src="https://static.tildacdn.com/tild3830-6461-4832-a631-363736633037/Logo.png" alt="Экопарк Завидово">
-        <p style="font-size:14px;max-width:320px">Коттеджный поселок рядом с курортом Завидово. Участки и дома в собственность.</p>
-        <div class="fsocial">
-          <a href="https://wa.me/79201627792" aria-label="WhatsApp"><img src="https://static.tildacdn.com/tild3130-3132-4036-a162-613634336338/Whatsapp.svg" alt="WhatsApp"></a>
-          <a href="https://t.me/ecoparkzavidovo" aria-label="Telegram"><img src="https://static.tildacdn.com/tild6536-6330-4239-b432-346638626438/Telegram.svg" alt="Telegram"></a>
-          <a href="https://vk.com/ecopark.zavidovo" aria-label="ВКонтакте"><img src="https://static.tildacdn.com/tild6536-6330-4239-b432-346638626438/Telegram.svg" alt="VK" style="opacity:0;width:1px"><span style="color:#fff;font-weight:700;font-size:14px">VK</span></a>
+    <h2>Остались вопросы?</h2>
+    <div class="cont-grid">
+      <div class="cont-info">
+        <p>Контакты</p>
+        <p><a href="mailto:info@ecoparkz.ru">info@ecoparkz.ru</a></p>
+        <p><a href="tel:+74994748730">+7 499 474 87 30</a></p>
+        <div class="socials" style="margin-top:18px">
+          <a class="soc" href="https://t.me/ecoparkzavidovo" aria-label="Telegram"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.4 13l-4.8-1.5c-1-.3-1-1 .2-1.5L20.5 2.7c.9-.3 1.6.2 1.4 1.6z"/></svg></a>
+          <a class="soc" href="https://wa.me/79201627792" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm4.4 12.3c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8.9-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.2 0-.4 0-.5l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-1 2.2c0 1.3 1 2.6 1.1 2.7s1.9 2.9 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.4-.6 1.6-1.2s.2-1 .1-1.2z"/></svg></a>
         </div>
       </div>
-      <div>
-        <h5>Навигация</h5>
-        <a href="#about">О поселке</a>
-        <a href="#infra">Инфраструктура</a>
-        <a href="#plots">Участки</a>
-        <a href="#activities">Активности</a>
-        <a href="news.html">Новости</a>
-        <a href="#faq">Вопросы и ответы</a>
-        <a href="#contacts">Контакты</a>
-      </div>
-      <div>
-        <h5>Контакты</h5>
-        <a href="tel:+74997579770">+7 499 757 97 70</a>
-        <a href="mailto:info@ecoparkz.ru">info@ecoparkz.ru</a>
-        <a href="#callback" class="btn btn-tan" style="margin-top:10px;display:inline-flex;color:#fff">Перезвоните мне</a>
-      </div>
+      <form class="cform" onsubmit="return false">
+        <input type="text" placeholder="Ваше имя">
+        <input type="tel" placeholder="+7 (000) 000-00-00">
+        <button class="btn btn-tan" type="submit">Перезвоните мне</button>
+        <span style="font-size:12px;color:#9a9a9a">Нажимая на кнопку, вы даете согласие с условиями обработки персональных данных</span>
+      </form>
     </div>
-    <div class="footer-bottom">
-      <span>© 2017–2026 Экопарк Завидово</span>
-      <a href="privacy.html">Политика конфиденциальности</a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot">
+    <img src="assets/00e6327c_Logo.png" alt="Экопарк Завидово">
+    <nav class="foot-nav">
+      <a href="#about">О поселке</a>
+      <a href="#infra">Инфраструктура</a>
+      <a href="#plots">Участки</a>
+      <a href="#activities">Активности</a>
+      <a href="#news">Новости</a>
+      <a href="#faq">Вопросы и ответы</a>
+      <a href="#contacts">Контакты</a>
+      <a href="#">Политика конфиденциальности</a>
+    </nav>
+    <div class="foot-right">
+      <a class="hdr-phone" href="tel:+74994748730">+7 499 474 87 30</a>
     </div>
   </div>
 </footer>
 
 <script>
-// Mobile nav
-(function(){
-  var b=document.getElementById('burger'),m=document.getElementById('mobileNav');
-  if(b)b.addEventListener('click',function(){m.classList.toggle('open');});
-  if(m)m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){m.classList.remove('open');});});
-})();
-// Hero slider
-(function(){
-  var s=document.getElementById('heroSlider');if(!s)return;
-  var slides=s.querySelectorAll('.hero-slide'),dots=document.getElementById('heroDots'),i=0;
-  slides.forEach(function(_,idx){var d=document.createElement('button');if(idx===0)d.className='active';d.addEventListener('click',function(){go(idx);});dots.appendChild(d);});
-  function go(n){slides[i].classList.remove('active');dots.children[i].classList.remove('active');i=n;slides[i].classList.add('active');dots.children[i].classList.add('active');}
-  setInterval(function(){go((i+1)%slides.length);},5000);
-})();
+// Mobile menu
+var burger=document.getElementById('burger'),mmenu=document.getElementById('mmenu'),mclose=document.getElementById('mclose');
+burger.addEventListener('click',function(){mmenu.classList.add('open')});
+mclose.addEventListener('click',function(){mmenu.classList.remove('open')});
+mmenu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mmenu.classList.remove('open')})});
+
 // FAQ accordion
-(function(){
-  document.querySelectorAll('.faq-q').forEach(function(q){
-    q.addEventListener('click',function(){
-      var it=q.parentElement;
-      it.classList.toggle('open');
-    });
+document.querySelectorAll('.acc-q').forEach(function(q){
+  q.addEventListener('click',function(){
+    var item=q.parentElement;
+    item.classList.toggle('open');
   });
+});
+
+// Slider
+(function(){
+  var slides=document.getElementById('slides');
+  var total=slides.children.length;
+  var i=0;
+  var dots=document.getElementById('dots');
+  for(var k=0;k<total;k++){
+    var b=document.createElement('button');
+    if(k===0)b.className='on';
+    b.dataset.k=k;
+    b.addEventListener('click',function(e){go(parseInt(e.target.dataset.k))});
+    dots.appendChild(b);
+  }
+  function go(n){
+    i=(n+total)%total;
+    slides.style.transform='translateX(-'+(i*100)+'%)';
+    dots.querySelectorAll('button').forEach(function(d,idx){d.className=idx===i?'on':''});
+  }
+  document.getElementById('slPrev').addEventListener('click',function(){go(i-1)});
+  document.getElementById('slNext').addEventListener('click',function(){go(i+1)});
 })();
 </script>
 </body>
