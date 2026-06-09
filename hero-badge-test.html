@@ -2207,9 +2207,14 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 
 
 
+
+
 <style id="ppsch-css">
-/* схема: фикс пропорции Завидово + contain, чтобы блок не прыгал при подмене */
-.tn-elem__8446175771699255660371 img{aspect-ratio:1671/799 !important;height:auto !important;width:100% !important;object-fit:contain !important;background:#dfe6df;border-radius:8px;}
+/* контейнер схемы: фикс пропорции Завидово, чтобы блок не прыгал и не наезжал на карточки */
+.tn-elem__8446175771699255660371 .tn-atom, .tn-elem__8446175771699255660371{aspect-ratio:1671/799;}
+.ppsch-imgwrap{position:relative;overflow:hidden;border-radius:8px;}
+.ppsch-imgwrap img{position:relative;z-index:1;width:100% !important;height:100% !important;object-fit:contain !important;filter:brightness(1.07) saturate(1.14) contrast(1.03);}
+#ppsch-bg{position:absolute;inset:-4%;z-index:0;background-size:cover;background-position:center;filter:blur(18px) brightness(1.07) saturate(1.1);transform:scale(1.1);}
 #ppsch-tog{position:absolute;z-index:1000;display:flex;gap:6px;background:#eef1ec;border-radius:34px;padding:5px;font-family:'Poiret One',sans-serif;}
 #ppsch-tog button{border:0;background:transparent;cursor:pointer;border-radius:28px;padding:12px 26px;font-size:18px;color:#5b6b5f;font-family:'Poiret One',sans-serif;white-space:nowrap;-webkit-text-stroke:.2px currentColor;transition:background .15s,color .15s;}
 #ppsch-tog button.active{background:#2f8a4f;color:#fff;}
@@ -2222,22 +2227,28 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
   var tog;
   function imgEl(ab){return ab.querySelector('.tn-elem__'+IMG+' img');}
   function headAtom(ab){var e=ab.querySelector('.tn-elem__'+HEAD);return e&&(e.querySelector('.tn-atom')||e);}
-  function setS(k,ab){var im=imgEl(ab);if(im){im.setAttribute('src',IMGS[k]);im.removeAttribute('data-original');}
+  function ensureBg(ab){
+    var im=imgEl(ab); if(!im) return null;
+    var wrap=im.parentElement; if(!wrap) return null;
+    wrap.classList.add('ppsch-imgwrap');
+    if(getComputedStyle(wrap).position==='static') wrap.style.position='relative';
+    var bg=wrap.querySelector('#ppsch-bg');
+    if(!bg){ bg=document.createElement('div'); bg.id='ppsch-bg'; wrap.insertBefore(bg, wrap.firstChild); }
+    return bg;
+  }
+  function setS(k,ab){
+    var im=imgEl(ab); if(im){im.setAttribute('src',IMGS[k]);im.removeAttribute('data-original');}
+    var bg=ensureBg(ab); if(bg) bg.style.backgroundImage="url('"+IMGS[k]+"')";
     var z=document.getElementById('ppsch-zav'),l=document.getElementById('ppsch-les');
-    if(z)z.className=k==='zav'?'active':'';if(l)l.className=k==='les'?'active':'';}
+    if(z)z.className=k==='zav'?'active':'';if(l)l.className=k==='les'?'active':'';
+  }
   function pos(ab){
-    var head=ab.querySelector('.tn-elem__'+HEAD), imEl=ab.querySelector('.tn-elem__'+IMG);
-    if(!head||!imEl||!tog)return;
-    if(window.innerWidth<760){
-      tog.style.top=(head.offsetTop+head.offsetHeight+10)+'px';
-      tog.style.left=imEl.offsetLeft+'px';
-    } else {
-      tog.style.top=head.offsetTop+'px';
-      tog.style.left=Math.max(imEl.offsetLeft,(imEl.offsetLeft+imEl.offsetWidth-tog.offsetWidth))+'px';
-    }
+    var head=ab.querySelector('.tn-elem__'+HEAD), imE=ab.querySelector('.tn-elem__'+IMG);
+    if(!head||!imE||!tog)return;
+    if(window.innerWidth<760){ tog.style.top=(head.offsetTop+head.offsetHeight+10)+'px'; tog.style.left=imE.offsetLeft+'px'; }
+    else { tog.style.top=head.offsetTop+'px'; tog.style.left=Math.max(imE.offsetLeft,(imE.offsetLeft+imE.offsetWidth-tog.offsetWidth))+'px'; }
   }
   function build(ab){
-    // заголовок — убрать название парка, оставить «Схема посёлка», не менять при свайпе
     var h=headAtom(ab); if(h) h.textContent='Схема посёлка';
     tog=document.createElement('div');tog.id='ppsch-tog';
     tog.innerHTML='<button id="ppsch-zav" class="active">Экопарк Завидово</button><button id="ppsch-les">Экопарк Лесной</button>';
@@ -2245,7 +2256,7 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
     document.getElementById('ppsch-zav').addEventListener('click',function(){setS('zav',ab);});
     document.getElementById('ppsch-les').addEventListener('click',function(){setS('les',ab);});
     setS('zav',ab); pos(ab);
-    [120,400,900,1600,2600].forEach(function(ms){setTimeout(function(){ if(h) h.textContent='Схема посёлка'; pos(ab); },ms);});
+    [120,400,900,1600,2600].forEach(function(ms){setTimeout(function(){ if(h) h.textContent='Схема посёлка'; ensureBg(ab); pos(ab); },ms);});
   }
   var rt;window.addEventListener('resize',function(){var ab=document.querySelector('#'+REC+' .t396__artboard');if(ab){clearTimeout(rt);rt=setTimeout(function(){pos(ab);},120);}});
   var tries=0,t=setInterval(function(){var rec=document.getElementById(REC);var ab=rec&&rec.querySelector('.t396__artboard');
