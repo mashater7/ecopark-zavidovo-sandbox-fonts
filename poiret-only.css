@@ -1,0 +1,23 @@
+/* Песочница «Экопарк Завидово»: единый шрифт Poiret One на весь сайт.
+   Выбор шрифта сделан — тест-переключатель отключён.
+   Иконки в Тильде — это SVG (единственный @font-face был только a-avantetck),
+   поэтому глобальная подмена шрифта ничего из графики не ломает.
+
+   Poiret One по ширине символа уже Arial (фактор ~1.03) → компенсация кегля не нужна,
+   горизонтальных переносов/наездов нет. Поддерживает кириллицу (проверено на живом). */
+
+:root {
+  --t-headline-font: 'Poiret One', sans-serif;
+  --t-text-font: 'Poiret One', sans-serif;
+}
+
+/* Весь текст и заголовки — Poiret One. !important перебивает инлайновые
+   font-family:'a-avantetck'/'Inter' из экспорта Тильды. SVG-иконки исключены. */
+body,
+body *:not(svg):not(path):not(use):not(g):not(symbol) {
+  font-family: 'Poiret One', sans-serif !important;
+}
+
+/* Тест-панель переключателя (если вдруг где-то остался скрипт) — спрятать и убрать её отступ. */
+#font-switcher { display: none !important; }
+body { padding-top: 0 !important; }
