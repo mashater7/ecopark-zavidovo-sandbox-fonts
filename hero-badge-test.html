@@ -2012,18 +2012,20 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style id="ppbadge-css">
-#ppbadge{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
+/* размер шрифта плашки задаётся в JS пропорционально её ширине (font-size на #ppbadge),
+   внутренние размеры — в em, поэтому текст одинаково аккуратен и на десктопе, и на мобиле */
+#ppbadge{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;font-size:15px;}
 #ppbadge svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 5px 12px rgba(0,0,0,.16));}
-#ppbadge .txt{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 16px;width:100%;height:100%;}
-#ppbadge .eyebrow{font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;line-height:1;}
-#ppbadge .main{line-height:1.05;text-transform:uppercase;}
+#ppbadge .txt{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 .95em;width:100%;height:100%;}
+#ppbadge .eyebrow{font-size:.58em;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.45em;line-height:1;}
+#ppbadge .main{line-height:1.04;text-transform:uppercase;}
 #ppbadge .main span{display:block;}
 #ppbadge,#ppbadge *{font-family:'Montserrat',Arial,sans-serif !important;}
-#ppbadge.light .main{font-weight:300;letter-spacing:.4px;}
-#ppbadge.light .main span{font-size:18px;}
+#ppbadge.light .main{font-weight:300;letter-spacing:.03em;}
+#ppbadge.light .main span{font-size:1.18em;}
 #ppbadge.light .eyebrow{font-weight:400;}
-#ppbadge.weight .main{font-weight:700;letter-spacing:.2px;}
-#ppbadge.weight .main span{font-size:16px;}
+#ppbadge.weight .main{font-weight:700;letter-spacing:.01em;}
+#ppbadge.weight .main span{font-size:1.05em;}
 #ppbadge.weight .eyebrow{font-weight:600;}
 #ppbar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:2147483000;background:#1f1f1f;color:#fff;border-radius:30px;padding:8px 10px;display:flex;gap:8px;align-items:center;font:13px/1 Arial,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.35);}
 #ppbar b{opacity:.7;margin:0 4px 0 8px;font-weight:400;}
@@ -2046,7 +2048,12 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
       '<div class="txt"><span class="eyebrow" style="color:'+v.eyebrow+'">старт продаж</span>'+
       '<span class="main" style="color:'+v.text+'"><span>Премиум</span><span>очередь</span></span></div>';
   }
-  var badge, wrapper;
+  var badge, wrapper, current='a';
+  function sizeBadge(){
+    if(!badge||!wrapper) return;
+    var w=wrapper.getBoundingClientRect().width||wrapper.clientWidth||146;
+    badge.style.fontSize=(w*0.104).toFixed(2)+'px';   // 146px → ~15px база; всё внутри в em
+  }
   function mount(){
     var ids=['05b1c63a','f7f8d38a','3c912d60','d505d4e7','240368a5'];
     var imgs=[], all=document.querySelectorAll('img');
@@ -2061,13 +2068,15 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
     return true;
   }
   function set(which){
-    var v=V[which]; if(!badge) return;
+    var v=V[which]; if(!badge) return; current=which;
     badge.className=v.cls; badge.innerHTML=badgeHTML(v);
+    sizeBadge();
     document.getElementById('pp-a').className = which==='a'?'active':'';
     document.getElementById('pp-b').className = which==='b'?'active':'';
   }
   document.getElementById('pp-a').onclick=function(){set('a');};
   document.getElementById('pp-b').onclick=function(){set('b');};
+  window.addEventListener('resize', sizeBadge);
   var tries=0,t=setInterval(function(){ if(mount()||++tries>40) clearInterval(t); },300);
 })();
 </script>
