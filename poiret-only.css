@@ -35,3 +35,15 @@ body { padding-top: 0 !important; }
   .tn-elem__8589150991670596877776 { margin-top: -12px !important; }
   .tn-elem__8589150991670596877776 .tn-atom { font-size: 11px !important; line-height: 15px !important; }
 }
+
+/* «Чуть жирнее» для тонкого Poiret (у него один вес, faux-bold выглядит криво):
+   лёгкая обводка в цвет текста утолщает штрих. Надзаголовок, абзац под H1
+   и 4 подписи-преимущества. */
+.tn-elem__8589150991670596877776 .tn-atom,
+.tn-elem__8589150991670596959951 .tn-atom,
+.tn-elem__8589150991670597845188 .tn-atom,
+.tn-elem__8589150991670597865568 .tn-atom,
+.tn-elem__8589150991670597916858 .tn-atom,
+.tn-elem__8589150991670597916870 .tn-atom {
+  -webkit-text-stroke: 0.3px currentColor;
+}
