@@ -21,3 +21,13 @@ body *:not(svg):not(path):not(use):not(g):not(symbol) {
 /* Тест-панель переключателя (если вдруг где-то остался скрипт) — спрятать и убрать её отступ. */
 #font-switcher { display: none !important; }
 body { padding-top: 0 !important; }
+
+/* Надзаголовок hero с двумя посёлками стал длиннее и в 2 строки лип к H1.
+   Уменьшаем кегль и слегка поднимаем на десктопе — появляется зазор. */
+.tn-elem__8589150991670596877776 .tn-atom {
+  font-size: 12px !important;
+  line-height: 16px !important;
+}
+@media (min-width: 1200px) {
+  .tn-elem__8589150991670596877776 { margin-top: -14px !important; }
+}
