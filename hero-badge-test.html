@@ -2012,8 +2012,6 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style id="ppbadge-css">
-/* размер шрифта плашки задаётся в JS пропорционально её ширине (font-size на #ppbadge),
-   внутренние размеры — в em, поэтому текст одинаково аккуратен и на десктопе, и на мобиле */
 #ppbadge{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;font-size:15px;}
 #ppbadge svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 5px 12px rgba(0,0,0,.16));}
 #ppbadge .txt{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 .95em;width:100%;height:100%;}
@@ -2039,45 +2037,77 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 <script>
 (function(){
   var PATH="M72.0566 0.1697C72.5048 -0.086 73.0549 -0.086 73.5032 0.1697C74.896 0.964 76.2888 1.7585 77.6815 2.5528C78.0596 2.7684 78.5139 2.8042 78.921 2.6504C80.4209 2.0836 81.9207 1.5169 83.4206 0.9502C83.9035 0.7678 84.4467 0.8538 84.8496 1.1765C86.1009 2.179 87.3523 3.1815 88.6036 4.1839C88.9431 4.456 89.3864 4.5624 89.8124 4.4742C91.3825 4.1491 92.9526 3.8239 94.5227 3.4988C95.0282 3.3942 95.5512 3.5642 95.8985 3.9459C96.9777 5.1318 98.0569 6.3176 99.136 7.5035C99.4289 7.8253 99.8499 7.9998 100.2846 7.9793C101.8862 7.9038 103.4878 7.8284 105.0895 7.7528C105.605 7.7285 106.0951 7.9783 106.3785 8.4096C107.2588 9.7498 108.1392 11.0898 109.0194 12.4299C109.2584 12.7936 109.6469 13.0318 110.0794 13.0795C111.6732 13.2555 113.2669 13.4315 114.8607 13.6075C115.3735 13.6642 115.8186 13.9874 116.031 14.4579C116.6909 15.9192 117.3507 17.3806 118.0106 18.8418C118.1896 19.2383 118.5362 19.5343 118.9559 19.6492C120.5025 20.0723 122.049 20.4955 123.5956 20.9186C124.0934 21.0548 124.4824 21.4437 124.6186 21.9416C125.0417 23.4881 125.4648 25.0346 125.8879 26.5811C126.0028 27.0009 126.2988 27.3475 126.6952 27.5265C128.1566 28.1864 129.6179 28.8463 131.0792 29.5061C131.5497 29.7186 131.873 30.1635 131.9297 30.6765C132.1056 32.2702 132.2816 33.864 132.4577 35.4577C132.5053 35.8901 132.7435 36.2788 133.1072 36.5176C134.4472 37.398 135.7874 38.2783 137.1274 39.1587C137.5589 39.442 137.8085 39.9322 137.7843 40.4476C137.7089 42.0493 137.6333 43.651 137.5579 45.2526C137.5372 45.6872 137.7117 46.1083 138.0335 46.4011C139.2194 47.4803 140.4054 48.5594 141.5912 49.6385C141.9729 49.9858 142.143 50.509 142.0383 51.0145C141.7132 52.5845 141.3882 54.1546 141.063 55.7247C140.9747 56.1507 141.0811 56.594 141.3531 56.9334C142.3556 58.1848 143.3581 59.4362 144.3606 60.6875C144.6833 61.0903 144.7694 61.6336 144.5869 62.1164C144.0201 63.6163 143.4534 65.1162 142.8867 66.6162C142.733 67.0232 142.7687 67.4776 142.9844 67.8555C143.7787 69.2483 144.5731 70.6412 145.3674 72.034C145.6232 72.4822 145.6232 73.0323 145.3674 73.4805C144.5731 74.8733 143.7787 76.2661 142.9844 77.6589C142.7687 78.0369 142.733 78.4913 142.8867 78.8983C143.4534 80.3983 144.0201 81.8981 144.5869 83.398C144.7694 83.8808 144.6833 84.4241 144.3606 84.827C143.3581 86.0783 142.3556 87.3297 141.3531 88.581C141.0811 88.9205 140.9747 89.3638 141.063 89.7897C141.3882 91.3599 141.7132 92.93 142.0383 94.5C142.143 95.0055 141.9729 95.5285 141.5912 95.8759C140.4054 96.9551 139.2194 98.0342 138.0335 99.1133C137.7117 99.4062 137.5372 99.8273 137.5579 100.2619C137.6333 101.8635 137.7089 103.4651 137.7843 105.0668C137.8085 105.5823 137.5589 106.0724 137.1274 106.3558C135.7874 107.2361 134.4472 108.1165 133.1072 108.9968C132.7435 109.2357 132.5053 109.6243 132.4577 110.0568C132.2816 111.6505 132.1056 113.2443 131.9297 114.838C131.873 115.3509 131.5497 115.7959 131.0792 116.0084C129.6179 116.6682 128.1566 117.3281 126.6952 117.9879C126.2988 118.1669 126.0028 118.5135 125.8879 118.9333C125.4648 120.4798 125.0417 122.0263 124.6186 123.5729C124.4824 124.0707 124.0934 124.4597 123.5956 124.5959C122.049 125.019 120.5025 125.4421 118.9559 125.8652C118.5362 125.9802 118.1896 126.2761 118.0106 126.6726C117.3507 128.1339 116.6909 129.5952 116.031 131.0566C115.8186 131.527 115.3735 131.8504 114.8607 131.9071C113.2669 132.083 111.6732 132.259 110.0794 132.435C109.6469 132.4827 109.2584 132.7209 109.0194 133.0845C108.1392 134.4246 107.2588 135.7647 106.3785 137.1048C106.0951 137.5362 105.605 137.7858 105.0895 137.7617C103.4878 137.6862 101.8862 137.6106 100.2846 137.5352C99.8499 137.5146 99.4289 137.6891 99.136 138.0109C98.0569 139.1967 96.9777 140.3827 95.8985 141.5686C95.5512 141.9502 95.0282 142.1203 94.5227 142.0157C92.9526 141.6906 91.3825 141.3655 89.8124 141.0403C89.3864 140.952 88.9431 141.0585 88.6036 141.3305C87.3523 142.333 86.1009 143.3355 84.8496 144.338C84.4467 144.6606 83.9035 144.7468 83.4206 144.5642C81.9207 143.9975 80.4209 143.4307 78.921 142.8641C78.5139 142.7103 78.0596 142.7461 77.6815 142.9617C76.2888 143.756 74.896 144.5504 73.5032 145.3448C73.0549 145.6005 72.5048 145.6005 72.0566 145.3448C70.6638 144.5504 69.271 143.756 67.8782 142.9617C67.5002 142.7461 67.0459 142.7103 66.6388 142.8641C65.1389 143.4307 63.639 143.9975 62.1391 144.5642C61.6562 144.7468 61.113 144.6606 60.7102 144.338C59.4589 143.3355 58.2075 142.333 56.9561 141.3305C56.6167 141.0585 56.1734 140.952 55.7473 141.0403C54.1773 141.3655 52.6072 141.6906 51.0371 142.0157C50.5316 142.1203 50.0085 141.9502 49.6612 141.5686C48.5821 140.3827 47.5029 139.1967 46.4237 138.0109C46.1309 137.6891 45.7099 137.5146 45.2752 137.5352C43.6736 137.6106 42.0719 137.6862 40.4703 137.7617C39.9548 137.7858 39.4646 137.5362 39.1813 137.1048C38.3009 135.7647 37.4206 134.4246 36.5402 133.0845C36.3014 132.7209 35.9128 132.4827 35.4804 132.435C33.8866 132.259 32.2929 132.083 30.6991 131.9071C30.1862 131.8504 29.7412 131.527 29.5288 131.0566C28.8689 129.5952 28.2091 128.1339 27.5492 126.6726C27.3701 126.2761 27.0236 125.9802 26.6038 125.8652C25.0573 125.4421 23.5107 125.019 21.9642 124.5959C21.4663 124.4597 21.0774 124.0707 20.9412 123.5729C20.5181 122.0263 20.0949 120.4798 19.6718 118.9333C19.557 118.5135 19.261 118.1669 18.8644 117.9879C17.4032 117.3281 15.9419 116.6682 14.4806 116.0084C14.0101 115.7959 13.6869 115.3509 13.6302 114.838C13.4542 113.2443 13.2782 111.6505 13.1021 110.0568C13.0545 109.6243 12.8163 109.2357 12.4526 108.9968C11.1125 108.1165 9.7724 107.2361 8.4323 106.3558C8.0009 106.0724 7.7512 105.5823 7.7755 105.0668C7.851 103.4651 7.9265 101.8635 8.0019 100.2619C8.0225 99.8273 7.848 99.4062 7.5262 99.1133C6.3403 98.0342 5.1544 96.9551 3.9686 95.8759C3.5868 95.5285 3.4168 95.0055 3.5215 94.5C3.8466 92.93 4.1717 91.3599 4.4968 89.7897C4.585 89.3638 4.4786 88.9205 4.2066 88.581C3.2042 87.3297 2.2017 86.0783 1.1992 84.827C0.8764 84.4241 0.7905 83.8808 0.9728 83.398C1.5396 81.8981 2.1063 80.3983 2.673 78.8983C2.8268 78.4913 2.7911 78.0369 2.5754 77.6589C1.7811 76.2661 0.9867 74.8733 0.1924 73.4805C-0.0634 73.0323 -0.0634 72.4822 0.1924 72.034C0.9867 70.6412 1.7811 69.2483 2.5754 67.8555C2.7911 67.4776 2.8268 67.0232 2.673 66.6162C2.1063 65.1162 1.5396 63.6163 0.9728 62.1164C0.7905 61.6336 0.8764 61.0903 1.1992 60.6875C2.2017 59.4362 3.2042 58.1848 4.2066 56.9334C4.4786 56.594 4.585 56.1507 4.4968 55.7247C4.1717 54.1546 3.8466 52.5845 3.5215 51.0145C3.4168 50.509 3.5868 49.9858 3.9686 49.6385C5.1544 48.5594 6.3403 47.4803 7.5262 46.4011C7.848 46.1083 8.0225 45.6872 8.0019 45.2526C7.9265 43.651 7.851 42.0493 7.7755 40.4476C7.7512 39.9322 8.0009 39.442 8.4323 39.1587C9.7724 38.2783 11.1125 37.398 12.4526 36.5176C12.8163 36.2788 13.0545 35.8901 13.1021 35.4577C13.2782 33.864 13.4542 32.2702 13.6302 30.6765C13.6869 30.1635 14.0101 29.7186 14.4806 29.5061C15.9419 28.8463 17.4032 28.1864 18.8644 27.5265C19.261 27.3475 19.557 27.0009 19.6718 26.5811C20.0949 25.0346 20.5181 23.4881 20.9412 21.9416C21.0774 21.4437 21.4663 21.0548 21.9642 20.9186C23.5107 20.4955 25.0573 20.0723 26.6038 19.6492C27.0236 19.5343 27.3701 19.2383 27.5492 18.8418C28.2091 17.3806 28.8689 15.9192 29.5288 14.4579C29.7412 13.9874 30.1862 13.6642 30.6991 13.6075C32.2929 13.4315 33.8866 13.2555 35.4804 13.0795C35.9128 13.0318 36.3014 12.7936 36.5402 12.4299C37.4206 11.0898 38.3009 9.7498 39.1813 8.4096C39.4646 7.9783 39.9548 7.7285 40.4703 7.7528C42.0719 7.8284 43.6736 7.9038 45.2752 7.9793C45.7099 7.9998 46.1309 7.8253 46.4237 7.5035C47.5029 6.3176 48.5821 5.1318 49.6612 3.9459C50.0085 3.5642 50.5316 3.3942 51.0371 3.4988C52.6072 3.8239 54.1773 4.1491 55.7473 4.4742C56.1734 4.5624 56.6167 4.456 56.9561 4.1839C58.2075 3.1815 59.4589 2.179 60.7102 1.1765C61.113 0.8538 61.6562 0.7678 62.1391 0.9502C63.639 1.5169 65.1389 2.0836 66.6388 2.6504C67.0459 2.8042 67.5002 2.7684 67.8782 2.5528C69.271 1.7585 70.6638 0.964 72.0566 0.1697Z";
-  var V={
-    a:{cls:'weight', fill:'#ecdfc6', text:'#2f6b43', eyebrow:'#8a7647'},
-    b:{cls:'light',  fill:'#5cc1e8', text:'#ffffff', eyebrow:'#eafaff'}
-  };
-  function badgeHTML(v){
-    return '<svg viewBox="0 0 146 146" aria-hidden="true"><path d="'+PATH+'" fill="'+v.fill+'"/></svg>'+
-      '<div class="txt"><span class="eyebrow" style="color:'+v.eyebrow+'">старт продаж</span>'+
-      '<span class="main" style="color:'+v.text+'"><span>Премиум</span><span>очередь</span></span></div>';
-  }
-  var badge, wrapper, current='a';
-  function sizeBadge(){
-    if(!badge||!wrapper) return;
-    var w=wrapper.getBoundingClientRect().width||wrapper.clientWidth||146;
-    badge.style.fontSize=(w*0.104).toFixed(2)+'px';   // 146px → ~15px база; всё внутри в em
-  }
-  function mount(){
-    var ids=['05b1c63a','f7f8d38a','3c912d60','d505d4e7','240368a5'];
-    var imgs=[], all=document.querySelectorAll('img');
+  var V={a:{cls:'weight',fill:'#ecdfc6',text:'#2f6b43',eyebrow:'#8a7647'},b:{cls:'light',fill:'#5cc1e8',text:'#ffffff',eyebrow:'#eafaff'}};
+  function badgeHTML(v){return '<svg viewBox="0 0 146 146" aria-hidden="true"><path d="'+PATH+'" fill="'+v.fill+'"/></svg>'+
+    '<div class="txt"><span class="eyebrow" style="color:'+v.eyebrow+'">старт продаж</span>'+
+    '<span class="main" style="color:'+v.text+'"><span>Премиум</span><span>очередь</span></span></div>';}
+  var badge,wrapper;
+  function sizeBadge(){if(!badge||!wrapper)return;var w=wrapper.getBoundingClientRect().width||wrapper.clientWidth||146;badge.style.fontSize=(w*0.104).toFixed(2)+'px';}
+  function mount(){var ids=['05b1c63a','f7f8d38a','3c912d60','d505d4e7','240368a5'];var imgs=[],all=document.querySelectorAll('img');
     for(var i=0;i<all.length;i++){var s=(all[i].currentSrc||all[i].src||'')+'|'+(all[i].getAttribute('data-original')||'');for(var k=0;k<ids.length;k++){if(s.indexOf(ids[k])>-1){imgs.push(all[i]);break;}}}
-    if(!imgs.length) return false;
-    imgs.forEach(function(im){ im.style.visibility='hidden'; });
-    wrapper = imgs[0].closest('.tn-atom') || imgs[0].parentNode;
-    if(getComputedStyle(wrapper).position==='static') wrapper.style.position='relative';
-    badge=document.createElement('div'); badge.id='ppbadge';
-    wrapper.appendChild(badge);
-    set('a');
-    return true;
+    if(!imgs.length)return false;imgs.forEach(function(im){im.style.visibility='hidden';});
+    wrapper=imgs[0].closest('.tn-atom')||imgs[0].parentNode;if(getComputedStyle(wrapper).position==='static')wrapper.style.position='relative';
+    badge=document.createElement('div');badge.id='ppbadge';wrapper.appendChild(badge);set('a');return true;}
+  function set(which){var v=V[which];if(!badge)return;badge.className=v.cls;badge.innerHTML=badgeHTML(v);sizeBadge();
+    document.getElementById('pp-a').className=which==='a'?'active':'';document.getElementById('pp-b').className=which==='b'?'active':'';}
+  document.getElementById('pp-a').onclick=function(){set('a');};document.getElementById('pp-b').onclick=function(){set('b');};
+  window.addEventListener('resize',sizeBadge);
+  var tries=0,t=setInterval(function(){if(mount()||++tries>40)clearInterval(t);},300);
+})();
+</script>
+
+
+<style id="ppmap-css">
+#ppmap{position:absolute;color:#3a3a3a;}
+#ppmap *{font-family:'Poiret One',sans-serif;}
+#ppmap .ppmap-top{display:flex;align-items:center;justify-content:space-between;gap:16px;height:42px;margin-bottom:12px;}
+#ppmap .ppmap-title{font-size:26px;font-weight:400;color:#2f6b43;white-space:nowrap;}
+#ppmap .ppmap-tog{display:flex;gap:8px;background:#eef1ec;border-radius:30px;padding:4px;}
+#ppmap .ppmap-tog button{border:0;background:transparent;cursor:pointer;border-radius:24px;padding:9px 20px;font-size:16px;color:#5b6b5f;font-family:'Poiret One',sans-serif;}
+#ppmap .ppmap-tog button.active{background:#6cbf83;color:#fff;}
+#ppmap .ppmap-frame{position:relative;width:100%;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.10);background:#e9efe9;}
+#ppmap .ppmap-frame iframe{display:block;width:100%;height:100%;border:0;}
+#ppmap .ppmap-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:14px;}
+#ppmap .ppmap-legend{display:flex;flex-wrap:wrap;gap:8px 18px;}
+#ppmap .ppmap-legend span{display:inline-flex;align-items:center;gap:7px;font-size:16px;color:#555;}
+#ppmap .ppmap-legend i{width:14px;height:14px;border-radius:4px;display:inline-block;box-shadow:0 0 0 1px rgba(0,0,0,.08);}
+#ppmap .ppmap-full{flex:0 0 auto;border:1px solid #c8a06a;color:#9a6b32;background:#fff;border-radius:30px;padding:11px 22px;font-size:16px;text-decoration:none;white-space:nowrap;transition:background .15s;}
+#ppmap .ppmap-full:hover{background:#f6efe6;}
+</style>
+<script>
+(function(){
+  var MAPS={
+    zav:{title:'Экопарк Завидово',
+      embed:'https://yandex.ru/map-widget/v1/?um=constructor%3A271c218703bff928dd568060edecfbcd2a784f69a02be0b4f598acedbeff07d7&source=constructorLink&ll=36.544415%2C56.517922&z=15',
+      full:'https://yandex.ru/maps/?um=constructor%3A271c218703bff928dd568060edecfbcd2a784f69a02be0b4f598acedbeff07d7&source=constructorLink&mode=usermaps&ll=36.544415%2C56.517922&z=15'},
+    les:{title:'Экопарк Лесной',
+      embed:'https://yandex.ru/map-widget/v1/?um=constructor%3Ac4ebbad322632575983f2f42e4f145117c6a3f63b933c8d524975dfdc84ee09d&source=constructorLink&ll=36.543273%2C56.529327&z=16',
+      full:'https://yandex.ru/maps/?l=sat%2Cskl&ll=36.543273%2C56.529327&mode=usermaps&source=constructorLink&um=constructor%3Ac4ebbad322632575983f2f42e4f145117c6a3f63b933c8d524975dfdc84ee09d&z=16'}
+  };
+  var LEGEND=[['В продаже','rgb(9,118,63)'],['Бронь','rgb(255,255,0)'],['С домом','rgb(134,145,235)'],['Продан','rgb(128,128,128)'],['Акция','rgb(191,3,160)']];
+  var HIDE=['8446175551670597845188','8446175551670680339749','8446175551670680467767','8446175551670680467771','8446175551670680467776','8446175551670680467779','8446175551670680500839','8446175551670680500842','8446175551670680433570','8446175551670680402033','8446175551702999940373','8446175551702999940375','8446175551671127611192','8446175551703771682815','8446175551670598182219'];
+  var current='zav', box, frame, titleEl;
+  function build(ab){
+    HIDE.forEach(function(c){var e=ab.querySelector('.tn-elem__'+c);if(e)e.style.setProperty('display','none','important');});
+    box=document.createElement('div');box.id='ppmap';
+    box.style.top='258px';box.style.left='181px';box.style.width='1160px';box.style.height='672px';
+    var legend=LEGEND.map(function(l){return '<span><i style="background:'+l[1]+'"></i>'+l[0]+'</span>';}).join('');
+    box.innerHTML=
+      '<div class="ppmap-top"><div class="ppmap-title" id="ppmap-title"></div>'+
+      '<div class="ppmap-tog"><button id="ppmap-zav" class="active">Экопарк Завидово</button><button id="ppmap-les">Экопарк Лесной</button></div></div>'+
+      '<div class="ppmap-frame" style="height:556px"><iframe id="ppmap-frame" title="map" allowfullscreen></iframe></div>'+
+      '<div class="ppmap-bottom"><div class="ppmap-legend">'+legend+'</div>'+
+      '<a class="ppmap-full" id="ppmap-full" target="_blank" rel="noopener">Открыть карту на весь экран →</a></div>';
+    ab.appendChild(box);
+    frame=box.querySelector('#ppmap-frame');titleEl=box.querySelector('#ppmap-title');
+    box.querySelector('#ppmap-zav').onclick=function(){setMap('zav');};
+    box.querySelector('#ppmap-les').onclick=function(){setMap('les');};
+    setMap('zav');
   }
-  function set(which){
-    var v=V[which]; if(!badge) return; current=which;
-    badge.className=v.cls; badge.innerHTML=badgeHTML(v);
-    sizeBadge();
-    document.getElementById('pp-a').className = which==='a'?'active':'';
-    document.getElementById('pp-b').className = which==='b'?'active':'';
-  }
-  document.getElementById('pp-a').onclick=function(){set('a');};
-  document.getElementById('pp-b').onclick=function(){set('b');};
-  window.addEventListener('resize', sizeBadge);
-  var tries=0,t=setInterval(function(){ if(mount()||++tries>40) clearInterval(t); },300);
+  function setMap(k){current=k;var m=MAPS[k];if(frame.getAttribute('src')!==m.embed)frame.setAttribute('src',m.embed);titleEl.textContent=m.title;
+    box.querySelector('#ppmap-full').href=m.full;
+    box.querySelector('#ppmap-zav').className=k==='zav'?'active':'';box.querySelector('#ppmap-les').className=k==='les'?'active':'';}
+  var tries=0,t=setInterval(function(){var rec=document.getElementById('rec844617555');var ab=rec&&rec.querySelector('.t396__artboard');if(ab&&!document.getElementById('ppmap')){build(ab);clearInterval(t);}else if(++tries>50)clearInterval(t);},300);
 })();
 </script>
 
