@@ -441,7 +441,7 @@ alt='' imgfield='tn_img_1670597916865'
 #lesnoyblock .lz-strong li{position:relative;padding-left:32px;font-size:16.5px;color:var(--lz-ink);line-height:1.45}
 #lesnoyblock .lz-strong li::before{content:'';position:absolute;left:4px;top:6px;width:15px;height:8px;border-left:2px solid var(--lz-green);border-bottom:2px solid var(--lz-green);transform:rotate(-45deg)}
 #lesnoyblock .lz-cta{text-align:left}
-#lesnoyblock .lz-cta .lz-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+#lesnoyblock .lz-cta .lz-row{display:flex;gap:16px;justify-content:flex-start;flex-wrap:wrap}
 #lesnoyblock .lz-btn{display:inline-flex;align-items:center;justify-content:center;gap:11px;font-family:'Poiret One',sans-serif;font-weight:700;font-size:18px;letter-spacing:.02em;text-decoration:none;padding:18px 40px;border-radius:12px;transition:.2s;border:1.6px solid transparent;cursor:pointer}
 #lesnoyblock .lz-btn-main{background:var(--lz-brown);color:#fff;box-shadow:0 14px 30px -10px rgba(187,145,107,.7)}
 #lesnoyblock .lz-btn-main:hover{background:var(--lz-brown-d);transform:translateY(-2px)}
@@ -505,7 +505,7 @@ alt='' imgfield='tn_img_1670597916865'
 /* Плашка «старт продаж · премиум очередь» в герое → скролл к блоку «Экопарк Лесной» */
 (function(){
   function scrollToBlock(e){if(e){e.preventDefault();e.stopPropagation();}var t=document.getElementById('lesnoyblock');if(t)t.scrollIntoView({behavior:'smooth',block:'start'});}
-  function bind(el){if(el&&el.closest&&el.closest('#rec858915099')&&!el.dataset.lzClick){el.dataset.lzClick='1';el.style.cursor='pointer';el.title='Новый посёлок «Экопарк Лесной»';el.addEventListener('click',scrollToBlock);}}
+  function bind(el){if(!el||!el.closest||!el.closest('#rec858915099')||el.dataset.lzClick)return;var er=el.getBoundingClientRect();if(er.width>170||er.height>170)return;el.dataset.lzClick='1';el.style.cursor='pointer';el.title='Новый посёлок «Экопарк Лесной»';el.addEventListener('click',scrollToBlock);}
   function go(){
     var b=document.querySelector('[data-elem-id="1773606857540000004"]');
     if(!b)return;
