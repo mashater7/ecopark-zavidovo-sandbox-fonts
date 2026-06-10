@@ -26,7 +26,7 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Poiret One','Century
 /* ───────── БЛОК ───────── */
 .block{max-width:1200px;margin:0 auto;padding:90px 60px}
 
-.head{text-align:center;margin-bottom:38px}
+.head{text-align:left;margin-bottom:34px}
 .eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--brown);margin-bottom:18px}
 .eyebrow .ln{width:34px;height:1px;background:var(--brown)}
 h2{font-size:clamp(28px,4.2vw,49px);text-transform:uppercase;font-weight:700;line-height:1.04;margin:0 0 16px;letter-spacing:.012em}
@@ -35,9 +35,9 @@ h2 .em{color:var(--green)}
 .head p b{color:var(--green);font-weight:400}
 
 /* большое фото */
-.photo{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:16/9;min-height:400px;
+.photo{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:1160/555;min-height:340px;
   display:flex;align-items:flex-end;box-shadow:0 30px 70px -28px rgba(20,40,25,.5)}
-.photo__img{position:absolute;inset:0;background-image:url('assets/lesnoy/family.jpg');background-size:cover;background-position:center 30%;
+.photo__img{position:absolute;inset:0;background-image:url('assets/lesnoy/family.jpg');background-size:cover;background-position:center 35%;
   animation:kb 26s ease-in-out infinite alternate;transform-origin:50% 38%}
 .photo__scrim{position:absolute;inset:0;
   background:
@@ -72,7 +72,7 @@ h2 .em{color:var(--green)}
 .cap .pano svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.5}
 
 /* тонкая строка фактов */
-.about{max-width:920px;margin:40px auto 42px;text-align:center}
+.about{max-width:none;margin:40px 0 42px;text-align:left}
 .about .lead{font-size:20px;color:var(--ink);line-height:1.62;margin:0 0 30px}
 .about .lead b{color:var(--green);font-weight:400}
 .strong{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:16px 46px;text-align:left}
@@ -80,7 +80,7 @@ h2 .em{color:var(--green)}
 .strong li::before{content:'';position:absolute;left:4px;top:6px;width:15px;height:8px;border-left:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(-45deg)}
 
 /* CTA */
-.cta{text-align:center}
+.cta{text-align:left}
 .cta .row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:11px;font-family:inherit;font-weight:700;font-size:18px;letter-spacing:.02em;
   text-decoration:none;padding:18px 40px;border-radius:12px;transition:.2s;border:1.6px solid transparent;cursor:pointer}
@@ -150,7 +150,6 @@ h2 .em{color:var(--green)}
       <a class="btn btn-main" href="#">Забронировать участок</a>
       <a class="btn btn-ghost" href="#">Получить консультацию</a>
     </div>
-    <span class="alt">или <a href="#">откройте ген-план посёлка →</a></span>
   </div>
 </section>
 
