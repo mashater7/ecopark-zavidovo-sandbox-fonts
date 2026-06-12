@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Переключатель посёлка — варианты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poiret+One&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#333;--green:#09763f;--green2:#2f8a4f;--brown:#bb916b;--brown-d:#a67d57;
+  --beige:#f0eee9;--track:#eef1ec;--line:#e7e2dd;--muted:#857d74;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#f6f4f0;color:var(--ink);font-family:'Poiret One','Century Gothic',sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+
+.page{max-width:1080px;margin:0 auto;padding:46px 28px 90px}
+.lead{margin:0 0 6px;font-size:34px;text-transform:uppercase;letter-spacing:.01em}
+.lead b{color:var(--green)}
+.sub{margin:0 0 38px;font-size:18px;color:var(--muted);max-width:760px}
+
+.now{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 26px;margin-bottom:40px;display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.now .tag{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#b04a3a;font-family:Montserrat,sans-serif;font-weight:600}
+
+/* карточка варианта */
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px 30px 34px;margin-bottom:26px;box-shadow:0 18px 50px -34px rgba(20,40,25,.4)}
+.card .vh{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;flex-wrap:wrap}
+.card .vh .n{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 11px;border-radius:18px;background:var(--green);color:#fff;font-family:Montserrat,sans-serif;font-weight:700;font-size:16px}
+.card .vh h3{margin:0;font-size:27px;text-transform:uppercase;letter-spacing:.01em}
+.card .desc{margin:0 0 24px;font-size:16.5px;color:var(--muted);max-width:780px}
+.card .desc b{color:var(--ink);font-weight:400}
+
+/* мини-сцена: имитируем карту/схему, чтобы видно было контраст */
+.stage{position:relative;border-radius:16px;overflow:hidden;min-height:184px;
+  background:
+    linear-gradient(135deg,#e7efe6,#dce8df 55%,#cfe0d3);
+  border:1px solid #dfe8e0;display:flex;align-items:flex-start;justify-content:flex-end;padding:22px}
+.stage::before{content:'';position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.5) 0 1px,transparent 1px 46px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 1px,transparent 1px 46px);
+  opacity:.5}
+.stage .hint{position:absolute;left:22px;top:20px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#6f8472;opacity:.85}
+.stage.brown{background:linear-gradient(135deg,#efe7dd,#e9ddcd 55%,#e2d3bf)}
+.stage.brown::before{opacity:.4}
+.stage.brown .hint{color:#9a8467}
+
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.scene-label{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 9px;font-family:Montserrat,sans-serif;font-weight:600}
+@media(max-width:760px){.pair{grid-template-columns:1fr}}
+
+/* ───── общий «сигнификатор» (подпись перед свитчем) ───── */
+.cap-pre{display:inline-flex;align-items:center;gap:9px;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#7d7468;margin-right:4px;font-family:Montserrat,sans-serif;font-weight:600}
+
+/* ============ ВАРИАНТ 1 — Крупный сегмент ============ */
+.v1{display:inline-flex;gap:6px;background:var(--track);border-radius:40px;padding:6px;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.07);align-items:center}
+.v1 button{border:0;background:transparent;cursor:pointer;border-radius:34px;padding:16px 34px;font-size:20px;
+  color:#7a7165;font-family:'Poiret One',sans-serif;white-space:nowrap;transition:.18s;-webkit-text-stroke:.2px currentColor}
+.v1 button.active{background:#fff;color:var(--ink);box-shadow:0 6px 16px -6px rgba(0,0,0,.3)}
+.v1.green button.active{background:var(--green2);color:#fff}
+.v1.brown button.active{background:var(--brown);color:#fff}
+
+/* ============ ВАРИАНТ 2 — Слайдер (анимированный) ============ */
+.v2{position:relative;display:inline-flex;background:var(--track);border-radius:40px;padding:6px;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.08)}
+.v2 .thumb{position:absolute;top:6px;bottom:6px;left:6px;width:calc(50% - 6px);border-radius:34px;
+  background:var(--green2);box-shadow:0 8px 20px -8px rgba(47,138,79,.9);transition:transform .32s cubic-bezier(.5,1.4,.5,1)}
+.v2.brown .thumb{background:var(--brown);box-shadow:0 8px 20px -8px rgba(187,145,107,.9)}
+.v2.is2 .thumb{transform:translateX(100%)}
+.v2 button{position:relative;z-index:2;border:0;background:transparent;cursor:pointer;padding:17px 36px;font-size:20px;
+  color:#7a7165;font-family:'Poiret One',sans-serif;white-space:nowrap;transition:color .25s;-webkit-text-stroke:.2px currentColor;flex:1}
+.v2 button.active{color:#fff}
+
+/* ============ ВАРИАНТ 3 — Карточка-подложка (выпуклая) ============ */
+.v3{display:inline-flex;align-items:center;gap:14px;background:#fff;border-radius:46px;padding:9px 9px 9px 24px;
+  box-shadow:0 16px 38px -16px rgba(20,40,25,.5);border:1px solid #eee}
+.v3 .lbl{font-size:15px;letter-spacing:.13em;text-transform:uppercase;color:#8a8170;font-family:Montserrat,sans-serif;font-weight:600}
+.v3 .grp{display:inline-flex;gap:6px;background:var(--track);border-radius:34px;padding:5px}
+.v3 .grp button{border:0;background:transparent;cursor:pointer;border-radius:28px;padding:15px 30px;font-size:19px;
+  color:#7a7165;font-family:'Poiret One',sans-serif;white-space:nowrap;transition:.18s;-webkit-text-stroke:.2px currentColor}
+.v3.green .grp button.active{background:var(--green2);color:#fff;box-shadow:0 6px 16px -6px rgba(47,138,79,.8)}
+.v3.brown .grp button.active{background:var(--brown);color:#fff;box-shadow:0 6px 16px -6px rgba(187,145,107,.8)}
+
+/* ============ ВАРИАНТ 4 — Контурные кнопки с иконкой + подсказка ============ */
+.v4{display:inline-flex;flex-direction:column;gap:10px;align-items:flex-start}
+.v4 .row{display:inline-flex;gap:12px}
+.v4 button{display:inline-flex;align-items:center;gap:10px;border:1.8px solid var(--brown);background:rgba(255,255,255,.7);
+  cursor:pointer;border-radius:14px;padding:15px 26px;font-size:19px;color:var(--brown-d);
+  font-family:'Poiret One',sans-serif;white-space:nowrap;transition:.18s;-webkit-text-stroke:.2px currentColor;backdrop-filter:blur(3px)}
+.v4 button svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.6}
+.v4.green button{border-color:var(--green2);color:var(--green)}
+.v4.green button.active{background:var(--green2);color:#fff;border-color:var(--green2)}
+.v4.brown button.active{background:var(--brown);color:#fff;border-color:var(--brown)}
+.v4 .tip{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;letter-spacing:.1em;text-transform:uppercase;color:#8a8170;font-family:Montserrat,sans-serif;font-weight:600}
+.v4 .tip svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6}
+
+/* старый размер для блока «сейчас» */
+.old{display:inline-flex;gap:6px;background:var(--track);border-radius:34px;padding:5px}
+.old button{border:0;background:transparent;cursor:pointer;border-radius:28px;padding:12px 26px;font-size:18px;color:#5b6b5f;font-family:'Poiret One',sans-serif;white-space:nowrap}
+.old button.active{background:var(--green2);color:#fff}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <p class="lead">Переключатель посёлка — <b>варианты</b></p>
+  <p class="sub">Цель: сделать переключатель <b style="color:var(--ink)">Завидово / Лесной</b> крупнее и заметнее, чтобы человек сразу понял — между двумя посёлками можно щёлкать. Один и тот же стиль пойдёт и на карту, и на генплан (на карте — коричневый акцент, на генплане — зелёный). Кликаются по-настоящему — пощупай.</p>
+
+  <div class="now">
+    <span class="tag">Сейчас</span>
+    <div class="old"><button class="active">Экопарк Завидово</button><button>Экопарк Лесной</button></div>
+    <span style="color:var(--muted);font-size:15px">— мелковато и легко не заметить, что это переключатель</span>
+  </div>
+
+  <!-- ВАРИАНТ 1 -->
+  <div class="card">
+    <div class="vh"><span class="n">1</span><h3>Крупный сегмент</h3></div>
+    <p class="desc"><b>Тот же стиль, но крупнее.</b> Шрифт 20px, высокие кнопки (удобно пальцем на телефоне), вдавленный трек + тень у активной — сразу читается как переключатель. Минимальное и безопасное изменение, на 100% в стилистике сайта.</p>
+    <div class="pair">
+      <div><p class="scene-label">На карте (коричневый)</p>
+        <div class="stage brown"><span class="hint">карта участков</span>
+          <div class="v1 brown" data-tog><button class="active">Экопарк Завидово</button><button>Экопарк Лесной</button></div>
+        </div></div>
+      <div><p class="scene-label">На генплане (зелёный)</p>
+        <div class="stage"><span class="hint">схема посёлка</span>
+          <div class="v1 green" data-tog><button class="active">Экопарк Завидово</button><button>Экопарк Лесной</button></div>
+        </div></div>
+    </div>
+  </div>
+
+  <!-- ВАРИАНТ 2 -->
+  <div class="card">
+    <div class="vh"><span class="n">2</span><h3>Свитч со слайдером</h3></div>
+    <p class="desc"><b>С анимацией.</b> Активная подложка плавно «переезжает» между Завидово и Лесным. Движение цепляет взгляд — невозможно не заметить, что это переключатель. Самый современный вариант.</p>
+    <div class="pair">
+      <div><p class="scene-label">На карте (коричневый)</p>
+        <div class="stage brown"><span class="hint">карта участков</span>
+          <div class="v2 brown" data-slider><span class="thumb"></span><button class="active">Экопарк Завидово</button><button>Экопарк Лесной</button></div>
+        </div></div>
+      <div><p class="scene-label">На генплане (зелёный)</p>
+        <div class="stage"><span class="hint">схема посёлка</span>
+          <div class="v2 green" data-slider><span class="thumb"></span><button class="active">Экопарк Завидово</button><button>Экопарк Лесной</button></div>
+        </div></div>
+    </div>
+  </div>
+
+  <!-- ВАРИАНТ 3 -->
+  <div class="card">
+    <div class="vh"><span class="n">3</span><h3>Карточка-подложка с подписью</h3></div>
+    <p class="desc"><b>Самый заметный.</b> Свитч сидит на белой выпуклой «таблетке» с тенью + подпись «Посёлок:» — выпрыгивает поверх карты и прямо объясняет, что выбираешь. Хорошо, если важно, чтобы точно никто не пропустил.</p>
+    <div class="pair">
+      <div><p class="scene-label">На карте (коричневый)</p>
+        <div class="stage brown"><span class="hint">карта участков</span>
+          <div class="v3 brown" data-tog><span class="lbl">Посёлок:</span><div class="grp"><button class="active">Завидово</button><button>Лесной</button></div></div>
+        </div></div>
+      <div><p class="scene-label">На генплане (зелёный)</p>
+        <div class="stage"><span class="hint">схема посёлка</span>
+          <div class="v3 green" data-tog><span class="lbl">Посёлок:</span><div class="grp"><button class="active">Завидово</button><button>Лесной</button></div></div>
+        </div></div>
+    </div>
+  </div>
+
+  <!-- ВАРИАНТ 4 -->
+  <div class="card">
+    <div class="vh"><span class="n">4</span><h3>Кнопки-вкладки с подсказкой</h3></div>
+    <p class="desc"><b>С явным сигналом.</b> Две крупные контурные кнопки + маленькая подсказка «↔ переключите посёлок» и иконка-пин. Выглядит как осознанный выбор, а не декор. Воздушнее сегмента, хорошо ложится на светлый угол схемы.</p>
+    <div class="pair">
+      <div><p class="scene-label">На карте (коричневый)</p>
+        <div class="stage brown"><span class="hint">карта участков</span>
+          <div class="v4 brown" data-tog>
+            <span class="tip"><svg viewBox="0 0 24 24"><path d="M8 7h11M8 7l3-3M8 7l3 3M16 17H5M16 17l-3-3M16 17l-3 3"/></svg>переключите посёлок</span>
+            <div class="row">
+              <button class="active"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>Завидово</button>
+              <button><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>Лесной</button>
+            </div>
+          </div>
+        </div></div>
+      <div><p class="scene-label">На генплане (зелёный)</p>
+        <div class="stage"><span class="hint">схема посёлка</span>
+          <div class="v4 green" data-tog>
+            <span class="tip"><svg viewBox="0 0 24 24"><path d="M8 7h11M8 7l3-3M8 7l3 3M16 17H5M16 17l-3-3M16 17l-3 3"/></svg>переключите посёлок</span>
+            <div class="row">
+              <button class="active"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>Завидово</button>
+              <button><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>Лесной</button>
+            </div>
+          </div>
+        </div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// обычные сегменты/вкладки
+document.querySelectorAll('[data-tog]').forEach(function(g){
+  g.querySelectorAll('button').forEach(function(b){
+    b.addEventListener('click',function(){
+      g.querySelectorAll('button').forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');
+    });
+  });
+});
+// слайдер
+document.querySelectorAll('[data-slider]').forEach(function(g){
+  var btns=g.querySelectorAll('button');
+  btns.forEach(function(b,i){
+    b.addEventListener('click',function(){
+      btns.forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');
+      g.classList.toggle('is2', i===1);
+    });
+  });
+});
+</script>
+</body>
+</html>
