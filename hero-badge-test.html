@@ -495,9 +495,11 @@ alt='' imgfield='tn_img_1670597916865'
 #rec861708828 .tn-elem[data-elem-id="1670749188386"] .tn-atom,
 #rec861708828 .tn-elem[data-elem-id="1670749168230"] .tn-atom{font-weight:700 !important}
 /* Ген-план «Лесной» выше плана Завидово — вписываем в блок, чтобы не наезжал на фото удобств */
-#rec844617577 .tn-elem[data-elem-id="1699255660371"]{height:555px !important;overflow:hidden !important}
-#rec844617577 .tn-elem[data-elem-id="1699255660371"] .ppsch-imgwrap{height:555px !important;width:100% !important}
-#rec844617577 .tn-elem[data-elem-id="1699255660371"] .tn-atom__img{height:100% !important;width:100% !important;object-fit:cover !important;object-position:center center !important}
+/* Высоту схемы на ВСЕХ ширинах задаёт aspect-ratio:1671/799 (ниже): десктоп 1160/2.09≈555px, мобайл 300/2.09≈143px(×zoom 1.109≈159px). min-height:0 не даёт картинке распирать бокс выше aspect-ratio — иначе схема «Лесной» (соотн. 1.58) раздувалась до 734px(десктоп)/615px(мобайл) и наезжала на блок удобств. object-fit:cover кадрирует обе схемы в этот бокс. БЕЗ фикс. пикселей и без брейкпоинт-логики. */
+#rec844617577 .tn-elem[data-elem-id="1699255660371"]{overflow:hidden !important;min-height:0 !important;position:relative !important}
+#rec844617577 .tn-elem[data-elem-id="1699255660371"] .tn-atom,
+#rec844617577 .tn-elem[data-elem-id="1699255660371"] .ppsch-imgwrap{height:100% !important;width:100% !important;min-height:0 !important}
+#rec844617577 .tn-elem[data-elem-id="1699255660371"] .tn-atom__img{position:absolute !important;inset:0 !important;height:100% !important;width:100% !important;object-fit:cover !important;object-position:center center !important;min-height:0 !important}
 /* Форма «Остались вопросы»: новое HD-фото, заполняет рамку без полей */
 #rec844617641 .tn-elem[data-elem-id="1670610571416"] .t-bgimg{background-image:url('assets/lesnoy/hero-new.jpg') !important;background-size:cover !important;background-position:center center !important}
 </style>
