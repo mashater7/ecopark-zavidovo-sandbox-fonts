@@ -2398,7 +2398,7 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
     positionBtn(ab);
     if(!tog)return;
     if(window.innerWidth<760){ tog.style.top=(head.offsetTop+head.offsetHeight+10)+'px'; tog.style.left=imE.offsetLeft+'px'; }
-    else { tog.style.top=(head.offsetTop+34)+'px'; tog.style.left=Math.max(imE.offsetLeft,(imE.offsetLeft+imE.offsetWidth-tog.offsetWidth))+'px'; }
+    else { tog.style.top=Math.round(head.offsetTop+head.offsetHeight/2-tog.offsetHeight/2)+'px'; tog.style.left=Math.max(imE.offsetLeft,(imE.offsetLeft+imE.offsetWidth-tog.offsetWidth))+'px'; }
   }
   function build(ab){
     var h=headAtom(ab); if(h) h.textContent='Схема посёлка';
