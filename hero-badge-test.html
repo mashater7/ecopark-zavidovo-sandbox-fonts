@@ -2178,15 +2178,16 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 <style id="ppmap-css">
 #ppmap{position:absolute;color:#3a3a3a;z-index:1000;display:flex;flex-direction:column;}
 #ppmap *{font-family:'Poiret One',sans-serif;}
-#ppmap .ppmap-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px;flex:0 0 auto;}
+#ppmap .ppmap-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;flex:0 0 auto;}
 #ppmap .ppmap-title{font-size:28px;color:#333;white-space:nowrap;-webkit-text-stroke:1px currentColor;}
-#ppmap .ppmap-togwrap{display:flex;flex-direction:column;align-items:flex-start;gap:9px;flex:0 0 auto;}
+#ppmap .ppmap-togwrap{position:relative;display:inline-flex;flex:0 0 auto;}
+#ppmap .ppmap-togwrap .pp-hint{position:absolute;left:6px;bottom:100%;margin-bottom:11px;}
 /* мини-инструкция «как жмать» над переключателем (общая для карты и генплана) */
-.pp-hint{display:inline-flex;align-items:center;gap:7px;font-family:'Montserrat',Arial,sans-serif;font-weight:600;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#a87d57;background:rgba(255,255,255,.92);padding:7px 14px;border-radius:20px;box-shadow:0 8px 20px -10px rgba(20,40,25,.45);white-space:nowrap;}
+.pp-hint{display:inline-flex;align-items:center;gap:6px;font-family:'Montserrat',Arial,sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:#9a8467;background:rgba(255,255,255,.85);padding:6px 13px;border-radius:18px;box-shadow:0 6px 16px -11px rgba(20,40,25,.4);white-space:nowrap;backdrop-filter:blur(4px);}
 .pp-hint svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;animation:pp-nudge 1.4s ease-in-out infinite;}
 @keyframes pp-nudge{0%,100%{transform:translateY(-1px)}50%{transform:translateY(3px)}}
 @media(prefers-reduced-motion:reduce){.pp-hint svg{animation:none}}
-#ppmap .ppmap-tog{display:inline-flex;align-items:center;gap:14px;background:#fff;border-radius:46px;padding:9px 9px 9px 24px;box-shadow:0 16px 38px -16px rgba(20,40,25,.5);border:1px solid #eee;flex:0 0 auto;}
+#ppmap .ppmap-tog{display:inline-flex;align-items:center;gap:14px;background:#fff;border-radius:46px;padding:9px 9px 9px 24px;box-shadow:0 14px 32px -18px rgba(20,40,25,.4);border:1px solid #eee;flex:0 0 auto;}
 #ppmap .ppmap-tog .pplbl{font-size:15px;letter-spacing:.13em;text-transform:uppercase;color:#8a8170;font-family:'Montserrat',Arial,sans-serif;font-weight:600;white-space:nowrap;}
 #ppmap .ppmap-tog .ppgrp{display:inline-flex;gap:6px;background:#f0eee9;border-radius:34px;padding:5px;}
 #ppmap .ppmap-tog button{border:0;background:transparent;cursor:pointer;border-radius:28px;padding:15px 30px;font-size:19px;color:#8a8170;font-family:'Poiret One',sans-serif;-webkit-text-stroke:.2px currentColor;white-space:nowrap;transition:background .18s,color .18s;}
@@ -2202,7 +2203,8 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 #ppmap .ppmap-full:hover{background:#a67d57;}
 #ppmap.narrow .ppmap-top{justify-content:center;margin-bottom:12px;}
 #ppmap.narrow .ppmap-title{display:none;}
-#ppmap.narrow .ppmap-togwrap{width:100%;align-items:center;}
+#ppmap.narrow .ppmap-togwrap{width:100%;justify-content:center;}
+#ppmap.narrow .ppmap-togwrap .pp-hint{left:50%;transform:translateX(-50%);}
 #ppmap.narrow .ppmap-tog{width:100%;flex-wrap:wrap;justify-content:center;padding:12px;gap:8px;border-radius:24px;}
 #ppmap.narrow .ppmap-tog .ppgrp{width:100%;}
 #ppmap.narrow .ppmap-tog .ppgrp button{flex:1;padding:12px 6px;font-size:16px;}
@@ -2262,7 +2264,7 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
     if(!box)return;var rec=document.getElementById('rec844617555');if(!rec)return;var ab=rec.querySelector('.t396__artboard');if(!ab)return;
     var head=ab.querySelector('.tn-elem__'+HEAD), form=ab.querySelector('.tn-elem__'+FORM);
     if(!head)return;
-    var L=head.offsetLeft, W=head.offsetWidth, top=head.offsetTop+head.offsetHeight+18;
+    var L=head.offsetLeft, W=head.offsetWidth, top=head.offsetTop+head.offsetHeight+50;
     box.style.left=L+'px';box.style.width=W+'px';box.style.top=top+'px';
     box.classList.toggle('narrow', W<560);
     var bottomLimit = form ? form.offsetTop-56 : top+660;
@@ -2348,8 +2350,9 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 .ppsch-imgwrap{position:relative;overflow:hidden;border-radius:8px;}
 .ppsch-imgwrap img{position:relative;z-index:1;width:100% !important;height:100% !important;object-fit:contain !important;filter:brightness(1.07) saturate(1.14) contrast(1.03);}
 #ppsch-bg{position:absolute;inset:-4%;z-index:0;background-size:cover;background-position:center;filter:blur(18px) brightness(1.07) saturate(1.1);transform:scale(1.1);}
-#ppsch-tog{position:absolute;z-index:1000;display:flex;flex-direction:column;align-items:flex-end;gap:9px;font-family:'Poiret One',sans-serif;}
-#ppsch-tog .ppsch-card{display:inline-flex;align-items:center;gap:14px;background:#fff;border-radius:46px;padding:9px 9px 9px 22px;box-shadow:0 16px 38px -16px rgba(20,40,25,.5);border:1px solid #eee;}
+#ppsch-tog{position:absolute;z-index:1000;display:inline-flex;font-family:'Poiret One',sans-serif;}
+#ppsch-tog .ppsch-card{display:inline-flex;align-items:center;gap:14px;background:#fff;border-radius:46px;padding:9px 9px 9px 22px;box-shadow:0 14px 32px -18px rgba(20,40,25,.4);border:1px solid #eee;}
+#ppsch-tog .pp-hint{position:absolute;right:8px;bottom:100%;margin-bottom:11px;}
 #ppsch-tog .pplbl{font-size:15px;letter-spacing:.13em;text-transform:uppercase;color:#8a8170;font-family:'Montserrat',Arial,sans-serif;font-weight:600;white-space:nowrap;}
 #ppsch-tog .ppgrp{display:inline-flex;gap:6px;background:#eef1ec;border-radius:34px;padding:5px;}
 #ppsch-tog button{border:0;background:transparent;cursor:pointer;border-radius:28px;padding:15px 30px;font-size:19px;color:#5b6b5f;font-family:'Poiret One',sans-serif;white-space:nowrap;-webkit-text-stroke:.2px currentColor;transition:background .18s,color .18s;}
@@ -2395,7 +2398,7 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
     positionBtn(ab);
     if(!tog)return;
     if(window.innerWidth<760){ tog.style.top=(head.offsetTop+head.offsetHeight+10)+'px'; tog.style.left=imE.offsetLeft+'px'; }
-    else { tog.style.top=head.offsetTop+'px'; tog.style.left=Math.max(imE.offsetLeft,(imE.offsetLeft+imE.offsetWidth-tog.offsetWidth))+'px'; }
+    else { tog.style.top=(head.offsetTop+34)+'px'; tog.style.left=Math.max(imE.offsetLeft,(imE.offsetLeft+imE.offsetWidth-tog.offsetWidth))+'px'; }
   }
   function build(ab){
     var h=headAtom(ab); if(h) h.textContent='Схема посёлка';
