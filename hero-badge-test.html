@@ -2179,7 +2179,13 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 #ppmap{position:absolute;color:#3a3a3a;z-index:1000;display:flex;flex-direction:column;}
 #ppmap *{font-family:'Poiret One',sans-serif;}
 #ppmap .ppmap-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px;flex:0 0 auto;}
-#ppmap .ppmap-title{font-size:28px;color:#333;white-space:nowrap;-webkit-text-stroke:.5px currentColor;}
+#ppmap .ppmap-title{font-size:28px;color:#333;white-space:nowrap;-webkit-text-stroke:1px currentColor;}
+#ppmap .ppmap-togwrap{display:flex;flex-direction:column;align-items:flex-start;gap:9px;flex:0 0 auto;}
+/* мини-инструкция «как жмать» над переключателем (общая для карты и генплана) */
+.pp-hint{display:inline-flex;align-items:center;gap:7px;font-family:'Montserrat',Arial,sans-serif;font-weight:600;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#a87d57;background:rgba(255,255,255,.92);padding:7px 14px;border-radius:20px;box-shadow:0 8px 20px -10px rgba(20,40,25,.45);white-space:nowrap;}
+.pp-hint svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;animation:pp-nudge 1.4s ease-in-out infinite;}
+@keyframes pp-nudge{0%,100%{transform:translateY(-1px)}50%{transform:translateY(3px)}}
+@media(prefers-reduced-motion:reduce){.pp-hint svg{animation:none}}
 #ppmap .ppmap-tog{display:inline-flex;align-items:center;gap:14px;background:#fff;border-radius:46px;padding:9px 9px 9px 24px;box-shadow:0 16px 38px -16px rgba(20,40,25,.5);border:1px solid #eee;flex:0 0 auto;}
 #ppmap .ppmap-tog .pplbl{font-size:15px;letter-spacing:.13em;text-transform:uppercase;color:#8a8170;font-family:'Montserrat',Arial,sans-serif;font-weight:600;white-space:nowrap;}
 #ppmap .ppmap-tog .ppgrp{display:inline-flex;gap:6px;background:#f0eee9;border-radius:34px;padding:5px;}
@@ -2196,6 +2202,7 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 #ppmap .ppmap-full:hover{background:#a67d57;}
 #ppmap.narrow .ppmap-top{justify-content:center;margin-bottom:12px;}
 #ppmap.narrow .ppmap-title{display:none;}
+#ppmap.narrow .ppmap-togwrap{width:100%;align-items:center;}
 #ppmap.narrow .ppmap-tog{width:100%;flex-wrap:wrap;justify-content:center;padding:12px;gap:8px;border-radius:24px;}
 #ppmap.narrow .ppmap-tog .ppgrp{width:100%;}
 #ppmap.narrow .ppmap-tog .ppgrp button{flex:1;padding:12px 6px;font-size:16px;}
@@ -2235,8 +2242,10 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
     box=document.createElement('div');box.id='ppmap';
     var legend=LEGEND.map(function(l){return '<span><i style="background:'+l[1]+'"></i>'+l[0]+'</span>';}).join('');
     box.innerHTML=
-      '<div class="ppmap-top"><div class="ppmap-title" id="ppmap-title"></div>'+
+      '<div class="ppmap-top">'+
+      '<div class="ppmap-togwrap"><div class="pp-hint"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>Нажмите, чтобы сменить посёлок</div>'+
       '<div class="ppmap-tog"><span class="pplbl">Посёлок:</span><div class="ppgrp"><button id="ppmap-zav" class="active">Завидово</button><button id="ppmap-les">Лесной</button></div></div></div>'+
+      '<div class="ppmap-title" id="ppmap-title"></div></div>'+
       '<div class="ppmap-frame" id="ppmap-fr"><iframe id="ppmap-frame" title="map" allowfullscreen></iframe></div>'+
       '<div class="ppmap-bottom"><div class="ppmap-leg"><div class="ppmap-legtitle">Обозначения на карте</div><div class="ppmap-legend">'+legend+'</div></div>'+
       '<a class="ppmap-full" id="ppmap-full" target="_blank" rel="noopener">Открыть карту на весь экран →</a></div>';
@@ -2339,13 +2348,14 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 .ppsch-imgwrap{position:relative;overflow:hidden;border-radius:8px;}
 .ppsch-imgwrap img{position:relative;z-index:1;width:100% !important;height:100% !important;object-fit:contain !important;filter:brightness(1.07) saturate(1.14) contrast(1.03);}
 #ppsch-bg{position:absolute;inset:-4%;z-index:0;background-size:cover;background-position:center;filter:blur(18px) brightness(1.07) saturate(1.1);transform:scale(1.1);}
-#ppsch-tog{position:absolute;z-index:1000;display:inline-flex;align-items:center;gap:14px;background:#fff;border-radius:46px;padding:9px 9px 9px 22px;box-shadow:0 16px 38px -16px rgba(20,40,25,.5);border:1px solid #eee;font-family:'Poiret One',sans-serif;}
+#ppsch-tog{position:absolute;z-index:1000;display:flex;flex-direction:column;align-items:flex-end;gap:9px;font-family:'Poiret One',sans-serif;}
+#ppsch-tog .ppsch-card{display:inline-flex;align-items:center;gap:14px;background:#fff;border-radius:46px;padding:9px 9px 9px 22px;box-shadow:0 16px 38px -16px rgba(20,40,25,.5);border:1px solid #eee;}
 #ppsch-tog .pplbl{font-size:15px;letter-spacing:.13em;text-transform:uppercase;color:#8a8170;font-family:'Montserrat',Arial,sans-serif;font-weight:600;white-space:nowrap;}
 #ppsch-tog .ppgrp{display:inline-flex;gap:6px;background:#eef1ec;border-radius:34px;padding:5px;}
 #ppsch-tog button{border:0;background:transparent;cursor:pointer;border-radius:28px;padding:15px 30px;font-size:19px;color:#5b6b5f;font-family:'Poiret One',sans-serif;white-space:nowrap;-webkit-text-stroke:.2px currentColor;transition:background .18s,color .18s;}
 #ppsch-tog button.active{background:#2f8a4f;color:#fff;box-shadow:0 6px 16px -6px rgba(47,138,79,.8);}
 .tn-elem__8446175771699255694908{z-index:5 !important;transition:transform .2s;}
-@media (max-width:980px){#ppsch-tog{border-radius:30px;padding:7px 7px 7px 16px;gap:9px;}#ppsch-tog .pplbl{font-size:13px;}#ppsch-tog button{padding:10px 16px;font-size:15px;}}
+@media (max-width:980px){#ppsch-tog .ppsch-card{border-radius:30px;padding:7px 7px 7px 16px;gap:9px;}#ppsch-tog .pplbl{font-size:13px;}#ppsch-tog button{padding:10px 16px;font-size:15px;}.pp-hint{font-size:11px;padding:6px 11px;}}
 </style>
 <script>
 (function(){
@@ -2390,7 +2400,7 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
   function build(ab){
     var h=headAtom(ab); if(h) h.textContent='Схема посёлка';
     tog=document.createElement('div');tog.id='ppsch-tog';
-    tog.innerHTML='<span class="pplbl">Посёлок:</span><div class="ppgrp"><button id="ppsch-zav" class="active">Завидово</button><button id="ppsch-les">Лесной</button></div>';
+    tog.innerHTML='<div class="pp-hint"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>Нажмите, чтобы сменить посёлок</div><div class="ppsch-card"><span class="pplbl">Посёлок:</span><div class="ppgrp"><button id="ppsch-zav" class="active">Завидово</button><button id="ppsch-les">Лесной</button></div></div>';
     ab.appendChild(tog);
     document.getElementById('ppsch-zav').addEventListener('click',function(){setS('zav',ab);});
     document.getElementById('ppsch-les').addEventListener('click',function(){setS('les',ab);});
