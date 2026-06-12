@@ -2187,6 +2187,8 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 .pp-hint svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;animation:pp-nudge 1.4s ease-in-out infinite;}
 @keyframes pp-nudge{0%,100%{transform:translateY(-1px)}50%{transform:translateY(3px)}}
 @media(prefers-reduced-motion:reduce){.pp-hint svg{animation:none}}
+/* на мобиле зазор у Tilda слишком узкий — подсказку прячем, переключатель остаётся */
+@media(max-width:760px){.pp-hint{display:none !important;}}
 #ppmap .ppmap-tog,#ppmap .ppmap-tog *{box-sizing:border-box;}
 #ppmap .ppmap-tog{display:inline-flex;align-items:center;gap:14px;background:#fff;border-radius:46px;padding:9px 9px 9px 24px;box-shadow:0 14px 32px -18px rgba(20,40,25,.4);border:1px solid #eee;flex:0 0 auto;max-width:100%;}
 #ppmap .ppmap-tog .pplbl{font-size:15px;letter-spacing:.13em;text-transform:uppercase;color:#8a8170;font-family:'Montserrat',Arial,sans-serif;font-weight:600;white-space:nowrap;}
@@ -2399,7 +2401,7 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
     if(!head||!imE)return;
     positionBtn(ab);
     if(!tog)return;
-    if(window.innerWidth<760){ tog.style.top=(head.offsetTop+head.offsetHeight+42)+'px'; tog.style.left=imE.offsetLeft+'px'; }
+    if(window.innerWidth<760){ var aR=ab.getBoundingClientRect(), hB=head.getBoundingClientRect().bottom-aR.top, iT=imE.getBoundingClientRect().top-aR.top, ch=tog.offsetHeight, cTop=Math.round(hB+Math.max(8,(iT-hB-ch)/2)); tog.style.top=cTop+'px'; tog.style.left=Math.round(imE.getBoundingClientRect().left-aR.left)+'px'; }
     else { tog.style.top=Math.round(head.offsetTop+head.offsetHeight/2-tog.offsetHeight/2)+'px'; tog.style.left=Math.max(imE.offsetLeft,(imE.offsetLeft+imE.offsetWidth-tog.offsetWidth))+'px'; }
   }
   function build(ab){
