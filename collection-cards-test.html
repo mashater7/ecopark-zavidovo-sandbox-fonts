@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Коллекция Завидово — выбор посёлка · Вариант 1: карточки</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1bad03; --green-d:#2f6b43;
+    --blue:#007fe2;  --blue-l:#3eb5f1;
+    --brown:#bb916b;
+    --ink:#333; --ink-soft:#6b6b6b;
+    --bg:#f5f2f0; --bg2:#f0f6f4; --card:#fff;
+    --grad:linear-gradient(100deg,var(--green) 0%,#15a06a 45%,var(--blue) 100%);
+    --font:'Poiret One','Century Gothic',sans-serif;
+    --radius:18px;
+    --shadow:0 18px 40px -22px rgba(20,60,40,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--font); color:var(--ink);
+    background:
+      radial-gradient(1200px 600px at 80% -10%, var(--bg2), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, #eef6f1, transparent 55%),
+      var(--bg);
+    min-height:100vh; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ——— шапка ——— */
+  .head{max-width:1180px;margin:0 auto;padding:56px 24px 30px;text-align:center}
+  .head .diamond{width:74px;height:74px;object-fit:contain;margin-bottom:14px}
+  .brand{
+    font-size:clamp(26px,4.4vw,46px);letter-spacing:.22em;
+    text-transform:uppercase;font-weight:400;line-height:1.1;
+    color:var(--ink);
+  }
+  .brand b{
+    font-weight:400;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .tagline{
+    margin-top:14px;font-size:clamp(14px,1.7vw,18px);letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-soft);
+  }
+  .rule{width:54px;height:2px;background:var(--grad);margin:22px auto 0;border-radius:2px}
+
+  /* ——— карточки ——— */
+  .grid{
+    max-width:1180px;margin:0 auto;padding:34px 24px 70px;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
+  }
+  .card{
+    position:relative;display:flex;flex-direction:column;
+    background:var(--card);border-radius:var(--radius);overflow:hidden;
+    box-shadow:var(--shadow);text-decoration:none;color:inherit;
+    transition:transform .35s ease, box-shadow .35s ease;
+    border:1px solid rgba(0,0,0,.04);
+  }
+  .card:hover{transform:translateY(-8px);box-shadow:0 30px 55px -24px rgba(20,60,40,.55)}
+  .card__media{position:relative;aspect-ratio:4/3;overflow:hidden}
+  .card__media img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+  .card:hover .card__media img{transform:scale(1.06)}
+  .card__media::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(255,255,255,0) 45%,rgba(255,255,255,.06) 100%),
+               linear-gradient(180deg,rgba(15,40,30,.18),rgba(15,40,30,0) 40%);
+  }
+  .badge{
+    position:absolute;left:16px;top:16px;width:54px;height:54px;border-radius:50%;
+    background:rgba(255,255,255,.92);backdrop-filter:blur(4px);
+    display:grid;place-items:center;box-shadow:0 6px 16px -8px rgba(0,0,0,.4)
+  }
+  .badge img{width:34px;height:34px;object-fit:contain}
+  .card__body{padding:22px 22px 26px;display:flex;flex-direction:column;flex:1}
+  .vname{
+    font-size:30px;letter-spacing:.14em;text-transform:uppercase;font-weight:400;
+    color:var(--ink);
+  }
+  .vkicker{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--brown);margin-bottom:6px}
+  .vdesc{margin-top:10px;color:var(--ink-soft);font-size:15.5px;flex:1}
+  .vline{height:1px;background:linear-gradient(90deg,rgba(0,0,0,.10),transparent);margin:18px 0 16px}
+  .btn{
+    align-self:flex-start;display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--font);font-size:15px;letter-spacing:.16em;text-transform:uppercase;
+    padding:12px 22px;border-radius:40px;color:#fff;background:var(--grad);
+    text-decoration:none;transition:gap .25s ease, filter .25s ease;
+  }
+  .card:hover .btn{gap:16px;filter:brightness(1.05)}
+  .btn .arr{transition:transform .25s ease}
+
+  /* акцент центральной (флагман) */
+  .card--flag{outline:2px solid transparent;}
+  .card--flag .ribbon{
+    position:absolute;right:0;top:18px;z-index:2;
+    font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#fff;
+    background:var(--brown);padding:7px 14px 7px 16px;border-radius:30px 0 0 30px;
+    box-shadow:0 6px 16px -8px rgba(0,0,0,.5)
+  }
+
+  .foot{text-align:center;padding:0 24px 60px;color:#9a9a9a;font-size:13px;letter-spacing:.12em}
+
+  @media (max-width:900px){
+    .grid{grid-template-columns:1fr;max-width:520px;gap:22px}
+    .card__media{aspect-ratio:16/10}
+  }
+</style>
+</head>
+<body>
+
+  <header class="head">
+    <img class="diamond" src="assets/collection/logo-diamond.png" alt="">
+    <h1 class="brand">Коллекция <b>Завидово</b></h1>
+    <div class="tagline">выберите свой посёлок</div>
+    <div class="rule"></div>
+  </header>
+
+  <main class="grid">
+
+    <a class="card" href="#lesnoy">
+      <div class="card__media">
+        <img src="assets/collection/photo-lesnoy.jpg" alt="Экопарк Лесной">
+        <span class="badge"><img src="assets/collection/logo-lesnoy.png" alt=""></span>
+      </div>
+      <div class="card__body">
+        <div class="vkicker">экопарк</div>
+        <div class="vname">Лесной</div>
+        <p class="vdesc">Уединённые коттеджи в сосновом бору. Тишина, чистый воздух и природа в шаге от дома.</p>
+        <div class="vline"></div>
+        <span class="btn">Выбрать <span class="arr">→</span></span>
+      </div>
+    </a>
+
+    <a class="card card--flag" href="#zavidovo">
+      <span class="ribbon">флагман</span>
+      <div class="card__media">
+        <img src="assets/collection/photo-zavidovo.jpg" alt="Экопарк Завидово">
+        <span class="badge"><img src="assets/collection/logo-zavidovo.png" alt=""></span>
+      </div>
+      <div class="card__body">
+        <div class="vkicker">экопарк</div>
+        <div class="vname">Завидово</div>
+        <p class="vdesc">Сердце курорта: гольф, спа, рестораны и вся инфраструктура для жизни и отдыха.</p>
+        <div class="vline"></div>
+        <span class="btn">Выбрать <span class="arr">→</span></span>
+      </div>
+    </a>
+
+    <a class="card" href="#akvatoriya">
+      <div class="card__media">
+        <img src="assets/collection/photo-akvatoriya.jpg" alt="Акватория Завидово">
+        <span class="badge"><img src="assets/collection/logo-akvatoriya.png" alt=""></span>
+      </div>
+      <div class="card__body">
+        <div class="vkicker">акватория</div>
+        <div class="vname">Акватория</div>
+        <p class="vdesc">Жизнь у воды: дома на берегу, собственный пляж, причал и бассейны.</p>
+        <div class="vline"></div>
+        <span class="btn">Выбрать <span class="arr">→</span></span>
+      </div>
+    </a>
+
+  </main>
+
+  <div class="foot">КОЛЛЕКЦИЯ ЗАВИДОВО · пример лендинга · вариант 1 — карточки</div>
+
+</body>
+</html>

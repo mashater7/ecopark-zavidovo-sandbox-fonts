@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Коллекция Завидово — выбор посёлка · Вариант 2: карта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1bad03; --green-d:#2f6b43; --blue:#007fe2; --blue-l:#3eb5f1;
+    --brown:#bb916b; --ink:#333; --ink-soft:#6b6b6b;
+    --bg:#f5f2f0; --bg2:#f0f6f4; --card:#fff;
+    --grad:linear-gradient(100deg,var(--green) 0%,#15a06a 45%,var(--blue) 100%);
+    --font:'Poiret One','Century Gothic',sans-serif; --radius:20px;
+    --shadow:0 22px 50px -26px rgba(20,60,40,.5);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;
+    background:radial-gradient(1200px 600px at 80% -10%,var(--bg2),transparent 60%),var(--bg);min-height:100vh}
+
+  .head{max-width:1240px;margin:0 auto;padding:46px 24px 8px;text-align:center}
+  .head .diamond{width:64px;height:64px;object-fit:contain;margin-bottom:10px}
+  .brand{font-size:clamp(24px,4vw,42px);letter-spacing:.22em;text-transform:uppercase;font-weight:400}
+  .brand b{font-weight:400;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .tagline{margin-top:10px;font-size:clamp(13px,1.6vw,17px);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:24px 24px 64px;
+    display:grid;grid-template-columns:1.35fr .9fr;gap:30px;align-items:stretch}
+
+  /* ——— карта ——— */
+  .map{position:relative;border-radius:var(--radius);overflow:hidden;min-height:460px;
+    background:linear-gradient(160deg,#eaf5ee 0%,#e4f1f6 100%);box-shadow:var(--shadow);
+    border:1px solid rgba(0,0,0,.04)}
+  .map svg{position:absolute;inset:0;width:100%;height:100%}
+  .pin{position:absolute;transform:translate(-50%,-100%);background:none;border:0;cursor:pointer;
+    font-family:var(--font);text-align:center;padding:0}
+  .pin .dot{width:22px;height:22px;border-radius:50%;margin:0 auto;background:#fff;
+    border:3px solid var(--green-d);box-shadow:0 6px 14px -5px rgba(0,0,0,.5);transition:.25s}
+  .pin .lbl{margin-top:7px;display:inline-block;font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink);background:rgba(255,255,255,.9);padding:5px 11px;border-radius:20px;
+    box-shadow:0 6px 14px -8px rgba(0,0,0,.35);white-space:nowrap;transition:.25s}
+  .pin::after{content:"";position:absolute;left:50%;top:22px;width:2px;height:0;background:var(--green-d);transition:.25s}
+  .pin:hover .dot,.pin.active .dot{transform:scale(1.25);border-color:var(--blue);background:var(--blue-l)}
+  .pin.active .lbl{background:var(--grad);color:#fff}
+  .pin:focus-visible{outline:none}
+  .pin:focus-visible .lbl{outline:2px solid var(--blue)}
+
+  /* ——— карточка-деталь ——— */
+  .detail{position:relative;border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;
+    background:var(--card);box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.04)}
+  .detail__media{position:relative;height:230px;overflow:hidden}
+  .detail__media img{width:100%;height:100%;object-fit:cover;transition:opacity .4s ease}
+  .detail__media .badge{position:absolute;left:16px;top:16px;width:52px;height:52px;border-radius:50%;
+    background:rgba(255,255,255,.92);display:grid;place-items:center;box-shadow:0 6px 16px -8px rgba(0,0,0,.4)}
+  .detail__media .badge img{width:32px;height:32px;object-fit:contain}
+  .detail__body{padding:24px 26px 28px;display:flex;flex-direction:column;flex:1}
+  .vkicker{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--brown)}
+  .vname{font-size:34px;letter-spacing:.12em;text-transform:uppercase;font-weight:400;margin-top:2px}
+  .vdesc{margin-top:12px;color:var(--ink-soft);font-size:16px;flex:1}
+  .btn{align-self:flex-start;margin-top:20px;display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--font);font-size:15px;letter-spacing:.16em;text-transform:uppercase;
+    padding:13px 26px;border-radius:40px;color:#fff;background:var(--grad);text-decoration:none;transition:gap .25s,filter .25s}
+  .btn:hover{gap:15px;filter:brightness(1.05)}
+  .hint{text-align:center;color:#9a9a9a;font-size:13px;letter-spacing:.12em;padding:0 24px 56px}
+
+  @media (max-width:880px){
+    .wrap{grid-template-columns:1fr;max-width:560px;gap:22px}
+    .map{min-height:340px}
+  }
+</style>
+</head>
+<body>
+
+  <header class="head">
+    <img class="diamond" src="assets/collection/logo-diamond.png" alt="">
+    <h1 class="brand">Коллекция <b>Завидово</b></h1>
+    <div class="tagline">выберите посёлок на карте</div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- КАРТА -->
+    <div class="map">
+      <svg viewBox="0 0 600 460" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <!-- лес (зелёные массивы) -->
+        <path d="M-20 60 Q120 0 260 50 Q360 90 300 180 Q200 250 60 210 Q-40 170 -20 60Z" fill="#d6ecd9" opacity=".9"/>
+        <path d="M40 30 Q150 10 230 60 Q280 100 230 150 Q150 190 70 150 Q10 110 40 30Z" fill="#c6e4cb" opacity=".8"/>
+        <!-- вода (река/озеро) -->
+        <path d="M620 220 Q470 250 440 330 Q420 400 520 440 L620 460 Z" fill="#cfe7f2" opacity=".95"/>
+        <path d="M120 470 Q220 360 380 380 Q520 396 600 330" fill="none" stroke="#aed7ea" stroke-width="34" stroke-linecap="round" opacity=".7"/>
+        <path d="M120 470 Q220 360 380 380 Q520 396 600 330" fill="none" stroke="#7cc3e3" stroke-width="10" stroke-linecap="round" opacity=".8"/>
+        <!-- дорожки -->
+        <path d="M150 120 Q280 200 300 250 Q330 320 470 360" fill="none" stroke="#bb916b" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round" opacity=".55"/>
+        <path d="M300 250 L300 250" />
+      </svg>
+
+      <!-- пины (left/top в %) -->
+      <button class="pin active" data-v="zavidovo" style="left:50%;top:55%">
+        <span class="dot"></span><span class="lbl">Завидово</span>
+      </button>
+      <button class="pin" data-v="lesnoy" style="left:25%;top:30%">
+        <span class="dot"></span><span class="lbl">Лесной</span>
+      </button>
+      <button class="pin" data-v="akvatoriya" style="left:78%;top:78%">
+        <span class="dot"></span><span class="lbl">Акватория</span>
+      </button>
+    </div>
+
+    <!-- ДЕТАЛЬ -->
+    <a class="detail" id="detail" href="#zavidovo">
+      <div class="detail__media">
+        <img id="d-img" src="assets/collection/photo-zavidovo.jpg" alt="">
+        <span class="badge"><img id="d-logo" src="assets/collection/logo-zavidovo.png" alt=""></span>
+      </div>
+      <div class="detail__body">
+        <div class="vkicker" id="d-kicker">экопарк</div>
+        <div class="vname" id="d-name">Завидово</div>
+        <p class="vdesc" id="d-desc">Сердце курорта: гольф, спа, рестораны и вся инфраструктура для жизни и отдыха.</p>
+        <span class="btn">Перейти в посёлок →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="hint">наведите или коснитесь пина · вариант 2 — интерактивная карта</div>
+
+<script>
+  var DATA = {
+    zavidovo:  {kicker:"экопарк",   name:"Завидово",  href:"#zavidovo",
+      desc:"Сердце курорта: гольф, спа, рестораны и вся инфраструктура для жизни и отдыха.",
+      img:"assets/collection/photo-zavidovo.jpg",  logo:"assets/collection/logo-zavidovo.png"},
+    lesnoy:    {kicker:"экопарк",   name:"Лесной",    href:"#lesnoy",
+      desc:"Уединённые коттеджи в сосновом бору. Тишина, чистый воздух и природа в шаге от дома.",
+      img:"assets/collection/photo-lesnoy.jpg",     logo:"assets/collection/logo-lesnoy.png"},
+    akvatoriya:{kicker:"акватория", name:"Акватория", href:"#akvatoriya",
+      desc:"Жизнь у воды: дома на берегу, собственный пляж, причал и бассейны.",
+      img:"assets/collection/photo-akvatoriya.jpg", logo:"assets/collection/logo-akvatoriya.png"}
+  };
+  var pins=document.querySelectorAll('.pin');
+  var dImg=document.getElementById('d-img'), dLogo=document.getElementById('d-logo'),
+      dName=document.getElementById('d-name'), dDesc=document.getElementById('d-desc'),
+      dKick=document.getElementById('d-kicker'), detail=document.getElementById('detail');
+  function show(key){
+    var d=DATA[key]; if(!d) return;
+    dImg.style.opacity=0;
+    setTimeout(function(){ dImg.src=d.img; dImg.style.opacity=1; },150);
+    dLogo.src=d.logo; dName.textContent=d.name; dDesc.textContent=d.desc; dKick.textContent=d.kicker;
+    detail.setAttribute('href',d.href);
+    pins.forEach(function(p){ p.classList.toggle('active', p.dataset.v===key); });
+  }
+  pins.forEach(function(p){
+    p.addEventListener('mouseenter',function(){ show(p.dataset.v); });
+    p.addEventListener('click',function(e){ e.preventDefault(); show(p.dataset.v); });
+  });
+</script>
+</body>
+</html>

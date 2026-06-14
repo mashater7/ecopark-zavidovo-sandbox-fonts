@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Коллекция Завидово — стили карточек</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1bad03; --green-d:#2f6b43; --blue:#007fe2; --blue-l:#3eb5f1;
+    --brown:#bb916b; --ink:#333; --ink-soft:#6b6b6b;
+    --bg:#f5f2f0; --bg2:#f0f6f4; --card:#fff;
+    --grad:linear-gradient(100deg,var(--green),#15a06a 45%,var(--blue));
+    --font:'Poiret One','Century Gothic',sans-serif; --radius:18px;
+    --shadow:0 18px 40px -22px rgba(20,60,40,.45);
+    --shadow-lg:0 30px 60px -28px rgba(20,60,40,.55);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;
+    background:radial-gradient(1200px 700px at 85% -5%,var(--bg2),transparent 55%),var(--bg)}
+
+  /* sticky nav */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(245,242,240,.82);backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(0,0,0,.06)}
+  .nav__in{max-width:1180px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .nav img{width:30px;height:30px;object-fit:contain}
+  .nav .t{font-size:14px;letter-spacing:.2em;text-transform:uppercase;margin-right:auto}
+  .nav a{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:#666;text-decoration:none;
+    padding:7px 13px;border-radius:30px;transition:.2s;white-space:nowrap}
+  .nav a:hover{background:#fff;color:#111;box-shadow:0 6px 14px -8px rgba(0,0,0,.35)}
+
+  .sec{max-width:1180px;margin:0 auto;padding:54px 24px 8px}
+  .sec__h{display:flex;align-items:baseline;gap:14px;margin-bottom:26px;flex-wrap:wrap}
+  .sec__n{font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--brown)}
+  .sec__t{font-size:clamp(24px,3.4vw,34px);letter-spacing:.1em;text-transform:uppercase;font-weight:400}
+  .sec__d{font-size:14px;color:var(--ink-soft);letter-spacing:.04em}
+
+  .vkicker{font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--brown)}
+  .vname{font-weight:400;text-transform:uppercase;letter-spacing:.12em}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--font);font-size:14px;
+    letter-spacing:.16em;text-transform:uppercase;padding:12px 22px;border-radius:40px;color:#fff;
+    background:var(--grad);text-decoration:none;transition:gap .25s,filter .25s}
+  .btn:hover{gap:14px;filter:brightness(1.05)}
+  .btn--ghost{background:none;color:var(--green-d);border:1.5px solid rgba(47,107,67,.4)}
+  .btn--ghost:hover{border-color:var(--blue);color:var(--blue)}
+
+  /* ============ A. СТЕКЛО (glass) ============ */
+  .glass{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .gcard{position:relative;aspect-ratio:3/4;border-radius:22px;overflow:hidden;text-decoration:none;
+    color:#fff;box-shadow:var(--shadow);transition:transform .35s;display:block}
+  .gcard:hover{transform:translateY(-7px)}
+  .gcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .gcard:hover img{transform:scale(1.06)}
+  .gcard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,30,20,.05),rgba(10,30,20,.35))}
+  .gpanel{position:absolute;left:14px;right:14px;bottom:14px;z-index:2;padding:18px 18px 20px;
+    border-radius:16px;background:rgba(255,255,255,.18);backdrop-filter:blur(14px) saturate(1.2);
+    border:1px solid rgba(255,255,255,.35);box-shadow:0 10px 30px -14px rgba(0,0,0,.4)}
+  .gpanel .vkicker{color:#eafff0;opacity:.95}
+  .gpanel .vname{font-size:27px;text-shadow:0 2px 10px rgba(0,0,0,.3)}
+  .gpanel .badge{position:absolute;top:-26px;right:16px;width:48px;height:48px;border-radius:50%;
+    background:rgba(255,255,255,.95);display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(0,0,0,.5)}
+  .gpanel .badge img{width:30px;height:30px;object-fit:contain;position:static}
+  .gpanel .vdesc{margin-top:9px;font-size:13.5px;line-height:1.5;color:#f3fff7;opacity:.95;
+    text-shadow:0 1px 6px rgba(0,0,0,.3)}
+  .gpanel .row{display:flex;align-items:center;justify-content:space-between;margin-top:13px;gap:10px}
+  .gpanel .go{font-size:13px;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;gap:8px;align-items:center}
+
+  /* ============ B. ЖУРНАЛ (editorial) ============ */
+  .ed{display:flex;flex-direction:column;gap:22px}
+  .ecard{display:grid;grid-template-columns:1.05fr 1fr;background:var(--card);border-radius:20px;overflow:hidden;
+    box-shadow:var(--shadow);text-decoration:none;color:inherit;border:1px solid rgba(0,0,0,.04);
+    transition:box-shadow .35s,transform .35s}
+  .ecard:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+  .ecard:nth-child(even){grid-template-columns:1fr 1.05fr}
+  .ecard:nth-child(even) .ecard__media{order:2}
+  .ecard__media{position:relative;min-height:280px;overflow:hidden}
+  .ecard__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .ecard:hover .ecard__media img{transform:scale(1.05)}
+  .ecard__body{padding:38px 40px;display:flex;flex-direction:column;justify-content:center}
+  .ecard__idx{font-size:46px;color:#e3ded8;letter-spacing:.02em;line-height:1;margin-bottom:8px}
+  .ecard .vname{font-size:38px;margin-top:4px}
+  .ecard .vdesc{margin:16px 0 22px;color:var(--ink-soft);font-size:16px;max-width:42ch}
+  .ecard .badge{width:46px;height:46px;margin-bottom:6px}
+  .ecard .badge img{width:46px;height:46px;object-fit:contain}
+
+  /* ============ C. МИНИМАЛ (outline) ============ */
+  .mi{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .mcard{position:relative;border-radius:20px;background:var(--card);padding:34px 30px 30px;overflow:hidden;
+    text-decoration:none;color:inherit;border:1px solid rgba(0,0,0,.07);box-shadow:0 14px 34px -26px rgba(20,60,40,.5);
+    transition:transform .35s,box-shadow .35s;display:flex;flex-direction:column;min-height:330px}
+  .mcard::before{content:"";position:absolute;inset:0;border-radius:20px;padding:1.5px;
+    background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .35s}
+  .mcard:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
+  .mcard:hover::before{opacity:1}
+  .mcard .wm{position:absolute;right:-22px;bottom:-26px;width:150px;height:150px;opacity:.10;
+    transition:opacity .35s,transform .5s}
+  .mcard:hover .wm{opacity:.18;transform:scale(1.05) rotate(-4deg)}
+  .mcard .badge{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;
+    background:#f3f7f4;margin-bottom:18px}
+  .mcard .badge img{width:34px;height:34px;object-fit:contain}
+  .mcard .vname{font-size:32px}
+  .mcard .vdesc{margin:14px 0 22px;color:var(--ink-soft);font-size:15px;flex:1}
+
+  /* ============ D. БЕНТО (bento) ============ */
+  .bento{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr;gap:20px;min-height:520px}
+  .bcard{position:relative;border-radius:20px;overflow:hidden;text-decoration:none;color:#fff;
+    box-shadow:var(--shadow);transition:transform .35s;display:block}
+  .bcard:hover{transform:translateY(-6px)}
+  .bcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .bcard:hover img{transform:scale(1.06)}
+  .bcard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,30,20,.12),rgba(10,30,20,.6))}
+  .bcard--big{grid-row:1 / span 2}
+  .bcard__in{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:24px 26px}
+  .bcard .badge{position:absolute;z-index:2;top:18px;left:18px;width:46px;height:46px;border-radius:50%;
+    background:rgba(255,255,255,.95);display:grid;place-items:center;box-shadow:0 6px 16px -8px rgba(0,0,0,.5)}
+  .bcard .badge img{width:28px;height:28px;object-fit:contain;position:static}
+  .bcard .vkicker{color:#eafff0}
+  .bcard .vname{font-size:26px;text-shadow:0 2px 10px rgba(0,0,0,.35)}
+  .bcard--big .vname{font-size:40px}
+  .bcard .vdesc{margin-top:8px;font-size:14px;opacity:.92;max-width:34ch}
+  .bcard .ribbon{position:absolute;z-index:2;top:18px;right:18px;font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:#fff;background:var(--brown);padding:6px 13px;border-radius:30px}
+
+  /* ============ E. АФИША (full-bleed) ============ */
+  .fb{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .fcard{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;text-decoration:none;color:#fff;
+    box-shadow:var(--shadow);transition:transform .35s;display:block}
+  .fcard:hover{transform:translateY(-7px)}
+  .fcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s;filter:saturate(.95)}
+  .fcard:hover img{transform:scale(1.07)}
+  .fcard::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(10,30,20,0) 35%,rgba(10,28,20,.78) 100%)}
+  .fcard__in{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:26px 26px 28px;text-align:center}
+  .fcard .badge{width:56px;height:56px;border-radius:50%;margin:0 auto 12px;background:rgba(255,255,255,.95);
+    display:grid;place-items:center;box-shadow:0 8px 20px -8px rgba(0,0,0,.6)}
+  .fcard .badge img{width:34px;height:34px;object-fit:contain;position:static}
+  .fcard .vname{font-size:30px;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+  .fcard .vdesc{max-height:0;opacity:0;overflow:hidden;transition:max-height .45s,opacity .4s;margin-top:0}
+  .fcard:hover .vdesc{max-height:120px;opacity:1;margin-top:10px}
+  .fcard .vdesc p{font-size:14px;opacity:.95}
+  .fcard .go{margin-top:14px;display:inline-flex;gap:8px;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+
+  .foot{text-align:center;padding:50px 24px 60px;color:#9a9a9a;font-size:13px;letter-spacing:.12em}
+
+  @media (max-width:880px){
+    .glass,.mi,.fb{grid-template-columns:1fr;max-width:460px;margin:0 auto}
+    .gcard{aspect-ratio:4/3}
+    .fcard{aspect-ratio:16/11}
+    .ecard,.ecard:nth-child(even){grid-template-columns:1fr}
+    .ecard__media{min-height:220px}
+    .ecard:nth-child(even) .ecard__media{order:0}
+    .ecard__body{padding:28px 26px}
+    .bento{grid-template-columns:1fr;grid-template-rows:none;min-height:0}
+    .bcard{aspect-ratio:16/11}
+    .bcard--big{grid-row:auto}
+    .fcard .vdesc{max-height:120px;opacity:1;margin-top:10px}
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav"><div class="nav__in">
+    <img src="assets/collection/logo-diamond.png" alt="">
+    <span class="t">Коллекция Завидово · стили карточек</span>
+    <a href="#glass">Стекло</a>
+    <a href="#ed">Журнал</a>
+    <a href="#mi">Минимал</a>
+    <a href="#bento">Бенто</a>
+    <a href="#fb">Афиша</a>
+  </div></nav>
+
+  <!-- A -->
+  <section class="sec" id="glass">
+    <div class="sec__h"><span class="sec__n">стиль A</span><h2 class="sec__t">Стекло</h2>
+      <span class="sec__d">фото + матовая стеклянная панель · премиально, воздушно</span></div>
+    <div class="glass" id="glass-grid"></div>
+  </section>
+
+  <!-- B -->
+  <section class="sec" id="ed">
+    <div class="sec__h"><span class="sec__n">стиль B</span><h2 class="sec__t">Журнал</h2>
+      <span class="sec__d">крупное фото + текст в строку, нумерация · солидно, дорого</span></div>
+    <div class="ed" id="ed-grid"></div>
+  </section>
+
+  <!-- C -->
+  <section class="sec" id="mi">
+    <div class="sec__h"><span class="sec__n">стиль C</span><h2 class="sec__t">Минимал</h2>
+      <span class="sec__d">без фото, градиентная рамка + водяной знак-эмблема · чисто, легко</span></div>
+    <div class="mi" id="mi-grid"></div>
+  </section>
+
+  <!-- D -->
+  <section class="sec" id="bento">
+    <div class="sec__h"><span class="sec__n">стиль D</span><h2 class="sec__t">Бенто</h2>
+      <span class="sec__d">флагман крупно + два меньше · современная сетка</span></div>
+    <div class="bento" id="bento-grid"></div>
+  </section>
+
+  <!-- E -->
+  <section class="sec" id="fb">
+    <div class="sec__h"><span class="sec__n">стиль E</span><h2 class="sec__t">Афиша</h2>
+      <span class="sec__d">фото на всю карточку + раскрытие текста · в духе сплит-экрана</span></div>
+    <div class="fb" id="fb-grid"></div>
+  </section>
+
+  <div class="foot">КОЛЛЕКЦИЯ ЗАВИДОВО · галерея стилей карточек · все 5 на фирстиле (Poiret One + градиент)</div>
+
+<script>
+  var V=[
+    {key:"lesnoy",kicker:"экопарк",name:"Лесной",href:"#lesnoy",flag:false,
+     desc:"Уединённые коттеджи в сосновом бору. Тишина и природа в шаге от дома.",
+     img:"assets/collection/photo-lesnoy.jpg",logo:"assets/collection/logo-lesnoy.png"},
+    {key:"zavidovo",kicker:"экопарк · флагман",name:"Завидово",href:"#zavidovo",flag:true,
+     desc:"Сердце курорта: гольф, спа, рестораны и вся инфраструктура.",
+     img:"assets/collection/photo-zavidovo.jpg",logo:"assets/collection/logo-zavidovo.png"},
+    {key:"akvatoriya",kicker:"акватория",name:"Акватория",href:"#akvatoriya",flag:false,
+     desc:"Жизнь у воды: дома на берегу, собственный пляж, причал и бассейны.",
+     img:"assets/collection/photo-akvatoriya.jpg",logo:"assets/collection/logo-akvatoriya.png"}
+  ];
+  function el(html){var t=document.createElement('template');t.innerHTML=html.trim();return t.content.firstChild;}
+
+  // A glass
+  var g=document.getElementById('glass-grid');
+  V.forEach(function(v){g.appendChild(el(
+    '<a class="gcard" href="'+v.href+'"><img src="'+v.img+'" alt="'+v.name+'">'+
+    '<div class="gpanel"><span class="badge"><img src="'+v.logo+'" alt=""></span>'+
+    '<div class="vkicker">'+v.kicker+'</div><div class="vname">'+v.name+'</div>'+
+    '<p class="vdesc">'+v.desc+'</p>'+
+    '<div class="row"><span></span><span class="go">Выбрать →</span></div></div></a>'));});
+
+  // B editorial
+  var e=document.getElementById('ed-grid');
+  V.forEach(function(v,i){e.appendChild(el(
+    '<a class="ecard" href="'+v.href+'"><div class="ecard__media"><img src="'+v.img+'" alt="'+v.name+'"></div>'+
+    '<div class="ecard__body"><div class="ecard__idx">0'+(i+1)+'</div>'+
+    '<span class="badge"><img src="'+v.logo+'" alt=""></span>'+
+    '<div class="vkicker">'+v.kicker+'</div><div class="vname">'+v.name+'</div>'+
+    '<p class="vdesc">'+v.desc+'</p><span class="btn btn--ghost">Перейти в посёлок →</span></div></a>'));});
+
+  // C minimal
+  var m=document.getElementById('mi-grid');
+  V.forEach(function(v){m.appendChild(el(
+    '<a class="mcard" href="'+v.href+'"><img class="wm" src="'+v.logo+'" alt="">'+
+    '<span class="badge"><img src="'+v.logo+'" alt=""></span>'+
+    '<div class="vkicker">'+v.kicker+'</div><div class="vname">'+v.name+'</div>'+
+    '<p class="vdesc">'+v.desc+'</p><span class="btn btn--ghost">Выбрать →</span></a>'));});
+
+  // D bento (Завидово big, first)
+  var b=document.getElementById('bento-grid');
+  var order=[V[1],V[0],V[2]];
+  order.forEach(function(v,i){b.appendChild(el(
+    '<a class="bcard'+(i===0?' bcard--big':'')+'" href="'+v.href+'"><img src="'+v.img+'" alt="'+v.name+'">'+
+    '<span class="badge"><img src="'+v.logo+'" alt=""></span>'+
+    (v.flag?'<span class="ribbon">флагман</span>':'')+
+    '<div class="bcard__in"><div class="vkicker">'+v.kicker+'</div><div class="vname">'+v.name+'</div>'+
+    (i===0?'<p class="vdesc">'+v.desc+'</p>':'')+'</div></a>'));});
+
+  // E full-bleed
+  var f=document.getElementById('fb-grid');
+  V.forEach(function(v){f.appendChild(el(
+    '<a class="fcard" href="'+v.href+'"><img src="'+v.img+'" alt="'+v.name+'">'+
+    '<div class="fcard__in"><span class="badge"><img src="'+v.logo+'" alt=""></span>'+
+    '<div class="vkicker">'+v.kicker+'</div><div class="vname">'+v.name+'</div>'+
+    '<div class="vdesc"><p>'+v.desc+'</p></div><div class="go">Выбрать →</div></div></a>'));});
+</script>
+</body>
+</html>

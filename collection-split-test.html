@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Коллекция Завидово — выбор посёлка · Вариант 3: сплит-экран</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1bad03; --blue:#007fe2; --brown:#bb916b;
+    --ink:#333; --grad:linear-gradient(100deg,var(--green),#15a06a 45%,var(--blue));
+    --font:'Poiret One','Century Gothic',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);color:#fff;background:#0f231b;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+  /* плавающая шапка поверх панелей */
+  .head{position:absolute;z-index:5;top:0;left:0;right:0;text-align:center;padding:26px 24px;
+    pointer-events:none;background:linear-gradient(180deg,rgba(10,25,18,.55),transparent)}
+  .head .diamond{width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.5));margin-bottom:6px}
+  .brand{font-size:clamp(20px,3.4vw,38px);letter-spacing:.24em;text-transform:uppercase;font-weight:400;
+    text-shadow:0 2px 14px rgba(0,0,0,.5)}
+  .tagline{margin-top:6px;font-size:clamp(11px,1.4vw,15px);letter-spacing:.2em;text-transform:uppercase;opacity:.92}
+
+  /* ——— сплит ——— */
+  .split{display:flex;height:100vh;min-height:560px}
+  .panel{position:relative;flex:1;overflow:hidden;cursor:pointer;text-decoration:none;color:#fff;
+    transition:flex .55s cubic-bezier(.7,0,.2,1);border-left:1px solid rgba(255,255,255,.12)}
+  .panel:first-child{border-left:0}
+  .panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    transition:transform .8s ease, filter .55s ease;filter:saturate(.9) brightness(.72)}
+  .panel::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(10,25,18,.15) 0%,rgba(10,25,18,.65) 100%)}
+  .panel__in{position:absolute;z-index:2;inset:auto 0 0 0;padding:0 26px 46px;text-align:center}
+  .panel .badge{width:62px;height:62px;border-radius:50%;margin:0 auto 14px;
+    background:rgba(255,255,255,.92);display:grid;place-items:center;box-shadow:0 8px 20px -8px rgba(0,0,0,.6)}
+  .panel .badge img{width:38px;height:38px;object-fit:contain;position:static;filter:none}
+  .vkicker{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#ffe;opacity:.85}
+  .vname{font-size:clamp(26px,3vw,40px);letter-spacing:.14em;text-transform:uppercase;font-weight:400;
+    text-shadow:0 2px 16px rgba(0,0,0,.55);margin-top:2px}
+  .reveal{max-height:0;opacity:0;overflow:hidden;transition:max-height .55s ease,opacity .45s ease}
+  .vdesc{margin:14px auto 0;max-width:340px;font-size:15.5px;line-height:1.55;opacity:.95}
+  .btn{margin-top:18px;display:inline-flex;align-items:center;gap:10px;font-family:var(--font);
+    font-size:14px;letter-spacing:.16em;text-transform:uppercase;padding:12px 26px;border-radius:40px;
+    color:#fff;background:var(--grad);text-decoration:none;transition:gap .25s,filter .25s}
+
+  /* поведение раскрытия (desktop, hover) */
+  @media (hover:hover) and (min-width:861px){
+    .split:hover .panel{flex:.72}
+    .split .panel:hover{flex:2.1}
+    .panel:hover img{transform:scale(1.06);filter:saturate(1.05) brightness(.82)}
+    .panel:hover .reveal{max-height:240px;opacity:1}
+  }
+
+  .foot{position:absolute;z-index:5;bottom:0;left:0;right:0;text-align:center;padding:14px;
+    font-size:12px;letter-spacing:.14em;opacity:.7;pointer-events:none}
+
+  /* ——— мобайл: панели в столбик, всё видно ——— */
+  @media (max-width:860px){
+    .head{position:relative;background:#10231b}
+    .split{flex-direction:column;height:auto}
+    .panel{flex:none;height:62vh;min-height:380px;border-left:0;border-top:1px solid rgba(255,255,255,.12)}
+    .panel__in{padding-bottom:36px}
+    .reveal{max-height:260px;opacity:1}
+    .foot{position:relative}
+  }
+</style>
+</head>
+<body>
+
+  <header class="head">
+    <img class="diamond" src="assets/collection/logo-diamond.png" alt="">
+    <h1 class="brand">Коллекция Завидово</h1>
+    <div class="tagline">три посёлка — один курорт</div>
+  </header>
+
+  <main class="split">
+
+    <a class="panel" href="#lesnoy">
+      <img src="assets/collection/photo-lesnoy.jpg" alt="">
+      <div class="panel__in">
+        <span class="badge"><img src="assets/collection/logo-lesnoy.png" alt=""></span>
+        <div class="vkicker">экопарк</div>
+        <div class="vname">Лесной</div>
+        <div class="reveal">
+          <p class="vdesc">Уединённые коттеджи в сосновом бору. Тишина и природа в шаге от дома.</p>
+          <span class="btn">Выбрать →</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="panel" href="#zavidovo">
+      <img src="assets/collection/photo-zavidovo.jpg" alt="">
+      <div class="panel__in">
+        <span class="badge"><img src="assets/collection/logo-zavidovo.png" alt=""></span>
+        <div class="vkicker">экопарк · флагман</div>
+        <div class="vname">Завидово</div>
+        <div class="reveal">
+          <p class="vdesc">Сердце курорта: гольф, спа, рестораны и вся инфраструктура.</p>
+          <span class="btn">Выбрать →</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="panel" href="#akvatoriya">
+      <img src="assets/collection/photo-akvatoriya.jpg" alt="">
+      <div class="panel__in">
+        <span class="badge"><img src="assets/collection/logo-akvatoriya.png" alt=""></span>
+        <div class="vkicker">акватория</div>
+        <div class="vname">Акватория</div>
+        <div class="reveal">
+          <p class="vdesc">Жизнь у воды: дома на берегу, собственный пляж, причал и бассейны.</p>
+          <span class="btn">Выбрать →</span>
+        </div>
+      </div>
+    </a>
+
+  </main>
+
+  <div class="foot">вариант 3 — сплит-экран · наведите на панель (на мобильном — всё раскрыто)</div>
+
+</body>
+</html>

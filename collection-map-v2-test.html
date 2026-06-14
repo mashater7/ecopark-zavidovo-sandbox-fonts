@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Коллекция Завидово — карта (улучшенная)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1bad03; --green-d:#2f6b43; --blue:#007fe2; --blue-l:#3eb5f1;
+    --brown:#bb916b; --ink:#333; --ink-soft:#6b6b6b;
+    --bg:#f5f2f0; --bg2:#f0f6f4; --card:#fff;
+    --grad:linear-gradient(100deg,var(--green),#15a06a 45%,var(--blue));
+    --font:'Poiret One','Century Gothic',sans-serif; --radius:22px;
+    --shadow:0 24px 54px -28px rgba(20,60,40,.5);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;
+    background:radial-gradient(1200px 600px at 80% -10%,var(--bg2),transparent 60%),var(--bg);min-height:100vh}
+
+  .head{max-width:1280px;margin:0 auto;padding:46px 24px 6px;text-align:center}
+  .head .diamond{width:64px;height:64px;object-fit:contain;margin-bottom:10px}
+  .brand{font-size:clamp(24px,4vw,42px);letter-spacing:.22em;text-transform:uppercase;font-weight:400}
+  .brand b{font-weight:400;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .tagline{margin-top:10px;font-size:clamp(13px,1.6vw,17px);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+
+  .wrap{max-width:1280px;margin:0 auto;padding:22px 24px 64px;
+    display:grid;grid-template-columns:1.5fr .85fr;gap:30px;align-items:stretch}
+
+  /* ——— карта ——— */
+  .map{position:relative;border-radius:var(--radius);overflow:hidden;min-height:520px;
+    box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.05);background:#eef6ef}
+  .map svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+  .legend{position:absolute;left:18px;top:16px;z-index:4;background:rgba(255,255,255,.86);
+    backdrop-filter:blur(6px);border-radius:14px;padding:12px 14px;box-shadow:0 8px 22px -12px rgba(0,0,0,.35);
+    font-size:12.5px;letter-spacing:.08em}
+  .legend b{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--brown);margin-bottom:7px}
+  .legend .li{display:flex;align-items:center;gap:8px;padding:3px 0;color:#444;cursor:pointer;transition:.2s}
+  .legend .li .num{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;color:#fff;
+    font-size:11px;background:var(--green-d)}
+  .legend .li:hover{color:#000}
+
+  /* пины */
+  .pin{position:absolute;transform:translate(-50%,-100%);background:none;border:0;cursor:pointer;
+    font-family:var(--font);text-align:center;padding:0;z-index:3}
+  .pin .head2{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.95);
+    padding:6px 12px 6px 7px;border-radius:30px;box-shadow:0 8px 18px -8px rgba(0,0,0,.4);transition:.25s}
+  .pin .num{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:#fff;
+    font-size:13px;background:var(--grad);box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
+  .pin .lbl{font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+  .pin .stem{width:2px;height:18px;background:var(--green-d);margin:0 auto;opacity:.5}
+  .pin .foot2{width:12px;height:12px;border-radius:50%;background:var(--green-d);margin:-6px auto 0;
+    border:3px solid #fff;box-shadow:0 4px 10px -3px rgba(0,0,0,.5);transition:.25s}
+  .pin:hover .head2,.pin.active .head2{transform:translateY(-3px) scale(1.04)}
+  .pin.active .foot2{background:var(--blue);transform:scale(1.25)}
+  .pin.active .head2{box-shadow:0 12px 24px -8px rgba(0,90,180,.45)}
+  .pin:focus-visible .head2{outline:2px solid var(--blue);outline-offset:2px}
+
+  /* ——— карточка-деталь ——— */
+  .detail{position:relative;border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;
+    background:var(--card);box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.04)}
+  .detail__media{position:relative;height:240px;overflow:hidden}
+  .detail__media img{width:100%;height:100%;object-fit:cover;transition:opacity .35s ease}
+  .detail__media .badge{position:absolute;left:16px;top:16px;width:52px;height:52px;border-radius:50%;
+    background:rgba(255,255,255,.92);display:grid;place-items:center;box-shadow:0 6px 16px -8px rgba(0,0,0,.4)}
+  .detail__media .badge img{width:32px;height:32px;object-fit:contain}
+  .detail__media .step{position:absolute;right:16px;top:16px;font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:#fff;background:rgba(20,40,30,.45);backdrop-filter:blur(4px);
+    padding:6px 12px;border-radius:20px}
+  .detail__body{padding:24px 26px 28px;display:flex;flex-direction:column;flex:1}
+  .vkicker{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--brown)}
+  .vname{font-size:34px;letter-spacing:.12em;text-transform:uppercase;font-weight:400;margin-top:2px}
+  .vmeta{display:flex;gap:18px;margin-top:14px;flex-wrap:wrap}
+  .vmeta div{font-size:13px;color:var(--ink-soft);letter-spacing:.04em}
+  .vmeta div b{display:block;font-size:19px;color:var(--ink);letter-spacing:.02em}
+  .vdesc{margin-top:16px;color:var(--ink-soft);font-size:15.5px;flex:1}
+  .btn{align-self:stretch;margin-top:20px;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    font-family:var(--font);font-size:15px;letter-spacing:.16em;text-transform:uppercase;
+    padding:15px 26px;border-radius:40px;color:#fff;background:var(--grad);text-decoration:none;transition:gap .25s,filter .25s}
+  .btn:hover{gap:15px;filter:brightness(1.05)}
+  .hint{text-align:center;color:#9a9a9a;font-size:13px;letter-spacing:.12em;padding:0 24px 56px}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr;max-width:560px;gap:22px}
+    .map{min-height:400px}
+    .pin .lbl{font-size:12px}
+  }
+</style>
+</head>
+<body>
+
+  <header class="head">
+    <img class="diamond" src="assets/collection/logo-diamond.png" alt="">
+    <h1 class="brand">Коллекция <b>Завидово</b></h1>
+    <div class="tagline">три посёлка на одной территории — выберите свой</div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- КАРТА -->
+    <div class="map">
+      <svg viewBox="0 0 800 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="land" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#e7f4e6"/><stop offset="1" stop-color="#dcefe2"/>
+          </linearGradient>
+          <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#bfe4f3"/><stop offset="1" stop-color="#9bd2ec"/>
+          </linearGradient>
+          <linearGradient id="gb" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#1bad03"/><stop offset="1" stop-color="#007fe2"/>
+          </linearGradient>
+          <g id="tree">
+            <path d="M0 12 L7 -10 L14 12 Z" fill="#8fcf9a"/>
+            <path d="M2 4 L7 -14 L12 4 Z" fill="#6fc081"/>
+            <rect x="6" y="11" width="2.4" height="6" fill="#b79a6f"/>
+          </g>
+        </defs>
+
+        <!-- фон-бумага -->
+        <rect width="800" height="560" fill="#eef6ef"/>
+        <!-- суша -->
+        <path d="M40 120 Q120 40 320 70 Q520 95 620 60 Q760 20 770 180
+                 Q780 340 660 420 Q560 490 360 470 Q160 450 80 380
+                 Q10 300 40 120 Z" fill="url(#land)"/>
+        <!-- вода (озеро в правом-нижнем) -->
+        <path d="M470 560 Q470 430 560 410 Q700 380 800 430 L800 560 Z" fill="url(#water)"/>
+        <path d="M470 470 Q560 440 660 455 Q740 466 800 450" fill="none" stroke="#fff" stroke-width="3" opacity=".5"/>
+        <path d="M500 510 Q590 484 690 498 Q760 508 800 496" fill="none" stroke="#fff" stroke-width="3" opacity=".4"/>
+
+        <!-- лес (зона Лесной, слева-сверху) -->
+        <use href="#tree" x="120" y="150"/><use href="#tree" x="150" y="175"/>
+        <use href="#tree" x="95" y="185"/><use href="#tree" x="175" y="150"/>
+        <use href="#tree" x="135" y="205"/><use href="#tree" x="200" y="185"/>
+        <use href="#tree" x="105" y="225"/><use href="#tree" x="170" y="220"/>
+        <use href="#tree" x="225" y="160"/><use href="#tree" x="80" y="155"/>
+
+        <!-- гольф-поляна (Завидово центр) -->
+        <ellipse cx="420" cy="250" rx="120" ry="78" fill="#cdeccb" opacity=".9"/>
+        <ellipse cx="420" cy="250" rx="120" ry="78" fill="none" stroke="#a9dca8" stroke-width="2" stroke-dasharray="2 8"/>
+        <circle cx="420" cy="250" r="6" fill="#fff" stroke="#7bbf7d" stroke-width="2"/>
+
+        <!-- маленькие домики (инфраструктура центра) -->
+        <g fill="#cdb79c" opacity=".9">
+          <path d="M372 232 l10 -8 l10 8 v12 h-20 z"/>
+          <path d="M442 264 l10 -8 l10 8 v12 h-20 z"/>
+          <path d="M404 286 l9 -7 l9 7 v11 h-18 z"/>
+        </g>
+
+        <!-- дорога-маршрут 1→2→3 -->
+        <path d="M165 200 Q300 190 420 250 Q540 320 620 450" fill="none"
+              stroke="#c79f76" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 12" opacity=".75"/>
+      </svg>
+
+      <div class="legend">
+        <b>маршрут</b>
+        <div class="li" data-jump="lesnoy"><span class="num">1</span> Лесной</div>
+        <div class="li" data-jump="zavidovo"><span class="num">2</span> Завидово</div>
+        <div class="li" data-jump="akvatoriya"><span class="num">3</span> Акватория</div>
+      </div>
+
+      <!-- пины -->
+      <button class="pin" data-v="lesnoy" style="left:20%;top:38%">
+        <span class="head2"><span class="num">1</span><span class="lbl">Лесной</span></span>
+        <span class="stem"></span><span class="foot2"></span>
+      </button>
+      <button class="pin active" data-v="zavidovo" style="left:52%;top:48%">
+        <span class="head2"><span class="num">2</span><span class="lbl">Завидово</span></span>
+        <span class="stem"></span><span class="foot2"></span>
+      </button>
+      <button class="pin" data-v="akvatoriya" style="left:78%;top:82%">
+        <span class="head2"><span class="num">3</span><span class="lbl">Акватория</span></span>
+        <span class="stem"></span><span class="foot2"></span>
+      </button>
+    </div>
+
+    <!-- ДЕТАЛЬ -->
+    <a class="detail" id="detail" href="#zavidovo">
+      <div class="detail__media">
+        <img id="d-img" src="assets/collection/photo-zavidovo.jpg" alt="">
+        <span class="badge"><img id="d-logo" src="assets/collection/logo-zavidovo.png" alt=""></span>
+        <span class="step" id="d-step">точка 2 из 3</span>
+      </div>
+      <div class="detail__body">
+        <div class="vkicker" id="d-kicker">экопарк · флагман</div>
+        <div class="vname" id="d-name">Завидово</div>
+        <div class="vmeta" id="d-meta"></div>
+        <p class="vdesc" id="d-desc">Сердце курорта: гольф, спа, рестораны и вся инфраструктура для жизни и отдыха.</p>
+        <span class="btn">Перейти в посёлок →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="hint">наведите курсор или коснитесь точки на карте · вариант 2 — улучшенная карта</div>
+
+<script>
+  var DATA = {
+    lesnoy:{kicker:"экопарк",name:"Лесной",href:"#lesnoy",step:"точка 1 из 3",
+      desc:"Уединённые коттеджи в сосновом бору. Тишина, чистый воздух и природа в шаге от дома.",
+      img:"assets/collection/photo-lesnoy.jpg",logo:"assets/collection/logo-lesnoy.png",
+      meta:[["от 6","соток участок"],["лес","в окружении"]]},
+    zavidovo:{kicker:"экопарк · флагман",name:"Завидово",href:"#zavidovo",step:"точка 2 из 3",
+      desc:"Сердце курорта: гольф, спа, рестораны и вся инфраструктура для жизни и отдыха.",
+      img:"assets/collection/photo-zavidovo.jpg",logo:"assets/collection/logo-zavidovo.png",
+      meta:[["гольф","спа · рестораны"],["центр","инфраструктуры"]]},
+    akvatoriya:{kicker:"акватория",name:"Акватория",href:"#akvatoriya",step:"точка 3 из 3",
+      desc:"Жизнь у воды: дома на берегу, собственный пляж, причал и бассейны.",
+      img:"assets/collection/photo-akvatoriya.jpg",logo:"assets/collection/logo-akvatoriya.png",
+      meta:[["берег","пляж · причал"],["вода","рядом"]]}
+  };
+  var pins=document.querySelectorAll('.pin'), legend=document.querySelectorAll('.legend .li');
+  var dImg=document.getElementById('d-img'),dLogo=document.getElementById('d-logo'),
+      dName=document.getElementById('d-name'),dDesc=document.getElementById('d-desc'),
+      dKick=document.getElementById('d-kicker'),dStep=document.getElementById('d-step'),
+      dMeta=document.getElementById('d-meta'),detail=document.getElementById('detail');
+  function show(key){
+    var d=DATA[key]; if(!d) return;
+    dImg.style.opacity=0;
+    setTimeout(function(){dImg.src=d.img;dImg.style.opacity=1;},140);
+    dLogo.src=d.logo;dName.textContent=d.name;dDesc.textContent=d.desc;
+    dKick.textContent=d.kicker;dStep.textContent=d.step;detail.setAttribute('href',d.href);
+    dMeta.innerHTML=d.meta.map(function(m){return '<div><b>'+m[0]+'</b>'+m[1]+'</div>';}).join('');
+    pins.forEach(function(p){p.classList.toggle('active',p.dataset.v===key);});
+  }
+  pins.forEach(function(p){
+    p.addEventListener('mouseenter',function(){show(p.dataset.v);});
+    p.addEventListener('click',function(e){e.preventDefault();show(p.dataset.v);});
+  });
+  legend.forEach(function(l){l.addEventListener('click',function(){show(l.dataset.jump);});});
+  show('zavidovo');
+</script>
+</body>
+</html>
