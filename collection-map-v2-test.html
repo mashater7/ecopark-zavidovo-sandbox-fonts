@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Коллекция Завидово — карта (улучшенная)</title>
+<title>Коллекция Завидово — карта посёлков</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
@@ -20,48 +20,49 @@
   body{font-family:var(--font);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;
     background:radial-gradient(1200px 600px at 80% -10%,var(--bg2),transparent 60%),var(--bg);min-height:100vh}
 
-  .head{max-width:1280px;margin:0 auto;padding:46px 24px 6px;text-align:center}
+  .head{max-width:1320px;margin:0 auto;padding:46px 24px 6px;text-align:center}
   .head .diamond{width:64px;height:64px;object-fit:contain;margin-bottom:10px}
   .brand{font-size:clamp(24px,4vw,42px);letter-spacing:.22em;text-transform:uppercase;font-weight:400}
   .brand b{font-weight:400;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
   .tagline{margin-top:10px;font-size:clamp(13px,1.6vw,17px);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
 
-  .wrap{max-width:1280px;margin:0 auto;padding:22px 24px 64px;
-    display:grid;grid-template-columns:1.5fr .85fr;gap:30px;align-items:stretch}
+  .wrap{max-width:1320px;margin:0 auto;padding:22px 24px 64px;
+    display:grid;grid-template-columns:1.62fr .82fr;gap:30px;align-items:start}
 
   /* ——— карта ——— */
-  .map{position:relative;border-radius:var(--radius);overflow:hidden;min-height:520px;
-    box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.05);background:#eef6ef}
-  .map svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .map{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:1000/680;
+    box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.05)}
+  .map > svg:not(.compass){position:absolute;inset:0;width:100%;height:100%;display:block}
 
-  .legend{position:absolute;left:18px;top:16px;z-index:4;background:rgba(255,255,255,.86);
-    backdrop-filter:blur(6px);border-radius:14px;padding:12px 14px;box-shadow:0 8px 22px -12px rgba(0,0,0,.35);
-    font-size:12.5px;letter-spacing:.08em}
-  .legend b{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--brown);margin-bottom:7px}
-  .legend .li{display:flex;align-items:center;gap:8px;padding:3px 0;color:#444;cursor:pointer;transition:.2s}
-  .legend .li .num{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;color:#fff;
-    font-size:11px;background:var(--green-d)}
+  .legend{position:absolute;left:18px;bottom:16px;z-index:4;background:rgba(255,255,255,.86);
+    backdrop-filter:blur(6px);border-radius:14px;padding:12px 15px;box-shadow:0 10px 26px -14px rgba(0,0,0,.4);
+    font-size:13px;letter-spacing:.06em}
+  .legend b{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--brown);margin-bottom:8px}
+  .legend .li{display:flex;align-items:center;gap:9px;padding:3px 0;color:#444;cursor:pointer;transition:.2s}
+  .legend .li .num{width:19px;height:19px;border-radius:50%;display:grid;place-items:center;color:#fff;
+    font-size:11px;background:var(--grad);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5)}
   .legend .li:hover{color:#000}
+
+  .compass{position:absolute;right:18px;top:16px;z-index:4;width:50px;height:50px;opacity:.85}
 
   /* пины */
   .pin{position:absolute;transform:translate(-50%,-100%);background:none;border:0;cursor:pointer;
-    font-family:var(--font);text-align:center;padding:0;z-index:3}
-  .pin .head2{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.95);
-    padding:6px 12px 6px 7px;border-radius:30px;box-shadow:0 8px 18px -8px rgba(0,0,0,.4);transition:.25s}
+    font-family:var(--font);text-align:center;padding:0;z-index:3;filter:drop-shadow(0 8px 12px rgba(0,0,0,.25))}
+  .pin .cap{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.96);
+    padding:6px 13px 6px 7px;border-radius:30px;transition:.25s}
   .pin .num{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:#fff;
     font-size:13px;background:var(--grad);box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
   .pin .lbl{font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
-  .pin .stem{width:2px;height:18px;background:var(--green-d);margin:0 auto;opacity:.5}
-  .pin .foot2{width:12px;height:12px;border-radius:50%;background:var(--green-d);margin:-6px auto 0;
-    border:3px solid #fff;box-shadow:0 4px 10px -3px rgba(0,0,0,.5);transition:.25s}
-  .pin:hover .head2,.pin.active .head2{transform:translateY(-3px) scale(1.04)}
-  .pin.active .foot2{background:var(--blue);transform:scale(1.25)}
-  .pin.active .head2{box-shadow:0 12px 24px -8px rgba(0,90,180,.45)}
-  .pin:focus-visible .head2{outline:2px solid var(--blue);outline-offset:2px}
+  .pin .needle{width:0;height:0;border:6px solid transparent;border-top-color:#fff;margin:-1px auto 0}
+  .pin:hover .cap,.pin.active .cap{transform:translateY(-4px) scale(1.05)}
+  .pin.active .cap{box-shadow:0 14px 26px -8px rgba(0,90,180,.4)}
+  .pin:focus-visible .cap{outline:2px solid var(--blue);outline-offset:2px}
 
-  /* ——— карточка-деталь ——— */
+  /* ——— карточка-деталь (ссылка без подчёркиваний) ——— */
   .detail{position:relative;border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;
-    background:var(--card);box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.04)}
+    background:var(--card);box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.04);
+    text-decoration:none;color:inherit}
+  .detail *{text-decoration:none}
   .detail__media{position:relative;height:240px;overflow:hidden}
   .detail__media img{width:100%;height:100%;object-fit:cover;transition:opacity .35s ease}
   .detail__media .badge{position:absolute;left:16px;top:16px;width:52px;height:52px;border-radius:50%;
@@ -78,15 +79,20 @@
   .vmeta div b{display:block;font-size:19px;color:var(--ink);letter-spacing:.02em}
   .vdesc{margin-top:16px;color:var(--ink-soft);font-size:15.5px;flex:1}
   .btn{align-self:stretch;margin-top:20px;display:inline-flex;align-items:center;justify-content:center;gap:10px;
-    font-family:var(--font);font-size:15px;letter-spacing:.16em;text-transform:uppercase;
-    padding:15px 26px;border-radius:40px;color:#fff;background:var(--grad);text-decoration:none;transition:gap .25s,filter .25s}
+    font-size:15px;letter-spacing:.16em;text-transform:uppercase;
+    padding:15px 26px;border-radius:40px;color:#fff;background:var(--grad);transition:gap .25s,filter .25s}
   .btn:hover{gap:15px;filter:brightness(1.05)}
   .hint{text-align:center;color:#9a9a9a;font-size:13px;letter-spacing:.12em;padding:0 24px 56px}
 
-  @media (max-width:900px){
-    .wrap{grid-template-columns:1fr;max-width:560px;gap:22px}
-    .map{min-height:400px}
+  @media (max-width:920px){
+    .wrap{grid-template-columns:1fr;max-width:580px;gap:22px}
     .pin .lbl{font-size:12px}
+  }
+  @media (max-width:600px){
+    .legend,.compass{display:none}
+    .pin .cap{padding:5px 11px 5px 6px}
+    .pin .num{width:21px;height:21px;font-size:12px}
+    .pin .lbl{font-size:11px;letter-spacing:.1em}
   }
 </style>
 </head>
@@ -95,85 +101,145 @@
   <header class="head">
     <img class="diamond" src="assets/collection/logo-diamond.png" alt="">
     <h1 class="brand">Коллекция <b>Завидово</b></h1>
-    <div class="tagline">три посёлка на одной территории — выберите свой</div>
+    <div class="tagline">три посёлка на берегу Иваньковского водохранилища</div>
   </header>
 
   <div class="wrap">
 
     <!-- КАРТА -->
     <div class="map">
-      <svg viewBox="0 0 800 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <svg viewBox="0 0 1000 680" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
         <defs>
-          <linearGradient id="land" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#e7f4e6"/><stop offset="1" stop-color="#dcefe2"/>
+          <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f4efe6"/><stop offset="1" stop-color="#eee7da"/>
           </linearGradient>
           <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#bfe4f3"/><stop offset="1" stop-color="#9bd2ec"/>
+            <stop offset="0" stop-color="#d4ecf7"/><stop offset=".5" stop-color="#a9d9ef"/><stop offset="1" stop-color="#7cc3e6"/>
           </linearGradient>
+          <linearGradient id="meadow" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#e3f1d6"/><stop offset="1" stop-color="#d2e9c2"/>
+          </linearGradient>
+          <radialGradient id="forestbg" cx="35%" cy="55%" r="70%">
+            <stop offset="0" stop-color="#d7ecd2"/><stop offset="1" stop-color="#c8e4c2"/>
+          </radialGradient>
           <linearGradient id="gb" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0" stop-color="#1bad03"/><stop offset="1" stop-color="#007fe2"/>
           </linearGradient>
-          <g id="tree">
-            <path d="M0 12 L7 -10 L14 12 Z" fill="#8fcf9a"/>
-            <path d="M2 4 L7 -14 L12 4 Z" fill="#6fc081"/>
-            <rect x="6" y="11" width="2.4" height="6" fill="#b79a6f"/>
+          <!-- хвойное дерево -->
+          <g id="pine">
+            <path d="M0 2 l-10 16 l20 0 z" fill="#6dbf80"/>
+            <path d="M0 -8 l-8.5 15 l17 0 z" fill="#57b06d"/>
+            <path d="M0 -17 l-7 13 l14 0 z" fill="#46a05f"/>
+            <rect x="-1.4" y="16" width="2.8" height="7" fill="#a9854f"/>
+          </g>
+          <!-- лиственное дерево -->
+          <g id="oak">
+            <circle cx="0" cy="-4" r="11" fill="#74c489"/>
+            <circle cx="-7" cy="2" r="8" fill="#62b878"/>
+            <circle cx="7" cy="2" r="8" fill="#62b878"/>
+            <rect x="-1.6" y="6" width="3.2" height="8" fill="#a9854f"/>
           </g>
         </defs>
 
-        <!-- фон-бумага -->
-        <rect width="800" height="560" fill="#eef6ef"/>
-        <!-- суша -->
-        <path d="M40 120 Q120 40 320 70 Q520 95 620 60 Q760 20 770 180
-                 Q780 340 660 420 Q560 490 360 470 Q160 450 80 380
-                 Q10 300 40 120 Z" fill="url(#land)"/>
-        <!-- вода (озеро в правом-нижнем) -->
-        <path d="M470 560 Q470 430 560 410 Q700 380 800 430 L800 560 Z" fill="url(#water)"/>
-        <path d="M470 470 Q560 440 660 455 Q740 466 800 450" fill="none" stroke="#fff" stroke-width="3" opacity=".5"/>
-        <path d="M500 510 Q590 484 690 498 Q760 508 800 496" fill="none" stroke="#fff" stroke-width="3" opacity=".4"/>
+        <!-- бумага -->
+        <rect width="1000" height="680" fill="url(#paper)"/>
 
-        <!-- лес (зона Лесной, слева-сверху) -->
-        <use href="#tree" x="120" y="150"/><use href="#tree" x="150" y="175"/>
-        <use href="#tree" x="95" y="185"/><use href="#tree" x="175" y="150"/>
-        <use href="#tree" x="135" y="205"/><use href="#tree" x="200" y="185"/>
-        <use href="#tree" x="105" y="225"/><use href="#tree" x="170" y="220"/>
-        <use href="#tree" x="225" y="160"/><use href="#tree" x="80" y="155"/>
-
-        <!-- гольф-поляна (Завидово центр) -->
-        <ellipse cx="420" cy="250" rx="120" ry="78" fill="#cdeccb" opacity=".9"/>
-        <ellipse cx="420" cy="250" rx="120" ry="78" fill="none" stroke="#a9dca8" stroke-width="2" stroke-dasharray="2 8"/>
-        <circle cx="420" cy="250" r="6" fill="#fff" stroke="#7bbf7d" stroke-width="2"/>
-
-        <!-- маленькие домики (инфраструктура центра) -->
-        <g fill="#cdb79c" opacity=".9">
-          <path d="M372 232 l10 -8 l10 8 v12 h-20 z"/>
-          <path d="M442 264 l10 -8 l10 8 v12 h-20 z"/>
-          <path d="M404 286 l9 -7 l9 7 v11 h-18 z"/>
+        <!-- ВОДА: Иваньковское вдхр / Волга — вдоль верха и правого края -->
+        <path d="M0 0 H1000 V300
+                 C920 300 880 250 770 250
+                 C650 250 600 320 470 300
+                 C360 282 300 200 180 200
+                 C90 200 40 250 0 230 Z" fill="url(#water)"/>
+        <!-- береговая линия (светлый кант) -->
+        <path d="M0 230 C40 250 90 200 180 200 C300 200 360 282 470 300
+                 C600 320 650 250 770 250 C880 250 920 300 1000 300"
+              fill="none" stroke="#ffffff" stroke-width="5" opacity=".7" stroke-linecap="round"/>
+        <path d="M0 230 C40 250 90 200 180 200 C300 200 360 282 470 300
+                 C600 320 650 250 770 250 C880 250 920 300 1000 300"
+              fill="none" stroke="#5fb0da" stroke-width="2" opacity=".55"/>
+        <!-- волны -->
+        <g fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" opacity=".5">
+          <path d="M120 120 q18 -10 36 0 t36 0"/>
+          <path d="M620 110 q18 -10 36 0 t36 0"/>
+          <path d="M820 170 q18 -10 36 0 t36 0"/>
+          <path d="M300 90 q18 -10 36 0 t36 0"/>
+        </g>
+        <!-- парус -->
+        <g transform="translate(700 150)" opacity=".8">
+          <path d="M0 0 L0 -26 L16 0 Z" fill="#ffffff"/>
+          <path d="M0 0 L-12 0 L-7 8 L9 8 L14 0 Z" fill="#cfe9f5"/>
         </g>
 
-        <!-- дорога-маршрут 1→2→3 -->
-        <path d="M165 200 Q300 190 420 250 Q540 320 620 450" fill="none"
-              stroke="#c79f76" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 12" opacity=".75"/>
+        <!-- ЛЕСНОЙ МАССИВ (зона, низ-лево) -->
+        <path d="M20 360 Q60 320 160 330 Q300 342 360 400 Q420 470 360 560
+                 Q300 650 160 630 Q40 612 20 500 Z" fill="url(#forestbg)"/>
+        <g id="forest"></g>
+
+        <!-- ЛУГ/ГОЛЬФ Завидово (центр) -->
+        <ellipse cx="560" cy="430" rx="200" ry="120" fill="url(#meadow)"/>
+        <ellipse cx="560" cy="430" rx="200" ry="120" fill="none" stroke="#bcdfa9" stroke-width="2" stroke-dasharray="1 9" opacity=".8"/>
+        <!-- фервеи/линии гольфа -->
+        <path d="M430 430 Q560 380 690 440" fill="none" stroke="#c2e3ad" stroke-width="16" stroke-linecap="round" opacity=".7"/>
+        <circle cx="560" cy="412" r="5" fill="#fff" stroke="#7bbf7d" stroke-width="2"/>
+        <path d="M560 412 l0 -16 l11 5 l-11 5" fill="#e85b4b"/>
+        <!-- домики/инфраструктура -->
+        <g fill="#cdb79c" stroke="#b79f82" stroke-width="1">
+          <path d="M505 452 l13 -10 l13 10 v15 h-26 z"/>
+          <path d="M585 462 l12 -9 l12 9 v14 h-24 z"/>
+          <path d="M548 482 l11 -8 l11 8 v13 h-22 z"/>
+        </g>
+
+        <!-- АКВАТОРИЯ: пляж + причал (на берегу, верх-право) -->
+        <path d="M690 252 Q760 268 840 256 Q900 248 940 262 L940 300 Q860 292 790 300 Q730 306 690 296 Z"
+              fill="#ecdcb8" opacity=".9"/>
+        <!-- причал -->
+        <g stroke="#b79f82" stroke-width="4" stroke-linecap="round">
+          <path d="M812 268 L812 210"/>
+          <path d="M790 232 L834 232"/>
+        </g>
+        <!-- лодочки -->
+        <g fill="#fff" opacity=".95">
+          <path d="M860 222 q12 0 22 0 l-5 8 l-12 0 z"/>
+          <path d="M770 215 q11 0 20 0 l-4 7 l-12 0 z"/>
+        </g>
+
+        <!-- РЕКА ДОЙБИЦА (от центра в воду) -->
+        <path d="M600 470 Q660 400 700 350 Q740 300 760 270" fill="none"
+              stroke="#9fd3ea" stroke-width="10" stroke-linecap="round" opacity=".8"/>
+        <path d="M600 470 Q660 400 700 350 Q740 300 760 270" fill="none"
+              stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+
+        <!-- ДОРОГА-МАРШРУТ 1→2→3 -->
+        <path d="M220 470 Q360 430 520 350 Q660 285 800 230" fill="none"
+              stroke="#e7d4ba" stroke-width="9" stroke-linecap="round"/>
+        <path d="M220 470 Q360 430 520 350 Q660 285 800 230" fill="none"
+              stroke="#c2a079" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 12"/>
+      </svg>
+
+      <svg class="compass" viewBox="0 0 60 60" aria-hidden="true">
+        <circle cx="30" cy="30" r="26" fill="rgba(255,255,255,.85)"/>
+        <circle cx="30" cy="30" r="26" fill="none" stroke="#c2a079" stroke-width="1.5"/>
+        <path d="M30 8 L36 30 L30 26 L24 30 Z" fill="#007fe2"/>
+        <path d="M30 52 L24 30 L30 34 L36 30 Z" fill="#cbb79c"/>
+        <text x="30" y="20" text-anchor="middle" font-family="Poiret One" font-size="9" fill="#2f6b43">С</text>
       </svg>
 
       <div class="legend">
-        <b>маршрут</b>
-        <div class="li" data-jump="lesnoy"><span class="num">1</span> Лесной</div>
-        <div class="li" data-jump="zavidovo"><span class="num">2</span> Завидово</div>
-        <div class="li" data-jump="akvatoriya"><span class="num">3</span> Акватория</div>
+        <b>маршрут по коллекции</b>
+        <div class="li" data-jump="lesnoy"><span class="num">1</span> Лесной · в лесу</div>
+        <div class="li" data-jump="zavidovo"><span class="num">2</span> Завидово · центр</div>
+        <div class="li" data-jump="akvatoriya"><span class="num">3</span> Акватория · у воды</div>
       </div>
 
-      <!-- пины -->
-      <button class="pin" data-v="lesnoy" style="left:20%;top:38%">
-        <span class="head2"><span class="num">1</span><span class="lbl">Лесной</span></span>
-        <span class="stem"></span><span class="foot2"></span>
+      <!-- пины: left%=x/1000, top%=y/680 -->
+      <button class="pin" data-v="lesnoy" style="left:22%;top:69%">
+        <span class="cap"><span class="num">1</span><span class="lbl">Лесной</span></span><span class="needle"></span>
       </button>
-      <button class="pin active" data-v="zavidovo" style="left:52%;top:48%">
-        <span class="head2"><span class="num">2</span><span class="lbl">Завидово</span></span>
-        <span class="stem"></span><span class="foot2"></span>
+      <button class="pin active" data-v="zavidovo" style="left:52%;top:51%">
+        <span class="cap"><span class="num">2</span><span class="lbl">Завидово</span></span><span class="needle"></span>
       </button>
-      <button class="pin" data-v="akvatoriya" style="left:78%;top:82%">
-        <span class="head2"><span class="num">3</span><span class="lbl">Акватория</span></span>
-        <span class="stem"></span><span class="foot2"></span>
+      <button class="pin" data-v="akvatoriya" style="left:80%;top:34%">
+        <span class="cap"><span class="num">3</span><span class="lbl">Акватория</span></span><span class="needle"></span>
       </button>
     </div>
 
@@ -195,22 +261,44 @@
 
   </div>
 
-  <div class="hint">наведите курсор или коснитесь точки на карте · вариант 2 — улучшенная карта</div>
+  <div class="hint">наведите курсор или коснитесь точки на карте</div>
 
 <script>
+  // лес: процедурная расстановка деревьев в зоне Лесного
+  (function(){
+    var ns="http://www.w3.org/2000/svg", g=document.getElementById('forest');
+    var pts=[
+      [80,470,1.1,'pine'],[120,440,1.3,'pine'],[160,480,1.0,'oak'],[100,510,1.2,'pine'],
+      [150,520,1.1,'oak'],[200,455,1.25,'pine'],[210,505,1.0,'pine'],[60,505,0.95,'oak'],
+      [250,480,1.15,'pine'],[180,540,1.05,'pine'],[120,560,1.2,'oak'],[230,540,1.0,'pine'],
+      [90,545,1.05,'pine'],[270,520,1.1,'oak'],[300,470,1.2,'pine'],[160,420,1.0,'pine'],
+      [220,425,1.1,'oak'],[280,500,0.95,'pine'],[140,490,1.15,'pine'],[60,470,1.0,'pine'],
+      [320,505,1.05,'pine'],[300,540,1.1,'oak'],[250,560,1.0,'pine'],[190,575,1.1,'pine']
+    ];
+    // рисуем сзади-вперёд (по y) для глубины
+    pts.sort(function(a,b){return a[1]-b[1];});
+    pts.forEach(function(p){
+      var u=document.createElementNS(ns,'use');
+      u.setAttribute('href','#'+p[3]);
+      u.setAttribute('x',0);u.setAttribute('y',0);
+      u.setAttribute('transform','translate('+p[0]+' '+p[1]+') scale('+p[2]+')');
+      g.appendChild(u);
+    });
+  })();
+
   var DATA = {
     lesnoy:{kicker:"экопарк",name:"Лесной",href:"#lesnoy",step:"точка 1 из 3",
       desc:"Уединённые коттеджи в сосновом бору. Тишина, чистый воздух и природа в шаге от дома.",
       img:"assets/collection/photo-lesnoy.jpg",logo:"assets/collection/logo-lesnoy.png",
-      meta:[["от 6","соток участок"],["лес","в окружении"]]},
+      meta:[["лес","сосновый бор"],["тишина","вдали от трасс"]]},
     zavidovo:{kicker:"экопарк · флагман",name:"Завидово",href:"#zavidovo",step:"точка 2 из 3",
       desc:"Сердце курорта: гольф, спа, рестораны и вся инфраструктура для жизни и отдыха.",
       img:"assets/collection/photo-zavidovo.jpg",logo:"assets/collection/logo-zavidovo.png",
-      meta:[["гольф","спа · рестораны"],["центр","инфраструктуры"]]},
-    akvatoriya:{kicker:"акватория",name:"Акватория",href:"#akvatoriya",step:"точка 3 из 3",
-      desc:"Жизнь у воды: дома на берегу, собственный пляж, причал и бассейны.",
+      meta:[["центр","инфраструктуры"],["гольф","спа · рестораны"]]},
+    akvatoriya:{kicker:"акватория · у воды",name:"Акватория",href:"#akvatoriya",step:"точка 3 из 3",
+      desc:"Жизнь у воды: дома на берегу водохранилища, собственный пляж и причал.",
       img:"assets/collection/photo-akvatoriya.jpg",logo:"assets/collection/logo-akvatoriya.png",
-      meta:[["берег","пляж · причал"],["вода","рядом"]]}
+      meta:[["берег","пляж · причал"],["вода","Волга рядом"]]}
   };
   var pins=document.querySelectorAll('.pin'), legend=document.querySelectorAll('.legend .li');
   var dImg=document.getElementById('d-img'),dLogo=document.getElementById('d-logo'),
