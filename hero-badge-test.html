@@ -2382,6 +2382,8 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 .ppsch-imgwrap{position:relative;overflow:hidden;border-radius:8px;}
 .ppsch-imgwrap img{position:relative;z-index:1;width:100% !important;height:100% !important;object-fit:contain !important;filter:brightness(1.07) saturate(1.14) contrast(1.03);}
 #ppsch-bg{position:absolute;inset:-4%;z-index:0;background-size:cover;background-position:center;filter:blur(18px) brightness(1.07) saturate(1.1);transform:scale(1.1);}
+#ppsch-fg{position:absolute;inset:0;z-index:1;background-size:contain;background-position:center;background-repeat:no-repeat;}
+#rec844617577 .tn-elem[data-elem-id="1699255660371"] .tn-atom__img{opacity:0 !important;}
 #ppsch-tog,#ppsch-tog *{box-sizing:border-box;}
 #ppsch-tog{position:absolute;z-index:1000;display:inline-flex;font-family:'Poiret One',sans-serif;}
 #ppsch-tog .ppsch-card{display:inline-flex;align-items:center;gap:14px;background:#fff;border-radius:46px;padding:9px 9px 9px 22px;box-shadow:0 14px 32px -18px rgba(20,40,25,.4);border:1px solid #eee;}
@@ -2407,7 +2409,9 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
     if(getComputedStyle(wrap).position==='static') wrap.style.position='relative';
     var bg=wrap.querySelector('#ppsch-bg');
     if(!bg){ bg=document.createElement('div'); bg.id='ppsch-bg'; wrap.insertBefore(bg, wrap.firstChild); }
-    return bg;
+    var fg=wrap.querySelector('#ppsch-fg');
+    if(!fg){ fg=document.createElement('div'); fg.id='ppsch-fg'; wrap.appendChild(fg); }
+    return {bg:bg, fg:fg};
   }
   function positionBtn(ab){
     var btn=ab.querySelector('.tn-elem__'+BTN), imE=ab.querySelector('.tn-elem__'+IMG);
@@ -2420,7 +2424,7 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
   function setS(k,ab){
     cur=k;
     var im=imgEl(ab); if(im){im.setAttribute('src',IMGS[k]);im.removeAttribute('data-original');}
-    var bg=ensureBg(ab); if(bg) bg.style.backgroundImage="url('"+IMGS[k]+"')";
+    var lay=ensureBg(ab); if(lay){ lay.bg.style.backgroundImage="url('"+IMGS[k]+"')"; lay.fg.style.backgroundImage="url('"+IMGS[k]+"')"; }
     var z=document.getElementById('ppsch-zav'),l=document.getElementById('ppsch-les');
     if(z)z.className=k==='zav'?'active':'';if(l)l.className=k==='les'?'active':'';
     positionBtn(ab);
