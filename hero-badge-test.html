@@ -2287,10 +2287,16 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
     if(!box)return;var rec=document.getElementById('rec844617555');if(!rec)return;var ab=rec.querySelector('.t396__artboard');if(!ab)return;
     var head=ab.querySelector('.tn-elem__'+HEAD), form=ab.querySelector('.tn-elem__'+FORM);
     if(!head)return;
-    var L=head.offsetLeft, W=head.offsetWidth, top=head.offsetTop+head.offsetHeight+50;
+    // ВАЖНО: на мобиле Tilda масштабирует артборд (брейкпоинт 320 → ширина устройства, scale≈deviceW/320),
+    // поэтому offsetLeft/offsetWidth/offsetTop дают координаты НЕскалированной дизайн-сетки и не совпадают
+    // с реально отрисованными. #ppmap не масштабируется, поэтому позиционируем его по getBoundingClientRect
+    // (реальные px относительно артборда) — иначе карта уже окружения и «уезжает вбок». На десктопе scale=1,
+    // поэтому значения совпадают с offset* и поведение не меняется.
+    var abr=ab.getBoundingClientRect(), hr=head.getBoundingClientRect();
+    var L=hr.left-abr.left, W=hr.width, top=(hr.bottom-abr.top)+50;
     box.style.left=L+'px';box.style.width=W+'px';box.style.top=top+'px';
     box.classList.toggle('narrow', W<560);
-    var bottomLimit = form ? form.offsetTop-56 : top+660;
+    var bottomLimit = form ? (form.getBoundingClientRect().top-abr.top)-56 : top+660;
     var avail=Math.max(360, bottomLimit-top);
     box.style.height=avail+'px';
     var tb=box.querySelector('.ppmap-top'), bt=box.querySelector('.ppmap-bottom'), fr=box.querySelector('#ppmap-fr');
