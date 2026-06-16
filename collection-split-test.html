@@ -66,6 +66,36 @@
     .reveal{max-height:260px;opacity:1}
     .foot{position:relative}
   }
+
+  /* ——— оверлей «сайт в разработке» (Акватория) ——— */
+  .soon{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;
+    padding:28px;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility .4s}
+  .soon.on{opacity:1;visibility:visible}
+  .soon__bg{position:absolute;inset:0;background-size:cover;background-position:center;
+    filter:saturate(.8) brightness(.4)}
+  .soon__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(8,20,30,.78),rgba(10,40,55,.86))}
+  .soon__card{position:relative;z-index:2;max-width:540px;width:100%;text-align:center;
+    background:rgba(16,35,45,.55);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.16);
+    border-radius:26px;padding:54px 40px 46px;box-shadow:0 40px 90px -30px rgba(0,0,0,.7)}
+  .soon__logo{width:74px;height:74px;border-radius:50%;margin:0 auto 22px;background:rgba(255,255,255,.94);
+    display:grid;place-items:center;box-shadow:0 10px 26px -10px rgba(0,0,0,.6)}
+  .soon__logo img{width:44px;height:44px;object-fit:contain}
+  .soon__kick{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:#bfe0ff;opacity:.9}
+  .soon__name{font-size:clamp(30px,5vw,46px);letter-spacing:.14em;text-transform:uppercase;font-weight:400;margin:6px 0 18px;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .soon__dev{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+    padding:9px 18px;border-radius:40px;margin-bottom:20px}
+  .soon__dev .dot{width:8px;height:8px;border-radius:50%;background:#ffd34d;box-shadow:0 0 0 0 rgba(255,211,77,.7);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,211,77,.6)}70%{box-shadow:0 0 0 12px rgba(255,211,77,0)}100%{box-shadow:0 0 0 0 rgba(255,211,77,0)}}
+  .soon__txt{font-size:16px;line-height:1.6;color:rgba(255,255,255,.9);max-width:400px;margin:0 auto 28px}
+  .soon__back{display:inline-flex;align-items:center;gap:10px;font-family:var(--font);cursor:pointer;
+    font-size:14px;letter-spacing:.16em;text-transform:uppercase;padding:13px 30px;border-radius:40px;
+    color:#fff;background:var(--grad);border:0;text-decoration:none;transition:gap .25s,filter .25s}
+  .soon__back:hover{gap:16px;filter:brightness(1.08)}
+  .soon__close{position:absolute;top:16px;right:18px;z-index:3;width:40px;height:40px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font-size:22px;line-height:1;cursor:pointer}
+  .soon__close:hover{background:rgba(255,255,255,.18)}
 </style>
 </head>
 <body>
@@ -78,7 +108,7 @@
 
   <main class="split">
 
-    <a class="panel" href="#lesnoy">
+    <a class="panel" href="hero-badge-test.html?poselok=les">
       <img src="assets/collection/photo-lesnoy.jpg" alt="">
       <div class="panel__in">
         <span class="badge"><img src="assets/collection/logo-lesnoy.png" alt=""></span>
@@ -91,7 +121,7 @@
       </div>
     </a>
 
-    <a class="panel" href="#zavidovo">
+    <a class="panel" href="hero-badge-test.html">
       <img src="assets/collection/photo-zavidovo.jpg" alt="">
       <div class="panel__in">
         <span class="badge"><img src="assets/collection/logo-zavidovo.png" alt=""></span>
@@ -104,7 +134,7 @@
       </div>
     </a>
 
-    <a class="panel" href="#akvatoriya">
+    <a class="panel" href="#akvatoriya" id="panel-akva">
       <img src="assets/collection/photo-akvatoriya.jpg" alt="">
       <div class="panel__in">
         <span class="badge"><img src="assets/collection/logo-akvatoriya.png" alt=""></span>
@@ -112,7 +142,7 @@
         <div class="vname">Акватория</div>
         <div class="reveal">
           <p class="vdesc">Жизнь у воды: дома на берегу, собственный пляж, причал и бассейны.</p>
-          <span class="btn">Выбрать →</span>
+          <span class="btn">Скоро →</span>
         </div>
       </div>
     </a>
@@ -121,5 +151,32 @@
 
   <div class="foot">вариант 3 — сплит-экран · наведите на панель (на мобильном — всё раскрыто)</div>
 
+  <!-- оверлей «сайт в разработке» для Акватории -->
+  <div class="soon" id="soon" role="dialog" aria-modal="true" aria-label="Акватория Завидово — сайт в разработке">
+    <div class="soon__bg" style="background-image:url('assets/collection/photo-akvatoriya.jpg')"></div>
+    <button class="soon__close" id="soon-close" aria-label="Закрыть">&times;</button>
+    <div class="soon__card">
+      <div class="soon__logo"><img src="assets/collection/logo-akvatoriya.png" alt=""></div>
+      <div class="soon__kick">акватория</div>
+      <div class="soon__name">Акватория Завидово</div>
+      <div class="soon__dev"><span class="dot"></span>сайт в разработке</div>
+      <p class="soon__txt">Готовим отдельный сайт посёлка у воды: дома на берегу, собственный пляж,
+        причал и бассейны. Совсем скоро здесь будет на что посмотреть.</p>
+      <button class="soon__back" id="soon-back">← Вернуться к коллекции</button>
+    </div>
+  </div>
+
+<script>
+  (function(){
+    var soon=document.getElementById('soon');
+    function open(){soon.classList.add('on');document.body.style.overflow='hidden';}
+    function close(){soon.classList.remove('on');document.body.style.overflow='';}
+    document.getElementById('panel-akva').addEventListener('click',function(e){e.preventDefault();open();});
+    document.getElementById('soon-close').addEventListener('click',close);
+    document.getElementById('soon-back').addEventListener('click',close);
+    soon.addEventListener('click',function(e){if(e.target===soon)close();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  })();
+</script>
 </body>
 </html>

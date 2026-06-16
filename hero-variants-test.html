@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — 2 варианта заголовка (правки 1+2+3)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#09763F; --blue:#007fe2; --brown:#bb916b; --brown-d:#a87f56;
+    --ink:#333; --grey:#808080; --line:#e7e2da;
+    --font:'Poiret One','Century Gothic',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+
+  /* ——— переключатель вариантов (только для демо) ——— */
+  .vswitch{position:fixed;z-index:50;top:14px;left:50%;transform:translateX(-50%);
+    display:flex;gap:6px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
+    border:1px solid var(--line);border-radius:40px;padding:6px;box-shadow:0 10px 30px -12px rgba(0,0,0,.25)}
+  .vswitch button{font-family:var(--font);font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+    border:0;cursor:pointer;padding:9px 18px;border-radius:30px;background:transparent;color:var(--ink)}
+  .vswitch button.on{background:var(--green);color:#fff}
+  .vnote{position:fixed;z-index:50;bottom:12px;left:50%;transform:translateX(-50%);
+    font-size:12px;letter-spacing:.08em;color:var(--grey);text-transform:uppercase;text-align:center;width:92%}
+
+  /* ——— шапка ——— */
+  .top{max-width:1200px;margin:0 auto;padding:26px 24px 0;display:flex;align-items:center;gap:22px}
+  .brand{display:inline-flex;align-items:center;text-decoration:none;flex:0 0 auto}
+  .brand img{width:54px;height:54px;object-fit:contain;transition:transform .25s}
+  .brand:hover img{transform:scale(1.07) rotate(-3deg)}
+  .nav{margin-left:auto;display:flex;align-items:center;gap:26px;background:#f4efe7;border-radius:40px;padding:14px 30px}
+  .nav a{text-decoration:none;color:var(--ink);font-size:15px;letter-spacing:.02em;opacity:.85}
+  .nav a:hover{color:var(--green);opacity:1}
+  .phone{font-size:22px;color:var(--ink);text-decoration:none;white-space:nowrap}
+  .phone small{display:block;font-size:11px;color:var(--grey);letter-spacing:.04em;text-transform:uppercase;text-align:right;margin-top:2px}
+
+  /* ——— hero ——— */
+  .hero{max-width:1200px;margin:0 auto;padding:40px 24px 70px;
+    display:grid;grid-template-columns:1fr 1.02fr;gap:48px;align-items:center}
+  .col-l{min-width:0}
+
+  /* блок-замена надзаголовка (правка 2) */
+  .kick{margin-bottom:18px}
+  .kick .big{display:block;text-transform:uppercase;font-weight:400;color:var(--green);
+    font-size:clamp(24px,3.2vw,38px);letter-spacing:.2em;line-height:1.05}
+  .kick .sub{display:block;margin-top:8px;text-transform:uppercase;color:var(--grey);
+    font-size:clamp(11px,1.2vw,13.5px);letter-spacing:.22em}
+
+  h1.htitle{text-transform:uppercase;font-weight:700;color:var(--ink);
+    font-size:clamp(32px,4.4vw,48px);line-height:1.0;letter-spacing:.005em}
+  h1.htitle .g{color:var(--green)}
+
+  .lead{margin-top:22px;max-width:480px;font-size:clamp(15px,1.4vw,18px);line-height:1.55;color:#5c5c5c}
+
+  .cta{margin-top:30px;display:flex;gap:16px;flex-wrap:wrap}
+  .btn{font-family:var(--font);font-size:16px;letter-spacing:.04em;cursor:pointer;
+    padding:18px 34px;border-radius:12px;text-decoration:none;text-align:center;transition:.2s}
+  .btn-fill{background:var(--brown);color:#fff;border:1px solid var(--brown)}
+  .btn-fill:hover{background:var(--brown-d);border-color:var(--brown-d)}
+  .btn-out{background:#fff;color:var(--brown);border:1px solid #e3d6c6}
+  .btn-out:hover{border-color:var(--brown);color:var(--brown-d)}
+
+  /* фото + плашка (правка 3 — как на реальном сайте) */
+  .col-r{position:relative}
+  .photo{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 30px 60px -28px rgba(20,40,25,.45);aspect-ratio:860/560}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .badge{position:absolute;top:24px;left:-26px;z-index:3;width:104px;height:104px;border-radius:50%;
+    background:radial-gradient(circle at 50% 35%,#1f93f5,#0066c4);color:#fff;
+    display:grid;place-items:center;text-align:center;line-height:1.15;
+    box-shadow:0 14px 30px -10px rgba(0,70,150,.6);
+    border:3px solid rgba(255,255,255,.85)}
+  .badge::before{content:"";position:absolute;inset:6px;border-radius:50%;border:1px dashed rgba(255,255,255,.55)}
+  .badge span{position:relative;font-size:16px;font-weight:400;letter-spacing:.06em;text-transform:uppercase}
+
+  /* какой вариант показывать */
+  body[data-v="a"] .va{display:block}  body[data-v="a"] .vb{display:none}
+  body[data-v="b"] .vb{display:block}  body[data-v="b"] .va{display:none}
+
+  /* ——— мобайл ——— */
+  @media (max-width:900px){
+    .nav{display:none}
+    .top{padding-top:20px}
+    .phone{margin-left:auto;font-size:18px}
+    .hero{grid-template-columns:1fr;gap:28px;padding:26px 18px 56px}
+    .col-r{order:-1}
+    .badge{width:84px;height:84px;left:-14px;top:14px}
+    .badge span{font-size:13px}
+    .cta{flex-direction:column}
+    .btn{width:100%}
+    .lead{max-width:none}
+  }
+</style>
+</head>
+<body data-v="a">
+
+  <div class="vswitch">
+    <button id="ba" class="on" onclick="setV('a')">Вариант A · Коллекция</button>
+    <button id="bb" onclick="setV('b')">Вариант B · Посёлки</button>
+  </div>
+
+  <header class="top">
+    <!-- правка 1: бриллиант вместо текстового лого, ведёт в Коллекцию (сплит-экран) -->
+    <a class="brand" href="collection-split-test.html" title="Коллекция Завидово">
+      <img src="assets/collection/logo-diamond.png" alt="Коллекция Завидово">
+    </a>
+    <nav class="nav">
+      <a href="#">О посёлке</a><a href="#">Инфраструктура</a><a href="#">Участки</a>
+      <a href="#">Активности</a><a href="#">Новости</a><a href="#">FAQ</a>
+    </nav>
+    <a class="phone" href="tel:+74953096541">+7 499 309 65 41<small>звонок бесплатный</small></a>
+  </header>
+
+  <main class="hero">
+    <div class="col-l">
+
+      <!-- правка 2: большой заголовок вместо мелкой надписи -->
+      <div class="kick">
+        <span class="big va">Коллекция Завидово</span>
+        <span class="sub va">Экопарк Завидово · Экопарк Лесной</span>
+
+        <span class="big vb">Коттеджные посёлки</span>
+        <span class="sub vb">Экопарк Завидово и Экопарк Лесной</span>
+      </div>
+
+      <h1 class="htitle">Участки и дома<br>в посёлке рядом<br><span class="g">с курортом Завидово</span></h1>
+
+      <p class="lead">Постройте дачу рядом с курортной зоной Завидово в окружении заповедников,
+        лесов и рек. Идеальное место для отдыха от городской суеты.</p>
+
+      <div class="cta">
+        <a class="btn btn-fill" href="#">Выбрать участок</a>
+        <a class="btn btn-out" href="#">Узнать о посёлке</a>
+      </div>
+    </div>
+
+    <div class="col-r">
+      <div class="photo">
+        <img src="assets/hero-house.jpg" alt="Дом в Экопарке Завидово">
+      </div>
+      <div class="badge"><span>Низкие<br>цены</span></div>
+    </div>
+  </main>
+
+  <div class="vnote">демо для выбора · вверху переключайте Вариант A / B · бриллиант-лого кликабелен → ведёт в Коллекцию</div>
+
+<script>
+  function setV(v){
+    document.body.dataset.v=v;
+    document.getElementById('ba').classList.toggle('on',v==='a');
+    document.getElementById('bb').classList.toggle('on',v==='b');
+  }
+</script>
+</body>
+</html>

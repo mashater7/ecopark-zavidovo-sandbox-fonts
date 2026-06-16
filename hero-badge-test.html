@@ -2453,4 +2453,21 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 })();
 </script>
 
+<!-- Вход из «Коллекции» с панели «Лесной»: ?poselok=les переключает карту и генплан на Лесной -->
+<script>
+(function(){
+  var p=new URLSearchParams(location.search).get('poselok')||'';
+  if(!/^(les|lesnoy|лесной)$/i.test(p)) return;
+  var done={ppmap:false, ppsch:false};
+  function go(){
+    var m=document.getElementById('ppmap-les');
+    if(m && !done.ppmap && !m.classList.contains('active')){ m.click(); done.ppmap=true; }
+    var s=document.getElementById('ppsch-les');
+    if(s && !done.ppsch && !s.classList.contains('active')){ s.click(); done.ppsch=true; }
+    return done.ppmap && done.ppsch;
+  }
+  var tries=0, t=setInterval(function(){ if(go() || ++tries>120) clearInterval(t); }, 250);
+})();
+</script>
+
 </body> </html>
