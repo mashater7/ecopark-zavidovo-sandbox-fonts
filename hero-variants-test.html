@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hero — 2 варианта заголовка (правки 1+2+3)</title>
+<title>Hero — заголовок «Коллекция» по центру над блоком (правки 1+2+3)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
@@ -16,16 +16,6 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:var(--font);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
 
-  /* ——— переключатель вариантов (только для демо) ——— */
-  .vswitch{position:fixed;z-index:50;top:14px;left:50%;transform:translateX(-50%);
-    display:flex;gap:6px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
-    border:1px solid var(--line);border-radius:40px;padding:6px;box-shadow:0 10px 30px -12px rgba(0,0,0,.25)}
-  .vswitch button{font-family:var(--font);font-size:13px;letter-spacing:.06em;text-transform:uppercase;
-    border:0;cursor:pointer;padding:9px 18px;border-radius:30px;background:transparent;color:var(--ink)}
-  .vswitch button.on{background:var(--green);color:#fff}
-  .vnote{position:fixed;z-index:50;bottom:12px;left:50%;transform:translateX(-50%);
-    font-size:12px;letter-spacing:.08em;color:var(--grey);text-transform:uppercase;text-align:center;width:92%}
-
   /* ——— шапка ——— */
   .top{max-width:1200px;margin:0 auto;padding:26px 24px 0;display:flex;align-items:center;gap:22px}
   .brand{display:inline-flex;align-items:center;text-decoration:none;flex:0 0 auto}
@@ -37,17 +27,18 @@
   .phone{font-size:22px;color:var(--ink);text-decoration:none;white-space:nowrap}
   .phone small{display:block;font-size:11px;color:var(--grey);letter-spacing:.04em;text-transform:uppercase;text-align:right;margin-top:2px}
 
-  /* ——— hero ——— */
-  .hero{max-width:1200px;margin:0 auto;padding:40px 24px 70px;
+  /* ——— ПРАВКА 2: заголовок «Коллекция» по центру, НАД блоком ——— */
+  .collhead{max-width:1200px;margin:0 auto;padding:40px 24px 6px;text-align:center}
+  .collhead .big{display:block;text-transform:uppercase;font-weight:400;color:var(--green);
+    font-size:clamp(28px,4vw,46px);letter-spacing:.22em;line-height:1.05}
+  .collhead .sub{display:block;margin-top:10px;text-transform:uppercase;color:var(--grey);
+    font-size:clamp(11px,1.3vw,14px);letter-spacing:.26em}
+  .collhead .rule{width:60px;height:2px;background:var(--green);opacity:.5;margin:18px auto 0;border-radius:2px}
+
+  /* ——— hero (родной, не трогаем содержимое) ——— */
+  .hero{max-width:1200px;margin:0 auto;padding:30px 24px 70px;
     display:grid;grid-template-columns:1fr 1.02fr;gap:48px;align-items:center}
   .col-l{min-width:0}
-
-  /* блок-замена надзаголовка (правка 2) */
-  .kick{margin-bottom:18px}
-  .kick .big{display:block;text-transform:uppercase;font-weight:400;color:var(--green);
-    font-size:clamp(24px,3.2vw,38px);letter-spacing:.2em;line-height:1.05}
-  .kick .sub{display:block;margin-top:8px;text-transform:uppercase;color:var(--grey);
-    font-size:clamp(11px,1.2vw,13.5px);letter-spacing:.22em}
 
   h1.htitle{text-transform:uppercase;font-weight:700;color:var(--ink);
     font-size:clamp(32px,4.4vw,48px);line-height:1.0;letter-spacing:.005em}
@@ -75,17 +66,16 @@
   .badge::before{content:"";position:absolute;inset:6px;border-radius:50%;border:1px dashed rgba(255,255,255,.55)}
   .badge span{position:relative;font-size:16px;font-weight:400;letter-spacing:.06em;text-transform:uppercase}
 
-  /* какой вариант показывать */
-  body[data-v="a"] .va{display:block}  body[data-v="a"] .vb{display:none}
-  body[data-v="b"] .vb{display:block}  body[data-v="b"] .va{display:none}
+  .vnote{max-width:1200px;margin:0 auto 30px;padding:0 24px;text-align:center;
+    font-size:12px;letter-spacing:.08em;color:var(--grey);text-transform:uppercase}
 
   /* ——— мобайл ——— */
   @media (max-width:900px){
     .nav{display:none}
     .top{padding-top:20px}
     .phone{margin-left:auto;font-size:18px}
-    .hero{grid-template-columns:1fr;gap:28px;padding:26px 18px 56px}
-    .col-r{order:-1}
+    .collhead{padding:26px 18px 2px}
+    .hero{grid-template-columns:1fr;gap:28px;padding:22px 18px 56px}
     .badge{width:84px;height:84px;left:-14px;top:14px}
     .badge span{font-size:13px}
     .cta{flex-direction:column}
@@ -94,12 +84,7 @@
   }
 </style>
 </head>
-<body data-v="a">
-
-  <div class="vswitch">
-    <button id="ba" class="on" onclick="setV('a')">Вариант A · Коллекция</button>
-    <button id="bb" onclick="setV('b')">Вариант B · Посёлки</button>
-  </div>
+<body>
 
   <header class="top">
     <!-- правка 1: бриллиант вместо текстового лого, ведёт в Коллекцию (сплит-экран) -->
@@ -113,18 +98,15 @@
     <a class="phone" href="tel:+74953096541">+7 499 309 65 41<small>звонок бесплатный</small></a>
   </header>
 
+  <!-- ПРАВКА 2: заголовок «Коллекция Завидово» — по центру, отдельным заголовком, НАД блоком -->
+  <section class="collhead">
+    <span class="big">Коллекция Завидово</span>
+    <span class="sub">Экопарк Завидово и Экопарк Лесной</span>
+    <div class="rule"></div>
+  </section>
+
   <main class="hero">
     <div class="col-l">
-
-      <!-- правка 2: большой заголовок вместо мелкой надписи -->
-      <div class="kick">
-        <span class="big va">Коллекция Завидово</span>
-        <span class="sub va">Экопарк Завидово · Экопарк Лесной</span>
-
-        <span class="big vb">Коттеджные посёлки</span>
-        <span class="sub vb">Экопарк Завидово и Экопарк Лесной</span>
-      </div>
-
       <h1 class="htitle">Участки и дома<br>в посёлке рядом<br><span class="g">с курортом Завидово</span></h1>
 
       <p class="lead">Постройте дачу рядом с курортной зоной Завидово в окружении заповедников,
@@ -144,14 +126,7 @@
     </div>
   </main>
 
-  <div class="vnote">демо для выбора · вверху переключайте Вариант A / B · бриллиант-лого кликабелен → ведёт в Коллекцию</div>
+  <div class="vnote">демо · «Коллекция Завидово» — отдельным заголовком по центру над блоком · бриллиант-лого кликабелен → ведёт в Коллекцию</div>
 
-<script>
-  function setV(v){
-    document.body.dataset.v=v;
-    document.getElementById('ba').classList.toggle('on',v==='a');
-    document.getElementById('bb').classList.toggle('on',v==='b');
-  }
-</script>
 </body>
 </html>
