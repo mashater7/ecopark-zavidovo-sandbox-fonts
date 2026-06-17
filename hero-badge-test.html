@@ -2453,21 +2453,22 @@ setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s
 })();
 </script>
 
-<!-- Вход из «Коллекции» с панели «Лесной»: ?poselok=les переключает карту и генплан на Лесной -->
+<!-- Вход из «Коллекции»: ?poselok=les → карта/генплан на «Лесной»; ?poselok=zav → на «Завидово» -->
 <script>
 (function(){
-  var p=new URLSearchParams(location.search).get('poselok')||'';
-  if(!/^(les|lesnoy|лесной)$/i.test(p)) return;
+  var p=(new URLSearchParams(location.search).get('poselok')||'').toLowerCase();
+  var key=/les|лес/.test(p)?'les':(/zav|зав/.test(p)?'zav':null);
+  if(!key) return;
   var done={ppmap:false, ppsch:false};
   function go(){
-    var m=document.getElementById('ppmap-les');
-    if(m && !done.ppmap && !m.classList.contains('active')){ m.click(); done.ppmap=true; }
-    var s=document.getElementById('ppsch-les');
-    if(s && !done.ppsch && !s.classList.contains('active')){ s.click(); done.ppsch=true; }
+    var m=document.getElementById('ppmap-'+key);
+    if(m && !done.ppmap){ if(!m.classList.contains('active')) m.click(); done.ppmap=true; }
+    var s=document.getElementById('ppsch-'+key);
+    if(s && !done.ppsch){ if(!s.classList.contains('active')) s.click(); done.ppsch=true; }
     return done.ppmap && done.ppsch;
   }
   var tries=0, t=setInterval(function(){ if(go() || ++tries>120) clearInterval(t); }, 250);
 })();
 </script>
 
-<style>#logoToggle{position:fixed;z-index:99999;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:5px;align-items:center;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border:1px solid #e7e2da;border-radius:40px;padding:5px 5px 5px 16px;box-shadow:0 10px 30px -10px rgba(0,0,0,.35);font-family:'Poiret One',sans-serif}#logoToggle .lt-cap{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#9a948c;margin-right:4px}#logoToggle button{border:0;cursor:pointer;font-family:inherit;font-size:13.5px;letter-spacing:.03em;padding:9px 18px;border-radius:30px;background:transparent;color:#333;transition:.2s}#logoToggle button.on{background:linear-gradient(100deg,#15a06a,#1f9be6);color:#fff}body.logo-notext #rec-collsplit .cs-wm{display:none!important}@media(max-width:600px){#logoToggle .lt-cap{display:none}#logoToggle button{padding:8px 13px;font-size:12.5px}}</style><div id="logoToggle"><span class="lt-cap">Лого:</span><button id="lt-text" class="on">с текстом</button><button id="lt-icon">только бриллиант</button></div><script>(function(){var t=document.getElementById("lt-text"),i=document.getElementById("lt-icon");if(!t||!i)return;t.addEventListener("click",function(){document.body.classList.remove("logo-notext");t.classList.add("on");i.classList.remove("on");});i.addEventListener("click",function(){document.body.classList.add("logo-notext");i.classList.add("on");t.classList.remove("on");});})();</script></body> </html>
+<style>#logoToggle{position:fixed;z-index:99999;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:5px;align-items:center;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border:1px solid #e7e2da;border-radius:40px;padding:5px 5px 5px 16px;box-shadow:0 10px 30px -10px rgba(0,0,0,.35);font-family:'Poiret One',sans-serif}#logoToggle .lt-cap{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#9a948c;margin-right:4px}#logoToggle button{border:0;cursor:pointer;font-family:inherit;font-size:13.5px;letter-spacing:.03em;padding:9px 18px;border-radius:30px;background:transparent;color:#333;transition:.2s}#logoToggle button.on{background:linear-gradient(100deg,#15a06a,#1f9be6);color:#fff}body.logo-notext #rec-collsplit .cs-wm{display:none!important}@media(max-width:600px){#logoToggle .lt-cap{display:none}#logoToggle button{padding:8px 13px;font-size:12.5px}}</style><div id="logoToggle"><span class="lt-cap">Лого:</span><button id="lt-text" class="on">с текстом</button><button id="lt-icon">только бриллиант</button></div><script>(function(){var t=document.getElementById("lt-text"),i=document.getElementById("lt-icon");if(!t||!i)return;t.addEventListener("click",function(){document.body.classList.remove("logo-notext");t.classList.add("on");i.classList.remove("on");});i.addEventListener("click",function(){document.body.classList.add("logo-notext");i.classList.add("on");t.classList.remove("on");});})();</script><style>#allrecords .t450__logoimg{display:none!important}.ct-mlogo{display:inline-flex;align-items:center;gap:11px;text-decoration:none;vertical-align:middle}.ct-mlogo img{width:48px;height:48px;object-fit:contain;flex:none}.ct-mwm{display:flex;flex-direction:column;line-height:1;font-family:'Poiret One',sans-serif}.ct-mtop{font-size:11px;letter-spacing:.5em;text-transform:uppercase;color:#9a948c}.ct-mbot{font-size:22px;letter-spacing:.2em;text-transform:uppercase;margin-top:3px;background:linear-gradient(100deg,#1bad03,#15a06a 45%,#1f9be6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}@media(max-width:960px){.ct-mbot{font-size:26px}.ct-mlogo img{width:56px;height:56px}.ct-mtop{font-size:12px}}</style><script>(function(){function inj(){document.querySelectorAll(".t450__logowrapper").forEach(function(w){if(w.querySelector(".ct-mlogo"))return;var a=document.createElement("a");a.href="collection-split-test.html";a.className="ct-mlogo";a.innerHTML="<img src=\"assets/collection/logo-diamond.png\" alt=\"\"><span class=\"ct-mwm\"><span class=\"ct-mtop\">Коллекция</span><span class=\"ct-mbot\">Завидово</span></span>";w.appendChild(a);});}if(document.readyState!=="loading")inj();else document.addEventListener("DOMContentLoaded",inj);setTimeout(inj,800);setTimeout(inj,2200);})();</script></body> </html>

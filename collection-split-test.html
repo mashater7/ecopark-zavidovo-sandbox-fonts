@@ -81,8 +81,9 @@
     display:grid;place-items:center;box-shadow:0 10px 26px -10px rgba(0,0,0,.6)}
   .soon__logo img{width:44px;height:44px;object-fit:contain}
   .soon__kick{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:#bfe0ff;opacity:.9}
-  .soon__name{font-size:clamp(30px,5vw,46px);letter-spacing:.14em;text-transform:uppercase;font-weight:400;margin:6px 0 18px;
+  .soon__name{font-size:clamp(21px,5.4vw,44px);letter-spacing:.1em;text-transform:uppercase;font-weight:400;margin:6px 0 18px;line-height:1.1;
     background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  @media(max-width:560px){.soon__card{padding:40px 22px 34px}.soon__name{letter-spacing:.04em}}
   .soon__dev{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;
     color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
     padding:9px 18px;border-radius:40px;margin-bottom:20px}
@@ -121,7 +122,7 @@
       </div>
     </a>
 
-    <a class="panel" href="hero-badge-test.html">
+    <a class="panel" href="hero-badge-test.html?poselok=zav">
       <img src="assets/collection/photo-zavidovo.jpg" alt="">
       <div class="panel__in">
         <span class="badge"><img src="assets/collection/logo-zavidovo.png" alt=""></span>
