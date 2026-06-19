@@ -103,6 +103,32 @@
   .card.feat .cta:hover{filter:brightness(1.07)}
   .note{margin:30px auto 0;max-width:760px;text-align:center;font-family:'Manrope',sans-serif;font-weight:500;font-size:14px;color:var(--muted);line-height:1.55}
 
+  /* trade-in */
+  .ti{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center}
+  .ti__lead{font-size:17px;line-height:1.65;color:#5c6368;max-width:540px}
+  .ti__swap{display:flex;align-items:stretch;gap:14px;margin:26px 0 6px}
+  .swapcard{flex:1;border-radius:16px;padding:16px 18px;text-align:center;border:1.5px solid #e6ece9;background:#fff}
+  .swapcard span{display:block;font-family:'Manrope',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .swapcard b{display:block;font-weight:400;font-size:21px;letter-spacing:.02em;margin-top:4px;text-transform:uppercase}
+  .swapcard.from b{color:#8b9590}
+  .swapcard.to{border:0;background:linear-gradient(180deg,#eafaf1,#f6fffb);position:relative}
+  .swapcard.to::before{content:"";position:absolute;inset:0;border-radius:16px;padding:1.6px;background:var(--grad);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+  .swapcard.to b{color:var(--green-d)}
+  .swaparr{flex:none;align-self:center;display:grid;place-items:center}
+  .swaparr svg{width:30px;height:30px;stroke:var(--green);fill:none;stroke-width:1.8}
+  .ti__steps{list-style:none;display:flex;flex-direction:column;gap:14px;margin:24px 0 0}
+  .ti__steps li{display:flex;gap:14px;align-items:flex-start;font-family:'Manrope',sans-serif;font-weight:500;font-size:15.5px;color:#39413f;line-height:1.45}
+  .ti__steps li i{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:14px;color:#fff;background:var(--grad)}
+  .ti__steps li b{font-weight:700;color:#222}
+  .ti__trust{display:flex;align-items:center;gap:10px;margin:24px 0 26px;padding:14px 18px;border-radius:14px;background:var(--soft);border:1px solid var(--line);
+    font-family:'Manrope',sans-serif;font-weight:600;font-size:13.5px;color:var(--green-d);line-height:1.45}
+  .ti__trust svg{width:22px;height:22px;flex:none}
+  .ti__media{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 34px 70px -30px rgba(20,40,25,.5);aspect-ratio:4/5}
+  .ti__media img{width:100%;height:100%;object-fit:cover}
+  .ti__media .tag{position:absolute;top:16px;left:16px;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.94);backdrop-filter:blur(4px);
+    border-radius:30px;padding:9px 16px;font-family:'Manrope',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--green-d);box-shadow:0 8px 20px -8px rgba(0,0,0,.3)}
+  .ti__media .tag svg{width:16px;height:16px;flex:none;stroke:var(--green);fill:none;stroke-width:1.9}
+
   /* life (emotional + photo) */
   .life{margin-top:66px;display:grid;grid-template-columns:1fr 1.05fr;gap:46px;align-items:center}
   .life__media{border-radius:24px;overflow:hidden;box-shadow:0 34px 70px -30px rgba(20,40,25,.5);aspect-ratio:5/4}
@@ -133,6 +159,9 @@
     .tariffs{grid-template-columns:1fr;gap:26px}
     .life{grid-template-columns:1fr;gap:26px}
     .life__media{order:-1}
+    .ti{grid-template-columns:1fr;gap:28px}
+    .ti__media{order:-1;aspect-ratio:4/3}
+    .swapcard b{font-size:18px}
     .back{padding:10px 16px;font-size:13px}
     .brand .wm i{font-size:18px}
   }
@@ -253,6 +282,44 @@
         <li>Дружное комьюнити соседей</li>
         <li>Час от Москвы по трассе М10</li>
       </ul>
+    </div>
+  </section>
+
+  <!-- TRADE-IN -->
+  <section class="sec tradein" id="tradein">
+    <div class="sec__h">
+      <div class="k">Программа Trade-In</div>
+      <h2>Обменяем участок в&nbsp;Елдино<br>на участок в&nbsp;Экопарке</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="ti">
+      <div class="ti__left">
+        <p class="ti__lead">Есть участок в&nbsp;Елдино, но&nbsp;вы рассматриваете Экопарк Завидово для жизни или&nbsp;инвестиций? Не&nbsp;нужно самостоятельно заниматься долгой продажей земли&nbsp;— по&nbsp;программе&nbsp;Trade-In мы&nbsp;берём ваш участок в&nbsp;зачёт и&nbsp;помогаем переехать быстрее и&nbsp;проще.</p>
+
+        <div class="ti__swap">
+          <div class="swapcard from"><span>Ваш участок</span><b>Елдино</b></div>
+          <div class="swaparr"><svg viewBox="0 0 24 24"><path d="M4 8h13M13 4l4 4-4 4M20 16H7M11 12l-4 4 4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="swapcard to"><span>Новый участок</span><b>Экопарк Завидово</b></div>
+        </div>
+
+        <ul class="ti__steps">
+          <li><i>1</i><span>Оставляете заявку&nbsp;— <b>менеджер свяжется в&nbsp;течение 10&nbsp;минут</b></span></li>
+          <li><i>2</i><span>В&nbsp;офисе продаж оцениваем ваш участок и&nbsp;обговариваем все условия обмена</span></li>
+          <li><i>3</i><span>Оформляем сделку и&nbsp;вы&nbsp;<b>переезжаете в&nbsp;Экопарк Завидово</b></span></li>
+        </ul>
+
+        <div class="ti__trust">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#15a06a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+          Все условия обговариваются официально в&nbsp;офисе продаж&nbsp;— честно и&nbsp;прозрачно.
+        </div>
+
+        <a class="btn-main" href="#contact">Узнать условия обмена →</a>
+      </div>
+
+      <div class="ti__media">
+        <img src="assets/9d620717_rHtHSwLD5ecEnyVouG4h.jpg" alt="Природа Экопарка Завидово — река Дойбица">
+        <span class="tag"><svg viewBox="0 0 24 24"><path d="M4 8h13M13 4l4 4-4 4M20 16H7M11 12l-4 4 4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>Trade-In</span>
+      </div>
     </div>
   </section>
 
