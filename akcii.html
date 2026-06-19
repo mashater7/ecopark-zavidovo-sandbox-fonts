@@ -7,7 +7,7 @@
 <meta name="description" content="Беспроцентная рассрочка 0% на участки и дома в посёлке Экопарк Завидово у курорта Завидово. Официальный договор, участок в собственность, готов к заселению. Первый взнос от 30%.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Poiret+One&display=swap" rel="stylesheet">
 <style>
   :root{
     --green:#15a06a; --green-d:#09763F; --blue:#1f9be6; --brown:#bb916b; --brown-d:#a87f56;
@@ -73,28 +73,35 @@
   .sec__h h2{font-weight:400;text-transform:uppercase;letter-spacing:.12em;font-size:clamp(24px,3.6vw,40px);margin-top:8px}
   .sec__h .rule{width:62px;height:2px;background:var(--grad);margin:16px auto 0;border-radius:2px}
 
-  /* tariffs */
-  .tariffs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
-  .card{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:34px 28px 30px;display:flex;flex-direction:column;
-    box-shadow:0 24px 50px -34px rgba(20,40,25,.4);transition:transform .25s,box-shadow .25s}
-  .card:hover{transform:translateY(-6px);box-shadow:0 34px 64px -28px rgba(20,40,25,.5)}
-  .card__eye{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
-  .card__big{font-size:62px;font-weight:400;line-height:1;margin:10px 0 2px}
+  /* tariffs — solid & trustworthy */
+  .tariffs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+  .card{position:relative;background:#fff;border:1.5px solid #e6ece9;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;
+    box-shadow:0 22px 46px -30px rgba(20,40,25,.45);transition:transform .25s,box-shadow .25s}
+  .card:hover{transform:translateY(-6px);box-shadow:0 36px 66px -28px rgba(20,40,25,.5)}
+  .card__price{padding:30px 28px 22px;background:linear-gradient(180deg,#f3faf6,#ffffff);border-bottom:1.5px solid #eef3f0}
+  .card__eye{font-family:'Manrope',sans-serif;font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9aa3a0}
+  .card__big{font-family:'Manrope',sans-serif;font-weight:800;font-size:62px;line-height:1;letter-spacing:-.01em;margin:8px 0 4px;color:var(--green-d)}
   .card__big .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .card__cap{font-size:14.5px;color:var(--muted)}
-  .card__list{list-style:none;margin:22px 0 26px;display:flex;flex-direction:column;gap:13px}
-  .card__list li{position:relative;padding-left:30px;font-size:16px;line-height:1.45}
-  .card__list li::before{content:"";position:absolute;left:2px;top:4px;width:15px;height:9px;border-left:2.4px solid var(--green);border-bottom:2.4px solid var(--green);transform:rotate(-45deg)}
-  .card .cta{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font);font-size:15px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-decoration:none;
-    padding:15px 22px;border-radius:14px;border:1px solid #e3d6c6;color:var(--brown);background:#fff;transition:.2s}
-  .card .cta:hover{border-color:var(--brown);color:var(--brown-d)}
-  .card.feat{border:0;box-shadow:0 30px 64px -26px rgba(21,160,106,.55)}
-  .card.feat::before{content:"";position:absolute;inset:0;border-radius:22px;padding:2px;background:var(--grad);
-    -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
-  .card.feat .ribbon{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--grad);color:#fff;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;padding:7px 20px;border-radius:30px;white-space:nowrap;box-shadow:0 12px 26px -8px rgba(21,160,106,.6)}
-  .card.feat .cta{background:var(--grad);color:#fff;border:0;box-shadow:0 16px 34px -14px rgba(21,160,106,.6)}
+  .card__cap{font-family:'Manrope',sans-serif;font-weight:600;font-size:14px;color:var(--muted)}
+  .card__body{padding:24px 28px 28px;display:flex;flex-direction:column;flex:1}
+  .card__list{list-style:none;margin:0 0 18px;display:flex;flex-direction:column;gap:14px}
+  .card__list li{font-family:'Manrope',sans-serif;font-weight:500;font-size:15.5px;line-height:1.4;color:#39413f;display:flex;gap:11px;align-items:flex-start}
+  .card__list li svg{flex:none;width:22px;height:22px;margin-top:1px}
+  .card__list li b{font-weight:700;color:#222}
+  .card__trust{font-family:'Manrope',sans-serif;font-weight:600;font-size:12.5px;color:var(--green-d);display:flex;align-items:center;gap:7px;margin-bottom:16px;padding-top:15px;border-top:1px dashed #e2e8e4}
+  .card__trust svg{width:16px;height:16px;flex:none}
+  .card .cta{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:9px;font-family:'Manrope',sans-serif;font-weight:700;font-size:14.5px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;text-decoration:none;
+    padding:16px 22px;border-radius:14px;color:#fff;background:var(--brown);box-shadow:0 14px 30px -14px rgba(187,145,107,.65);transition:.2s}
+  .card .cta:hover{background:var(--brown-d)}
+  .card.feat{border:0;box-shadow:0 32px 66px -24px rgba(21,160,106,.5);transform:translateY(-6px)}
+  .card.feat:hover{transform:translateY(-11px)}
+  .card.feat::before{content:"";position:absolute;inset:0;border-radius:22px;padding:2.5px;background:var(--grad);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:3}
+  .card.feat .card__price{background:linear-gradient(180deg,#e9faf1,#f6fffb)}
+  .card.feat .ribbon{position:absolute;top:-13px;left:50%;transform:translateX(-50%);z-index:4;font-family:'Manrope',sans-serif;font-weight:700;background:var(--grad);color:#fff;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;padding:8px 20px;border-radius:30px;white-space:nowrap;box-shadow:0 12px 26px -8px rgba(21,160,106,.6)}
+  .card.feat .cta{background:var(--grad);box-shadow:0 16px 34px -14px rgba(21,160,106,.6)}
   .card.feat .cta:hover{filter:brightness(1.07)}
-  .note{margin:26px auto 0;max-width:760px;text-align:center;font-size:14.5px;color:var(--muted)}
+  .note{margin:30px auto 0;max-width:760px;text-align:center;font-family:'Manrope',sans-serif;font-weight:500;font-size:14px;color:var(--muted);line-height:1.55}
 
   /* life (emotional + photo) */
   .life{margin-top:66px;display:grid;grid-template-columns:1fr 1.05fr;gap:46px;align-items:center}
@@ -177,40 +184,59 @@
       <div class="rule"></div>
     </div>
     <div class="tariffs">
+
       <div class="card">
-        <div class="card__eye">Вариант 1</div>
-        <div class="card__big"><span class="g">30%</span></div>
-        <div class="card__cap">первый платёж</div>
-        <ul class="card__list">
-          <li>Рассрочка на 9 месяцев</li>
-          <li>0% — без переплат и процентов</li>
-          <li>Участок сразу в собственность</li>
-        </ul>
-        <a class="cta" href="#contact">Оставить заявку</a>
+        <div class="card__price">
+          <div class="card__eye">Вариант 1</div>
+          <div class="card__big">30%</div>
+          <div class="card__cap">первый платёж</div>
+        </div>
+        <div class="card__body">
+          <ul class="card__list">
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#15a06a"/><path d="M7 12.4l3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Рассрочка на <b>9 месяцев</b></li>
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#15a06a"/><path d="M7 12.4l3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg><b>0%</b> — без переплат и процентов</li>
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#15a06a"/><path d="M7 12.4l3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Участок сразу в собственность</li>
+          </ul>
+          <div class="card__trust"><svg viewBox="0 0 24 24" fill="none" stroke="#15a06a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Официально, по договору</div>
+          <a class="cta" href="#contact">Оставить заявку</a>
+        </div>
       </div>
+
       <div class="card feat">
         <span class="ribbon">Выгоднее всего</span>
-        <div class="card__eye">Вариант 2</div>
-        <div class="card__big"><span class="g">50%</span></div>
-        <div class="card__cap">первый платёж</div>
-        <ul class="card__list">
-          <li>Рассрочка на 6 месяцев</li>
-          <li>0% процентов</li>
-          <li>+ интересная скидка на участок</li>
-        </ul>
-        <a class="cta" href="#contact">Оставить заявку</a>
+        <div class="card__price">
+          <div class="card__eye">Вариант 2</div>
+          <div class="card__big"><span class="g">50%</span></div>
+          <div class="card__cap">первый платёж</div>
+        </div>
+        <div class="card__body">
+          <ul class="card__list">
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#15a06a"/><path d="M7 12.4l3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Рассрочка на <b>6 месяцев</b></li>
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#15a06a"/><path d="M7 12.4l3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg><b>0%</b> процентов</li>
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#15a06a"/><path d="M7 12.4l3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>+ интересная <b>скидка</b> на участок</li>
+          </ul>
+          <div class="card__trust"><svg viewBox="0 0 24 24" fill="none" stroke="#15a06a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Официально, по договору</div>
+          <a class="cta" href="#contact">Оставить заявку</a>
+        </div>
       </div>
+
       <div class="card">
-        <div class="card__eye">Для всей недвижимости</div>
-        <div class="card__big"><span class="g">50%</span></div>
-        <div class="card__cap">предоплата при договоре</div>
-        <ul class="card__list">
-          <li>Остаток — равными частями за полгода</li>
-          <li>0% — на любой участок и дом</li>
-          <li>Доступно всем клиентам</li>
-        </ul>
-        <a class="cta" href="#contact">Оставить заявку</a>
+        <div class="card__price">
+          <div class="card__eye">Для всей недвижимости</div>
+          <div class="card__big">50%</div>
+          <div class="card__cap">предоплата при договоре</div>
+        </div>
+        <div class="card__body">
+          <ul class="card__list">
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#15a06a"/><path d="M7 12.4l3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Остаток — равными частями за <b>полгода</b></li>
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#15a06a"/><path d="M7 12.4l3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg><b>0%</b> — на любой участок и дом</li>
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#15a06a"/><path d="M7 12.4l3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Доступно всем клиентам</li>
+          </ul>
+          <div class="card__trust"><svg viewBox="0 0 24 24" fill="none" stroke="#15a06a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Официально, по договору</div>
+          <a class="cta" href="#contact">Оставить заявку</a>
+        </div>
       </div>
+
     </div>
     <p class="note">Рассрочка 0% действует на всю недвижимость посёлка. Точные условия и подбор варианта именно под вас — у наших менеджеров.</p>
   </section>
