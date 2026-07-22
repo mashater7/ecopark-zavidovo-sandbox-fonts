@@ -154,13 +154,16 @@ body.menu-open .akv-burger span:nth-child(3){transform:translateY(-6px) rotate(-
 .ss .c,.hs .c{font-family:'Montserrat',sans-serif;font-size:12.5px;line-height:1.35;width:100%;margin-top:3px;}
 
 /* --- S3: тонкая стеклянная лента ВНУТРИ hero (компактно, не отдельный экран) --- */
-.hero-stats{position:absolute;left:0;right:0;bottom:0;z-index:3;display:none;}
+/* лента лежит ТОЧНО на стыке hero и следующей секции (наезжает на край) */
+.hero-stats{position:relative;z-index:5;margin-top:-42px;display:none;}
 body[data-stats="s3"] .hero-stats{display:block;}
 body[data-stats="s3"] .hero-scroll{display:none;}
-.hero-stats-in{max-width:1280px;margin:0 auto;padding:0 var(--gutter) 20px var(--gutter-l);}
+body[data-stats="s3"] .about{padding-top:clamp(40px,5vw,68px);}
+.hero-stats-in{max-width:1280px;margin:0 auto;padding:0 var(--gutter) 0 var(--gutter-l);}
 .hero-stats-glass{display:grid;grid-template-columns:repeat(4,1fr);
-  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);border-radius:14px;
-  backdrop-filter:blur(8px);overflow:hidden;}
+  background:rgba(12,35,26,.62);border:1px solid rgba(255,255,255,.16);border-radius:14px;
+  backdrop-filter:blur(10px) saturate(115%);overflow:hidden;
+  box-shadow:0 18px 46px rgba(10,30,22,.28);}
 .hs{padding:13px 20px;position:relative;}
 .hs + .hs::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:1px;background:rgba(255,255,255,.18);}
 .hs .n{font-size:29px;color:#fff;}
@@ -388,6 +391,15 @@ body.menu-open{overflow:hidden;}
   .akv-watermark{width:88vw;right:-26%;}
   .akv-menu-foot{gap:14px;}
   .akv-foot-cta,.akv-menu-foot .btn{width:100%;justify-content:center;}
+  /* лента цифр на мобилке — 2 колонки, без наезда на стык */
+  .hero-stats{margin-top:-26px;}
+  .hero-stats-glass{grid-template-columns:repeat(2,1fr);}
+  .hs{padding:11px 16px;}
+  .hs .n{font-size:25px;}
+  .hs + .hs::before{display:none;}
+  .hero-stats-glass .hs:nth-child(2)::before,.hero-stats-glass .hs:nth-child(4)::before{content:"";display:block;position:absolute;left:0;top:10px;bottom:10px;width:1px;background:rgba(255,255,255,.18);}
+  .hero-stats-glass .hs:nth-child(3),.hero-stats-glass .hs:nth-child(4){border-top:1px solid rgba(255,255,255,.14);}
+  body[data-stats="s2"] .stats-strip .container{margin-top:-24px;}
   .about-list{grid-template-columns:1fr;}
   .infra-list{grid-template-columns:1fr;}
   .acts-panel-wrap{min-height:400px;}
@@ -472,19 +484,19 @@ body.menu-open{overflow:hidden;}
     </div>
   </div>
   <div class="hero-scroll" aria-hidden="true"><span class="ln"></span>Листайте</div>
+</section>
 
-  <!-- S3: компактная стеклянная лента внутри hero -->
-  <div class="hero-stats" aria-label="Ключевые факты">
-    <div class="hero-stats-in">
-      <div class="hero-stats-glass">
-        <div class="hs"><span class="n" data-count="10">10</span><span class="u">мин</span><span class="c">до курорта Завидово</span></div>
-        <div class="hs"><span class="n">1</span><span class="u">час</span><span class="c">от Москвы по М-11</span></div>
-        <div class="hs"><span class="n" data-count="15">15</span><span class="u">га</span><span class="c">лесопарка</span></div>
-        <div class="hs"><span class="n">1</span><span class="u">линия</span><span class="c">своя береговая линия</span></div>
-      </div>
+<!-- S3: компактная стеклянная лента ровно на стыке hero и контента -->
+<div class="hero-stats" aria-label="Ключевые факты">
+  <div class="hero-stats-in">
+    <div class="hero-stats-glass">
+      <div class="hs"><span class="n" data-count="10">10</span><span class="u">мин</span><span class="c">до курорта Завидово</span></div>
+      <div class="hs"><span class="n">1</span><span class="u">час</span><span class="c">от Москвы по М-11</span></div>
+      <div class="hs"><span class="n" data-count="15">15</span><span class="u">га</span><span class="c">лесопарка</span></div>
+      <div class="hs"><span class="n">1</span><span class="u">линия</span><span class="c">своя береговая линия</span></div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- S1 / S2: компактная строка цифр -->
 <section class="stats-strip" aria-label="Ключевые факты">
