@@ -7,6 +7,7 @@
 <meta name="description" content="Акватория Завидово — посёлок у большой воды в 10 минутах от курорта Завидово: собственный яхт-клуб, пляж, 15 га лесопарка, участки первой линии.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="assets/collection/photo-akvatoriya.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
@@ -62,7 +63,7 @@ h1,h2,h3,h4{font-weight:400;letter-spacing:.01em;text-wrap:balance;}
 .btn-light{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.5);backdrop-filter:blur(4px);}
 .btn-light:hover{transform:translateY(-3px);background:rgba(255,255,255,.22);}
 
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);transition-delay:calc(var(--d,0) * 70ms);}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .45s var(--ease-out),transform .45s var(--ease-out);transition-delay:calc(var(--d,0) * 45ms);}
 .reveal.in{opacity:1;transform:none;}
 
 /* ---------- ШАПКА-РЕЙКА B ---------- */
@@ -145,14 +146,55 @@ body.menu-open .akv-burger span:nth-child(3){transform:translateY(-6px) rotate(-
 .hero-scroll .ln{width:1px;height:34px;background:linear-gradient(#fff,transparent);animation:scrollLn 1.8s var(--ease-inout) infinite;transform-origin:top;}
 @keyframes scrollLn{0%{transform:scaleY(0);opacity:0;}40%{opacity:1;}100%{transform:scaleY(1);opacity:0;}}
 
-/* ---------- ЦИФРЫ ---------- */
-.stats{background:var(--emerald-deep);color:#fff;}
-.stats .container{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding-block:clamp(34px,4vw,52px);}
-.stat{display:flex;flex-direction:column;gap:6px;position:relative;}
-.stat .num{font-family:'Montserrat',sans-serif;font-weight:600;font-size:clamp(30px,3.6vw,44px);line-height:1;font-variant-numeric:tabular-nums;}
-.stat .num .u{font-size:.5em;font-weight:500;margin-left:4px;opacity:.9;}
-.stat .cap{font-size:14px;color:rgba(255,255,255,.78);line-height:1.35;}
-.stat + .stat::before{content:"";position:absolute;left:-12px;top:6px;bottom:6px;width:1px;background:rgba(255,255,255,.18);}
+/* ---------- ЦИФРЫ: 3 КОМПАКТНЫХ ВАРИАНТА (переключатель) ---------- */
+/* общая типографика цифры */
+.ss,.hs{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+.ss .n,.hs .n{font-family:'Poiret One',sans-serif;line-height:1;font-variant-numeric:tabular-nums;}
+.ss .u,.hs .u{font-family:'Montserrat',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.03em;}
+.ss .c,.hs .c{font-family:'Montserrat',sans-serif;font-size:12.5px;line-height:1.35;width:100%;margin-top:3px;}
+
+/* --- S3: тонкая стеклянная лента ВНУТРИ hero (компактно, не отдельный экран) --- */
+.hero-stats{position:absolute;left:0;right:0;bottom:0;z-index:3;display:none;}
+body[data-stats="s3"] .hero-stats{display:block;}
+body[data-stats="s3"] .hero-scroll{display:none;}
+.hero-stats-in{max-width:1280px;margin:0 auto;padding:0 var(--gutter) 20px var(--gutter-l);}
+.hero-stats-glass{display:grid;grid-template-columns:repeat(4,1fr);
+  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);border-radius:14px;
+  backdrop-filter:blur(8px);overflow:hidden;}
+.hs{padding:13px 20px;position:relative;}
+.hs + .hs::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:1px;background:rgba(255,255,255,.18);}
+.hs .n{font-size:29px;color:#fff;}
+.hs .u{color:var(--bronze-hi);}
+.hs .c{color:rgba(255,255,255,.78);}
+
+/* --- S1 / S2: компактная строка после hero --- */
+.stats-strip{display:none;}
+body[data-stats="s1"] .stats-strip,body[data-stats="s2"] .stats-strip{display:block;}
+.stats-strip .container{display:grid;grid-template-columns:repeat(4,1fr);}
+.ss .n{color:var(--ink);font-size:33px;}
+.ss .u{color:var(--bronze);}
+.ss .c{color:var(--muted);}
+/* S1 — тихая светлая полоса с волосяными линиями */
+body[data-stats="s1"] .stats-strip{background:#fff;border-bottom:1px solid var(--line);}
+body[data-stats="s1"] .stats-strip .container{padding-block:24px;}
+body[data-stats="s1"] .ss{padding:4px 26px;position:relative;}
+body[data-stats="s1"] .ss:first-child{padding-left:0;}
+body[data-stats="s1"] .ss + .ss::before{content:"";position:absolute;left:0;top:2px;bottom:2px;width:1px;background:var(--line);}
+/* S2 — маленькие карточки, слегка наезжают на hero */
+body[data-stats="s2"] .stats-strip{background:var(--sand);}
+body[data-stats="s2"] .stats-strip .container{gap:14px;padding-block:0;margin-top:-44px;position:relative;z-index:3;}
+body[data-stats="s2"] .ss{background:#fff;border-radius:14px;box-shadow:var(--shadow-s);padding:16px 18px;
+  transition:transform var(--t-fast) var(--ease-out),box-shadow var(--t-fast) var(--ease-out);}
+body[data-stats="s2"] .ss:hover{transform:translateY(-3px);box-shadow:var(--shadow-m);}
+body[data-stats="s2"] .stats-strip{padding-bottom:26px;}
+
+/* переключатель вариантов (только для теста) */
+.st-switch{position:fixed;right:16px;top:16px;z-index:500;display:flex;align-items:center;gap:4px;
+  background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:40px;padding:6px;
+  box-shadow:var(--shadow-m);font-family:'Montserrat',sans-serif;}
+.st-switch b{font-size:10.5px;color:var(--muted);padding:0 8px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;}
+.st-switch button{border:0;background:none;cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ink);padding:9px 13px;border-radius:30px;min-height:36px;}
+.st-switch button[aria-pressed="true"]{background:var(--emerald);color:#fff;}
 
 /* ---------- О ПОСЁЛКЕ ---------- */
 .about .container{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:center;}
@@ -264,7 +306,7 @@ body.menu-open .akv-burger span:nth-child(3){transform:translateY(-6px) rotate(-
 .serv-item span{font-size:16.5px;color:var(--ink);}
 
 /* ---------- КВИЗ-ПОДБОР ---------- */
-.quiz{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(7,50,35,.9),rgba(7,45,33,.94)),url("assets/collection/photo-akvatoriya.jpg") center/cover no-repeat fixed;color:#fff;}
+.quiz{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(7,50,35,.9),rgba(7,45,33,.94)),url("assets/collection/photo-akvatoriya.jpg") center/cover no-repeat;color:#fff;}
 .quiz .container{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(30px,4vw,64px);align-items:center;}
 .quiz-txt .eyebrow{color:var(--bronze-hi);display:block;margin-bottom:14px;}
 .quiz-txt .h2{color:#fff;margin-bottom:16px;}
@@ -430,17 +472,37 @@ body.menu-open{overflow:hidden;}
     </div>
   </div>
   <div class="hero-scroll" aria-hidden="true"><span class="ln"></span>Листайте</div>
-</section>
 
-<!-- ЦИФРЫ -->
-<section class="stats" aria-label="Ключевые факты">
-  <div class="container">
-    <div class="stat reveal" style="--d:0"><span class="num" data-count="10"><span class="v">10</span><span class="u">мин</span></span><span class="cap">до курорта Завидово</span></div>
-    <div class="stat reveal" style="--d:1"><span class="num" data-count="1"><span class="v">1</span><span class="u">час</span></span><span class="cap">от Москвы по трассе М-11</span></div>
-    <div class="stat reveal" style="--d:2"><span class="num" data-count="15"><span class="v">15</span><span class="u">га</span></span><span class="cap">благоустроенного лесопарка</span></div>
-    <div class="stat reveal" style="--d:3"><span class="num"><span class="v">1</span><span class="u">линия</span></span><span class="cap">собственная береговая линия</span></div>
+  <!-- S3: компактная стеклянная лента внутри hero -->
+  <div class="hero-stats" aria-label="Ключевые факты">
+    <div class="hero-stats-in">
+      <div class="hero-stats-glass">
+        <div class="hs"><span class="n" data-count="10">10</span><span class="u">мин</span><span class="c">до курорта Завидово</span></div>
+        <div class="hs"><span class="n">1</span><span class="u">час</span><span class="c">от Москвы по М-11</span></div>
+        <div class="hs"><span class="n" data-count="15">15</span><span class="u">га</span><span class="c">лесопарка</span></div>
+        <div class="hs"><span class="n">1</span><span class="u">линия</span><span class="c">своя береговая линия</span></div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- S1 / S2: компактная строка цифр -->
+<section class="stats-strip" aria-label="Ключевые факты">
+  <div class="container">
+    <div class="ss reveal" style="--d:0"><span class="n" data-count="10">10</span><span class="u">мин</span><span class="c">до курорта Завидово</span></div>
+    <div class="ss reveal" style="--d:1"><span class="n">1</span><span class="u">час</span><span class="c">от Москвы по трассе М-11</span></div>
+    <div class="ss reveal" style="--d:2"><span class="n" data-count="15">15</span><span class="u">га</span><span class="c">благоустроенного лесопарка</span></div>
+    <div class="ss reveal" style="--d:3"><span class="n">1</span><span class="u">линия</span><span class="c">собственная береговая линия</span></div>
+  </div>
+</section>
+
+<!-- переключатель вариантов блока цифр (только для теста) -->
+<div class="st-switch" role="group" aria-label="Вариант блока цифр">
+  <b>Цифры</b>
+  <button type="button" data-s="s3" aria-pressed="true">Стекло</button>
+  <button type="button" data-s="s1" aria-pressed="false">Строка</button>
+  <button type="button" data-s="s2" aria-pressed="false">Карточки</button>
+</div>
 
 <!-- О ПОСЁЛКЕ -->
 <section class="section about" id="about">
@@ -747,10 +809,25 @@ body.menu-open{overflow:hidden;}
   var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } }); },{threshold:.14,rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 
-  function animateCount(el){ var t=parseInt(el.getAttribute('data-count'),10); if(isNaN(t)) return; var v=el.querySelector('.v'); if(reduceMotion){v.textContent=t;return;}
-    var s=null,d=1100; function step(ts){ if(!s)s=ts; var p=Math.min((ts-s)/d,1),e=1-Math.pow(1-p,3); v.textContent=Math.round(e*t); if(p<1) requestAnimationFrame(step); } requestAnimationFrame(step); }
-  var cio=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ animateCount(x.target); cio.unobserve(x.target); } }); },{threshold:.5});
-  document.querySelectorAll('.num[data-count]').forEach(function(el){ cio.observe(el); });
+  function animateCount(el){ var t=parseInt(el.getAttribute('data-count'),10); if(isNaN(t)) return; if(reduceMotion){el.textContent=t;return;}
+    var s=null,d=850; function step(ts){ if(!s)s=ts; var p=Math.min((ts-s)/d,1),e=1-Math.pow(1-p,3); el.textContent=Math.round(e*t); if(p<1) requestAnimationFrame(step); } requestAnimationFrame(step); }
+  var cio=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ animateCount(x.target); cio.unobserve(x.target); } }); },{threshold:.4});
+  document.querySelectorAll('[data-count]').forEach(function(el){ cio.observe(el); });
+
+  /* переключатель варианта блока цифр */
+  (function(){
+    var sw=document.querySelector('.st-switch'); if(!sw) return;
+    var btns=[].slice.call(sw.querySelectorAll('button'));
+    var saved=localStorage.getItem('akvStats')||'s3';
+    function apply(v){ document.body.setAttribute('data-stats',v);
+      btns.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.s===v?'true':'false'); });
+      localStorage.setItem('akvStats',v);
+      /* пересчитать цифры в ставшем видимым блоке */
+      document.querySelectorAll('[data-count]').forEach(function(el){ if(el.offsetParent!==null) animateCount(el); });
+    }
+    btns.forEach(function(b){ b.addEventListener('click',function(){ apply(b.dataset.s); }); });
+    apply(saved);
+  })();
 
   /* активности — табы */
   var tablist=document.querySelector('.acts-tabs'), tabs=[].slice.call(document.querySelectorAll('.acts-tab')), panels=[].slice.call(document.querySelectorAll('.acts-panel'));
