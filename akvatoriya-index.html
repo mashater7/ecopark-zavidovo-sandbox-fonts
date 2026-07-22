@@ -152,19 +152,20 @@ body.menu-open .akv-burger span:nth-child(3){transform:translateY(-6px) rotate(-
 .ss{position:relative;padding:2px clamp(14px,1.8vw,30px);}
 .ss:first-child{padding-left:0;}
 .ss + .ss::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--line);}
-/* число + единица */
-.ss .n{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:12px;font-variant-numeric:tabular-nums;}
-.ss .n i{font-style:normal;line-height:.95;color:var(--emerald);}
-.ss .n em{font-style:normal;font-family:'Montserrat',sans-serif;font-weight:600;font-size:12.5px;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--bronze);}
+/* число + единица — Poiret, как было */
+.ss .n{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:14px;
+  font-family:'Poiret One',sans-serif;text-transform:uppercase;letter-spacing:.05em;
+  font-size:clamp(21px,2.05vw,28px);color:var(--muted);line-height:1.08;
+  font-variant-numeric:tabular-nums;white-space:nowrap;}
+.ss .n i{font-style:normal;font-size:1.42em;letter-spacing:.01em;line-height:1;}
+.ss .n em{font-style:normal;font-family:'Poiret One',sans-serif;font-size:1em;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--muted);}
 /* подпись: контраст поднят до ~7:1 для комфортного чтения */
 .ss .c{display:block;font-family:'Montserrat',sans-serif;font-weight:400;font-size:14.5px;
   color:var(--ink-2);line-height:1.45;max-width:22ch;}
 
-/* цифра — фирменный градиент (зафиксировано) */
-.ss .n i{font-family:'Montserrat',sans-serif;font-weight:700;
-  font-size:clamp(38px,3.7vw,50px);letter-spacing:-.015em;
-  background:var(--grad);-webkit-background-clip:text;background-clip:text;
+/* цифра — фирменный градиент (как выбрали) */
+.ss .n i{background:var(--grad);-webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:var(--emerald);}
 @supports not ((-webkit-background-clip:text) or (background-clip:text)){
   .ss .n i{-webkit-text-fill-color:currentColor;color:var(--emerald);}
