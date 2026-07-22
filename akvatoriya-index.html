@@ -280,15 +280,27 @@ body.menu-open .akv-burger span:nth-child(3){transform:translateY(-6px) rotate(-
 .near-kurort .kk .kt{font-size:21px;}
 .near-kurort .kk .ks{font-size:14px;color:var(--muted);}
 
-/* ---------- АКЦИИ ---------- */
-.akcii-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,24px);}
-.akcii-card{background:linear-gradient(165deg,var(--emerald-deep),var(--emerald-ink));color:#fff;border-radius:var(--radius);padding:clamp(24px,2.6vw,32px);display:flex;flex-direction:column;min-height:230px;box-shadow:var(--shadow-m);position:relative;overflow:hidden;}
-.akcii-card::before{content:"";position:absolute;top:-40%;right:-20%;width:70%;height:120%;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%);}
-.akcii-card .big{font-family:'Montserrat',sans-serif;font-weight:600;font-size:clamp(34px,4vw,48px);line-height:1;position:relative;}
-.akcii-card h4{font-size:22px;margin:14px 0 8px;position:relative;}
-.akcii-card p{font-size:14.5px;color:rgba(255,255,255,.82);line-height:1.5;position:relative;}
-.akcii-card .go{margin-top:auto;padding-top:16px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--bronze-hi);position:relative;display:inline-flex;gap:8px;}
-.akcii-card:hover .go{color:#fff;}
+/* ---------- НОВОСТИ ---------- */
+.news-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  margin-bottom:clamp(38px,4.4vw,58px);}
+.news-all{font-family:'Montserrat',sans-serif;font-weight:500;font-size:12.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--emerald);display:inline-flex;gap:9px;align-items:center;
+  transition:gap var(--t-fast) var(--ease-out);}
+.news-all:hover{gap:14px;}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3vw,44px) clamp(22px,2.6vw,38px);}
+.news-item{display:flex;flex-direction:column;gap:11px;padding-top:22px;border-top:1px solid var(--line);
+  transition:border-color var(--t-mid) var(--ease-out),transform var(--t-mid) var(--ease-out);}
+.news-item:hover{border-top-color:var(--emerald);transform:translateY(-3px);}
+.news-item .date{font-family:'Montserrat',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--bronze);}
+.news-item h3{font-size:clamp(19px,1.7vw,23px);line-height:1.28;color:var(--ink);
+  transition:color var(--t-mid) var(--ease-out);}
+.news-item:hover h3{color:var(--emerald);}
+.news-item p{font-family:'Montserrat',sans-serif;font-weight:400;font-size:14px;color:var(--muted);line-height:1.6;}
+.news-item .more{margin-top:auto;padding-top:6px;font-family:'Montserrat',sans-serif;font-weight:500;
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--emerald);
+  opacity:0;transform:translateY(4px);transition:opacity var(--t-fast) var(--ease-out),transform var(--t-fast) var(--ease-out);}
+.news-item:hover .more,.news-item:focus-visible .more{opacity:1;transform:none;}
 
 /* ---------- ОБСЛУЖИВАНИЕ ---------- */
 .serv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 26px;}
@@ -438,9 +450,8 @@ body.menu-open{overflow:hidden;}
       <a class="focusable" style="--i:2" href="#infra"><span class="txt">Инфраструктура</span><span class="akv-arrow" aria-hidden="true">→</span></a>
       <a class="focusable" style="--i:3" href="#activities"><span class="txt">Активности</span><span class="akv-arrow" aria-hidden="true">→</span></a>
       <a class="focusable" style="--i:4" href="#kurort"><span class="txt">Курорт</span><span class="akv-arrow" aria-hidden="true">→</span></a>
-      <a class="focusable" style="--i:5" href="#akcii"><span class="txt">Акции</span><span class="akv-arrow" aria-hidden="true">→</span></a>
-      <a class="focusable" style="--i:6" href="#news"><span class="txt">Новости</span><span class="akv-arrow" aria-hidden="true">→</span></a>
-      <a class="focusable" style="--i:7" href="#quiz"><span class="txt">Контакты</span><span class="akv-arrow" aria-hidden="true">→</span></a>
+      <a class="focusable" style="--i:5" href="#news"><span class="txt">Новости</span><span class="akv-arrow" aria-hidden="true">→</span></a>
+      <a class="focusable" style="--i:6" href="#quiz"><span class="txt">Контакты</span><span class="akv-arrow" aria-hidden="true">→</span></a>
     </nav>
     <div class="akv-menu-foot">
       <div class="akv-foot-left">
@@ -628,22 +639,6 @@ body.menu-open{overflow:hidden;}
   </div>
 </section>
 
-<!-- АКЦИИ -->
-<section class="section" id="akcii">
-  <div class="container">
-    <div class="sec-head">
-      <span class="eyebrow reveal">Выгодные предложения</span>
-      <h2 class="h2 reveal" style="--d:1">Купить участок на лучших условиях</h2>
-      <p class="lead reveal" style="--d:2">Рассрочка 0%, нулевой первый взнос и Trade-In — забронируйте участок у воды на старте продаж.</p>
-    </div>
-    <div class="akcii-grid">
-      <article class="akcii-card reveal"><div class="big">0%</div><h4>Рассрочка 0%</h4><p>Беспроцентная рассрочка на дома и участки на 6, 9 и 12 месяцев.</p><span class="go">Подробнее <span aria-hidden="true">→</span></span></article>
-      <article class="akcii-card reveal" style="--d:1"><div class="big">0&#8202;₽</div><h4>Первый взнос 0</h4><p>Участки в рассрочку на 12 месяцев без первоначального взноса.</p><span class="go">Подробнее <span aria-hidden="true">→</span></span></article>
-      <article class="akcii-card reveal" style="--d:2"><div class="big">Trade-In</div><h4>Обмен участка</h4><p>Обменяем ваш участок на участок в посёлке Акватория Завидово.</p><span class="go">Подробнее <span aria-hidden="true">→</span></span></article>
-    </div>
-  </div>
-</section>
-
 <!-- ОБСЛУЖИВАНИЕ -->
 <section class="section" id="service" style="background:var(--sand)">
   <div class="container">
@@ -663,13 +658,64 @@ body.menu-open{overflow:hidden;}
   </div>
 </section>
 
+<!-- НОВОСТИ -->
+<section class="section news" id="news">
+  <div class="container">
+    <div class="news-head">
+      <div class="sec-head" style="margin-bottom:0">
+        <span class="eyebrow reveal">Новости</span>
+        <h2 class="h2 reveal" style="--d:1">Жизнь посёлка</h2>
+      </div>
+      <a class="news-all focusable reveal" style="--d:2" href="#news">Все новости <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="news-grid">
+      <a class="news-item focusable reveal" style="--d:0" href="#news">
+        <span class="date">25 апреля 2026</span>
+        <h3>Топ-10 лучших участков у воды</h3>
+        <p>С одной стороны — тихая вода, с другой — благоустроенный сад и прогулочная аллея. Если искали участок с видом, эти варианты для вас.</p>
+        <span class="more">Читать <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="news-item focusable reveal" style="--d:1" href="#news">
+        <span class="date">20 апреля 2026</span>
+        <h3>Самые доступные участки посёлка</h3>
+        <p>Если искали выгодный вариант для старта — собрали подборку участков с лучшей ценой и номерами на генплане.</p>
+        <span class="more">Читать <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="news-item focusable reveal" style="--d:2" href="#news">
+        <span class="date">31 марта 2026</span>
+        <h3>Весна в посёлке</h3>
+        <p>Снег сходит, появляется первая зелень, и снова слышно птиц. Посёлок оживает — начинается сезон строительства и новых проектов.</p>
+        <span class="more">Читать <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="news-item focusable reveal" style="--d:0" href="#news">
+        <span class="date">31 марта 2026</span>
+        <h3>Начинаем строительный сезон</h3>
+        <p>Уважаемые жители! В посёлке стартует строительный сезон — рассказываем о правилах, графике работ и согласованиях.</p>
+        <span class="more">Читать <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="news-item focusable reveal" style="--d:1" href="#news">
+        <span class="date">21 февраля 2026</span>
+        <h3>Зима у воды: баня и подлёдная рыбалка</h3>
+        <p>Продолжаем подборку для зимних выходных. Сегодня на повестке — баня на берегу и подлёдная рыбалка.</p>
+        <span class="more">Читать <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="news-item focusable reveal" style="--d:2" href="#news">
+        <span class="date">21 ноября 2025</span>
+        <h3>Аквапарк в Завидово открыт</h3>
+        <p>Аквапарк курорта принял первых гостей. Более 15 000 м² — аналогов в России нет, а от посёлка это 10 минут.</p>
+        <span class="more">Читать <span aria-hidden="true">→</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- КВИЗ-ПОДБОР -->
 <section class="section quiz" id="quiz">
   <div class="container">
     <div class="quiz-txt">
       <span class="eyebrow reveal">Подбор участка</span>
       <h2 class="h2 reveal" style="--d:1">Ответьте на 4 вопроса — пришлём подборку</h2>
-      <p class="lead reveal" style="--d:2">Подберём участки под ваши критерии, приложим генплан, цены и условия рассрочки. Это займёт меньше минуты.</p>
+      <p class="lead reveal" style="--d:2">Подберём участки под ваши критерии, приложим генплан, цены и условия покупки. Это займёт меньше минуты.</p>
     </div>
     <div class="quiz-box reveal" style="--d:1">
       <div class="quiz-prog"><div class="bar"><i id="quizBar"></i></div><span class="st" id="quizStepLabel">Шаг 1 из 5</span></div>
@@ -744,7 +790,7 @@ body.menu-open{overflow:hidden;}
 </section>
 
 <!-- FOOTER -->
-<footer class="foot" id="news">
+<footer class="foot">
   <div class="container">
     <div class="foot-brand">
       <div class="fb-top"><img src="assets/collection/logo-akvatoriya.png" alt=""><span class="nm">Акватория</span></div>
@@ -757,7 +803,7 @@ body.menu-open{overflow:hidden;}
     </div>
     <div class="foot-col">
       <h5>Навигация</h5>
-      <a href="#about">О посёлке</a><a href="#plan">Генплан</a><a href="#infra">Инфраструктура</a><a href="#activities">Активности</a><a href="#kurort">Курорт</a><a href="#akcii">Акции</a>
+      <a href="#about">О посёлке</a><a href="#plan">Генплан</a><a href="#infra">Инфраструктура</a><a href="#activities">Активности</a><a href="#kurort">Курорт</a><a href="#news">Новости</a>
     </div>
     <div class="foot-col">
       <h5>Контакты</h5>
