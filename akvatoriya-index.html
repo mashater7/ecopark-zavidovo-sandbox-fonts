@@ -248,21 +248,12 @@ body.menu-open .akv-burger span:nth-child(3){transform:translateY(-6px) rotate(-
 .b-tile p{color:rgba(255,255,255,.85);}
 /* широкие карточки */
 .b-wide{grid-column:span 3;min-height:clamp(175px,15.5vw,222px);}
-/* инженерная строка */
-.b-eng{grid-column:span 6;background:var(--cream);border-radius:var(--radius);
-  display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,26px);
-  padding:14px clamp(16px,1.6vw,22px) 16px;}
-.b-eng div{display:flex;flex-direction:column;gap:3px;}
-.b-eng h5{font-family:'Poiret One',sans-serif;font-weight:400;font-size:13.5px;
-  text-transform:uppercase;letter-spacing:.05em;color:var(--ink);}
-.b-eng p{font-family:'Montserrat',sans-serif;font-weight:300;font-size:11.5px;color:var(--muted);line-height:1.4;}
 @media (max-width:900px){
   .bento{grid-template-columns:repeat(2,1fr);}
   .b-hero,.b-wide,.b-tile{grid-column:span 2;grid-row:auto;min-height:0;}
   .b-hero{min-height:250px;}
   .b-tile{min-height:150px;}
   .b-wide{min-height:190px;}
-  .b-eng{grid-column:span 2;grid-template-columns:1fr;gap:12px;}
 }
 /* лайтбокс */
 .plan-lb{position:fixed;inset:0;z-index:300;background:rgba(6,25,20,.92);display:none;align-items:center;justify-content:center;padding:20px;overflow:auto;}
@@ -633,11 +624,6 @@ body.menu-open{overflow:hidden;}
           <p>Благоустроенный лес внутри посёлка со спортивными и детскими площадками — территория для прогулок, а не просто зелёная зона на плане.</p>
         </div>
       </article>
-      <div class="b-eng reveal" style="--d:2">
-        <div><h5>Магистральный газ</h5><p>И центральное водоснабжение на каждом участке</p></div>
-        <div><h5>Асфальтовые дороги</h5><p>По всей территории посёлка</p></div>
-        <div><h5>Подземные коммуникации</h5><p>Без столбов и проводов над головой</p></div>
-      </div>
     </div>
   </div>
   <!-- лайтбокс генплана -->
