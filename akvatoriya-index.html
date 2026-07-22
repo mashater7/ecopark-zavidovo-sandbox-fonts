@@ -152,27 +152,30 @@ body.menu-open .akv-burger span:nth-child(3){transform:translateY(-6px) rotate(-
 .ss{position:relative;padding:2px clamp(14px,1.8vw,30px);}
 .ss:first-child{padding-left:0;}
 .ss + .ss::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--line);}
-/* число и единица — одной строкой капсом */
-.ss .n{display:block;text-transform:uppercase;color:var(--ink);line-height:1.08;letter-spacing:.05em;
-  font-size:clamp(21px,2.05vw,28px);margin-bottom:14px;font-variant-numeric:tabular-nums;white-space:nowrap;}
+/* число + единица */
+.ss .n{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:12px;font-variant-numeric:tabular-nums;}
+.ss .n i{font-style:normal;line-height:.95;color:var(--emerald);}
+.ss .n em{font-style:normal;font-family:'Montserrat',sans-serif;font-weight:600;font-size:12.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--bronze);}
+/* подпись: контраст поднят до ~7:1 для комфортного чтения */
 .ss .c{display:block;font-family:'Montserrat',sans-serif;font-weight:400;font-size:14.5px;
-  color:var(--muted);line-height:1.45;max-width:23ch;}
+  color:var(--ink-2);line-height:1.45;max-width:22ch;}
 
-/* шрифт зафиксирован — Poiret One */
-.ss .n{font-family:'Poiret One',sans-serif;}
-/* число крупнее и цветное, единица — спокойнее */
-.ss .n i{font-style:normal;font-size:1.42em;letter-spacing:.01em;color:var(--emerald);
-  transition:color var(--t-mid) var(--ease-out);}
-.ss .n{color:var(--muted);}
-
-/* варианты акцента (переключатель) */
-body[data-clr="emerald"] .ss .n i{color:var(--emerald);}
-body[data-clr="bronze"] .ss .n i{color:var(--bronze);}
-body[data-clr="grad"] .ss .n i{color:var(--emerald);
-  background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-@supports not ((-webkit-background-clip:text) or (background-clip:text)){
-  body[data-clr="grad"] .ss .n i{-webkit-text-fill-color:currentColor;color:var(--emerald);}
-}
+/* --- варианты начертания цифры --- */
+/* 1. Жирный гротеск: максимальный вес, лучшая сканируемость */
+body[data-num="bold"] .ss .n i{font-family:'Montserrat',sans-serif;font-weight:700;
+  font-size:clamp(38px,3.7vw,50px);letter-spacing:-.015em;}
+/* 2. Poiret XL: вес заменён масштабом */
+body[data-num="xl"] .ss .n i{font-family:'Poiret One',sans-serif;font-size:clamp(48px,4.8vw,66px);letter-spacing:.01em;}
+/* 3. Антиква с весом */
+body[data-num="serif"] .ss .n i{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;
+  font-size:clamp(44px,4.4vw,60px);letter-spacing:.005em;}
+/* 4. Бейдж: цифра в плашке — максимум внимания */
+body[data-num="badge"] .ss .n i{font-family:'Montserrat',sans-serif;font-weight:700;
+  font-size:clamp(26px,2.5vw,33px);color:#fff;background:var(--emerald);
+  padding:9px 16px;border-radius:12px;line-height:1;letter-spacing:-.01em;
+  box-shadow:0 8px 20px rgba(9,118,63,.22);}
+body[data-num="badge"] .ss .n em{color:var(--ink);}
 
 /* переключатель шрифта (только для теста) */
 .st-switch{position:fixed;right:16px;top:16px;z-index:500;display:flex;align-items:center;gap:4px;
@@ -470,19 +473,20 @@ body.menu-open{overflow:hidden;}
 <!-- Строка ключевых цифр -->
 <section class="stats-strip" aria-label="Ключевые факты">
   <div class="container">
-    <div class="ss reveal" style="--d:0"><span class="n"><i>10</i> минут</span><span class="c">До курорта Завидово с аквапарком и гольфом</span></div>
-    <div class="ss reveal" style="--d:1"><span class="n"><i>1</i> час</span><span class="c">От Москвы по платной трассе М-11</span></div>
-    <div class="ss reveal" style="--d:2"><span class="n"><i>15</i> гектаров</span><span class="c">Лесопарка, аллей и парковых зон</span></div>
-    <div class="ss reveal" style="--d:3"><span class="n"><i>1-я</i> линия</span><span class="c">Собственный берег, пляж и яхт-клуб</span></div>
+    <div class="ss reveal" style="--d:0"><span class="n"><i>10</i><em>минут</em></span><span class="c">До курорта Завидово</span></div>
+    <div class="ss reveal" style="--d:1"><span class="n"><i>1</i><em>час</em></span><span class="c">От Москвы по М-11</span></div>
+    <div class="ss reveal" style="--d:2"><span class="n"><i>15</i><em>гектаров</em></span><span class="c">Лесопарк и парковые зоны</span></div>
+    <div class="ss reveal" style="--d:3"><span class="n"><i>1</i><em>линия</em></span><span class="c">Свой берег и яхт-клуб</span></div>
   </div>
 </section>
 
-<!-- переключатель акцента (только для теста) -->
-<div class="st-switch" role="group" aria-label="Цветовой акцент цифр">
-  <b>Акцент</b>
-  <button type="button" data-c="emerald" aria-pressed="true">Изумруд</button>
-  <button type="button" data-c="grad" aria-pressed="false">Градиент</button>
-  <button type="button" data-c="bronze" aria-pressed="false">Бронза</button>
+<!-- переключатель начертания цифры (только для теста) -->
+<div class="st-switch" role="group" aria-label="Начертание цифры">
+  <b>Цифра</b>
+  <button type="button" data-n="bold" aria-pressed="true">Жирный</button>
+  <button type="button" data-n="xl" aria-pressed="false">Poiret XL</button>
+  <button type="button" data-n="serif" aria-pressed="false">Антиква</button>
+  <button type="button" data-n="badge" aria-pressed="false">Бейдж</button>
 </div>
 
 <!-- О ПОСЁЛКЕ -->
@@ -795,16 +799,16 @@ body.menu-open{overflow:hidden;}
   var cio=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ animateCount(x.target); cio.unobserve(x.target); } }); },{threshold:.4});
   document.querySelectorAll('[data-count]').forEach(function(el){ cio.observe(el); });
 
-  /* переключатель цветового акцента в строке цифр */
+  /* переключатель начертания цифры */
   (function(){
     var sw=document.querySelector('.st-switch'); if(!sw) return;
     var btns=[].slice.call(sw.querySelectorAll('button'));
-    var saved=localStorage.getItem('akvClr')||'emerald';
-    function apply(v){ document.body.setAttribute('data-clr',v);
-      btns.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.c===v?'true':'false'); });
-      localStorage.setItem('akvClr',v);
+    var saved=localStorage.getItem('akvNum')||'bold';
+    function apply(v){ document.body.setAttribute('data-num',v);
+      btns.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.n===v?'true':'false'); });
+      localStorage.setItem('akvNum',v);
     }
-    btns.forEach(function(b){ b.addEventListener('click',function(){ apply(b.dataset.c); }); });
+    btns.forEach(function(b){ b.addEventListener('click',function(){ apply(b.dataset.n); }); });
     apply(saved);
   })();
 
