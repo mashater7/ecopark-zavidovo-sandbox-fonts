@@ -225,35 +225,33 @@ body.menu-open .akv-burger span:nth-child(3){transform:translateY(-6px) rotate(-
   display:flex;flex-direction:column;
   transition:transform var(--t-mid) var(--ease-out),box-shadow var(--t-mid) var(--ease-out);}
 .b-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-m);}
-.b-card .ph{position:relative;overflow:hidden;flex:1 1 0;min-height:0;}
+.b-card .ph{position:relative;overflow:hidden;flex:none;aspect-ratio:2/1;}
 .b-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease-out);}
 .b-card:hover .ph img{transform:scale(1.05);}
-.b-card .tx{padding:12px 14px 14px;}
-.b-card .num{display:block;font-family:'Montserrat',sans-serif;font-weight:500;font-size:9.5px;
-  letter-spacing:.2em;color:var(--bronze);margin-bottom:5px;}
-.b-card h4{font-size:clamp(14px,1.1vw,16px);line-height:1.16;text-transform:uppercase;letter-spacing:.04em;}
-.b-card p{font-family:'Montserrat',sans-serif;font-weight:300;font-size:11.5px;line-height:1.45;
-  color:var(--muted);margin-top:5px;max-width:44ch;}
+.b-card .tx{padding:16px 18px 20px;}
+.b-card .num{display:block;font-family:'Montserrat',sans-serif;font-weight:500;font-size:10px;
+  letter-spacing:.2em;color:var(--bronze);margin-bottom:7px;}
+.b-card h4{font-size:clamp(16px,1.3vw,19px);line-height:1.16;text-transform:uppercase;letter-spacing:.04em;}
+.b-card p{font-family:'Montserrat',sans-serif;font-weight:300;font-size:12.5px;line-height:1.5;
+  color:var(--muted);margin-top:7px;max-width:46ch;}
 /* герой — фото сверху, текст на креме */
-.b-hero{grid-column:span 4;grid-row:span 2;min-height:clamp(220px,19.5vw,278px);}
-.b-hero h4{font-size:clamp(17px,1.5vw,21px);}
-.b-hero p{font-size:12.5px;margin-top:7px;}
+.b-hero{grid-column:span 4;grid-row:span 2;}
+.b-hero h4{font-size:clamp(20px,1.9vw,26px);}
+.b-hero p{font-size:13.5px;margin-top:9px;}
 /* узкие плитки — фото на всю карточку, текст поверх */
-.b-tile{grid-column:span 2;min-height:clamp(106px,9.3vw,135px);}
-.b-tile .ph{position:absolute;inset:0;flex:none;}
+.b-tile{grid-column:span 2;}
+.b-tile .ph{position:absolute;inset:0;aspect-ratio:auto;flex:none;}
 .b-tile::after{content:"";position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(8,32,24,0) 30%,rgba(7,30,22,.5) 62%,rgba(6,26,19,.9));}
 .b-tile .tx{position:relative;z-index:2;margin-top:auto;color:#fff;}
 .b-tile .num{color:var(--bronze-hi);}
 .b-tile p{color:rgba(255,255,255,.85);}
 /* широкие карточки */
-.b-wide{grid-column:span 3;min-height:clamp(175px,15.5vw,222px);}
+.b-wide{grid-column:span 3;}
 @media (max-width:900px){
   .bento{grid-template-columns:repeat(2,1fr);}
-  .b-hero,.b-wide,.b-tile{grid-column:span 2;grid-row:auto;min-height:0;}
-  .b-hero{min-height:250px;}
-  .b-tile{min-height:150px;}
-  .b-wide{min-height:190px;}
+  .b-hero,.b-wide,.b-tile{grid-column:span 2;grid-row:auto;}
+  .b-tile{min-height:230px;}
 }
 /* лайтбокс */
 .plan-lb{position:fixed;inset:0;z-index:300;background:rgba(6,25,20,.92);display:none;align-items:center;justify-content:center;padding:20px;overflow:auto;}
