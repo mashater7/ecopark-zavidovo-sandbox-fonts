@@ -158,10 +158,21 @@ body.menu-open .akv-burger span:nth-child(3){transform:translateY(-6px) rotate(-
 .ss .c{display:block;font-family:'Montserrat',sans-serif;font-weight:400;font-size:14.5px;
   color:var(--muted);line-height:1.45;max-width:23ch;}
 
-/* варианты начертания числа (переключатель) */
-body[data-font="poiret"] .ss .n{font-family:'Poiret One',sans-serif;}
-body[data-font="serif"] .ss .n{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:.04em;font-size:clamp(23px,2.25vw,31px);}
-body[data-font="sans"] .ss .n{font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:.09em;font-size:clamp(18px,1.75vw,23px);}
+/* шрифт зафиксирован — Poiret One */
+.ss .n{font-family:'Poiret One',sans-serif;}
+/* число крупнее и цветное, единица — спокойнее */
+.ss .n i{font-style:normal;font-size:1.42em;letter-spacing:.01em;color:var(--emerald);
+  transition:color var(--t-mid) var(--ease-out);}
+.ss .n{color:var(--muted);}
+
+/* варианты акцента (переключатель) */
+body[data-clr="emerald"] .ss .n i{color:var(--emerald);}
+body[data-clr="bronze"] .ss .n i{color:var(--bronze);}
+body[data-clr="grad"] .ss .n i{color:var(--emerald);
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  body[data-clr="grad"] .ss .n i{-webkit-text-fill-color:currentColor;color:var(--emerald);}
+}
 
 /* переключатель шрифта (только для теста) */
 .st-switch{position:fixed;right:16px;top:16px;z-index:500;display:flex;align-items:center;gap:4px;
@@ -459,19 +470,19 @@ body.menu-open{overflow:hidden;}
 <!-- Строка ключевых цифр -->
 <section class="stats-strip" aria-label="Ключевые факты">
   <div class="container">
-    <div class="ss reveal" style="--d:0"><span class="n">10 минут</span><span class="c">До курорта Завидово с аквапарком и гольфом</span></div>
-    <div class="ss reveal" style="--d:1"><span class="n">1 час</span><span class="c">От Москвы по платной трассе М-11</span></div>
-    <div class="ss reveal" style="--d:2"><span class="n">15 гектаров</span><span class="c">Лесопарка, аллей и парковых зон</span></div>
-    <div class="ss reveal" style="--d:3"><span class="n">1-я линия</span><span class="c">Собственный берег, пляж и яхт-клуб</span></div>
+    <div class="ss reveal" style="--d:0"><span class="n"><i>10</i> минут</span><span class="c">До курорта Завидово с аквапарком и гольфом</span></div>
+    <div class="ss reveal" style="--d:1"><span class="n"><i>1</i> час</span><span class="c">От Москвы по платной трассе М-11</span></div>
+    <div class="ss reveal" style="--d:2"><span class="n"><i>15</i> гектаров</span><span class="c">Лесопарка, аллей и парковых зон</span></div>
+    <div class="ss reveal" style="--d:3"><span class="n"><i>1-я</i> линия</span><span class="c">Собственный берег, пляж и яхт-клуб</span></div>
   </div>
 </section>
 
-<!-- переключатель шрифта (только для теста) -->
-<div class="st-switch" role="group" aria-label="Шрифт цифр">
-  <b>Шрифт</b>
-  <button type="button" data-f="poiret" aria-pressed="true">Poiret</button>
-  <button type="button" data-f="serif" aria-pressed="false">Антиква</button>
-  <button type="button" data-f="sans" aria-pressed="false">Гротеск</button>
+<!-- переключатель акцента (только для теста) -->
+<div class="st-switch" role="group" aria-label="Цветовой акцент цифр">
+  <b>Акцент</b>
+  <button type="button" data-c="emerald" aria-pressed="true">Изумруд</button>
+  <button type="button" data-c="grad" aria-pressed="false">Градиент</button>
+  <button type="button" data-c="bronze" aria-pressed="false">Бронза</button>
 </div>
 
 <!-- О ПОСЁЛКЕ -->
@@ -784,16 +795,16 @@ body.menu-open{overflow:hidden;}
   var cio=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ animateCount(x.target); cio.unobserve(x.target); } }); },{threshold:.4});
   document.querySelectorAll('[data-count]').forEach(function(el){ cio.observe(el); });
 
-  /* переключатель шрифта в строке цифр */
+  /* переключатель цветового акцента в строке цифр */
   (function(){
     var sw=document.querySelector('.st-switch'); if(!sw) return;
     var btns=[].slice.call(sw.querySelectorAll('button'));
-    var saved=localStorage.getItem('akvFont')||'poiret';
-    function apply(v){ document.body.setAttribute('data-font',v);
-      btns.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.f===v?'true':'false'); });
-      localStorage.setItem('akvFont',v);
+    var saved=localStorage.getItem('akvClr')||'emerald';
+    function apply(v){ document.body.setAttribute('data-clr',v);
+      btns.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.c===v?'true':'false'); });
+      localStorage.setItem('akvClr',v);
     }
-    btns.forEach(function(b){ b.addEventListener('click',function(){ apply(b.dataset.f); }); });
+    btns.forEach(function(b){ b.addEventListener('click',function(){ apply(b.dataset.c); }); });
     apply(saved);
   })();
 
