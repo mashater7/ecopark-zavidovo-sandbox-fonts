@@ -203,7 +203,7 @@ body.menu-open .akv-burger span:nth-child(3){transform:translateY(-6px) rotate(-
 /* ---------- ГЕНПЛАН (реальный рендер) ---------- */
 .plan{background:var(--sand);}
 .plan-figure{position:relative;margin:0;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-m);cursor:zoom-in;background:#22506a;}
-.plan-figure img{width:100%;display:block;aspect-ratio:1800/850;object-fit:cover;transition:transform .9s var(--ease-out);}
+.plan-figure img{width:100%;display:block;aspect-ratio:2600/1430;object-fit:cover;transition:transform .9s var(--ease-out);}
 .plan-figure:hover img{transform:scale(1.06);}
 .plan-figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(6,40,55,.5));pointer-events:none;}
 .plan-zoom{position:absolute;top:16px;right:16px;z-index:2;display:inline-flex;align-items:center;gap:8px;
@@ -523,13 +523,13 @@ body.menu-open{overflow:hidden;}
   <div class="container">
     <div class="sec-head">
       <span class="eyebrow reveal">Генплан</span>
-      <h2 class="h2 reveal" style="--d:1">Генеральный план посёлка</h2>
-      <p class="lead reveal" style="--d:2">Дома первой линии со своими причалами, яхт-марина, пляж и парковые зоны — прямо на берегу большой воды.</p>
+      <h2 class="h2 reveal" style="--d:1">Схема посёлка «Акватория&nbsp;Завидово»</h2>
+      <p class="lead reveal" style="--d:2">Посёлок на берегу большой воды: улицы и участки в окружении леса, собственный пляж и причалы в бухте.</p>
     </div>
-    <figure class="plan-figure reveal" id="planOpen" tabindex="0" role="button" aria-label="Открыть генплан на весь экран">
+    <figure class="plan-figure reveal" id="planOpen" tabindex="0" role="button" aria-label="Открыть схему посёлка на весь экран">
       <span class="plan-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg>Открыть на весь экран</span>
-      <img src="assets/collection/genplan-akvatoriya.jpg" alt="Генеральный план посёлка Акватория Завидово: причалы, яхт-марина, пляж и дома первой линии">
-      <div class="plan-tags" aria-hidden="true"><span>Причалы у домов</span><span>Яхт-марина</span><span>Пляж</span><span>Дома первой линии</span><span>Бассейны</span><span>Парковые зоны</span></div>
+      <img src="assets/collection/genplan-akvatoriya-web.jpg" alt="Схема посёлка Акватория Завидово: улицы и участки, лес, река и бухта с пляжем и причалами" loading="lazy">
+      <div class="plan-tags" aria-hidden="true"><span>Пляж и причалы</span><span>Бухта</span><span>Лесопарк</span><span>Река</span><span>Улицы и участки</span></div>
     </figure>
     <div class="plan-cta reveal" style="--d:1">
       <p>Хотите участок первой линии со своим причалом? Подберём свободные варианты под ваши критерии и пришлём с ценами.</p>
@@ -540,9 +540,9 @@ body.menu-open{overflow:hidden;}
     </div>
   </div>
   <!-- лайтбокс генплана -->
-  <div class="plan-lb" id="planLb" role="dialog" aria-modal="true" aria-label="Генплан посёлка">
+  <div class="plan-lb" id="planLb" role="dialog" aria-modal="true" aria-label="Схема посёлка">
     <button class="plan-lb-close" id="planLbClose" aria-label="Закрыть"></button>
-    <img src="assets/collection/genplan-akvatoriya.jpg" alt="Генеральный план посёлка Акватория Завидово в полном размере">
+    <img src="assets/collection/genplan-akvatoriya.jpg" alt="Схема посёлка Акватория Завидово в полном размере">
     <div class="plan-lb-hint" aria-hidden="true">Прокрутите, чтобы рассмотреть детали · Esc — закрыть</div>
   </div>
 </section>
