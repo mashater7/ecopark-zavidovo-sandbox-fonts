@@ -161,21 +161,55 @@ body.menu-open .akv-burger span:nth-child(3){transform:translateY(-6px) rotate(-
 .ss .c{display:block;font-family:'Montserrat',sans-serif;font-weight:400;font-size:14.5px;
   color:var(--ink-2);line-height:1.45;max-width:22ch;}
 
-/* --- варианты начертания цифры --- */
-/* 1. Жирный гротеск: максимальный вес, лучшая сканируемость */
-body[data-num="bold"] .ss .n i{font-family:'Montserrat',sans-serif;font-weight:700;
-  font-size:clamp(38px,3.7vw,50px);letter-spacing:-.015em;}
-/* 2. Poiret XL: вес заменён масштабом */
-body[data-num="xl"] .ss .n i{font-family:'Poiret One',sans-serif;font-size:clamp(48px,4.8vw,66px);letter-spacing:.01em;}
-/* 3. Антиква с весом */
-body[data-num="serif"] .ss .n i{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;
-  font-size:clamp(44px,4.4vw,60px);letter-spacing:.005em;}
-/* 4. Бейдж: цифра в плашке — максимум внимания */
-body[data-num="badge"] .ss .n i{font-family:'Montserrat',sans-serif;font-weight:700;
-  font-size:clamp(26px,2.5vw,33px);color:#fff;background:var(--emerald);
-  padding:9px 16px;border-radius:12px;line-height:1;letter-spacing:-.01em;
-  box-shadow:0 8px 20px rgba(9,118,63,.22);}
-body[data-num="badge"] .ss .n em{color:var(--ink);}
+/* цифра — фирменный градиент (зафиксировано) */
+.ss .n i{font-family:'Montserrat',sans-serif;font-weight:700;
+  font-size:clamp(38px,3.7vw,50px);letter-spacing:-.015em;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:var(--emerald);}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .ss .n i{-webkit-text-fill-color:currentColor;color:var(--emerald);}
+}
+
+/* ================= ОФОРМЛЕНИЕ БЛОКА ================= */
+.ss-wrap{display:grid;grid-template-columns:repeat(4,1fr);position:relative;}
+.stats-strip .container{display:block;}
+
+/* 1. КАРТОЧКА — белая панель с тенью, наезжает на hero */
+body[data-deco="card"] .stats-strip{background:var(--sand);border-bottom:0;}
+body[data-deco="card"] .stats-strip .container{padding-block:0;}
+body[data-deco="card"] .ss-wrap{background:#fff;border-radius:22px;box-shadow:0 24px 60px rgba(20,45,35,.13);
+  padding:clamp(30px,3.2vw,42px) clamp(20px,2.4vw,34px);margin-top:clamp(-90px,-7vw,-56px);z-index:5;}
+body[data-deco="card"] .stats-strip{padding-bottom:clamp(46px,5vw,72px);}
+
+/* 2. ВОЛНА — кремовая панель с водяным знаком-волной */
+body[data-deco="wave"] .stats-strip{background:linear-gradient(180deg,var(--sand),#fff);border-bottom:0;}
+body[data-deco="wave"] .ss-wrap{background:var(--cream);border-radius:22px;overflow:hidden;
+  padding:clamp(30px,3.2vw,42px) clamp(20px,2.4vw,34px);
+  box-shadow:0 14px 40px rgba(20,45,35,.08);}
+body[data-deco="wave"] .ss-wrap::after{content:"";position:absolute;right:-4%;top:50%;transform:translateY(-50%);
+  width:min(38%,420px);aspect-ratio:1;background:url("assets/collection/logo-akvatoriya.png") center/contain no-repeat;
+  opacity:.07;pointer-events:none;}
+body[data-deco="wave"] .ss{position:relative;z-index:2;}
+
+/* 3. РАМКА — тонкая градиентная обводка вокруг блока */
+body[data-deco="frame"] .ss-wrap{border:2px solid transparent;border-radius:22px;
+  background:linear-gradient(#fff,#fff) padding-box, var(--grad) border-box;
+  padding:clamp(30px,3.2vw,42px) clamp(20px,2.4vw,34px);
+  box-shadow:0 16px 44px rgba(20,45,35,.09);}
+
+/* 4. ЛИНИИ — без панели, градиентные волосяные линии сверху и снизу */
+body[data-deco="lines"] .ss-wrap{padding-block:clamp(26px,3vw,38px);}
+body[data-deco="lines"] .ss-wrap::before,
+body[data-deco="lines"] .ss-wrap::after{content:"";position:absolute;left:0;right:0;height:2px;
+  background:var(--grad);opacity:.75;border-radius:2px;}
+body[data-deco="lines"] .ss-wrap::before{top:0;}
+body[data-deco="lines"] .ss-wrap::after{bottom:0;}
+
+/* разделители: у панелей — короче и мягче */
+body[data-deco="card"] .ss + .ss::before,
+body[data-deco="wave"] .ss + .ss::before,
+body[data-deco="frame"] .ss + .ss::before{top:6px;bottom:6px;
+  background:linear-gradient(180deg,transparent,var(--line) 18%,var(--line) 82%,transparent);}
 
 /* переключатель шрифта (только для теста) */
 .st-switch{position:fixed;right:16px;top:16px;z-index:500;display:flex;align-items:center;gap:4px;
@@ -473,20 +507,22 @@ body.menu-open{overflow:hidden;}
 <!-- Строка ключевых цифр -->
 <section class="stats-strip" aria-label="Ключевые факты">
   <div class="container">
-    <div class="ss reveal" style="--d:0"><span class="n"><i>10</i><em>минут</em></span><span class="c">До курорта Завидово</span></div>
-    <div class="ss reveal" style="--d:1"><span class="n"><i>1</i><em>час</em></span><span class="c">От Москвы по М-11</span></div>
-    <div class="ss reveal" style="--d:2"><span class="n"><i>15</i><em>гектаров</em></span><span class="c">Лесопарк и парковые зоны</span></div>
-    <div class="ss reveal" style="--d:3"><span class="n"><i>1</i><em>линия</em></span><span class="c">Свой берег и яхт-клуб</span></div>
+    <div class="ss-wrap">
+      <div class="ss reveal" style="--d:0"><span class="n"><i>10</i><em>минут</em></span><span class="c">До курорта Завидово</span></div>
+      <div class="ss reveal" style="--d:1"><span class="n"><i>1</i><em>час</em></span><span class="c">От Москвы по М-11</span></div>
+      <div class="ss reveal" style="--d:2"><span class="n"><i>15</i><em>гектаров</em></span><span class="c">Лесопарк и парковые зоны</span></div>
+      <div class="ss reveal" style="--d:3"><span class="n"><i>1</i><em>линия</em></span><span class="c">Свой берег и яхт-клуб</span></div>
+    </div>
   </div>
 </section>
 
-<!-- переключатель начертания цифры (только для теста) -->
-<div class="st-switch" role="group" aria-label="Начертание цифры">
-  <b>Цифра</b>
-  <button type="button" data-n="bold" aria-pressed="true">Жирный</button>
-  <button type="button" data-n="xl" aria-pressed="false">Poiret XL</button>
-  <button type="button" data-n="serif" aria-pressed="false">Антиква</button>
-  <button type="button" data-n="badge" aria-pressed="false">Бейдж</button>
+<!-- переключатель оформления блока (только для теста) -->
+<div class="st-switch" role="group" aria-label="Оформление блока">
+  <b>Блок</b>
+  <button type="button" data-d="card" aria-pressed="true">Карточка</button>
+  <button type="button" data-d="wave" aria-pressed="false">Волна</button>
+  <button type="button" data-d="frame" aria-pressed="false">Рамка</button>
+  <button type="button" data-d="lines" aria-pressed="false">Линии</button>
 </div>
 
 <!-- О ПОСЁЛКЕ -->
@@ -803,12 +839,12 @@ body.menu-open{overflow:hidden;}
   (function(){
     var sw=document.querySelector('.st-switch'); if(!sw) return;
     var btns=[].slice.call(sw.querySelectorAll('button'));
-    var saved=localStorage.getItem('akvNum')||'bold';
-    function apply(v){ document.body.setAttribute('data-num',v);
-      btns.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.n===v?'true':'false'); });
-      localStorage.setItem('akvNum',v);
+    var saved=localStorage.getItem('akvDeco')||'card';
+    function apply(v){ document.body.setAttribute('data-deco',v);
+      btns.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.d===v?'true':'false'); });
+      localStorage.setItem('akvDeco',v);
     }
-    btns.forEach(function(b){ b.addEventListener('click',function(){ apply(b.dataset.n); }); });
+    btns.forEach(function(b){ b.addEventListener('click',function(){ apply(b.dataset.d); }); });
     apply(saved);
   })();
 
