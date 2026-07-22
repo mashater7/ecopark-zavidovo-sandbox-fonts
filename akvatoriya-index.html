@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="assets/collection/photo-akvatoriya.jpg" fetchpriority="high">
-<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    АКВАТОРИЯ ЗАВИДОВО · ГЛАВНАЯ (v2 — по образцу ecopark-zavidovo.ru)
@@ -146,52 +146,24 @@ body.menu-open .akv-burger span:nth-child(3){transform:translateY(-6px) rotate(-
 .hero-scroll .ln{width:1px;height:34px;background:linear-gradient(#fff,transparent);animation:scrollLn 1.8s var(--ease-inout) infinite;transform-origin:top;}
 @keyframes scrollLn{0%{transform:scaleY(0);opacity:0;}40%{opacity:1;}100%{transform:scaleY(1);opacity:0;}}
 
-/* ---------- ЦИФРЫ: 3 КОМПАКТНЫХ ВАРИАНТА (переключатель) ---------- */
-/* общая типографика цифры */
-.ss,.hs{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
-.ss .n,.hs .n{font-family:'Poiret One',sans-serif;line-height:1;font-variant-numeric:tabular-nums;}
-.ss .u,.hs .u{font-family:'Montserrat',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.03em;}
-.ss .c,.hs .c{font-family:'Montserrat',sans-serif;font-size:12.5px;line-height:1.35;width:100%;margin-top:3px;}
+/* ---------- ЦИФРЫ: строка в духе Millennium Park ---------- */
+.stats-strip{background:#fff;border-bottom:1px solid var(--line);}
+.stats-strip .container{display:grid;grid-template-columns:repeat(4,1fr);padding-block:clamp(40px,5vw,66px);}
+.ss{position:relative;padding:2px clamp(14px,1.8vw,30px);}
+.ss:first-child{padding-left:0;}
+.ss + .ss::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--line);}
+/* число и единица — одной строкой капсом */
+.ss .n{display:block;text-transform:uppercase;color:var(--ink);line-height:1.08;letter-spacing:.05em;
+  font-size:clamp(21px,2.05vw,28px);margin-bottom:14px;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.ss .c{display:block;font-family:'Montserrat',sans-serif;font-weight:400;font-size:14.5px;
+  color:var(--muted);line-height:1.45;max-width:23ch;}
 
-/* --- S3: тонкая стеклянная лента ВНУТРИ hero (компактно, не отдельный экран) --- */
-/* лента лежит ТОЧНО на стыке hero и следующей секции (наезжает на край) */
-.hero-stats{position:relative;z-index:5;margin-top:-52px;display:none;}
-body[data-stats="s3"] .hero-stats{display:block;}
-body[data-stats="s3"] .hero-scroll{display:none;}
-body[data-stats="s3"] .about{padding-top:clamp(40px,5vw,68px);}
-.hero-stats-in{max-width:1280px;margin:0 auto;padding:0 var(--gutter) 0 var(--gutter-l);}
-.hero-stats-glass{display:grid;grid-template-columns:repeat(4,1fr);
-  background:rgba(9,30,22,.90);border:1px solid rgba(255,255,255,.22);border-radius:16px;
-  backdrop-filter:blur(14px) saturate(120%);overflow:hidden;
-  box-shadow:0 26px 60px rgba(6,24,17,.42);}
-.hs{padding:20px 26px;position:relative;}
-.hs + .hs::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:1px;background:rgba(255,255,255,.22);}
-.hs .n{font-size:clamp(34px,3.2vw,44px);color:#fff;}
-.hs .u{color:var(--bronze-hi);font-size:14px;}
-.hs .c{color:rgba(255,255,255,.9);font-size:13.5px;margin-top:5px;}
+/* варианты начертания числа (переключатель) */
+body[data-font="poiret"] .ss .n{font-family:'Poiret One',sans-serif;}
+body[data-font="serif"] .ss .n{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:.04em;font-size:clamp(23px,2.25vw,31px);}
+body[data-font="sans"] .ss .n{font-family:'Montserrat',sans-serif;font-weight:300;letter-spacing:.09em;font-size:clamp(18px,1.75vw,23px);}
 
-/* --- S1 / S2: компактная строка после hero --- */
-.stats-strip{display:none;}
-body[data-stats="s1"] .stats-strip,body[data-stats="s2"] .stats-strip{display:block;}
-.stats-strip .container{display:grid;grid-template-columns:repeat(4,1fr);}
-.ss .n{color:var(--ink);font-size:33px;}
-.ss .u{color:var(--bronze);}
-.ss .c{color:var(--muted);}
-/* S1 — тихая светлая полоса с волосяными линиями */
-body[data-stats="s1"] .stats-strip{background:#fff;border-bottom:1px solid var(--line);}
-body[data-stats="s1"] .stats-strip .container{padding-block:24px;}
-body[data-stats="s1"] .ss{padding:4px 26px;position:relative;}
-body[data-stats="s1"] .ss:first-child{padding-left:0;}
-body[data-stats="s1"] .ss + .ss::before{content:"";position:absolute;left:0;top:2px;bottom:2px;width:1px;background:var(--line);}
-/* S2 — маленькие карточки, слегка наезжают на hero */
-body[data-stats="s2"] .stats-strip{background:var(--sand);}
-body[data-stats="s2"] .stats-strip .container{gap:14px;padding-block:0;margin-top:-44px;position:relative;z-index:3;}
-body[data-stats="s2"] .ss{background:#fff;border-radius:14px;box-shadow:var(--shadow-s);padding:16px 18px;
-  transition:transform var(--t-fast) var(--ease-out),box-shadow var(--t-fast) var(--ease-out);}
-body[data-stats="s2"] .ss:hover{transform:translateY(-3px);box-shadow:var(--shadow-m);}
-body[data-stats="s2"] .stats-strip{padding-bottom:26px;}
-
-/* переключатель вариантов (только для теста) */
+/* переключатель шрифта (только для теста) */
 .st-switch{position:fixed;right:16px;top:16px;z-index:500;display:flex;align-items:center;gap:4px;
   background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:40px;padding:6px;
   box-shadow:var(--shadow-m);font-family:'Montserrat',sans-serif;}
@@ -391,15 +363,13 @@ body.menu-open{overflow:hidden;}
   .akv-watermark{width:88vw;right:-26%;}
   .akv-menu-foot{gap:14px;}
   .akv-foot-cta,.akv-menu-foot .btn{width:100%;justify-content:center;}
-  /* лента цифр на мобилке — 2 колонки, без наезда на стык */
-  .hero-stats{margin-top:-26px;}
-  .hero-stats-glass{grid-template-columns:repeat(2,1fr);}
-  .hs{padding:11px 16px;}
-  .hs .n{font-size:25px;}
-  .hs + .hs::before{display:none;}
-  .hero-stats-glass .hs:nth-child(2)::before,.hero-stats-glass .hs:nth-child(4)::before{content:"";display:block;position:absolute;left:0;top:10px;bottom:10px;width:1px;background:rgba(255,255,255,.18);}
-  .hero-stats-glass .hs:nth-child(3),.hero-stats-glass .hs:nth-child(4){border-top:1px solid rgba(255,255,255,.14);}
-  body[data-stats="s2"] .stats-strip .container{margin-top:-24px;}
+  /* строка цифр на мобилке — 2 колонки */
+  .stats-strip .container{grid-template-columns:repeat(2,1fr);gap:26px 0;padding-block:34px;}
+  .ss{padding:0 16px;}
+  .ss:first-child,.ss:nth-child(3){padding-left:0;}
+  .ss:nth-child(3)::before,.ss:nth-child(4)::before{top:-13px;}
+  .ss .n{margin-bottom:9px;}
+  .ss .c{font-size:13.5px;}
   .about-list{grid-template-columns:1fr;}
   .infra-list{grid-template-columns:1fr;}
   .acts-panel-wrap{min-height:400px;}
@@ -486,34 +456,22 @@ body.menu-open{overflow:hidden;}
   <div class="hero-scroll" aria-hidden="true"><span class="ln"></span>Листайте</div>
 </section>
 
-<!-- S3: компактная стеклянная лента ровно на стыке hero и контента -->
-<div class="hero-stats" aria-label="Ключевые факты">
-  <div class="hero-stats-in">
-    <div class="hero-stats-glass">
-      <div class="hs"><span class="n" data-count="10">10</span><span class="u">мин</span><span class="c">до курорта Завидово</span></div>
-      <div class="hs"><span class="n">1</span><span class="u">час</span><span class="c">от Москвы по М-11</span></div>
-      <div class="hs"><span class="n" data-count="15">15</span><span class="u">га</span><span class="c">лесопарка</span></div>
-      <div class="hs"><span class="n">1</span><span class="u">линия</span><span class="c">своя береговая линия</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- S1 / S2: компактная строка цифр -->
+<!-- Строка ключевых цифр -->
 <section class="stats-strip" aria-label="Ключевые факты">
   <div class="container">
-    <div class="ss reveal" style="--d:0"><span class="n" data-count="10">10</span><span class="u">мин</span><span class="c">до курорта Завидово</span></div>
-    <div class="ss reveal" style="--d:1"><span class="n">1</span><span class="u">час</span><span class="c">от Москвы по трассе М-11</span></div>
-    <div class="ss reveal" style="--d:2"><span class="n" data-count="15">15</span><span class="u">га</span><span class="c">благоустроенного лесопарка</span></div>
-    <div class="ss reveal" style="--d:3"><span class="n">1</span><span class="u">линия</span><span class="c">собственная береговая линия</span></div>
+    <div class="ss reveal" style="--d:0"><span class="n">10 минут</span><span class="c">До курорта Завидово с аквапарком и гольфом</span></div>
+    <div class="ss reveal" style="--d:1"><span class="n">1 час</span><span class="c">От Москвы по платной трассе М-11</span></div>
+    <div class="ss reveal" style="--d:2"><span class="n">15 гектаров</span><span class="c">Лесопарка, аллей и парковых зон</span></div>
+    <div class="ss reveal" style="--d:3"><span class="n">1-я линия</span><span class="c">Собственный берег, пляж и яхт-клуб</span></div>
   </div>
 </section>
 
-<!-- переключатель вариантов блока цифр (только для теста) -->
-<div class="st-switch" role="group" aria-label="Вариант блока цифр">
-  <b>Цифры</b>
-  <button type="button" data-s="s3" aria-pressed="true">Стекло</button>
-  <button type="button" data-s="s1" aria-pressed="false">Строка</button>
-  <button type="button" data-s="s2" aria-pressed="false">Карточки</button>
+<!-- переключатель шрифта (только для теста) -->
+<div class="st-switch" role="group" aria-label="Шрифт цифр">
+  <b>Шрифт</b>
+  <button type="button" data-f="poiret" aria-pressed="true">Poiret</button>
+  <button type="button" data-f="serif" aria-pressed="false">Антиква</button>
+  <button type="button" data-f="sans" aria-pressed="false">Гротеск</button>
 </div>
 
 <!-- О ПОСЁЛКЕ -->
@@ -826,18 +784,16 @@ body.menu-open{overflow:hidden;}
   var cio=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ animateCount(x.target); cio.unobserve(x.target); } }); },{threshold:.4});
   document.querySelectorAll('[data-count]').forEach(function(el){ cio.observe(el); });
 
-  /* переключатель варианта блока цифр */
+  /* переключатель шрифта в строке цифр */
   (function(){
     var sw=document.querySelector('.st-switch'); if(!sw) return;
     var btns=[].slice.call(sw.querySelectorAll('button'));
-    var saved=localStorage.getItem('akvStats')||'s3';
-    function apply(v){ document.body.setAttribute('data-stats',v);
-      btns.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.s===v?'true':'false'); });
-      localStorage.setItem('akvStats',v);
-      /* пересчитать цифры в ставшем видимым блоке */
-      document.querySelectorAll('[data-count]').forEach(function(el){ if(el.offsetParent!==null) animateCount(el); });
+    var saved=localStorage.getItem('akvFont')||'poiret';
+    function apply(v){ document.body.setAttribute('data-font',v);
+      btns.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.f===v?'true':'false'); });
+      localStorage.setItem('akvFont',v);
     }
-    btns.forEach(function(b){ b.addEventListener('click',function(){ apply(b.dataset.s); }); });
+    btns.forEach(function(b){ b.addEventListener('click',function(){ apply(b.dataset.f); }); });
     apply(saved);
   })();
 
