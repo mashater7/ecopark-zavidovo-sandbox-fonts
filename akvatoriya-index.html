@@ -167,33 +167,31 @@ body.menu-open .akv-burger span:nth-child(3){transform:translateY(-6px) rotate(-
 .about-media:hover img{transform:scale(1.05);}
 .about-media .tag{position:absolute;left:20px;bottom:20px;background:rgba(255,255,255,.92);color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;padding:10px 16px;border-radius:30px;backdrop-filter:blur(4px);}
 
-/* ---------- ГЕНПЛАН (интерактив) ---------- */
+/* ---------- ГЕНПЛАН (реальный рендер) ---------- */
 .plan{background:var(--sand);}
-.plan-filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px;}
-.plan-chip{font-family:'Montserrat',sans-serif;font-size:13.5px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:40px;padding:9px 16px;cursor:pointer;transition:.2s;}
-.plan-chip:hover{border-color:var(--emerald);}
-.plan-chip[aria-pressed="true"]{background:var(--emerald);border-color:var(--emerald);color:#fff;}
-.plan-grid{display:grid;grid-template-columns:1.5fr .9fr;gap:clamp(20px,3vw,34px);align-items:stretch;}
-.plan-map{position:relative;background:linear-gradient(160deg,#e9efe8,#dfe9df);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-s);min-height:420px;padding:18px;}
-.plan-map svg{width:100%;height:100%;display:block;}
-.plot{fill:#fff;stroke:#b9c6bd;stroke-width:1.5;cursor:pointer;transition:fill .2s var(--ease-out),transform .2s var(--ease-out);}
-.plot:hover{fill:var(--bronze-hi);}
-.plot.sel{fill:var(--emerald);}
-.plot.dim{opacity:.32;pointer-events:none;}
-.plot.match{fill:#d7e7dc;}
-.plan-water{fill:#bfe0e6;stroke:none;}
-.plan-legend{position:absolute;left:18px;bottom:16px;display:flex;gap:16px;font-family:'Montserrat',sans-serif;font-size:11.5px;color:var(--ink-2);background:rgba(255,255,255,.85);padding:8px 12px;border-radius:12px;backdrop-filter:blur(4px);}
-.plan-legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px;}
-.plan-side{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-s);padding:clamp(22px,2.6vw,32px);display:flex;flex-direction:column;}
-.plan-side .k{font-family:'Montserrat',sans-serif;font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--bronze);margin-bottom:10px;}
-.plan-side h3{font-size:clamp(24px,2.6vw,30px);margin-bottom:6px;}
-.plan-side .pl-meta{display:flex;gap:20px;margin:16px 0;flex-wrap:wrap;}
-.plan-side .pl-meta div .m-n{font-family:'Montserrat',sans-serif;font-weight:600;font-size:20px;color:var(--ink);}
-.plan-side .pl-meta div .m-c{font-size:12.5px;color:var(--muted);}
-.plan-side .pl-price{font-family:'Montserrat',sans-serif;font-weight:600;font-size:26px;color:var(--emerald);margin-top:auto;}
-.plan-side .pl-hint{font-size:13px;color:var(--muted);margin:6px 0 18px;}
-.plan-side .btn{width:100%;justify-content:center;}
-.plan-note{font-size:13px;color:var(--muted);margin-top:16px;}
+.plan-figure{position:relative;margin:0;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-m);cursor:zoom-in;background:#22506a;}
+.plan-figure img{width:100%;display:block;aspect-ratio:1800/850;object-fit:cover;transition:transform .9s var(--ease-out);}
+.plan-figure:hover img{transform:scale(1.06);}
+.plan-figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(6,40,55,.5));pointer-events:none;}
+.plan-zoom{position:absolute;top:16px;right:16px;z-index:2;display:inline-flex;align-items:center;gap:8px;
+  font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;color:#fff;background:rgba(9,60,45,.55);
+  border:1px solid rgba(255,255,255,.35);border-radius:40px;padding:9px 16px;backdrop-filter:blur(6px);
+  transition:background var(--t-fast) var(--ease-out);}
+.plan-figure:hover .plan-zoom{background:rgba(9,118,63,.8);}
+.plan-tags{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;flex-wrap:wrap;gap:8px;padding:18px 20px;pointer-events:none;}
+.plan-tags span{font-family:'Montserrat',sans-serif;font-size:12.5px;color:#fff;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:30px;padding:7px 13px;backdrop-filter:blur(4px);}
+.plan-cta{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:22px;}
+.plan-cta p{font-size:14px;color:var(--muted);max-width:52ch;}
+.plan-cta .btns{display:flex;gap:12px;flex-wrap:wrap;}
+/* лайтбокс */
+.plan-lb{position:fixed;inset:0;z-index:300;background:rgba(6,25,20,.92);display:none;align-items:center;justify-content:center;padding:20px;overflow:auto;}
+.plan-lb.open{display:flex;animation:lbIn .3s var(--ease-out);}
+@keyframes lbIn{from{opacity:0;}to{opacity:1;}}
+.plan-lb img{width:auto;max-width:96vw;max-height:90vh;height:auto;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.plan-lb-close{position:fixed;top:18px;right:20px;z-index:2;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.4);color:#fff;cursor:pointer;}
+.plan-lb-close::before,.plan-lb-close::after{content:"";position:absolute;top:50%;left:50%;width:18px;height:1.6px;background:#fff;}
+.plan-lb-close::before{transform:translate(-50%,-50%) rotate(45deg);} .plan-lb-close::after{transform:translate(-50%,-50%) rotate(-45deg);}
+.plan-lb-hint{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:2;font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7);}
 
 /* ---------- ИНФРАСТРУКТУРА ---------- */
 .infra-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(20px,3vw,34px);align-items:stretch;}
@@ -472,37 +470,27 @@ body.menu-open{overflow:hidden;}
   <div class="container">
     <div class="sec-head">
       <span class="eyebrow reveal">Генплан</span>
-      <h2 class="h2 reveal" style="--d:1">Выберите свой участок у&nbsp;воды</h2>
-      <p class="lead reveal" style="--d:2">Наведите на участок, чтобы посмотреть площадь и цену. Отфильтруйте по тому, что важно именно вам.</p>
+      <h2 class="h2 reveal" style="--d:1">Генеральный план посёлка</h2>
+      <p class="lead reveal" style="--d:2">Дома первой линии со своими причалами, яхт-марина, пляж и парковые зоны — прямо на берегу большой воды.</p>
     </div>
-    <div class="plan-filters reveal">
-      <button class="plan-chip" type="button" data-f="all" aria-pressed="true">Все участки</button>
-      <button class="plan-chip" type="button" data-f="water" aria-pressed="false">Первая линия</button>
-      <button class="plan-chip" type="button" data-f="forest" aria-pressed="false">У леса</button>
-      <button class="plan-chip" type="button" data-f="big" aria-pressed="false">От 12 соток</button>
-    </div>
-    <div class="plan-grid">
-      <div class="plan-map reveal" style="--d:1">
-        <svg viewBox="0 0 600 420" role="img" aria-label="Схема участков посёлка">
-          <rect class="plan-water" x="0" y="0" width="600" height="70"/>
-          <rect class="plan-water" x="0" y="0" width="70" height="420"/>
-          <g id="plots"></g>
-        </svg>
-        <div class="plan-legend"><span><i style="background:#d7e7dc"></i>свободно</span><span><i style="background:#09763F"></i>выбран</span><span><i style="background:#bfe0e6"></i>вода</span></div>
+    <figure class="plan-figure reveal" id="planOpen" tabindex="0" role="button" aria-label="Открыть генплан на весь экран">
+      <span class="plan-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg>Открыть на весь экран</span>
+      <img src="assets/collection/genplan-akvatoriya.jpg" alt="Генеральный план посёлка Акватория Завидово: причалы, яхт-марина, пляж и дома первой линии">
+      <div class="plan-tags" aria-hidden="true"><span>Причалы у домов</span><span>Яхт-марина</span><span>Пляж</span><span>Дома первой линии</span><span>Бассейны</span><span>Парковые зоны</span></div>
+    </figure>
+    <div class="plan-cta reveal" style="--d:1">
+      <p>Хотите участок первой линии со своим причалом? Подберём свободные варианты под ваши критерии и пришлём с ценами.</p>
+      <div class="btns">
+        <a class="btn btn-ghost focusable" href="#" id="planOpenBtn">Открыть генплан</a>
+        <a class="btn btn-primary focusable" href="#quiz">Подобрать участок <span class="ar" aria-hidden="true">→</span></a>
       </div>
-      <aside class="plan-side reveal" style="--d:2">
-        <div class="k" id="planK">Участок</div>
-        <h3 id="planTitle">№ 24</h3>
-        <div class="pl-hint" id="planTags">Первая линия · у воды</div>
-        <div class="pl-meta">
-          <div><div class="m-n" id="planArea">12 соток</div><div class="m-c">площадь</div></div>
-          <div><div class="m-n" id="planLine">1-я линия</div><div class="m-c">расположение</div></div>
-        </div>
-        <div class="pl-price" id="planPrice">от 6,9 млн ₽</div>
-        <a class="btn btn-primary focusable" href="#quiz" style="margin-top:18px">Забронировать участок <span class="ar" aria-hidden="true">→</span></a>
-        <p class="plan-note">Схема демонстрационная — реальный генплан с актуальными статусами и ценами подставим при переносе.</p>
-      </aside>
     </div>
+  </div>
+  <!-- лайтбокс генплана -->
+  <div class="plan-lb" id="planLb" role="dialog" aria-modal="true" aria-label="Генплан посёлка">
+    <button class="plan-lb-close" id="planLbClose" aria-label="Закрыть"></button>
+    <img src="assets/collection/genplan-akvatoriya.jpg" alt="Генеральный план посёлка Акватория Завидово в полном размере">
+    <div class="plan-lb-hint" aria-hidden="true">Прокрутите, чтобы рассмотреть детали · Esc — закрыть</div>
   </div>
 </section>
 
@@ -775,41 +763,19 @@ body.menu-open{overflow:hidden;}
   function autoAdv(){ if(userTouched||reduceMotion) return; autoIdx=(autoIdx+1)%tabs.length; selTab(autoIdx); autoTimer=setTimeout(autoAdv,5000); }
   autoTimer=setTimeout(autoAdv,5000);
 
-  /* ГЕНПЛАН — генерируем участки */
+  /* ГЕНПЛАН — лайтбокс на весь экран */
   (function(){
-    var NS='http://www.w3.org/2000/svg', g=document.getElementById('plots');
-    if(!g) return;
-    var cols=6, rows=3, x0=95, y0=95, w=72, h=88, gx=10, gy=14;
-    var plots=[]; var id=1;
-    for(var r=0;r<rows;r++){ for(var c=0;c<cols;c++){
-      var water=(r===0)|| (c===0); // первая линия — верхний ряд/левый столбец у воды
-      var forest=(r===rows-1); // нижний ряд у леса
-      var area=[6,8,10,12,14,18][(id+ r)%6];
-      var big=area>=12;
-      var price=(4.2 + area*0.28 + (water?1.6:0)).toFixed(1);
-      var rect=document.createElementNS(NS,'rect');
-      rect.setAttribute('x',x0+c*(w+gx)); rect.setAttribute('y',y0+r*(h+gy));
-      rect.setAttribute('width',w); rect.setAttribute('height',h); rect.setAttribute('rx','4');
-      rect.setAttribute('class','plot');
-      rect.dataset.id=id; rect.dataset.area=area; rect.dataset.water=water?'1':'0'; rect.dataset.forest=forest?'1':'0'; rect.dataset.big=big?'1':'0'; rect.dataset.price=price;
-      rect.setAttribute('tabindex','0'); rect.setAttribute('role','button');
-      rect.setAttribute('aria-label','Участок '+id+', '+area+' соток');
-      g.appendChild(rect); plots.push(rect); id++;
-    }}
-    var K=document.getElementById('planK'),T=document.getElementById('planTitle'),Tag=document.getElementById('planTags'),A=document.getElementById('planArea'),L=document.getElementById('planLine'),P=document.getElementById('planPrice');
-    function pick(rect){ plots.forEach(function(p){p.classList.remove('sel');}); rect.classList.add('sel');
-      var wt=rect.dataset.water==='1', ft=rect.dataset.forest==='1';
-      T.textContent='№ '+rect.dataset.id; A.textContent=rect.dataset.area+' соток';
-      L.textContent=wt?'1-я линия':'2-я линия'; P.textContent='от '+rect.dataset.price.replace('.',',')+' млн ₽';
-      Tag.textContent=[wt?'первая линия':'', wt?'у воды':'', ft?'у леса':''].filter(Boolean).join(' · ')||'посёлок';
-    }
-    plots.forEach(function(p){ p.addEventListener('click',function(){pick(p);}); p.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pick(p); } }); });
-    pick(plots[13]||plots[0]);
-    var chips=[].slice.call(document.querySelectorAll('.plan-chip'));
-    chips.forEach(function(ch){ ch.addEventListener('click',function(){ chips.forEach(function(c){c.setAttribute('aria-pressed','false');}); ch.setAttribute('aria-pressed','true');
-      var f=ch.dataset.f; plots.forEach(function(p){ p.classList.remove('dim','match');
-        var ok = f==='all' || (f==='water'&&p.dataset.water==='1') || (f==='forest'&&p.dataset.forest==='1') || (f==='big'&&p.dataset.big==='1');
-        if(f!=='all'){ if(ok) p.classList.add('match'); else p.classList.add('dim'); } }); }); });
+    var lb=document.getElementById('planLb'), fig=document.getElementById('planOpen'),
+        btn=document.getElementById('planOpenBtn'), close=document.getElementById('planLbClose');
+    if(!lb) return;
+    function open(e){ if(e) e.preventDefault(); lb.classList.add('open'); document.body.style.overflow='hidden'; close.focus(); }
+    function shut(){ lb.classList.remove('open'); document.body.style.overflow=''; }
+    fig.addEventListener('click',open);
+    fig.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ open(e); } });
+    if(btn) btn.addEventListener('click',open);
+    close.addEventListener('click',shut);
+    lb.addEventListener('click',function(e){ if(e.target===lb) shut(); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('open')) shut(); });
   })();
 
   /* КВИЗ */
