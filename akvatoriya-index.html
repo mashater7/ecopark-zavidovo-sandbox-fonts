@@ -638,24 +638,124 @@ body.menu-open{overflow:hidden;}
     <div class="sec-head">
       <span class="eyebrow reveal">Инфраструктура</span>
       <h2 class="h2 reveal" style="--d:1">Всё для жизни у воды — в одном посёлке</h2>
-      <p class="lead reveal" style="--d:2">От собственного яхт-клуба и пляжа до подземных коммуникаций и центрального водоснабжения.</p>
+      <p class="lead reveal" style="--d:2">Собственный пляж и яхт-клуб, марина и слип, лесопарк, детский центр и спорткомплекс. Всё за одной оградой с домом.</p>
     </div>
-    <div class="infra-grid">
-      <article class="infra-feature reveal">
-        <img src="assets/collection/photo-akvatoriya.jpg" alt="Собственный пляж и бухта" loading="lazy">
-        <div class="fc"><div class="k">Первая линия</div><h3>Собственный пляж и&nbsp;яхт-клуб</h3><p>Аренда сапов и катеров, шатры для мероприятий, слип для спуска водной техники и зимнее хранение.</p></div>
-      </article>
-      <div class="infra-list reveal" style="--d:1">
-        <div class="infra-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v10M12 13l6 6H6l6-6z"/><path d="M4 21h16"/></svg><div><h4>Яхт-клуб</h4><p>Стоянка и выход на воду</p></div></div>
-        <div class="infra-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M7 3v8a2 2 0 004 0V3M5 3v4M9 3v4M17 3c-1.5 2-1.5 5 0 8v10"/></svg><div><h4>Ресторан</h4><p>Панорама на бухту</p></div></div>
-        <div class="infra-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 15c1.5 0 1.5-1.2 3-1.2S7.5 15 9 15s1.5-1.2 3-1.2S13.5 15 15 15s1.5-1.2 3-1.2S19.5 15 21 15"/><circle cx="9" cy="7" r="1.6"/><path d="M9 9l4 2"/></svg><div><h4>Спорткомплекс</h4><p>С бассейном и залами</p></div></div>
-        <div class="infra-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="6" r="2.2"/><path d="M12 9v6M9 21l3-6 3 6M8 12h8"/></svg><div><h4>Детский центр</h4><p>Занятия и развитие</p></div></div>
-        <div class="infra-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21V9M12 9L8 5M12 12l4-3M6 21c0-3 2-5 6-5s6 2 6 5"/></svg><div><h4>15 га лесопарка</h4><p>Парковые и спорт-зоны</p></div></div>
-        <div class="infra-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 17h16M6 17l2-4h8l2 4M9 13V9h6v4"/></svg><div><h4>Слип и хранение</h4><p>Спуск техники, зимнее хранение</p></div></div>
-        <div class="infra-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 20V8l8-5 8 5v12M9 20v-6h6v6"/></svg><div><h4>Парковые зоны</h4><p>Спорт- и детские площадки</p></div></div>
-        <div class="infra-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3c3 3 4.5 6 4.5 9a4.5 4.5 0 01-9 0C7.5 9 9 6 12 3z"/></svg><div><h4>Газ и вода</h4><p>Центральные коммуникации</p></div></div>
+    <!-- ПРЕМИУМ-БЕНТО (вместо icon-сетки): ВОДА + ПАРК. scoped .akv-bento / .akv-park, острые углы -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+    <style>
+    .akv-bento{--emerald:#09763F;--emerald-hi:#0aa15a;--emerald-deep:#075c31;--mint:#99E6BF;--cream:#f7f6f4;--paper:#ffffff;--ink:#1d2723;--ink2:#43504b;--line:#e7e4df;--brown-cta:#996a3f;--brown-cta-h:#855a34;--ease:cubic-bezier(.23,1,.32,1);--r:0;--noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");color:var(--ink);font-family:'Poiret One',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+    .akv-bento *,.akv-bento *::before,.akv-bento *::after{box-sizing:border-box;margin:0;padding:0}
+    .akv-bento img{display:block;max-width:100%}
+    .akv-bento .ab-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(196px,21vw,252px);gap:clamp(12px,1.4vw,18px)}
+    .akv-bento .ab-tile{position:relative;border-radius:var(--r);overflow:hidden;background:var(--cream);border:1px solid var(--line);isolation:isolate;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+    .akv-bento .ab-tile:hover{transform:translateY(-4px);box-shadow:0 26px 54px -30px rgba(9,60,40,.42)}
+    .akv-bento .ab-hero{grid-column:span 2;grid-row:span 2}
+    .akv-bento .ab-wide{grid-column:span 2}
+    .akv-bento .ab-media{position:absolute;inset:0;z-index:0;overflow:hidden}
+    .akv-bento .ab-media img{width:100%;height:100%;object-fit:cover;transition:transform 1.3s var(--ease)}
+    .akv-bento .ab-tile:hover .ab-media img{transform:scale(1.05)}
+    .akv-bento .ab-art{position:absolute;inset:0;z-index:0}
+    .akv-bento .ab-art::after{content:"";position:absolute;inset:0;background-image:var(--noise);background-size:150px;opacity:.05;mix-blend-mode:overlay;pointer-events:none}
+    .akv-bento .art-1{background:radial-gradient(120% 100% at 18% 12%,#f2e6c6 0%,transparent 48%),radial-gradient(130% 120% at 88% 28%,#7fd0c9 0%,transparent 55%),linear-gradient(140deg,#e6f3ea,#a3dccd 56%,#4fb3a6)}
+    .akv-bento .art-2{background:radial-gradient(120% 110% at 12% 88%,#bfe9d9 0%,transparent 50%),radial-gradient(130% 120% at 85% 8%,#3fa89c 0%,transparent 56%),conic-gradient(from 220deg at 70% 34%,#3fa89c,#79cabf,#abe3d4,#57b6ac,#8fd8cc)}
+    .akv-bento .art-3{background:radial-gradient(120% 120% at 82% 86%,#54baac 0%,transparent 56%),radial-gradient(120% 120% at 8% 10%,#dff1e8 0%,transparent 50%),linear-gradient(120deg,#d3ede2,#88d2c4 54%,#3ea092)}
+    .akv-bento .art-4{background:radial-gradient(120% 110% at 28% 14%,#d6efe6 0%,transparent 50%),radial-gradient(130% 130% at 90% 90%,#4fb2a8 0%,transparent 56%),conic-gradient(from 40deg at 36% 46%,#8fd8cc,#57b6ac,#c1eadb,#6fc3bc,#43a596)}
+    .akv-bento .ab-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to top,var(--cream) 0%,rgba(247,246,244,.9) 20%,rgba(247,246,244,.34) 46%,rgba(247,246,244,0) 66%)}
+    .akv-bento .ab-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:clamp(16px,1.7vw,24px)}
+    .akv-bento .ab-label{font-family:'Montserrat',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--emerald);margin-bottom:9px}
+    .akv-bento .ab-title{font-family:'Poiret One',sans-serif;font-weight:400;font-size:clamp(1.15rem,1.7vw,1.5rem);line-height:1.08;color:var(--ink);letter-spacing:.01em}
+    .akv-bento .ab-desc{margin-top:8px;font-family:'Montserrat',sans-serif;font-weight:400;font-size:clamp(.82rem,1vw,.92rem);line-height:1.5;color:var(--ink2);max-width:34ch}
+    .akv-bento .ab-hero .ab-veil{background:linear-gradient(to top,rgba(8,26,19,.82) 0%,rgba(8,26,19,.42) 32%,rgba(8,26,19,.06) 56%,rgba(8,26,19,0) 72%)}
+    .akv-bento .ab-hero .ab-title{color:#fff;font-size:clamp(1.6rem,2.6vw,2.5rem);max-width:16ch;text-shadow:0 2px 22px rgba(0,0,0,.3)}
+    .akv-bento .ab-hero .ab-label{color:#dff3e9;text-shadow:0 1px 10px rgba(0,0,0,.4)}
+    .akv-bento .ab-hero .ab-desc{color:rgba(255,255,255,.9);max-width:38ch;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+    .akv-bento .ab-hero .ab-body{padding:clamp(22px,2.4vw,34px)}
+    .akv-bento .ab-accent{background:radial-gradient(120% 120% at 88% 12%,rgba(255,255,255,.18),transparent 55%),linear-gradient(140deg,var(--emerald-hi),var(--emerald) 55%,var(--emerald-deep));border-color:transparent;color:#fff}
+    .akv-bento .ab-accent .ab-num{position:absolute;top:clamp(8px,1.4vw,16px);right:clamp(14px,2vw,26px);z-index:1;font-family:'Poiret One',sans-serif;font-size:clamp(5.5rem,11vw,9rem);line-height:.8;color:rgba(255,255,255,.9);letter-spacing:-.02em}
+    .akv-bento .ab-accent .ab-label{color:var(--mint)}
+    .akv-bento .ab-accent .ab-title{color:#fff}
+    .akv-bento .ab-accent .ab-desc{color:rgba(255,255,255,.86)}
+    .akv-bento .ab-accent .ab-body{z-index:2}
+    .akv-bento .ab-rv{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0ms)}
+    .akv-bento .ab-rv.in{opacity:1;transform:none}
+    @media (max-width:900px){.akv-bento .ab-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:clamp(180px,34vw,220px)}.akv-bento .ab-hero{grid-column:span 2;grid-row:span 1}.akv-bento .ab-hero .ab-title{font-size:clamp(1.6rem,5.5vw,2.2rem)}}
+    @media (max-width:560px){.akv-bento .ab-grid{grid-template-columns:1fr;grid-auto-rows:clamp(190px,52vw,230px)}.akv-bento .ab-hero,.akv-bento .ab-wide{grid-column:span 1}.akv-bento .ab-hero{grid-row:span 2}.akv-bento .ab-hero .ab-title{font-size:clamp(1.6rem,7vw,2rem)}}
+
+    .akv-park{--emerald:#09763F;--cream:#f7f6f4;--line:#e7e4df;--ink:#1d2723;--ink2:#43504b;--ease:cubic-bezier(.23,1,.32,1);--r:0;--noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");color:var(--ink);font-family:'Poiret One',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+    .akv-park *,.akv-park *::before,.akv-park *::after{box-sizing:border-box;margin:0;padding:0}
+    .akv-park .ap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.4vw,18px)}
+    .akv-park .ap-tile{position:relative;aspect-ratio:1/1;border-radius:var(--r);overflow:hidden;background:var(--cream);border:1px solid var(--line);isolation:isolate;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+    .akv-park .ap-tile:hover{transform:translateY(-4px);box-shadow:0 26px 54px -30px rgba(9,60,40,.42)}
+    .akv-park .ap-art{position:absolute;inset:0;z-index:0}
+    .akv-park .ap-art::after{content:"";position:absolute;inset:0;background-image:var(--noise);background-size:150px;opacity:.05;mix-blend-mode:overlay;pointer-events:none}
+    .akv-park .art-p1{background:radial-gradient(120% 100% at 18% 12%,#dcefd6 0%,transparent 48%),radial-gradient(130% 120% at 88% 28%,#5aa85a 0%,transparent 55%),linear-gradient(140deg,#e6f2e4,#a3d49c 56%,#3c8a49)}
+    .akv-park .art-p2{background:radial-gradient(120% 110% at 12% 86%,#eaf1cd 0%,transparent 50%),radial-gradient(130% 120% at 85% 8%,#6fb45a 0%,transparent 56%),conic-gradient(from 220deg at 70% 34%,#5aa84c,#8fc873,#c6e3a2,#6fb45a,#a9d68f)}
+    .akv-park .art-p3{background:radial-gradient(120% 120% at 82% 86%,#3f9a6a 0%,transparent 56%),radial-gradient(120% 120% at 8% 10%,#dff1e6 0%,transparent 50%),linear-gradient(120deg,#d3ede0,#7fc79b 54%,#2f8a5a)}
+    .akv-park .ap-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to top,var(--cream) 0%,rgba(247,246,244,.9) 20%,rgba(247,246,244,.34) 46%,rgba(247,246,244,0) 66%)}
+    .akv-park .ap-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:clamp(18px,2vw,28px)}
+    .akv-park .ap-label{font-family:'Montserrat',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--emerald);margin-bottom:9px}
+    .akv-park .ap-title{font-family:'Poiret One',sans-serif;font-weight:400;font-size:clamp(1.3rem,1.9vw,1.7rem);line-height:1.08;color:var(--ink);letter-spacing:.01em}
+    .akv-park .ap-desc{margin-top:9px;font-family:'Montserrat',sans-serif;font-weight:400;font-size:clamp(.84rem,1vw,.94rem);line-height:1.5;color:var(--ink2);max-width:32ch}
+    .akv-park .ap-rv{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0ms)}
+    .akv-park .ap-rv.in{opacity:1;transform:none}
+    @media (max-width:760px){.akv-park .ap-grid{grid-template-columns:1fr;gap:clamp(12px,3vw,16px)}.akv-park .ap-tile{aspect-ratio:16/10}}
+
+    .akv-embed{margin-top:clamp(24px,3.4vw,44px)}
+    .akv-park.akv-embed{margin-top:clamp(40px,5vw,72px)}
+    @media (prefers-reduced-motion:reduce){.akv-bento .ab-rv,.akv-park .ap-rv{opacity:1!important;transform:none!important;transition:none!important}.akv-bento .ab-tile,.akv-park .ap-tile,.akv-bento .ab-media img{transition:none!important}}
+    </style>
+
+    <div class="akv-bento akv-embed" aria-label="Что на воде">
+      <div class="ab-grid">
+        <article class="ab-tile ab-hero ab-rv">
+          <div class="ab-media"><img src="assets/news/05-sup.jpg" loading="lazy" width="1600" height="1200" alt="Дрон-кадр: тихая река через луга и берёзы, вереница людей на сапах летним утром"></div>
+          <div class="ab-veil"></div>
+          <div class="ab-body"><div class="ab-label">Своя вода</div><h3 class="ab-title">Свой берег, до которого доходишь пешком</h3><p class="ab-desc">Тихая, своя, большая вода. Не водоём в пятнадцати минутах, а берег за одной оградой с домом.</p></div>
+        </article>
+        <article class="ab-tile ab-wide ab-accent ab-rv" style="--d:70ms">
+          <span class="ab-num" aria-hidden="true">14</span>
+          <div class="ab-body"><div class="ab-label">Премиум очередь</div><h3 class="ab-title">Четырнадцать участков первой линии</h3><p class="ab-desc">И ни одним больше. Первую линию нельзя достроить. Берег достаётся первым.</p></div>
+        </article>
+        <article class="ab-tile ab-rv" style="--d:120ms">
+          <div class="ab-art art-1"></div><div class="ab-veil"></div>
+          <div class="ab-body"><div class="ab-label">Отдых</div><h3 class="ab-title">Пляж</h3><p class="ab-desc">Песок у самой ограды посёлка</p></div>
+        </article>
+        <article class="ab-tile ab-rv" style="--d:170ms">
+          <div class="ab-art art-2"></div><div class="ab-veil"></div>
+          <div class="ab-body"><div class="ab-label">Причал</div><h3 class="ab-title">Марина и яхт-причал</h3><p class="ab-desc">Стоянка для катера и яхты</p></div>
+        </article>
+        <article class="ab-tile ab-wide ab-rv" style="--d:120ms">
+          <div class="ab-art art-3"></div><div class="ab-veil"></div>
+          <div class="ab-body"><div class="ab-label">Лодкам</div><h3 class="ab-title">Слип и зимнее хранение</h3><p class="ab-desc">Свой спуск лодок на воду и стоянка под присмотром до весны</p></div>
+        </article>
+        <article class="ab-tile ab-wide ab-rv" style="--d:170ms">
+          <div class="ab-art art-4"></div><div class="ab-veil"></div>
+          <div class="ab-body"><div class="ab-label">На воде</div><h3 class="ab-title">Прокат сапов и речной теплоход</h3><p class="ab-desc">Тихий выход на рассвете и неспешная прогулка большой водой</p></div>
+        </article>
       </div>
     </div>
+
+    <div class="akv-park akv-embed" aria-label="Свой парк">
+      <div class="ap-grid">
+        <article class="ap-tile ap-rv">
+          <div class="ap-art art-p1"></div><div class="ap-veil"></div>
+          <div class="ap-body"><div class="ap-label">15 гектаров</div><h3 class="ap-title">Лесопарк за оградой</h3><p class="ap-desc">Тропы, тень и воздух. Прогулка и пробежка начинаются у дома.</p></div>
+        </article>
+        <article class="ap-tile ap-rv" style="--d:90ms">
+          <div class="ap-art art-p2"></div><div class="ap-veil"></div>
+          <div class="ap-body"><div class="ap-label">Детям</div><h3 class="ap-title">Детский центр</h3><p class="ap-desc">Занятия и присмотр. Детство, которое проходит на воздухе.</p></div>
+        </article>
+        <article class="ap-tile ap-rv" style="--d:180ms">
+          <div class="ap-art art-p3"></div><div class="ap-veil"></div>
+          <div class="ap-body"><div class="ap-label">Спорт</div><h3 class="ap-title">Спорткомплекс с бассейном</h3><p class="ap-desc">Залы, бассейн и площадки на своей территории.</p></div>
+        </article>
+      </div>
+    </div>
+
+    <script>
+    (function(){var root=document.querySelector('.akv-bento');if(!root)return;var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;var items=root.querySelectorAll('.ab-rv');if(rm||!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('in')});return;}var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});items.forEach(function(el){io.observe(el)});function sweep(){items.forEach(function(el){if(!el.classList.contains('in')&&el.getBoundingClientRect().top<innerHeight*0.94)el.classList.add('in')})}addEventListener('scroll',sweep,{passive:true});addEventListener('load',sweep);setTimeout(sweep,500);setTimeout(function(){items.forEach(function(el){el.classList.add('in')})},2600);})();
+    (function(){var root=document.querySelector('.akv-park');if(!root)return;var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;var items=root.querySelectorAll('.ap-rv');if(rm||!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('in')});return;}var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});items.forEach(function(el){io.observe(el)});function sweep(){items.forEach(function(el){if(!el.classList.contains('in')&&el.getBoundingClientRect().top<innerHeight*0.94)el.classList.add('in')})}addEventListener('scroll',sweep,{passive:true});addEventListener('load',sweep);setTimeout(sweep,500);setTimeout(function(){items.forEach(function(el){el.classList.add('in')})},2600);})();
+    </script>
   </div>
 </section>
 
