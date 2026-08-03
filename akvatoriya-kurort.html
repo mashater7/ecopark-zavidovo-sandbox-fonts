@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Курорт Завидово и места рядом — Акватория Завидово</title>
+<meta name="description" content="Курорт Завидово в десяти минутах от посёлка Акватория: гольф-поле, бассейн, спа, ресторан «Шоша». И двенадцать мест рядом — с часами работы и адресами.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="assets/kurort/kurort-hero.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   АКВАТОРИЯ ЗАВИДОВО · СТРАНИЦА «КУРОРТ»
+   Рассказ про курорт Завидово + места рядом. Дизайн-язык взят
+   из akvatoriya-index.html один в один: токены,
+   шапка-рельс, полноэкранное меню, футер, мобильная панель,
+   кинополоса .kf-*, редакционные главы .cg-*, reveal .rv
+   со страховкой rvSweep. Острые углы, хайрлайны, ноль теней.
+   Главная страница этим файлом не затронута.
+   ============================================================ */
+:root{
+  --emerald:#09763F; --emerald-hi:#0a8a49; --emerald-soft:#e8f1ec;
+  --accent:#09763F;
+  --cream:#f7f6f4; --sand:#fcfbfa; --white:#fff;
+  --ink:#1d2723; --ink-2:#4a5551; --muted:#8b918e; --line:#e7e4df; --line-2:#f0eeea;
+  --fs-display:clamp(46px,8.2vw,132px);
+  --fs-h2:clamp(30px,4.6vw,62px);
+  --fs-lead:clamp(17px,1.45vw,21px);
+  --gutter:clamp(24px,6vw,86px); --rail:84px;
+  --ease:cubic-bezier(.22,.75,.24,1); --ease-inout:cubic-bezier(.76,0,.24,1);
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --sec:clamp(80px,11.5vw,168px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden;overflow-x:clip}
+body{font-family:'Poiret One',sans-serif;color:var(--ink);background:var(--white);line-height:1.5;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;overflow-x:clip}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+h1,h2,h3,h4{font-weight:400;text-wrap:balance}
+:focus{outline:none}
+.f:focus-visible{outline:1.5px solid var(--emerald);outline-offset:5px}
+.wrap{width:100%;max-width:1420px;margin:0 auto;padding-inline:var(--gutter)}
+.sec{padding-block:var(--sec);position:relative}
+
+.h2{font-size:var(--fs-h2);line-height:1.02;letter-spacing:.015em}
+.lead{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:var(--fs-lead);line-height:1.62;color:var(--ink-2)}
+.body{font-family:'Montserrat',sans-serif;font-weight:300;font-size:15.5px;line-height:1.85;color:var(--ink-2)}
+
+.btn{display:inline-flex;align-items:center;gap:12px;font-family:'Montserrat',sans-serif;font-weight:400;
+  font-size:12px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;border:0;
+  padding:19px 40px;transition:.35s var(--ease)}
+.btn .ar{transition:transform .35s var(--ease)}
+.btn:hover .ar{transform:translateX(6px)}
+.btn:active{transform:scale(.97)}
+.btn-solid{background:var(--emerald);color:#fff}
+.btn-solid:hover{background:var(--ink)}
+.btn-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.btn-line:hover{box-shadow:inset 0 0 0 1px var(--emerald);color:var(--emerald)}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}
+.btn-ghost:hover{background:rgba(255,255,255,.2)}
+.tlink{font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink);position:relative;padding-bottom:6px;display:inline-block}
+.tlink::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:currentColor;
+  transform-origin:right;transition:transform .45s var(--ease)}
+.tlink:hover::after{animation:lineSweep .55s var(--ease)}
+@keyframes lineSweep{0%{transform:scaleX(1);transform-origin:right}49%{transform:scaleX(0);transform-origin:right}
+  50%{transform:scaleX(0);transform-origin:left}100%{transform:scaleX(1);transform-origin:left}}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease);
+  transition-delay:calc(var(--d,0)*90ms)}
+.rv.in{opacity:1;transform:none}
+.mask{display:block;overflow:hidden}
+.mask>span{display:block;transform:translateY(105%);transition:transform 1.05s var(--ease);
+  transition-delay:calc(var(--d,0)*95ms)}
+.mask.in>span{transform:none}
+
+/* ---------- ШАПКА ---------- */
+#hd{position:fixed;top:0;left:0;height:100vh;width:var(--rail);z-index:100;display:flex;flex-direction:column;
+  align-items:center;justify-content:space-between;padding:30px 0;transition:background .4s var(--ease)}
+#hd::before{content:"";position:absolute;inset:0 auto 0 0;width:96px;z-index:-1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(10,20,16,.19),transparent);transition:opacity .4s var(--ease)}
+#hd .mb,#hd .ph{color:#fff}
+#hd:hover,#hd:focus-within{background:rgba(255,255,255,.95);box-shadow:1px 0 0 var(--line)}
+#hd:hover::before,#hd:focus-within::before{opacity:0}
+#hd:hover .mb,#hd:hover .ph,#hd:focus-within .mb,#hd:focus-within .ph{color:var(--ink)}
+#hd:hover .lg img,#hd:focus-within .lg img{filter:none}
+#hd.on::before{opacity:1}
+.lg img{width:42px;height:42px;object-fit:contain;filter:drop-shadow(0 3px 12px rgba(0,0,0,.35));
+  transition:transform .6s cubic-bezier(.34,1.4,.64,1)}
+.lg:hover img{transform:scale(1.1)}
+.hd-t{display:flex;flex-direction:column;align-items:center;gap:26px}
+.mb{background:none;border:0;cursor:pointer;color:#fff;padding:8px;transition:color .4s var(--ease)}
+.brg{position:relative;width:26px;height:12px;display:block}
+.brg span{position:absolute;left:0;height:1px;width:100%;background:currentColor;transition:.4s var(--ease)}
+.brg span:nth-child(1){top:0}.brg span:nth-child(2){top:11px;width:64%}
+.mb:hover .brg span:nth-child(2){width:100%}
+body.mo .mb{color:var(--ink)}
+body.mo .brg span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+body.mo .brg span:nth-child(2){transform:translateY(-5.5px) rotate(-45deg);width:100%}
+.hd-b{display:flex;flex-direction:column;align-items:center;gap:22px}
+.soc{display:flex;flex-direction:column;gap:13px}
+.soc a{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.94);display:flex;
+  align-items:center;justify-content:center;transition:.35s var(--ease)}
+.soc a:hover{transform:translateY(-4px)}
+.soc img{width:17px;height:17px}
+.ph{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Montserrat',sans-serif;
+  font-size:12px;letter-spacing:.14em;color:#fff;white-space:nowrap;transition:color .4s var(--ease)}
+.ph:hover{color:var(--emerald-hi)}
+
+/* ---------- МЕНЮ ---------- */
+.ov{position:fixed;inset:0;z-index:200;background:var(--cream);clip-path:inset(0 100% 0 0);visibility:hidden;
+  transition:clip-path .75s var(--ease-inout),visibility 0s linear .75s;overflow:hidden}
+.ov.open{clip-path:inset(0 0 0 0);visibility:visible;transition:clip-path .75s var(--ease-inout),visibility 0s}
+.ov-wm{position:absolute;right:-8%;top:50%;transform:translateY(-50%);width:min(52vw,700px);opacity:0;
+  transition:opacity 1.1s var(--ease) .2s;pointer-events:none}
+.ov.open .ov-wm{opacity:.07}
+.ov-in{position:relative;z-index:2;height:100%;max-width:1420px;margin:0 auto;padding:34px var(--gutter);
+  display:flex;flex-direction:column}
+.ov-top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.ov-brand{display:flex;align-items:center;gap:14px}
+.ov-brand img{width:36px;height:36px;object-fit:contain}
+.ov-brand span{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--muted)}
+.cl{width:44px;height:44px;border-radius:50%;background:none;border:1px solid rgba(0,0,0,.12);cursor:pointer;
+  position:relative;transition:.5s var(--ease)}
+.cl:hover{transform:rotate(90deg);border-color:var(--emerald)}
+.cl::before,.cl::after{content:"";position:absolute;top:50%;left:50%;width:15px;height:1px;background:var(--ink)}
+.cl::before{transform:translate(-50%,-50%) rotate(45deg)}.cl::after{transform:translate(-50%,-50%) rotate(-45deg)}
+.nav{margin:auto 0;display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.nav a{font-size:clamp(23px,3.1vw,44px);line-height:1.18;padding:3px 0;opacity:0;transform:translateX(-30px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease),color .3s}
+.ov.open .nav a{opacity:1;transform:none;transition-delay:calc(.2s + var(--i)*.055s)}
+.nav a:hover{color:var(--emerald)}
+.nav a i{font-family:'Montserrat',sans-serif;font-style:normal;font-size:10.5px;letter-spacing:.2em;
+  color:var(--accent);vertical-align:super;margin-right:14px}
+/* текущая страница в меню: изумруд плюс короткая черта слева */
+.nav a[aria-current="page"]{color:var(--emerald)}
+.nav a[aria-current="page"]::after{content:"";display:inline-block;width:38px;height:1px;
+  background:var(--emerald);vertical-align:middle;margin-left:18px;opacity:.6}
+.ov-ft{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  padding-top:22px;border-top:1px solid rgba(0,0,0,.08);opacity:0;transform:translateY(14px);
+  transition:.8s var(--ease) .5s}
+.ov.open .ov-ft{opacity:1;transform:none}
+.ov-ft .l{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.ov-ft .l .soc{flex-direction:row}
+.ov-ft .l .soc a{background:#fff}
+.ov-ph{font-family:'Montserrat',sans-serif;font-size:20px}
+
+/* ---------- КИНОПОЛОСА «КУРОРТ ЗАВИДОВО» ----------
+   Один в один блок с главной (там он стоит в секции #near).
+   Затемнение уведено ВЛЕВО, под текст: сплошная нижняя вуаль гасила
+   закат, а ради заката кадр и брали. На телефоне кадр 4:3, текст
+   выходит из-под кадра вниз — вертикальный кроп режет панораму. */
+.kf-hero{position:relative}
+.kf-stage{position:relative;width:100%;overflow:hidden;background:var(--ink);
+  aspect-ratio:1120/630;max-height:86vh}
+.kf-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.kf-stage::after{content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,rgba(6,18,13,.74) 0%,rgba(6,18,13,.56) 34%,
+      rgba(6,18,13,.22) 58%,rgba(6,18,13,0) 76%),
+    linear-gradient(180deg,rgba(6,18,13,.18) 0%,rgba(6,18,13,0) 32%,rgba(6,18,13,.34) 100%)}
+.kf-in{position:absolute;left:0;right:0;bottom:0;z-index:2;color:#fff;
+  max-width:1420px;margin-inline:auto;padding:0 var(--gutter) clamp(30px,4vw,62px)}
+.kf-mins{font-family:'Montserrat',sans-serif;font-weight:500;font-size:11px;letter-spacing:.26em;
+  text-transform:uppercase;color:rgba(255,255,255,.86);font-feature-settings:"tnum";
+  display:inline-flex;align-items:center;gap:14px;white-space:nowrap}
+.kf-mins::before{content:"";width:36px;height:1px;background:currentColor;opacity:.55;flex:none}
+.kf-h{font-size:clamp(40px,8vw,132px);line-height:.94;letter-spacing:.015em;
+  margin-top:clamp(12px,1.4vw,20px)}
+.kf-h em{font-family:'Cormorant Garamond',serif;font-style:italic}
+.kf-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(18px,1.8vw,27px);line-height:1.4;color:rgba(255,255,255,.9);
+  margin-top:clamp(10px,1.2vw,18px);max-width:36ch}
+.kf-act{margin-top:clamp(18px,2.2vw,32px)}
+
+/* ---------- РЕДАКЦИОННЫЕ ГЛАВЫ (с главной) ---------- */
+.sec.chp{padding-block:clamp(56px,7vw,104px)}
+.cg-f{position:relative;overflow:hidden;background:var(--line-2)}
+.cg-f img{width:100%;height:100%;object-fit:cover}
+.cg-r{clip-path:inset(0 0 100% 0);transition:clip-path 1.15s var(--ease-out);
+  transition-delay:calc(var(--d,0)*110ms)}
+.cg-r.in{clip-path:inset(0 0 0 0)}
+.cg-r img{transform:scale(1.14);transition:transform 1.8s var(--ease-out);
+  transition-delay:calc(var(--d,0)*110ms)}
+.cg-r.in img{transform:none}
+.cg-note{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(17px,1.45vw,23px);line-height:1.32;color:var(--ink-2);margin-top:13px}
+.cg-story{margin-top:9px;font-family:'Montserrat',sans-serif;font-weight:300;
+  font-size:14.5px;line-height:1.8;color:var(--ink-2);max-width:42ch}
+.cg-bleed{position:relative;width:100%;height:clamp(340px,58vh,660px);
+  overflow:hidden;background:var(--line-2)}
+.cg-bleed .cg-f{position:absolute;inset:0}
+.cg-say{max-width:22ch;font-size:clamp(30px,4.4vw,68px);line-height:1.06;letter-spacing:.01em}
+.cg-say b{font-weight:400;color:var(--emerald);font-size:1.62em;line-height:.8;
+  letter-spacing:-.03em;display:inline-block;transform:translateY(.09em)}
+.cg-sub{margin-top:clamp(16px,1.8vw,26px);max-width:46ch;font-family:'Montserrat',sans-serif;
+  font-weight:300;font-size:14.5px;line-height:1.8;color:var(--ink-2)}
+.cg-pair{margin-top:clamp(44px,5.6vw,92px);display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.42fr);
+  gap:clamp(18px,2.6vw,44px);align-items:start}
+.cg-pair figure{margin:0}
+.cg-pair .cg-f{aspect-ratio:3/2}
+.cg-pair .p-sm{margin-top:clamp(30px,5vw,86px)}
+.cg-pair .p-sm .cg-f{aspect-ratio:4/5}
+.cg-pair .p-out{margin-right:calc(-1 * var(--gutter));width:calc(100% + var(--gutter))}
+
+/* тихий слой перечисления — тот же приём, что .util на главной */
+.util{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.util .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(14px,2.6vw,36px);
+  padding-block:clamp(22px,2.8vw,34px);list-style:none}
+.util li{font-family:'Montserrat',sans-serif;font-weight:300;font-size:clamp(12.5px,1.15vw,14.5px);
+  letter-spacing:.05em;color:var(--ink-2);display:flex;align-items:center;gap:clamp(14px,2.6vw,36px)}
+.util li:not(:last-child)::after{content:"";width:3px;height:3px;border-radius:50%;
+  background:var(--emerald);opacity:.5;flex:none}
+
+/* ---------- РАСКЛАДКИ ГЛАВ КУРОРТА ----------
+   Четыре разные раскладки на пять кадров: полоса во всю ширину,
+   пара «маленький слева — крупный с вылетом вправо», разворот 7/4
+   и тихий финал 4/5. Одинаковых плиток на странице нет. */
+.kk-cap{display:grid;grid-template-columns:minmax(0,.44fr) minmax(0,1fr);
+  gap:clamp(16px,3vw,56px);margin-top:clamp(24px,3vw,44px);align-items:start}
+.kk-name{font-size:clamp(24px,2.8vw,42px);line-height:1.08;letter-spacing:.012em}
+.kk-name em{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--emerald)}
+.kk-txt{font-family:'Montserrat',sans-serif;font-weight:300;font-size:15px;line-height:1.85;
+  color:var(--ink-2);max-width:52ch}
+.kk-txt p + p{margin-top:1.1em}
+/* строка фактов: только то, что есть в карточке места */
+.kk-facts{list-style:none;display:flex;flex-wrap:wrap;align-items:center;
+  gap:clamp(12px,1.8vw,26px);margin-top:clamp(18px,2vw,28px);padding-top:clamp(14px,1.6vw,20px);
+  border-top:1px solid var(--line);font-family:'Montserrat',sans-serif;font-weight:300;
+  font-size:12.5px;letter-spacing:.04em;color:#6a716e;font-feature-settings:"tnum"}
+.kk-facts li{display:flex;align-items:center;gap:clamp(12px,1.8vw,26px)}
+.kk-facts li:not(:last-child)::after{content:"";width:3px;height:3px;border-radius:50%;
+  background:var(--emerald);opacity:.5;flex:none}
+/* в узкой колонке строка фактов переносится и оставляет висячую точку —
+   там она идёт столбиком, без разделителей */
+.kk-tx .kk-facts{flex-direction:column;align-items:flex-start;gap:9px}
+.kk-tx .kk-facts li{gap:0}
+.kk-tx .kk-facts li::after{display:none}
+.kk-facts a{color:#6a716e;border-bottom:1px solid var(--line);padding-bottom:1px;
+  transition:color .3s var(--ease),border-color .3s var(--ease)}
+.kk-facts a:hover{color:var(--emerald);border-color:var(--emerald)}
+
+.kk-split{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(20px,3vw,56px);align-items:center}
+.kk-split .kk-ph{grid-column:1 / span 7;margin:0}
+.kk-split .kk-ph .cg-f{aspect-ratio:3/2}
+.kk-split .kk-tx{grid-column:9 / span 4}
+
+.kk-quiet{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(20px,3vw,56px);align-items:end}
+.kk-quiet .kk-ph{grid-column:1 / span 4;margin:0}
+.kk-quiet .kk-ph .cg-f{aspect-ratio:1/1}
+.kk-quiet .kk-tx{grid-column:6 / span 5}
+/* в разворотах имя главы и абзац стоят в одной колонке — нужен отступ */
+.kk-tx .kk-txt{margin-top:clamp(14px,1.6vw,22px)}
+.kk-end{margin-top:clamp(38px,4.4vw,64px)}
+
+/* ---------- РЕЕСТР МЕСТ ----------
+   Фотографий у этих мест нет, поэтому никаких плиток с заглушками:
+   имя, одно предложение конкретики, справа часы. Четыре смысловые
+   группы вместо шести категорий-плиток, которые клиент сняла 30.07. */
+.places{background:var(--sand)}
+.places .lead{margin-top:clamp(18px,2vw,28px);max-width:52ch}
+.rgs{margin-top:clamp(38px,4.6vw,72px)}
+.rg-g{display:grid;grid-template-columns:minmax(0,.3fr) minmax(0,1fr);gap:clamp(14px,3vw,56px);
+  padding-block:clamp(24px,3vw,42px);border-top:1px solid var(--line)}
+.rg-g:last-of-type{border-bottom:1px solid var(--line)}
+.rg-h{font-size:clamp(21px,2.2vw,32px);line-height:1.1;letter-spacing:.012em;
+  position:sticky;top:118px;align-self:start}
+.rg-row{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.3fr) auto;
+  gap:clamp(12px,2vw,34px);align-items:baseline;
+  padding-block:clamp(14px,1.7vw,22px);border-bottom:1px solid var(--line-2);
+  transition:padding-left .45s var(--ease),background .4s var(--ease)}
+.rg-row:last-child{border-bottom:0}
+.rg-n{font-size:clamp(18px,1.7vw,24px);line-height:1.2;letter-spacing:.01em;
+  transition:color .35s var(--ease)}
+.rg-n i{font-style:normal;font-size:.55em;margin-left:9px;color:var(--muted);opacity:0;
+  transition:opacity .35s var(--ease)}
+.rg-d{font-family:'Montserrat',sans-serif;font-weight:300;font-size:13.5px;line-height:1.7;color:var(--ink-2)}
+/* --muted на песочном даёт 3,2:1 — для читаемого факта берём тон темнее */
+.rg-t{font-family:'Montserrat',sans-serif;font-weight:300;font-size:12.5px;color:#6a716e;
+  text-align:right;white-space:nowrap;font-feature-settings:"tnum"}
+@media (hover:hover) and (pointer:fine){
+  .rg-row:hover{padding-left:12px;background:var(--white)}
+  .rg-row:hover .rg-n{color:var(--emerald)}
+  .rg-row:hover .rg-n i{opacity:.75}
+}
+.rg-row.f:focus-visible{outline-offset:2px}
+.rg-foot{margin-top:clamp(20px,2.4vw,30px);font-family:'Montserrat',sans-serif;font-weight:300;
+  font-size:12px;line-height:1.7;color:#6a716e;max-width:60ch}
+
+/* ---------- ТИХАЯ ВРЕЗКА ЗАХВАТА (вариант A) ----------
+   Строка-повод слева, два поля и вторичная кнопка справа.
+   Изумруда во всю ширину нет, попапа нет, полей ровно два. */
+.qg{background:var(--white);border-top:1px solid var(--line);padding-block:clamp(64px,8vw,120px)}
+.qg-in{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:clamp(26px,5vw,80px);
+  align-items:end}
+.qg-t{font-size:clamp(26px,3.2vw,44px);line-height:1.06;letter-spacing:.014em}
+.qg-s{font-family:'Montserrat',sans-serif;font-weight:300;font-size:14.5px;line-height:1.8;
+  color:var(--ink-2);margin-top:16px;max-width:44ch}
+.qg-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:clamp(20px,2.6vw,40px);
+  align-items:end}
+.qg-fld{display:block;margin:0}
+.qg-fld>span{display:block;font-family:'Montserrat',sans-serif;font-size:10.5px;line-height:1.6;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+.qg-fld input{width:100%;min-height:44px;background:transparent;border:0;border-bottom:1px solid #868c88;
+  padding:12px 0;font-family:'Montserrat',sans-serif;font-weight:300;font-size:16px;color:var(--ink);
+  transition:border-color .4s var(--ease)}
+.qg-fld input::placeholder{color:#626a67;opacity:1}
+.qg-fld input:focus{border-bottom-color:var(--emerald)}
+.qg-fld input[aria-invalid="true"]{border-bottom-color:#b4453c}
+.qg-btn{display:inline-flex;align-items:center;justify-content:center;gap:13px;min-height:52px;
+  padding:14px 32px;background:transparent;color:var(--ink);border:1px solid var(--ink);cursor:pointer;
+  font-family:'Montserrat',sans-serif;font-weight:400;font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;transition:border-color .2s var(--ease-out),color .2s var(--ease-out),transform .16s var(--ease-out)}
+.qg-btn:hover{border-color:var(--emerald);color:var(--emerald)}
+.qg-btn:active{transform:scale(.97)}
+.qg-btn .ar{transition:transform .2s var(--ease-out)}
+.qg-btn:hover .ar{transform:translateX(5px)}
+.qg-foot{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 36px;margin-top:30px}
+.qg-cons{display:flex;align-items:flex-start;gap:12px;cursor:pointer;
+  font-family:'Montserrat',sans-serif;font-weight:300;font-size:12.5px;line-height:1.6;color:var(--ink-2)}
+.qg-cons input{margin:2px 0 0;width:16px;height:16px;flex:none;accent-color:var(--emerald);cursor:pointer}
+.qg-msg{font-family:'Montserrat',sans-serif;font-weight:300;font-size:12.5px;line-height:1.6;
+  color:#b4453c;min-height:20px;margin:0}
+.qg-ask{margin-top:clamp(24px,3vw,38px)}
+.qg-done h2{font-size:clamp(26px,3.2vw,44px);line-height:1.06;letter-spacing:.014em}
+.qg-done p{font-family:'Montserrat',sans-serif;font-weight:300;font-size:14.5px;line-height:1.8;
+  color:var(--ink-2);margin-top:14px;max-width:44ch}
+.qg-done[hidden]{display:none}
+
+/* ---------- ФУТЕР ---------- */
+.ft{background:var(--white);border-top:1px solid var(--line);font-family:'Montserrat',sans-serif;
+  font-weight:300;font-size:13.5px;color:var(--ink-2)}
+.ft .wrap{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:44px;padding-block:clamp(48px,5.6vw,76px)}
+.ft-br{display:flex;flex-direction:column;gap:18px;max-width:32ch}
+.ft-br .tp{display:flex;align-items:center;gap:13px}
+.ft-br img{width:38px;height:38px;object-fit:contain}
+.ft-br .nm{font-family:'Poiret One',sans-serif;font-size:16px;letter-spacing:.34em;text-transform:uppercase;color:var(--ink)}
+.ft-br p{line-height:1.75;color:var(--muted)}
+.ft h5{font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.ft a{display:block;padding:7px 0;transition:color .3s}
+.ft a:hover{color:var(--emerald)}
+.ft .fp{font-size:19px;color:var(--ink);margin-bottom:8px}
+.ft-soc{display:flex;gap:10px;margin-top:10px}
+.ft-soc a{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);display:flex;
+  align-items:center;justify-content:center;padding:0;transition:transform .35s var(--ease)}
+.ft-soc a:hover{transform:translateY(-3px)}
+.ft-soc img{width:17px;height:17px}
+.ft-bt{border-top:1px solid var(--line)}
+.ft-bt .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:20px;
+  font-size:11.5px;color:var(--muted)}
+
+/* ---------- МОБИЛЬНАЯ ПАНЕЛЬ ---------- */
+.mbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:90;background:rgba(255,255,255,.97);
+  box-shadow:0 -1px 0 var(--line);padding:9px 12px calc(9px + env(safe-area-inset-bottom))}
+.mbar-in{display:grid;grid-template-columns:46px 46px minmax(0,1fr);gap:9px;align-items:center}
+.mbar .ic{width:46px;height:46px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
+.mbar .ic img{width:19px;height:19px}
+.mbar .go{height:46px;display:flex;align-items:center;justify-content:center;background:var(--emerald);
+  color:#fff;font-family:'Montserrat',sans-serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  text-align:center;line-height:1.25;padding-inline:8px}
+body.mo{overflow:hidden}
+
+/* ---------- АДАПТИВ ---------- */
+@media (max-width:1080px){
+  .kk-split{grid-template-columns:1fr;gap:clamp(24px,5vw,40px)}
+  .kk-split .kk-ph,.kk-split .kk-tx{grid-column:1}
+  .kk-quiet{grid-template-columns:1fr;gap:clamp(24px,5vw,40px);align-items:start}
+  .kk-quiet .kk-ph,.kk-quiet .kk-tx{grid-column:1}
+  .kk-quiet .kk-ph .cg-f{aspect-ratio:3/2}
+  .kk-cap{grid-template-columns:1fr;gap:16px}
+  .rg-g{grid-template-columns:1fr;gap:16px}
+  .rg-h{position:static}
+  .qg-in{grid-template-columns:1fr;gap:34px;align-items:start}
+  .ft .wrap{grid-template-columns:1fr 1fr}
+  .ft-br{grid-column:1/-1}
+}
+@media (max-width:900px){
+  .qg-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .qg-btn{grid-column:1/-1;width:100%}
+}
+@media (max-width:860px){
+  .cg-bleed{height:clamp(300px,52vh,460px)}
+  .cg-pair{grid-template-columns:1fr;gap:clamp(30px,7vw,44px);margin-top:clamp(34px,8vw,52px)}
+  .cg-pair .p-sm{margin-top:0;order:2}
+  .cg-pair .p-sm .cg-f{aspect-ratio:3/2}
+  /* на телефоне вылет в обе стороны, иначе слева щель, а справа обрез */
+  .cg-pair .p-out{margin-inline:calc(-1 * var(--gutter));width:calc(100% + var(--gutter) * 2)}
+  .cg-note{font-size:17px}
+}
+@media (max-width:760px){
+  :root{--rail:0px}
+  #hd{flex-direction:row;width:100%;height:auto;padding:14px 20px;justify-content:space-between;align-items:center}
+  #hd::before{inset:0 0 auto 0;width:100%;height:56px;background:linear-gradient(180deg,rgba(10,20,16,.24),transparent)}
+  .hd-t{flex-direction:row;width:100%;justify-content:space-between;gap:0}
+  .hd-b{display:none}
+  /* вертикальный кадр не годится: из панорамы он вырезал бы и купола, и марину */
+  .kf-stage{aspect-ratio:4/3}
+  .kf-stage img{object-position:38% center}
+  .kf-stage::after{background:linear-gradient(180deg,rgba(6,18,13,.14),
+    rgba(6,18,13,.02) 40%,rgba(6,18,13,.12))}
+  .kf-in{position:static;color:var(--ink);padding:clamp(24px,6.5vw,34px) var(--gutter) 0}
+  .kf-mins{color:var(--emerald)}
+  .kf-sub{color:var(--ink-2);max-width:none}
+  .kf-in .btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+  .kf-in .btn-ghost:hover{background:transparent;box-shadow:inset 0 0 0 1px var(--emerald);color:var(--emerald)}
+  /* строка фактов на телефоне тоже идёт столбиком: в строку она переносится
+     и оставляет висячую точку-разделитель на конце первой строки */
+  .kk-facts{flex-direction:column;align-items:flex-start;gap:9px}
+  .kk-facts li{gap:0}
+  .kk-facts li::after{display:none}
+  .rg-row{grid-template-columns:1fr;gap:6px;padding-block:18px}
+  .rg-t{text-align:left;white-space:normal}
+  .rg-n i{opacity:.6}
+  .qg-row{grid-template-columns:1fr;gap:26px}
+  .ft .wrap{grid-template-columns:1fr}
+  .mbar{display:block}
+  body{padding-bottom:70px}
+}
+@media (max-width:520px){
+  .kk-facts{gap:9px}
+  .kk-facts li{gap:9px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto}
+  .rv,.mask>span{opacity:1!important;transform:none!important;transition:none!important}
+  .cg-r{clip-path:none!important;transition:none!important}
+  .cg-r img{transform:none!important;transition:none!important}
+}
+</style>
+</head>
+<body id="top">
+
+<!-- ШАПКА -->
+<header id="hd">
+  <div class="hd-t">
+    <!-- бриллиант «Коллекции Завидово», как на главной -->
+    <a class="lg f" href="akvatoriya-index.html" aria-label="На главную"><img src="assets/collection/logo-diamond.png" alt="Коллекция Завидово"></a>
+    <button class="mb f" id="mOpen" aria-label="Открыть меню" aria-expanded="false" aria-controls="ov"><span class="brg" aria-hidden="true"><span></span><span></span></span></button>
+  </div>
+  <div class="hd-b">
+    <div class="soc">
+      <a class="f" href="https://max.ru/" target="_blank" rel="noopener" aria-label="МАКС"><img src="https://static.tildacdn.com/tild3031-6231-4337-a532-303731356130/Max_logo_black.svg" alt=""></a>
+      <a class="f" href="https://wa.me/79201598272" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="https://static.tildacdn.com/tild3763-3935-4563-a339-383133633766/Whatsapp.svg" alt=""></a>
+      <a class="f" href="https://t.me/ecoparkzavidovo" target="_blank" rel="noopener" aria-label="Telegram"><img src="https://static.tildacdn.com/tild3637-3833-4864-a436-616361656533/Telegram.svg" alt=""></a>
+    </div>
+    <a class="ph f" href="tel:+74993091245">+7 499 309 12 45</a>
+  </div>
+</header>
+
+<!-- МЕНЮ. Те же шесть пунктов, что на главной; «Курорт» ведёт сам на себя -->
+<div class="ov" id="ov" role="dialog" aria-modal="true" aria-label="Главное меню" aria-hidden="true">
+  <div class="ov-wm" aria-hidden="true"><img src="assets/collection/logo-akvatoriya.png" alt=""></div>
+  <div class="ov-in">
+    <div class="ov-top">
+      <div class="ov-brand"><img src="assets/collection/logo-akvatoriya.png" alt=""><span>Акватория&nbsp;Завидово</span></div>
+      <button class="cl f" id="mClose" aria-label="Закрыть меню"></button>
+    </div>
+    <nav class="nav" aria-label="Основная навигация">
+      <a class="f" style="--i:0" href="akvatoriya-index.html#about"><i>01</i>О посёлке</a>
+      <a class="f" style="--i:1" href="akvatoriya-index.html#plan"><i>02</i>Генплан</a>
+      <a class="f" style="--i:2" href="akvatoriya-index.html#park"><i>03</i>Инфраструктура</a>
+      <a class="f" style="--i:3" href="#top" aria-current="page"><i>04</i>Курорт</a>
+      <a class="f" style="--i:4" href="akvatoriya-index.html#team"><i>05</i>Контакты</a>
+      <a class="f" style="--i:5" href="akvatoriya-news.html"><i>06</i>Новости</a>
+    </nav>
+    <div class="ov-ft">
+      <div class="l">
+        <div class="soc">
+          <a class="f" href="https://max.ru/" target="_blank" rel="noopener" aria-label="МАКС"><img src="https://static.tildacdn.com/tild3031-6231-4337-a532-303731356130/Max_logo_black.svg" alt=""></a>
+          <a class="f" href="https://wa.me/79201598272" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="https://static.tildacdn.com/tild3763-3935-4563-a339-383133633766/Whatsapp.svg" alt=""></a>
+          <a class="f" href="https://t.me/ecoparkzavidovo" target="_blank" rel="noopener" aria-label="Telegram"><img src="https://static.tildacdn.com/tild3637-3833-4864-a436-616361656533/Telegram.svg" alt=""></a>
+        </div>
+        <a class="ov-ph f" href="tel:+74993091245">+7 499 309 12 45</a>
+      </div>
+      <a class="btn btn-solid f" href="akvatoriya-index.html#form">Записаться на просмотр <span class="ar" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- ПЕРВЫЙ ЭКРАН · КИНОПОЛОСА
+     Тот же кадр и та же строка, что в блоке курорта на главной:
+     человек нажал «Подробнее о курорте» и должен узнать кадр. -->
+<section class="kf-hero" aria-labelledby="kfTitle">
+  <div class="kf-stage">
+    <img src="assets/kurort/kurort-hero.jpg" alt="Курорт Завидово с высоты на закате: марина, отели и вода" width="1120" height="630" fetchpriority="high">
+  </div>
+  <div class="kf-in">
+    <h1 class="kf-h" id="kfTitle">Курорт Завидово<br><em>в десяти минутах</em></h1>
+    <p class="kf-sub">Всё то, ради чего обычно уезжают на выходные, — за десять минут от участка.</p>
+    <div class="kf-act">
+      <a class="btn btn-ghost f" href="#places">Что ещё рядом <span class="ar" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ВВОДКА: одна опора всей страницы — расстояние -->
+<section class="sec" aria-labelledby="introT" style="padding-block:clamp(64px,9vw,132px)">
+  <div class="wrap">
+    <!-- «10» и «минут» держим в одной строке: перенос между ними рвёт факт -->
+    <h2 class="cg-say rv" id="introT">До курорта — <b>10</b>&nbsp;минут.<br>От Москвы — час.</h2>
+    <p class="cg-sub rv" style="--d:1">Гольф-поле, марина, спа, рестораны и отели — всё это курорт Завидово, в десяти минутах от участка. Москва при этом остаётся в часе езды по М-11. Сюда приезжают на утро, на обед или на вечер, не собирая сумку.</p>
+  </div>
+</section>
+
+<!-- тихий перечень: ровно то, что известно про курорт -->
+<div class="util">
+  <ul class="wrap" aria-label="Что есть на курорте">
+    <li>Гольф-поле</li>
+    <li>Марина</li>
+    <li>Спа</li>
+    <li>Рестораны</li>
+    <li>Отели</li>
+  </ul>
+</div>
+
+<!-- ГЛАВА 1 · ГОЛЬФ -->
+<section class="sec chp" aria-labelledby="golfT">
+  <div class="cg-bleed">
+    <div class="cg-f cg-r"><img src="assets/kurort/golf.jpg" alt="Гольф-поле курорта Завидово: игроки на фервее, за ними клубный дом" width="1440" height="960" loading="lazy"></div>
+  </div>
+  <div class="wrap">
+    <div class="kk-cap">
+      <h2 class="kk-name rv" id="golfT">Гольф-клуб <em>Завидово</em></h2>
+      <div>
+        <div class="kk-txt rv" style="--d:1">
+          <p>Клубный дом стоит прямо над фервеем: с террасы видно, как заканчивают лунку. Поле открыто с апреля по ноябрь, и восемь месяцев в году партию назначают на будний вечер, а не выкраивают под неё выходные.</p>
+        </div>
+        <ul class="kk-facts rv" style="--d:2">
+          <li>Апрель–ноябрь</li>
+          <li>09:00–21:00, ежедневно</li>
+          <li>Грин-фи от 8000 ₽</li>
+          <li><a class="f" href="https://zavidovo-golf.ru/" target="_blank" rel="noopener">zavidovo-golf.ru</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ГЛАВА 2 · БАССЕЙН И СПА -->
+<section class="sec chp" style="background:var(--sand)" aria-labelledby="spaT">
+  <div class="wrap">
+    <h2 class="kk-name rv" id="spaT" style="max-width:16ch">Бассейн <em>и спа</em></h2>
+    <div class="cg-pair">
+      <figure class="p-sm">
+        <div class="cg-f cg-r"><img src="assets/kurort/spa.jpg" alt="Спа: свёрнутые полотенца и три горящие свечи, за ними процедура" width="1680" height="1119" style="object-position:center 62%" loading="lazy"></div>
+        <p class="cg-note">Спа</p>
+        <p class="cg-story">Вечерняя часть того же дня: полотенца, свечи, тишина. Возвращаться после этого в город не нужно.</p>
+      </figure>
+      <figure>
+        <div class="cg-f cg-r p-out" style="--d:1"><img src="assets/kurort/basseyn.jpg" alt="Крытый бассейн: семья в воде, панорамные окна и шезлонги" width="1680" height="1120" loading="lazy"></div>
+        <p class="cg-note">Бассейн</p>
+        <p class="cg-story">Крытая чаша с панорамными окнами: шезлонги вдоль воды, детская часть рядом со взрослой. Погода перестаёт решать, купаться сегодня или нет.</p>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ГЛАВА 3 · РЕСТОРАН «ШОША» -->
+<section class="sec chp" aria-labelledby="restT">
+  <div class="wrap">
+    <div class="kk-split">
+      <figure class="kk-ph">
+        <div class="cg-f cg-r"><img src="assets/kurort/restoran.jpg" alt="Терраса ресторана над водой: белые шторы, накрытые столы, за перилами река" width="1680" height="1120" loading="lazy"></div>
+      </figure>
+      <div class="kk-tx">
+        <h2 class="kk-name rv" id="restT">Ресторан <em>«Шоша»</em></h2>
+        <div class="kk-txt rv" style="--d:1">
+          <p>Терраса выходит прямо на воду: столы у перил, между ними белые шторы, за перилами река. Обед здесь длится дольше запланированного: дом в десяти минутах, торопиться некуда.</p>
+        </div>
+        <ul class="kk-facts rv" style="--d:2">
+          <li>Ср–Вс, 12:00–00:00</li>
+          <li>Средний счёт 3200 ₽</li>
+          <li><a class="f" href="https://zavidovo.ru/restaurant/shosha/" target="_blank" rel="noopener">zavidovo.ru</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ГЛАВА 4 · АКВАПАРК.
+     Стоит последней и намеренно тихо: 30.07 клиент вычеркнула аквапарк
+     из блока курорта на главной. В заголовок страницы и на первый экран
+     он не вынесен, кадр взят зимний и дальний. -->
+<section class="sec chp" aria-labelledby="aquaT" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="kk-quiet">
+      <figure class="kk-ph">
+        <div class="cg-f cg-r"><img src="assets/kurort/akvapark.jpg" alt="Зимний вечер: подсвеченные купола аквапарка и мост над заснеженным берегом" width="1200" height="1200" loading="lazy"></div>
+      </figure>
+      <div class="kk-tx">
+        <h2 class="kk-name rv" id="aquaT">Аквапарк</h2>
+        <div class="kk-txt rv" style="--d:1">
+          <p>Купола видно с моста зимним вечером. Аквапарк открылся 21 ноября 2025 года, площадь — более 15 000 м².</p>
+        </div>
+        <ul class="kk-facts rv" style="--d:2">
+          <li>Открыт 21 ноября 2025</li>
+          <li>Более 15 000 м²</li>
+        </ul>
+      </div>
+    </div>
+    <p class="kk-end rv"><a class="tlink f" href="akvatoriya-index.html#form">Записаться на просмотр участка</a></p>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 2 · МЕСТА РЯДОМ.
+     Не шесть категорий-плиток (их клиент сняла 30.07), а четыре смысловые
+     группы строками. Фотографий у этих мест нет — вместо заглушек
+     типографический реестр: имя, одно предложение, справа часы.
+     Все данные из готовых карточек place-cards, ничего не добавлено. -->
+<section class="sec places" id="places" aria-labelledby="placesT">
+  <div class="wrap">
+    <h2 class="cg-say rv" id="placesT">Курорт — не единственное, что рядом</h2>
+    <p class="lead rv" style="--d:1">Двенадцать мест, собранных по поводу, а не по категории: день на воде, чем занять детей, где поесть, куда выдохнуть. Часы и адреса собраны здесь, чтобы не искать их в дороге.</p>
+
+    <div class="rgs">
+      <div class="rg-g rv">
+        <h3 class="rg-h">На воде</h3>
+        <div class="rg-list">
+          <a class="rg-row f" href="https://marina-zavidovo.ru/" target="_blank" rel="noopener">
+            <span class="rg-n">Яхт-клуб «Марина Завидово»<i aria-hidden="true">↗</i></span>
+            <span class="rg-d">Деревня Лазурная, аренда от 5000 ₽ в час.</span>
+            <span class="rg-t">10:00–20:00 · май–октябрь</span>
+          </a>
+          <a class="rg-row f" href="https://zavidovo.com/otdyhayshim/chem-zanyatsya/prokat-sapbordov-longbordov-rolikov-balans-trenazhyory/" target="_blank" rel="noopener">
+            <span class="rg-n">Прокат сапбордов<i aria-hidden="true">↗</i></span>
+            <span class="rg-d">Курорт Завидово, Тверской бульвар, 2; часы уточняют по телефону.</span>
+            <span class="rg-t">Май–октябрь</span>
+          </a>
+          <a class="rg-row f" href="https://aqualeto-zavidovo.com/" target="_blank" rel="noopener">
+            <span class="rg-n">Пляжный отдых<i aria-hidden="true">↗</i></span>
+            <span class="rg-d">Пляж на курорте Завидово, сезон с мая по сентябрь.</span>
+            <span class="rg-t">10:00–21:00 · ежедневно</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="rg-g rv">
+        <h3 class="rg-h">Детям</h3>
+        <div class="rg-list">
+          <a class="rg-row f" href="https://sudimir.ru/olenya-ferma/" target="_blank" rel="noopener">
+            <span class="rg-n">Оленья ферма «Судимир»<i aria-hidden="true">↗</i></span>
+            <span class="rg-d">Деревня Судимирка, 44А; открыта круглый год.</span>
+            <span class="rg-t">11:00–17:00 · ежедневно</span>
+          </a>
+          <a class="rg-row f" href="https://ferma-ivanovka.ru/" target="_blank" rel="noopener">
+            <span class="rg-n">Туристическая ферма «Ивановка»<i aria-hidden="true">↗</i></span>
+            <span class="rg-d">Деревня Давыдово, Калининский округ; открыта круглый год.</span>
+            <span class="rg-t">11:00–17:00 · сб–вс</span>
+          </a>
+          <a class="rg-row f" href="https://konakovoaero.ru/activities/verevochnyy-park/" target="_blank" rel="noopener">
+            <span class="rg-n">Верёвочный парк «Конаково АЭРО»<i aria-hidden="true">↗</i></span>
+            <span class="rg-d">Аэродром Конаково, строение 1; работает круглый год.</span>
+            <span class="rg-t">10:00–20:00 · ср–вс</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="rg-g rv">
+        <h3 class="rg-h">Поесть</h3>
+        <div class="rg-list">
+          <a class="rg-row f" href="https://yamskaya.zavidovo.com/restaurants/" target="_blank" rel="noopener">
+            <span class="rg-n">Ресторан «Сырзавод»<i aria-hidden="true">↗</i></span>
+            <span class="rg-d">Ямская Слобода, 18; средний счёт 3500–5000 ₽.</span>
+            <span class="rg-t">09:00–00:00 · ежедневно</span>
+          </a>
+          <a class="rg-row f" href="https://green19.ru/" target="_blank" rel="noopener">
+            <span class="rg-n">GREEN 19<i aria-hidden="true">↗</i></span>
+            <span class="rg-d">Клубный дом гольф-клуба Завидово; средний счёт 2500 ₽.</span>
+            <span class="rg-t">09:00–21:00 · ежедневно</span>
+          </a>
+          <a class="rg-row f" href="https://www.radissonhotels.com/ru-ru/hotels/radisson-resort-zavidovo" target="_blank" rel="noopener">
+            <span class="rg-n">Promenade кафе<i aria-hidden="true">↗</i></span>
+            <span class="rg-d">Курорт Завидово, Radisson Resort; с июня по сентябрь, средний счёт 750 ₽.</span>
+            <span class="rg-t">12:00–22:00 · чт–вс</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="rg-g rv">
+        <h3 class="rg-h">Посмотреть и выдохнуть</h3>
+        <div class="rg-list">
+          <!-- у заповедника в карточке нет сайта — строка без ссылки -->
+          <div class="rg-row">
+            <span class="rg-n">Заповедник «Конаковский бор»</span>
+            <span class="rg-d">Конаково, Первомайская, 18; открыт круглый год.</span>
+            <span class="rg-t">Круглосуточно</span>
+          </div>
+          <a class="rg-row f" href="https://zavidovohram.ru/" target="_blank" rel="noopener">
+            <span class="rg-n">Храмовый комплекс Завидово<i aria-hidden="true">↗</i></span>
+            <span class="rg-d">Село Завидово, Речная, 22; открыт круглый год.</span>
+            <span class="rg-t">10:00–18:00 · ежедневно</span>
+          </a>
+          <a class="rg-row f" href="https://zavidovospavillage.com/" target="_blank" rel="noopener">
+            <span class="rg-n">Zavidovo SPA Village<i aria-hidden="true">↗</i></span>
+            <span class="rg-d">Деревня Вараксино, Чистый Плёс, 1; стоимость от 25 000 ₽.</span>
+            <span class="rg-t">Круглосуточно</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <p class="rg-foot rv">Часы работы и цены — по данным самих площадок. Перед поездкой лучше позвонить: сезонные места меняют расписание.</p>
+  </div>
+</section>
+
+<!-- ТИХАЯ ВРЕЗКА ЗАХВАТА · вариант A из карты врезок.
+     Строка-повод, два поля, вторичная кнопка. Ни попапа, ни изумрудной полосы. -->
+<section class="qg" id="callback" aria-labelledby="qgTitle">
+  <div class="wrap">
+    <div class="qg-body">
+      <div class="qg-in">
+        <div>
+          <h2 class="qg-t rv" id="qgTitle">Хотите жить в десяти минутах отсюда?</h2>
+          <p class="qg-s rv" style="--d:1">Оставьте имя и телефон — перезвоним в течение 15 минут в рабочее время и пришлём свободные участки.</p>
+        </div>
+        <form class="qg-f rv" style="--d:2" id="qgForm" novalidate>
+          <div class="qg-row">
+            <label class="qg-fld">
+              <span>Имя</span>
+              <input type="text" data-f="name" autocomplete="name" placeholder="Иван">
+            </label>
+            <label class="qg-fld">
+              <span>Телефон</span>
+              <input type="tel" data-f="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__">
+            </label>
+            <button type="submit" class="qg-btn f">Перезвоните мне <span class="ar" aria-hidden="true">→</span></button>
+          </div>
+          <div class="qg-foot">
+            <label class="qg-cons">
+              <input type="checkbox" data-f="cons">
+              <span>Соглашаюсь на обработку персональных данных</span>
+            </label>
+            <p class="qg-msg" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+      <p class="qg-ask rv"><a class="tlink f" href="https://wa.me/79201598272" target="_blank" rel="noopener">Задать вопрос</a></p>
+    </div>
+    <div class="qg-done" hidden>
+      <h2>Спасибо</h2>
+      <p>Заявка принята, менеджер свяжется с вами в течение 15 минут.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ФУТЕР -->
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft-br">
+      <div class="tp"><img src="assets/collection/logo-akvatoriya.png" alt=""><span class="nm">Акватория</span></div>
+      <p>Посёлок у большой воды в Конаковском районе Тверской области. Час от Москвы, десять минут до курорта Завидово.</p>
+      <div class="ft-soc">
+        <a href="https://max.ru/" target="_blank" rel="noopener" aria-label="МАКС"><img src="https://static.tildacdn.com/tild3031-6231-4337-a532-303731356130/Max_logo_black.svg" alt=""></a>
+        <a href="https://wa.me/79201598272" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="https://static.tildacdn.com/tild3763-3935-4563-a339-383133633766/Whatsapp.svg" alt=""></a>
+        <a href="https://t.me/ecoparkzavidovo" target="_blank" rel="noopener" aria-label="Telegram"><img src="https://static.tildacdn.com/tild3637-3833-4864-a436-616361656533/Telegram.svg" alt=""></a>
+      </div>
+    </div>
+    <div>
+      <h5>Навигация</h5>
+      <a href="akvatoriya-index.html#about">О посёлке</a><a href="akvatoriya-index.html#plan">Генплан</a><a href="akvatoriya-index.html#park">Инфраструктура</a><a href="#top">Курорт</a><a href="akvatoriya-index.html#team">Контакты</a><a href="akvatoriya-news.html">Новости</a>
+    </div>
+    <div>
+      <h5>Контакты</h5>
+      <a class="fp" href="tel:+74993091245">+7 499 309 12 45</a>
+      <a href="mailto:info@ecoparkz.ru">info@ecoparkz.ru</a>
+      <a href="akvatoriya-index.html#form">Записаться на просмотр</a>
+    </div>
+  </div>
+  <div class="ft-bt"><div class="wrap"><span>© 2026 Акватория Завидово</span><span>Коллекция Завидово · Тверская область</span></div></div>
+</footer>
+
+<!-- МОБИЛЬНАЯ ПАНЕЛЬ -->
+<div class="mbar" aria-label="Быстрая связь">
+  <div class="mbar-in">
+    <a class="ic f" href="tel:+74993091245" aria-label="Позвонить"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1d2723" stroke-width="1.5"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg></a>
+    <a class="ic f" href="https://wa.me/79201598272" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="https://static.tildacdn.com/tild3763-3935-4563-a339-383133633766/Whatsapp.svg" alt=""></a>
+    <a class="go f" href="akvatoriya-index.html#form">Записаться на просмотр</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* шапка: затемнение включается на скролле */
+  var hd=document.getElementById('hd'), tick=false;
+  function sc(){ hd.classList.toggle('on', window.scrollY>40); tick=false; }
+  addEventListener('scroll',function(){ if(!tick){requestAnimationFrame(sc);tick=true;} },{passive:true}); sc();
+
+  /* полноэкранное меню */
+  var ov=document.getElementById('ov'), mo=document.getElementById('mOpen'), mc=document.getElementById('mClose'), last=null;
+  function open(){ last=document.activeElement; ov.classList.add('open'); ov.setAttribute('aria-hidden','false');
+    document.body.classList.add('mo'); mo.setAttribute('aria-expanded','true'); mc.focus(); }
+  function shut(){ ov.classList.remove('open'); ov.setAttribute('aria-hidden','true');
+    document.body.classList.remove('mo'); mo.setAttribute('aria-expanded','false'); if(last) last.focus(); }
+  mo.addEventListener('click',open); mc.addEventListener('click',shut);
+  ov.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',shut); });
+  addEventListener('keydown',function(e){ if(e.key==='Escape'&&ov.classList.contains('open')) shut(); });
+  ov.addEventListener('keydown',function(e){ if(e.key!=='Tab') return;
+    var f=ov.querySelectorAll('a[href],button'); if(!f.length) return;
+    var a=f[0], b=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===a){e.preventDefault();b.focus();}
+    else if(!e.shiftKey&&document.activeElement===b){e.preventDefault();a.focus();} });
+
+  /* появление блоков */
+  var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){
+    x.target.classList.add('in'); io.unobserve(x.target); } }); },{threshold:.16,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.rv,.mask,.cg-r').forEach(function(el){ io.observe(el); });
+  /* СТРАХОВКА: ни один .rv не должен остаться невидимым (баг blank-reveal) */
+  function rvSweep(){ document.querySelectorAll('.rv:not(.in),.mask:not(.in),.cg-r:not(.in)').forEach(function(el){
+    if(el.getBoundingClientRect().top < innerHeight*0.9){ el.classList.add('in'); } }); }
+  addEventListener('scroll',rvSweep,{passive:true}); addEventListener('load',rvSweep); setTimeout(rvSweep,500);
+  /* последний рубеж: через 2,6 с показываем всё, что осталось невидимым */
+  setTimeout(function(){ document.querySelectorAll('.rv,.mask,.cg-r').forEach(function(el){ el.classList.add('in'); }); },2600);
+
+  /* тихая врезка захвата: маска телефона, валидация, экран «Спасибо» */
+  (function(){
+    var root=document.querySelector('.qg'); if(!root) return;
+    var form=document.getElementById('qgForm'),
+        body=root.querySelector('.qg-body'),
+        done=root.querySelector('.qg-done'),
+        msg =root.querySelector('.qg-msg'),
+        nm  =root.querySelector('[data-f="name"]'),
+        ph  =root.querySelector('[data-f="phone"]'),
+        cs  =root.querySelector('[data-f="cons"]');
+    function fmt(v){
+      var d=v.replace(/\D/g,'');
+      if(d.charAt(0)==='8') d='7'+d.slice(1);
+      if(d.charAt(0)!=='7') d='7'+d;
+      d=d.slice(0,11);
+      var r='+7';
+      if(d.length>1)  r+=' ('+d.slice(1,4);
+      if(d.length>=5) r+=') '+d.slice(4,7);
+      if(d.length>=8) r+='-'+d.slice(7,9);
+      if(d.length>=10)r+='-'+d.slice(9,11);
+      return r;
+    }
+    function clr(){ msg.textContent=''; nm.removeAttribute('aria-invalid'); ph.removeAttribute('aria-invalid'); }
+    ph.addEventListener('focus',function(){ if(!ph.value) ph.value='+7 ('; });
+    ph.addEventListener('blur', function(){ if(ph.value.replace(/\D/g,'').length<2) ph.value=''; });
+    ph.addEventListener('input',function(){ ph.value=fmt(ph.value); clr(); });
+    nm.addEventListener('input',clr);
+    cs.addEventListener('change',clr);
+    form.addEventListener('submit',function(e){
+      e.preventDefault(); clr();
+      if(!nm.value.trim()){ msg.textContent='Напишите, как к вам обращаться.';
+        nm.setAttribute('aria-invalid','true'); nm.focus(); return; }
+      if(ph.value.replace(/\D/g,'').length<11){ msg.textContent='Введите номер полностью: десять цифр после +7.';
+        ph.setAttribute('aria-invalid','true'); ph.focus(); return; }
+      if(!cs.checked){ msg.textContent='Отметьте согласие на обработку данных.'; cs.focus(); return; }
+      /* отправка в Telegram подключается позже, как и на главной */
+      body.hidden=true; done.hidden=false;
+      done.setAttribute('tabindex','-1'); done.focus();
+    });
+  })();
+})();
+</script>
+</body>
+</html>

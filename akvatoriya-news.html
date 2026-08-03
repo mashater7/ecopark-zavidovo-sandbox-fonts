@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Новости — Акватория Завидово</title>
+<meta name="description" content="Новости посёлка Акватория Завидово: стройка, берег, курорт и события сезона.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="assets/news/01-vesna.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================================
+   АКВАТОРИЯ ЗАВИДОВО · НОВОСТИ — ВАРИАНТ A «ЖУРНАЛ»
+   Издательская подача: мастхед крупной типографикой, свежая новость
+   разворотом во весь экран, остальные записи — асимметричным потоком
+   в двух колонках с широкой мерой строки.
+
+   Дизайн-язык взят один в один из akvatoriya-index.html:
+   Poiret One, border-radius:0, хайрлайны вместо теней, теней нет,
+   акцент даёт размер и трекинг (у Poiret One нет bold), крупный ритм.
+
+   По DESIGN.md-выжимке:
+   · BUGATTI — фотография и типографика единственное напряжение, декор
+     запрещён; дисплейный капс с трекингом; инпут только нижней линией;
+     кнопка прозрачная, обводка 1px, высота 44px; ритм полос 120px.
+   · APPLE — полосы разделяются сменой фона, а не рамкой и не линией;
+     теней ноль; тело текста 17px, а не 16px — это и задаёт темп чтения;
+     нажатие кнопки — scale(.97), цвет не меняется.
+
+   Главную и соседние варианты файл не трогает: он самодостаточный.
+   ============================================================================ */
+:root{
+  --emerald:#09763F; --emerald-hi:#0a8a49; --emerald-soft:#e8f1ec;
+  --accent:#09763F;
+  --cream:#f7f6f4; --sand:#fcfbfa; --white:#fff;
+  --ink:#1d2723; --ink-2:#4a5551; --muted:#8b918e; --line:#e7e4df; --line-2:#f0eeea;
+  --err:#b4453c;
+  --fs-display:clamp(46px,8.2vw,132px);
+  --fs-h2:clamp(30px,4.6vw,62px);
+  --fs-lead:clamp(17px,1.45vw,21px);
+  --gutter:clamp(24px,6vw,86px); --rail:84px;
+  --ease:cubic-bezier(.22,.75,.24,1); --ease-inout:cubic-bezier(.76,0,.24,1);
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --sec:clamp(80px,11.5vw,168px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden;overflow-x:clip}
+body{font-family:'Poiret One',sans-serif;color:var(--ink);background:var(--white);line-height:1.5;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;overflow-x:clip}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+h1,h2,h3,h4{font-weight:400;text-wrap:balance}
+:focus{outline:none}
+.f:focus-visible{outline:1.5px solid var(--emerald);outline-offset:5px;border-radius:4px}
+.wrap{width:100%;max-width:1420px;margin:0 auto;padding-inline:var(--gutter)}
+.sec{padding-block:var(--sec);position:relative}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.h2{font-size:var(--fs-h2);line-height:1.02;letter-spacing:.015em}
+.lead{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:var(--fs-lead);line-height:1.62;color:var(--ink-2)}
+/* тело 17px — правило Apple из выжимки: 16px читается как интерфейс,
+   17px как издание. На главной 15,5px, здесь темп нарочно другой. */
+.body{font-family:'Montserrat',sans-serif;font-weight:300;font-size:17px;line-height:1.8;color:var(--ink-2)}
+
+.btn{display:inline-flex;align-items:center;gap:12px;font-family:'Montserrat',sans-serif;font-weight:400;
+  font-size:12px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;border:0;
+  padding:19px 40px;transition:.35s var(--ease)}
+.btn .ar{transition:transform .35s var(--ease)}
+.btn:hover .ar{transform:translateX(6px)}
+.btn-solid{background:var(--emerald);color:#fff}
+.btn-solid:hover{background:var(--ink)}
+.btn-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.btn-line:hover{box-shadow:inset 0 0 0 1px var(--emerald);color:var(--emerald)}
+.tlink{font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink);position:relative;padding-bottom:6px;display:inline-block}
+.tlink::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:currentColor;
+  transform-origin:right;transition:transform .45s var(--ease)}
+.tlink:hover::after{animation:lineSweep .55s var(--ease)}
+@keyframes lineSweep{0%{transform:scaleX(1);transform-origin:right}49%{transform:scaleX(0);transform-origin:right}
+  50%{transform:scaleX(0);transform-origin:left}100%{transform:scaleX(1);transform-origin:left}}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease);
+  transition-delay:calc(var(--d,0)*90ms)}
+.rv.in{opacity:1;transform:none}
+.mask{display:block;overflow:hidden}
+.mask>span{display:block;transform:translateY(105%);transition:transform 1.05s var(--ease);
+  transition-delay:calc(var(--d,0)*95ms)}
+.mask.in>span{transform:none}
+/* кадр раскрывается клипом снизу вверх и успокаивает наезд — тот же приём,
+   что в главах воды и леса на главной (.cg-r) */
+.ph-r{clip-path:inset(0 0 100% 0);transition:clip-path 1.15s var(--ease-out);
+  transition-delay:calc(var(--d,0)*110ms)}
+.ph-r.in{clip-path:inset(0 0 0 0)}
+.ph-r img{transform:scale(1.12);transition:transform 1.8s var(--ease-out);
+  transition-delay:calc(var(--d,0)*110ms)}
+.ph-r.in img{transform:none;transition:transform 1.2s var(--ease)}
+
+/* ---------- ШАПКА (та же, что на главной) ---------- */
+#hd{position:fixed;top:0;left:0;height:100vh;width:var(--rail);z-index:100;display:flex;flex-direction:column;
+  align-items:center;justify-content:space-between;padding:30px 0;transition:background .4s var(--ease)}
+#hd::before{content:"";position:absolute;inset:0 auto 0 0;width:96px;z-index:-1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(10,20,16,.19),transparent);transition:opacity .4s var(--ease)}
+#hd .mb,#hd .ph{color:#fff}
+#hd:hover,#hd:focus-within{background:rgba(255,255,255,.95);box-shadow:1px 0 0 var(--line)}
+#hd:hover::before,#hd:focus-within::before{opacity:0}
+#hd:hover .mb,#hd:hover .ph,#hd:focus-within .mb,#hd:focus-within .ph{color:var(--ink)}
+#hd:hover .lg img,#hd:focus-within .lg img{filter:none}
+.lg img{width:42px;height:42px;object-fit:contain;filter:drop-shadow(0 3px 12px rgba(0,0,0,.35));
+  transition:transform .6s cubic-bezier(.34,1.4,.64,1)}
+.lg:hover img{transform:scale(1.1)}
+.hd-t{display:flex;flex-direction:column;align-items:center;gap:26px}
+.mb{background:none;border:0;cursor:pointer;color:#fff;padding:8px;transition:color .4s var(--ease)}
+.brg{position:relative;width:26px;height:12px;display:block}
+.brg span{position:absolute;left:0;height:1px;width:100%;background:currentColor;transition:.4s var(--ease)}
+.brg span:nth-child(1){top:0}.brg span:nth-child(2){top:11px;width:64%}
+.mb:hover .brg span:nth-child(2){width:100%}
+body.mo .mb{color:var(--ink)}
+body.mo .brg span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+body.mo .brg span:nth-child(2){transform:translateY(-5.5px) rotate(-45deg);width:100%}
+.hd-b{display:flex;flex-direction:column;align-items:center;gap:22px}
+.soc{display:flex;flex-direction:column;gap:13px}
+.soc a{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.94);display:flex;
+  align-items:center;justify-content:center;transition:.35s var(--ease)}
+.soc a:hover{transform:translateY(-4px)}
+.soc img{width:17px;height:17px}
+.ph{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Montserrat',sans-serif;
+  font-size:12px;letter-spacing:.14em;color:#fff;white-space:nowrap;transition:color .4s var(--ease)}
+.ph:hover{color:var(--emerald-hi)}
+
+/* СВЕТЛАЯ РЕДАКЦИЯ ШАПКИ.
+   На главной под рельсом лежит тёмное фото героя — оттуда белые глифы.
+   Здесь страница белая с первого пикселя, поэтому глифы тёмные, а
+   затемняющий градиент выключен. Плиту фона не включаем: рельс остаётся
+   прозрачным ровно как на главной. */
+body.lite #hd::before{opacity:0}
+body.lite #hd .mb,body.lite #hd .ph{color:var(--ink)}
+body.lite .lg img{filter:none}
+body.lite .soc a{background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
+body.lite .soc a:hover{box-shadow:inset 0 0 0 1px var(--emerald)}
+
+/* ---------- МЕНЮ ---------- */
+.ov{position:fixed;inset:0;z-index:200;background:var(--cream);clip-path:inset(0 100% 0 0);visibility:hidden;
+  transition:clip-path .75s var(--ease-inout),visibility 0s linear .75s;overflow:hidden}
+.ov.open{clip-path:inset(0 0 0 0);visibility:visible;transition:clip-path .75s var(--ease-inout),visibility 0s}
+.ov-wm{position:absolute;right:-8%;top:50%;transform:translateY(-50%);width:min(52vw,700px);opacity:0;
+  transition:opacity 1.1s var(--ease) .2s;pointer-events:none}
+.ov.open .ov-wm{opacity:.07}
+.ov-in{position:relative;z-index:2;height:100%;max-width:1420px;margin:0 auto;padding:34px var(--gutter);
+  display:flex;flex-direction:column}
+.ov-top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.ov-brand{display:flex;align-items:center;gap:14px}
+.ov-brand img{width:36px;height:36px;object-fit:contain}
+.ov-brand span{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--ink-2)}
+.cl{width:44px;height:44px;border-radius:50%;background:none;border:1px solid rgba(0,0,0,.12);cursor:pointer;
+  position:relative;transition:.5s var(--ease)}
+.cl:hover{transform:rotate(90deg);border-color:var(--emerald)}
+.cl::before,.cl::after{content:"";position:absolute;top:50%;left:50%;width:15px;height:1px;background:var(--ink)}
+.cl::before{transform:translate(-50%,-50%) rotate(45deg)}.cl::after{transform:translate(-50%,-50%) rotate(-45deg)}
+.nav{margin:auto 0;display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.nav a{font-size:clamp(23px,3.1vw,44px);line-height:1.18;padding:3px 0;opacity:0;transform:translateX(-30px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease),color .3s}
+.ov.open .nav a{opacity:1;transform:none;transition-delay:calc(.2s + var(--i)*.055s)}
+.nav a:hover{color:var(--emerald)}
+.nav a[aria-current="page"]{color:var(--emerald)}
+.nav a i{font-family:'Montserrat',sans-serif;font-style:normal;font-size:10.5px;letter-spacing:.2em;
+  color:var(--accent);vertical-align:super;margin-right:14px}
+.ov-ft{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  padding-top:22px;border-top:1px solid rgba(0,0,0,.08);opacity:0;transform:translateY(14px);
+  transition:.8s var(--ease) .5s}
+.ov.open .ov-ft{opacity:1;transform:none}
+.ov-ft .l{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.ov-ft .l .soc{flex-direction:row}
+.ov-ft .l .soc a{background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
+.ov-ph{font-family:'Montserrat',sans-serif;font-size:20px}
+
+/* ============================================================================
+   МАСТХЕД. Заголовок страницы во всю силу — так открывается издание, а не
+   раздел сайта. Слева имя, справа кроющая строка курсивом, под ними хайрлайн
+   и выходные данные. Рубрики капсом НАД заголовком нет: она стоит под ним.
+   ============================================================================ */
+.mh{padding-top:clamp(118px,13vw,168px);padding-bottom:clamp(30px,3.4vw,50px)}
+.mh-top{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  gap:clamp(22px,4vw,72px);align-items:end}
+/* межстрочный .95, а не .9: в «ПОСЁЛКА» точки над Ё стоят высоко и при
+   более плотной строке ложатся на «ЖИЗНЬ». Маске сверху дан запас —
+   иначе она срезает те же точки — и снят отрицательным полем, чтобы
+   ритм заголовка остался прежним. */
+.mh-h1{font-size:clamp(40px,8.4vw,124px);line-height:.95;letter-spacing:.03em;text-transform:uppercase}
+.mh-h1 .mask{padding-top:.12em;margin-top:-.12em}
+.mh-cover{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(19px,1.85vw,29px);line-height:1.34;color:var(--ink-2);max-width:26ch;
+  padding-bottom:clamp(4px,.8vw,12px)}
+.mh-rule{margin-top:clamp(26px,3.2vw,48px);padding-top:clamp(14px,1.5vw,20px);
+  border-top:1px solid var(--line);display:flex;align-items:baseline;justify-content:space-between;
+  gap:18px 32px;flex-wrap:wrap}
+.mh-col{font-family:'Montserrat',sans-serif;font-weight:300;font-size:11px;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--ink-2)}
+
+/* ============================================================================
+   РАЗВОРОТ · свежая запись во весь экран.
+   Тип слева, квадратный кадр справа с вылетом за правый край (слева стоит
+   рельс шапки, туда вылетать нельзя). Кадр 955×955 показан своей пропорцией:
+   ни одного пикселя не срезано.
+   ============================================================================ */
+.spr{padding-bottom:var(--sec);min-height:100svh;display:flex;align-items:center}
+.spr-in{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+  gap:clamp(28px,4.4vw,84px);align-items:center;width:100%}
+.spr-tx{max-width:46ch}
+/* дата — типографический элемент, а не подпись: число крупным кеглем,
+   месяц и год капсом по базовой линии */
+.jd{display:flex;align-items:baseline;gap:clamp(10px,1.1vw,16px);font-feature-settings:"tnum"}
+.jd b{font-weight:400;line-height:.86;letter-spacing:-.01em}
+.jd i{font-style:normal;font-family:'Montserrat',sans-serif;font-weight:300;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--ink-2)}
+.spr-d b{font-size:clamp(46px,5.4vw,82px)}
+.spr-d i{font-size:clamp(11px,1vw,13px)}
+.spr-h{font-size:clamp(40px,4.9vw,70px);line-height:.98;letter-spacing:.012em;
+  margin-top:clamp(18px,2.2vw,32px);max-width:15ch}
+.spr-l{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(19px,1.75vw,27px);line-height:1.42;color:var(--ink-2);
+  margin-top:clamp(18px,2vw,28px);max-width:30ch}
+.spr-a{margin-top:clamp(24px,3vw,40px)}
+.spr-ph{position:relative;overflow:hidden;background:var(--line-2);margin:0;
+  aspect-ratio:1/1;margin-right:calc(-1 * var(--gutter));width:calc(100% + var(--gutter))}
+.spr-ph img{width:100%;height:100%;object-fit:cover}
+@media (hover:hover) and (pointer:fine){
+  .spr-lk:hover .spr-h{color:var(--emerald)}
+}
+.spr-h{transition:color .4s var(--ease)}
+
+/* ============================================================================
+   ПОТОК ЗАПИСЕЙ. Полоса отделена от разворота сменой фона, без рамки и
+   линии (правило Apple). Двенадцать колонок, записи занимают разные их
+   отрезки и стоят на разной высоте — сетки одинаковых плиток нет.
+
+   РОСТ: раскладка циклична по nth-child(4n). Новая запись — ещё один
+   <article class="jr rv"> с своей пропорцией кадра в --ar. Ни пагинации,
+   ни «показать ещё»: двадцать записей лягут так же, как пять.
+   ============================================================================ */
+.stream{background:var(--sand)}
+.jstream{display:grid;grid-template-columns:repeat(12,1fr);
+  column-gap:clamp(20px,3.2vw,56px);row-gap:clamp(56px,8vw,132px);align-items:start}
+.jr{grid-column:1/8;border-top:1px solid var(--line);padding-top:clamp(18px,2.2vw,32px);
+  transition:border-color .5s var(--ease)}
+.jr:nth-child(4n+2){grid-column:8/13;margin-top:clamp(34px,6vw,108px)}
+.jr:nth-child(4n+3){grid-column:1/6}
+.jr:nth-child(4n+4){grid-column:7/13;margin-top:clamp(44px,7.5vw,148px)}
+.jr-l{display:flex;flex-direction:column}
+.jr-ph{position:relative;overflow:hidden;background:var(--line-2);margin:0 0 clamp(20px,2.4vw,34px);
+  aspect-ratio:var(--ar,4/3);order:1}
+.jr-ph img{width:100%;height:100%;object-fit:cover}
+.jr-d{order:2;margin-bottom:clamp(10px,1.1vw,15px)}
+.jr-d b{font-size:clamp(34px,3.5vw,54px)}
+.jr-d i{font-size:clamp(10.5px,.85vw,12px)}
+.jr-t{order:3;font-size:clamp(25px,2.75vw,42px);line-height:1.06;letter-spacing:.012em;
+  max-width:16ch;transition:color .4s var(--ease)}
+.jr-x{order:4;margin-top:clamp(13px,1.4vw,19px);max-width:56ch}
+.jr-m{order:5;margin-top:clamp(18px,2vw,28px);font-family:'Montserrat',sans-serif;font-weight:400;
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);
+  display:inline-flex;align-items:center;gap:11px;transition:color .35s var(--ease)}
+.jr-m .ar{transition:transform .35s var(--ease)}
+/* у узких записей кадр уходит вниз, а текст поднимается наверх: две подряд
+   одинаково собранные записи и дают ощущение плиточной сетки */
+.jr:nth-child(4n+2) .jr-ph,.jr:nth-child(4n+3) .jr-ph{order:4;margin:clamp(20px,2.4vw,34px) 0 0}
+.jr:nth-child(4n+2) .jr-x,.jr:nth-child(4n+3) .jr-x{order:3;max-width:44ch}
+.jr:nth-child(4n+2) .jr-t,.jr:nth-child(4n+3) .jr-t{order:2}
+.jr:nth-child(4n+2) .jr-d,.jr:nth-child(4n+3) .jr-d{order:1;margin-bottom:clamp(12px,1.3vw,18px)}
+@media (hover:hover) and (pointer:fine){
+  .jr:hover{border-top-color:var(--emerald)}
+  .jr-l:hover .jr-t{color:var(--emerald)}
+  .jr-l:hover .jr-m{color:var(--emerald)}
+  .jr-l:hover .jr-m .ar{transform:translateX(6px)}
+  .jr-l:hover .ph-r.in img{transform:scale(1.045)}
+}
+
+/* ============================================================================
+   ВРЕЗКА ЗАЯВКИ. Одна на страницу, без попапа: имя и телефон.
+   Приёмы Bugatti — вес шрифта не меняется, иерархию держат размер и трекинг;
+   инпут только нижней линией; кнопка прозрачная, обводка 1px, высота 44px.
+   Тексты взяты с боевого ecopark-zavidovo.ru — не переписывать.
+   ============================================================================ */
+.zvk{--zvk-rule:#868c88;--zvk-ph:#626a67;   /* --muted даёт 3.2:1 — для текста не годится */
+  background:var(--white);padding-block:120px}
+.zvk-in{width:100%;max-width:1280px;margin:0 auto;padding-inline:var(--gutter)}
+.zvk-in,.zvk-in *{font-weight:400}
+.zvk-t{font-family:'Poiret One',sans-serif;font-size:clamp(30px,4vw,44px);line-height:1.08;
+  letter-spacing:clamp(2px,.42vw,4px);text-transform:uppercase;color:var(--ink);margin:0}
+.zvk-lede{font-family:'Montserrat',sans-serif;font-size:16px;line-height:1.75;
+  color:var(--ink-2);margin:16px 0 0;max-width:54ch}
+.zvk-form{margin-top:64px}
+.zvk-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:40px;align-items:end}
+.zvk-fld{display:block;margin:0}
+.zvk-fld>span{display:block;font-family:'Montserrat',sans-serif;font-size:11px;line-height:1.6;
+  letter-spacing:2px;text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+.zvk-fld input{width:100%;min-height:44px;background:transparent;border:0;
+  border-bottom:1px solid var(--zvk-rule);border-radius:0;padding:12px 0;box-shadow:none;
+  font-family:'Montserrat',sans-serif;font-size:16px;line-height:1.4;color:var(--ink)}
+.zvk-fld input::placeholder{color:var(--zvk-ph);opacity:1}
+.zvk-fld input:focus{border-bottom-color:var(--emerald);outline:none}
+.zvk-fld input[aria-invalid="true"]{border-bottom-color:var(--err)}
+.zvk-btn{display:inline-flex;align-items:center;justify-content:center;gap:14px;
+  min-height:44px;padding:14px 32px;background:transparent;color:var(--ink);
+  border:1px solid var(--ink);border-radius:0;cursor:pointer;box-shadow:none;
+  font-family:'Montserrat',sans-serif;font-size:14px;line-height:1;letter-spacing:2.5px;
+  text-transform:uppercase;transition:transform .16s var(--ease-out),
+  border-color .16s var(--ease-out),color .16s var(--ease-out)}
+.zvk-btn:hover{border-color:var(--emerald);color:var(--emerald);background:transparent}
+.zvk-btn:active{transform:scale(.97)}
+.zvk-btn .ar{transition:transform .2s var(--ease-out)}
+.zvk-btn:hover .ar{transform:translateX(5px)}
+.zvk-foot{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 40px;margin-top:40px}
+.zvk-cons{display:flex;align-items:flex-start;gap:12px;cursor:pointer;margin:0;
+  font-family:'Montserrat',sans-serif;font-size:13px;line-height:1.6;color:var(--ink-2)}
+.zvk-cons input{margin:2px 0 0;width:16px;height:16px;flex:none;border-radius:0;
+  accent-color:var(--emerald);cursor:pointer}
+.zvk-msg{font-family:'Montserrat',sans-serif;font-size:13px;line-height:1.6;
+  color:var(--err);min-height:21px;margin:0}
+.zvk-done h2{font-family:'Poiret One',sans-serif;font-size:clamp(30px,4vw,44px);line-height:1.08;
+  letter-spacing:clamp(2px,.42vw,4px);text-transform:uppercase;color:var(--ink);margin:0}
+.zvk-done p{font-family:'Montserrat',sans-serif;font-size:16px;line-height:1.75;
+  color:var(--ink-2);margin:16px 0 0;max-width:54ch}
+.zvk-done[hidden]{display:none}
+/* контакты строкой под формой: тот же вес, разделители точками */
+.zvk-ln{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;align-items:center;gap:14px 34px;
+  font-family:'Montserrat',sans-serif;font-size:15px;color:var(--ink-2)}
+.zvk-ln a{color:var(--ink)}
+.zvk-ln a:hover{color:var(--emerald)}
+.zvk-ln .tlink{color:var(--ink)}
+
+/* ---------- ФУТЕР ---------- */
+.ft{background:var(--white);border-top:1px solid var(--line);font-family:'Montserrat',sans-serif;
+  font-weight:300;font-size:13.5px;color:var(--ink-2)}
+.ft .wrap{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:44px;padding-block:clamp(48px,5.6vw,76px)}
+.ft-br{display:flex;flex-direction:column;gap:18px;max-width:32ch}
+.ft-br .tp{display:flex;align-items:center;gap:13px}
+.ft-br img{width:38px;height:38px;object-fit:contain}
+.ft-br .nm{font-family:'Poiret One',sans-serif;font-size:16px;letter-spacing:.34em;text-transform:uppercase;color:var(--ink)}
+.ft-br p{line-height:1.75;color:var(--ink-2)}
+.ft h5{font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-2);margin-bottom:18px}
+.ft a{display:block;padding:7px 0;transition:color .3s}
+.ft a:hover{color:var(--emerald)}
+.ft .fp{font-size:19px;color:var(--ink);margin-bottom:8px}
+.ft-soc{display:flex;gap:10px;margin-top:10px}
+.ft-soc a{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);display:flex;
+  align-items:center;justify-content:center;padding:0;transition:transform .35s var(--ease)}
+.ft-soc a:hover{transform:translateY(-3px)}
+.ft-soc img{width:17px;height:17px}
+.ft-bt{border-top:1px solid var(--line)}
+.ft-bt .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:20px;
+  font-size:11.5px;color:var(--ink-2)}
+
+/* ---------- МОБИЛЬНАЯ ПАНЕЛЬ ---------- */
+.mbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:90;background:rgba(255,255,255,.97);
+  box-shadow:0 -1px 0 var(--line);padding:9px 12px calc(9px + env(safe-area-inset-bottom))}
+.mbar-in{display:grid;grid-template-columns:46px 46px minmax(0,1fr);gap:9px;align-items:center}
+.mbar .ic{width:46px;height:46px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
+.mbar .ic img{width:19px;height:19px}
+.mbar .go{height:46px;display:flex;align-items:center;justify-content:center;background:var(--emerald);
+  color:#fff;font-family:'Montserrat',sans-serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  text-align:center;line-height:1.25;padding-inline:8px}
+body.mo{overflow:hidden}
+
+/* ---------- АДАПТИВ ---------- */
+@media (max-width:1080px){
+  .mh-top{grid-template-columns:1fr;gap:clamp(18px,3vw,28px);align-items:start}
+  .mh-cover{max-width:34ch;padding-bottom:0}
+  .spr{min-height:0;display:block}
+  .spr-in{grid-template-columns:1fr;gap:clamp(26px,4vw,40px)}
+  /* колонка растворяется, её половинки становятся строками разворота:
+     дата с заголовком → кадр во всю ширину → лид и ссылка */
+  .spr-tx{display:contents}
+  .spr-hd{order:1}
+  .spr-ph{margin-inline:calc(-1 * var(--gutter));width:calc(100% + var(--gutter) * 2);order:2}
+  .spr-bd{order:3}
+  .spr-bd .spr-l{margin-top:0}
+  .jstream{column-gap:clamp(18px,2.6vw,34px);row-gap:clamp(48px,7vw,88px)}
+  .jr,.jr:nth-child(4n+2),.jr:nth-child(4n+3),.jr:nth-child(4n+4){grid-column:span 6;margin-top:0}
+  .jr:nth-child(4n+2),.jr:nth-child(4n+4){margin-top:clamp(30px,5vw,64px)}
+  .jr-x{max-width:44ch}
+  .zvk-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .zvk-btn{grid-column:1/-1;width:100%}
+  .ft .wrap{grid-template-columns:1fr 1fr}
+  .ft-br{grid-column:1/-1}
+}
+@media (max-width:760px){
+  :root{--rail:0px}
+  #hd{flex-direction:row;width:100%;height:auto;padding:14px 20px;justify-content:space-between;align-items:center}
+  #hd::before{inset:0 0 auto 0;width:100%;height:56px;background:linear-gradient(180deg,rgba(10,20,16,.24),transparent)}
+  body.lite #hd{background:rgba(255,255,255,.97);box-shadow:0 1px 0 var(--line)}
+  .hd-t{flex-direction:row;width:100%;justify-content:space-between;gap:0}
+  .hd-b{display:none}
+  /* шапка лежит поверх страницы, фото-героя под ней здесь нет —
+     отбиваем мастхед вниз, чтобы он не уезжал под строку с логотипом */
+  .mh{padding-top:112px}
+  .mh-h1{font-size:clamp(38px,12.4vw,64px)}
+  .spr-h{max-width:none}
+  .spr-l{max-width:none}
+  /* телефон: одна колонка, цикл раскладки выключен, кадры и текст в поток */
+  .jstream{grid-template-columns:1fr;row-gap:clamp(44px,10vw,64px)}
+  .jr,.jr:nth-child(4n+2),.jr:nth-child(4n+3),.jr:nth-child(4n+4){grid-column:1/-1;margin-top:0}
+  .jr-t{max-width:none}
+  .jr-x,.jr:nth-child(4n+2) .jr-x,.jr:nth-child(4n+3) .jr-x{max-width:none}
+  .zvk{padding-block:72px}
+  .zvk-row{grid-template-columns:minmax(0,1fr);gap:28px}
+  .zvk-form{margin-top:44px}
+  .ft .wrap{grid-template-columns:1fr}
+  .mbar{display:block}
+  body{padding-bottom:70px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto}
+  .rv,.mask>span{opacity:1!important;transform:none!important;transition:none!important}
+  .ph-r{clip-path:none!important;transition:none!important}
+  .ph-r img{transform:none!important;transition:none!important}
+}
+</style>
+</head>
+<body id="top" class="lite">
+
+<!-- ШАПКА — та же, что на главной, в светлой редакции (body.lite) -->
+<header id="hd">
+  <div class="hd-t">
+    <a class="lg f" href="akvatoriya-index.html" aria-label="На главную"><img src="assets/collection/logo-diamond.png" alt="Коллекция Завидово"></a>
+    <button class="mb f" id="mOpen" aria-label="Открыть меню" aria-expanded="false" aria-controls="ov"><span class="brg" aria-hidden="true"><span></span><span></span></span></button>
+  </div>
+  <div class="hd-b">
+    <div class="soc">
+      <a class="f" href="https://max.ru/" target="_blank" rel="noopener" aria-label="МАКС"><img src="https://static.tildacdn.com/tild3031-6231-4337-a532-303731356130/Max_logo_black.svg" alt=""></a>
+      <a class="f" href="https://wa.me/79201598272" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="https://static.tildacdn.com/tild3763-3935-4563-a339-383133633766/Whatsapp.svg" alt=""></a>
+      <a class="f" href="https://t.me/ecoparkzavidovo" target="_blank" rel="noopener" aria-label="Telegram"><img src="https://static.tildacdn.com/tild3637-3833-4864-a436-616361656533/Telegram.svg" alt=""></a>
+    </div>
+    <a class="ph f" href="tel:+74993091245">+7 499 309 12 45</a>
+  </div>
+</header>
+
+<!-- МЕНЮ. Пункты ведут на главную, «Новости» — текущая страница. -->
+<div class="ov" id="ov" role="dialog" aria-modal="true" aria-label="Главное меню" aria-hidden="true">
+  <div class="ov-wm" aria-hidden="true"><img src="assets/collection/logo-akvatoriya.png" alt=""></div>
+  <div class="ov-in">
+    <div class="ov-top">
+      <div class="ov-brand"><img src="assets/collection/logo-akvatoriya.png" alt=""><span>Акватория&nbsp;Завидово</span></div>
+      <button class="cl f" id="mClose" aria-label="Закрыть меню"></button>
+    </div>
+    <nav class="nav" aria-label="Основная навигация">
+      <a class="f" style="--i:0" href="akvatoriya-index.html#about"><i>01</i>О посёлке</a>
+      <a class="f" style="--i:1" href="akvatoriya-index.html#plan"><i>02</i>Генплан</a>
+      <a class="f" style="--i:2" href="akvatoriya-index.html#park"><i>03</i>Инфраструктура</a>
+      <a class="f" style="--i:3" href="akvatoriya-kurort.html"><i>04</i>Курорт</a>
+      <a class="f" style="--i:4" href="akvatoriya-index.html#team"><i>05</i>Контакты</a>
+      <a class="f" style="--i:5" href="#top" aria-current="page"><i>06</i>Новости</a>
+    </nav>
+    <div class="ov-ft">
+      <div class="l">
+        <div class="soc">
+          <a class="f" href="https://max.ru/" target="_blank" rel="noopener" aria-label="МАКС"><img src="https://static.tildacdn.com/tild3031-6231-4337-a532-303731356130/Max_logo_black.svg" alt=""></a>
+          <a class="f" href="https://wa.me/79201598272" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="https://static.tildacdn.com/tild3763-3935-4563-a339-383133633766/Whatsapp.svg" alt=""></a>
+          <a class="f" href="https://t.me/ecoparkzavidovo" target="_blank" rel="noopener" aria-label="Telegram"><img src="https://static.tildacdn.com/tild3637-3833-4864-a436-616361656533/Telegram.svg" alt=""></a>
+        </div>
+        <a class="ov-ph f" href="tel:+74993091245">+7 499 309 12 45</a>
+      </div>
+      <a class="btn btn-solid f" href="akvatoriya-index.html#form">Записаться на просмотр <span class="ar" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- МАСТХЕД -->
+<section class="mh">
+  <div class="wrap">
+    <div class="mh-top">
+      <h1 class="mh-h1">
+        <span class="mask"><span>Жизнь</span></span>
+        <span class="mask" style="--d:1"><span>посёлка</span></span>
+      </h1>
+      <p class="mh-cover rv" style="--d:2">От первого снега до весенней воды — берег, стройка и курорт по датам.</p>
+    </div>
+    <div class="mh-rule rv" style="--d:3">
+      <span class="mh-col">Новости посёлка Акватория Завидово · Конаковский район Тверской области</span>
+      <a class="tlink f" href="akvatoriya-index.html#form">Записаться на просмотр</a>
+    </div>
+  </div>
+</section>
+
+<!-- РАЗВОРОТ · СВЕЖАЯ ЗАПИСЬ.
+     Тексты дословно из секции #news главной страницы. -->
+<article class="spr" aria-labelledby="sprTitle">
+  <div class="wrap">
+    <a class="spr-lk f" href="akvatoriya-news-item.html">
+      <div class="spr-in">
+        <div class="spr-tx">
+          <div class="spr-hd">
+            <p class="jd spr-d rv"><b>25</b><i>апреля 2026</i></p>
+            <h2 class="spr-h rv" style="--d:1" id="sprTitle">Топ-10 участков у воды</h2>
+          </div>
+          <div class="spr-bd">
+            <p class="spr-l rv" style="--d:2">С одной стороны — тихая вода, с другой — лес и прогулочная аллея. Подборка для тех, кто искал участок с видом.</p>
+            <p class="spr-a rv" style="--d:3"><span class="tlink">Читать запись</span></p>
+          </div>
+        </div>
+        <figure class="spr-ph ph-r">
+          <img src="assets/news/01-vesna.jpg" alt="Весенний берег у посёлка: вода, молодая зелень и тропа вдоль воды" width="955" height="955" fetchpriority="high">
+        </figure>
+      </div>
+    </a>
+  </div>
+</article>
+
+<!-- ПОТОК ОСТАЛЬНЫХ ЗАПИСЕЙ -->
+<section class="sec stream" id="lenta" aria-label="Другие записи">
+  <div class="wrap">
+    <div class="jstream">
+
+      <article class="jr rv" style="--ar:4/3">
+        <a class="jr-l f" href="akvatoriya-news-item.html">
+          <figure class="jr-ph ph-r"><img src="assets/news/02-stroysezon.jpg" alt="Строительная площадка на участке весной" width="1503" height="1127" loading="lazy"></figure>
+          <p class="jd jr-d"><b>31</b><i>марта 2026</i></p>
+          <h2 class="jr-t">Начинается строительный сезон</h2>
+          <p class="jr-x body">Снег сошёл, дороги просохли — можно завозить технику и материалы. Рассказываем, с чего начать стройку на участке.</p>
+          <span class="jr-m">Читать запись <span class="ar" aria-hidden="true">→</span></span>
+        </a>
+      </article>
+
+      <article class="jr rv" style="--ar:1/1">
+        <a class="jr-l f" href="akvatoriya-news-item.html">
+          <figure class="jr-ph ph-r"><img src="assets/news/03-akvapark.jpg" alt="Аквапарк курорта Завидово: горки и бассейн под стеклянной кровлей" width="1200" height="1200" loading="lazy"></figure>
+          <p class="jd jr-d"><b>21</b><i>ноября 2025</i></p>
+          <h2 class="jr-t">Аквапарк в Завидово открыт</h2>
+          <p class="jr-x body">Курорт принял первых гостей: более 15 000 м². От посёлка — десять минут.</p>
+          <span class="jr-m">Читать запись <span class="ar" aria-hidden="true">→</span></span>
+        </a>
+      </article>
+
+      <article class="jr rv" style="--ar:1/1">
+        <a class="jr-l f" href="akvatoriya-news-item.html">
+          <figure class="jr-ph ph-r"><img src="assets/news/04-sneg.jpg" alt="Посёлок под первым снегом: дома, деревья и расчищенная дорога" width="1024" height="1024" loading="lazy"></figure>
+          <p class="jd jr-d"><b>18</b><i>ноября 2025</i></p>
+          <h2 class="jr-t">В посёлке выпал первый снег</h2>
+          <p class="jr-x body">Дороги чистит управляющая компания, к зиме всё готово. Показываем, как выглядит посёлок под снегом.</p>
+          <span class="jr-m">Читать запись <span class="ar" aria-hidden="true">→</span></span>
+        </a>
+      </article>
+
+      <article class="jr rv" style="--ar:4/3">
+        <a class="jr-l f" href="akvatoriya-news-item.html">
+          <figure class="jr-ph ph-r"><img src="assets/news/05-sup.jpg" alt="Сапборды на реке у берега посёлка летним днём" width="1600" height="1200" loading="lazy"></figure>
+          <p class="jd jr-d"><b>13</b><i>июля 2025</i></p>
+          <h2 class="jr-t">Сплав на сапах прошёл на ура</h2>
+          <p class="jr-x body">Прошли по реке от посёлка вниз по течению. Сапы можно взять в аренду на берегу — присоединяйтесь к следующему заезду.</p>
+          <span class="jr-m">Читать запись <span class="ar" aria-hidden="true">→</span></span>
+        </a>
+      </article>
+
+      <article class="jr rv" style="--ar:3/2">
+        <a class="jr-l f" href="akvatoriya-news-item.html">
+          <figure class="jr-ph ph-r"><img src="assets/news/06-teplohod.jpg" alt="Прогулочный теплоход на Волге у берега" width="1680" height="1166" loading="lazy"></figure>
+          <p class="jd jr-d"><b>17</b><i>июня 2025</i></p>
+          <h2 class="jr-t">Расписание теплохода в Конаково</h2>
+          <p class="jr-x body">Речные прогулки по Волге начались — публикуем расписание рейсов на сезон.</p>
+          <span class="jr-m">Читать запись <span class="ar" aria-hidden="true">→</span></span>
+        </a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ВРЕЗКА ЗАЯВКИ -->
+<section class="zvk" id="zayavka" aria-labelledby="zvkTitle">
+  <div class="zvk-in">
+    <div class="zvk-body">
+      <h2 class="zvk-t rv" id="zvkTitle">Заинтересовал участок?</h2>
+      <p class="zvk-lede rv" style="--d:1">Оставьте заявку на бронирование и покупку участка прямо сейчас</p>
+      <form class="zvk-form rv" style="--d:2" novalidate>
+        <div class="zvk-row">
+          <label class="zvk-fld">
+            <span>Имя</span>
+            <input type="text" data-f="name" autocomplete="name" placeholder="Иван">
+          </label>
+          <label class="zvk-fld">
+            <span>Телефон</span>
+            <input type="tel" data-f="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__">
+          </label>
+          <button type="submit" class="zvk-btn f">Отправить заявку <span class="ar" aria-hidden="true">→</span></button>
+        </div>
+        <div class="zvk-foot">
+          <label class="zvk-cons">
+            <input type="checkbox" data-f="cons">
+            <span>Соглашаюсь на обработку персональных данных</span>
+          </label>
+          <p class="zvk-msg" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+      <div class="zvk-ln rv" style="--d:3">
+        <a class="tlink f" href="https://wa.me/79201598272" target="_blank" rel="noopener">Задать вопрос</a>
+        <a class="f" href="tel:+74993091245">+7 499 309 12 45</a>
+        <a class="f" href="mailto:info@ecoparkz.ru">info@ecoparkz.ru</a>
+      </div>
+    </div>
+    <div class="zvk-done" hidden>
+      <h2>Спасибо</h2>
+      <p>Данные успешно отправлены.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ФУТЕР -->
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft-br">
+      <div class="tp"><img src="assets/collection/logo-akvatoriya.png" alt=""><span class="nm">Акватория</span></div>
+      <p>Посёлок у большой воды в Конаковском районе Тверской области. Час от Москвы, десять минут до курорта Завидово.</p>
+      <div class="ft-soc">
+        <a href="https://max.ru/" target="_blank" rel="noopener" aria-label="МАКС"><img src="https://static.tildacdn.com/tild3031-6231-4337-a532-303731356130/Max_logo_black.svg" alt=""></a>
+        <a href="https://wa.me/79201598272" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="https://static.tildacdn.com/tild3763-3935-4563-a339-383133633766/Whatsapp.svg" alt=""></a>
+        <a href="https://t.me/ecoparkzavidovo" target="_blank" rel="noopener" aria-label="Telegram"><img src="https://static.tildacdn.com/tild3637-3833-4864-a436-616361656533/Telegram.svg" alt=""></a>
+      </div>
+    </div>
+    <div>
+      <h5>Навигация</h5>
+      <a href="akvatoriya-index.html#about">О посёлке</a><a href="akvatoriya-index.html#plan">Генплан</a><a href="akvatoriya-index.html#park">Инфраструктура</a><a href="akvatoriya-kurort.html">Курорт</a><a href="akvatoriya-index.html#team">Контакты</a><a href="#top">Новости</a>
+    </div>
+    <div>
+      <h5>Контакты</h5>
+      <a class="fp" href="tel:+74993091245">+7 499 309 12 45</a>
+      <a href="mailto:info@ecoparkz.ru">info@ecoparkz.ru</a>
+      <a href="akvatoriya-index.html#form">Записаться на просмотр</a>
+    </div>
+  </div>
+  <div class="ft-bt"><div class="wrap"><span>© 2026 Акватория Завидово</span><span>Коллекция Завидово · Тверская область</span></div></div>
+</footer>
+
+<!-- МОБИЛЬНАЯ ПАНЕЛЬ -->
+<div class="mbar" aria-label="Быстрая связь">
+  <div class="mbar-in">
+    <a class="ic f" href="tel:+74993091245" aria-label="Позвонить"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1d2723" stroke-width="1.5"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg></a>
+    <a class="ic f" href="https://wa.me/79201598272" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="https://static.tildacdn.com/tild3763-3935-4563-a339-383133633766/Whatsapp.svg" alt=""></a>
+    <a class="go f" href="akvatoriya-index.html#form">Записаться на просмотр</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* меню */
+  var ov=document.getElementById('ov'), mo=document.getElementById('mOpen'),
+      mc=document.getElementById('mClose'), last=null;
+  function open(){ last=document.activeElement; ov.classList.add('open'); ov.setAttribute('aria-hidden','false');
+    document.body.classList.add('mo'); mo.setAttribute('aria-expanded','true'); mc.focus(); }
+  function shut(){ ov.classList.remove('open'); ov.setAttribute('aria-hidden','true');
+    document.body.classList.remove('mo'); mo.setAttribute('aria-expanded','false'); if(last) last.focus(); }
+  mo.addEventListener('click',open); mc.addEventListener('click',shut);
+  ov.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',shut); });
+  addEventListener('keydown',function(e){ if(e.key==='Escape'&&ov.classList.contains('open')) shut(); });
+  ov.addEventListener('keydown',function(e){ if(e.key!=='Tab') return;
+    var f=ov.querySelectorAll('a[href],button'); if(!f.length) return;
+    var a=f[0], b=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===a){e.preventDefault();b.focus();}
+    else if(!e.shiftKey&&document.activeElement===b){e.preventDefault();a.focus();} });
+
+  /* ПОЯВЛЕНИЕ БЛОКОВ.
+     IntersectionObserver + страховка rvSweep: наблюдатель с unobserve уже
+     оставлял блоки навсегда невидимыми (баг пустой страницы), поэтому
+     подметание идёт на скролл, load, resize и pageshow. */
+  var SEL='.rv,.mask,.ph-r';
+  var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){
+    x.target.classList.add('in'); io.unobserve(x.target); } }); },{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll(SEL).forEach(function(el){ io.observe(el); });
+  setTimeout(function(){ document.querySelectorAll('.mh .mask,.mh .rv').forEach(function(m){ m.classList.add('in'); }); },120);
+  function rvSweep(){
+    document.querySelectorAll('.rv:not(.in),.mask:not(.in),.ph-r:not(.in)').forEach(function(el){
+      if(el.getBoundingClientRect().top < innerHeight*0.92){ el.classList.add('in'); } });
+  }
+  addEventListener('scroll',rvSweep,{passive:true});
+  addEventListener('resize',rvSweep); addEventListener('load',rvSweep);
+  addEventListener('pageshow',rvSweep); setTimeout(rvSweep,500);
+
+  /* ВРЕЗКА ЗАЯВКИ — маска телефона, проверка полей, экран «Спасибо» */
+  var root=document.querySelector('.zvk'); if(!root) return;
+  var form=root.querySelector('form'), body=root.querySelector('.zvk-body'),
+      done=root.querySelector('.zvk-done'), msg=root.querySelector('.zvk-msg'),
+      nm=root.querySelector('[data-f="name"]'), ph=root.querySelector('[data-f="phone"]'),
+      cs=root.querySelector('[data-f="cons"]');
+
+  function fmt(v){
+    var d=v.replace(/\D/g,'');
+    if(d.charAt(0)==='8') d='7'+d.slice(1);
+    if(d.charAt(0)!=='7') d='7'+d;
+    d=d.slice(0,11);
+    var r='+7';
+    if(d.length>1)  r+=' ('+d.slice(1,4);
+    if(d.length>=5) r+=') '+d.slice(4,7);
+    if(d.length>=8) r+='-'+d.slice(7,9);
+    if(d.length>=10)r+='-'+d.slice(9,11);
+    return r;
+  }
+  function clr(){ msg.textContent=''; nm.removeAttribute('aria-invalid'); ph.removeAttribute('aria-invalid'); }
+  ph.addEventListener('focus',function(){ if(!ph.value) ph.value='+7 ('; });
+  ph.addEventListener('blur', function(){ if(ph.value.replace(/\D/g,'').length<2) ph.value=''; });
+  ph.addEventListener('input',function(){ ph.value=fmt(ph.value); clr(); });
+  nm.addEventListener('input',clr);
+  cs.addEventListener('change',clr);
+  form.addEventListener('submit',function(e){
+    e.preventDefault(); clr();
+    if(!nm.value.trim()){ msg.textContent='Напишите, как к вам обращаться.';
+      nm.setAttribute('aria-invalid','true'); nm.focus(); return; }
+    if(ph.value.replace(/\D/g,'').length<11){ msg.textContent='Введите номер полностью: десять цифр после +7.';
+      ph.setAttribute('aria-invalid','true'); ph.focus(); return; }
+    if(!cs.checked){ msg.textContent='Отметьте согласие на обработку данных.'; cs.focus(); return; }
+    /* отправка подключается позже — как и на главной */
+    body.hidden=true; done.hidden=false;
+    done.setAttribute('tabindex','-1'); done.focus();
+  });
+})();
+</script>
+</body>
+</html>
