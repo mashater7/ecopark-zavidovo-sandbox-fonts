@@ -747,30 +747,213 @@ body.mo{overflow:hidden}
 </section>
 
 <!-- ФУТЕР -->
-<footer class="ft">
-  <div class="wrap">
-    <div class="ft-br">
-      <div class="tp"><img src="assets/collection/logo-akvatoriya.png" alt=""><span class="nm">Акватория</span></div>
-      <p>Посёлок у большой воды в Конаковском районе Тверской области. Час от Москвы, десять минут до курорта Завидово.</p>
-      <div class="ft-soc">
-        <a href="https://max.ru/" target="_blank" rel="noopener" aria-label="МАКС"><img src="https://static.tildacdn.com/tild3031-6231-4337-a532-303731356130/Max_logo_black.svg" alt=""></a>
-        <a href="https://wa.me/79201598272" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="https://static.tildacdn.com/tild3763-3935-4563-a339-383133633766/Whatsapp.svg" alt=""></a>
-        <a href="https://t.me/ecoparkzavidovo" target="_blank" rel="noopener" aria-label="Telegram"><img src="https://static.tildacdn.com/tild3637-3833-4864-a436-616361656533/Telegram.svg" alt=""></a>
+<footer id="azFooter">
+  <div class="azf-wrap">
+    <div class="azf-cols">
+
+      <!-- фон: знак волн из логотипа. Размер считается от ВЫСОТЫ блока колонок,
+           поэтому знак всегда входит в кадр целиком и не обрезается краем. -->
+      <img class="azf-bg" aria-hidden="true" alt=""
+           src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png">
+
+      <!-- 1 · ЗОНТИЧНЫЙ БРЕНД -->
+      <div class="azf-col">
+        <div class="azf-head">
+          <!-- ПОДСТАВИТЬ 1: адрес страницы «Коллекция Завидово» -->
+          <a class="azf-coll" href="collection-split-test.html" title="Коллекция Завидово">
+            <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="Коллекция Завидово">
+            <span class="azf-lock"><span class="t">Коллекция</span><span class="b">Завидово</span></span>
+          </a>
+        </div>
+        <p class="azf-about">Посёлок на берегу большой воды. Час от Москвы по М-11, десять минут до курорта Завидово.</p>
+        <p class="azf-adr">Тверская область, Конаковский район, с/п Завидово</p>
+        <!-- знака «Акватория» здесь нет намеренно: имя посёлка живёт на фоне -->
       </div>
+
+      <!-- 2 · РАЗДЕЛЫ -->
+      <nav class="azf-col azf-nav">
+        <div class="azf-head"><h5>Разделы</h5></div>
+        <!-- ПОДСТАВИТЬ 3 и 4: якоря Tilda и адреса страниц -->
+        <a href="akvatoriya-index.html#about">О посёлке</a>
+        <a href="akvatoriya-index.html#plan">Генплан</a>
+        <a href="akvatoriya-index.html#water">Инфраструктура</a>
+        <a href="akvatoriya-kurort-hub.html" aria-current="page">Курорт</a>
+        <a href="akvatoriya-news.html">Новости</a>
+        <a href="akvatoriya-index.html#team">Контакты</a>
+      </nav>
+
+      <!-- 3 · ОТДЕЛ ПРОДАЖ -->
+      <div class="azf-col">
+        <div class="azf-head"><h5>Отдел продаж</h5></div>
+        <a class="azf-ph" href="tel:+74993091245">+7 499 309 12 45</a>
+        <a class="azf-em" href="mailto:info@ecoparkz.ru">info@ecoparkz.ru</a>
+        <!-- единственная правка адреса: на этой странице форма живёт под #callback,
+             а не под #form. Четыре места ПОДСТАВИТЬ не тронуты. -->
+        <a class="azf-book" href="akvatoriya-index.html#form">Записаться на просмотр <span class="ar">&rarr;</span></a>
+      </div>
+
+      <!-- 4 · МЕССЕНДЖЕРЫ -->
+      <nav class="azf-col azf-nav">
+        <div class="azf-head"><h5>Мессенджеры</h5></div>
+        <a href="https://wa.me/79201598272" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://t.me/ecoparkzavidovo" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://max.ru/" target="_blank" rel="noopener">МАКС</a>
+      </nav>
+
     </div>
-    <div>
-      <h5>Навигация</h5>
-      <a href="akvatoriya-index.html#about">О посёлке</a><a href="akvatoriya-index.html#plan">Генплан</a><a href="akvatoriya-index.html#park">Инфраструктура</a><a href="#top">Курорт</a><a href="akvatoriya-index.html#team">Контакты</a><a href="akvatoriya-news.html">Новости</a>
-    </div>
-    <div>
-      <h5>Контакты</h5>
-      <a class="fp" href="tel:+74993091245">+7 499 309 12 45</a>
-      <a href="mailto:info@ecoparkz.ru">info@ecoparkz.ru</a>
-      <a href="akvatoriya-index.html#form">Записаться на просмотр</a>
+
+    <div class="azf-legal">
+      <span>&copy; 2026 Акватория Завидово &middot; Коллекция Завидово</span>
+      <span class="r">
+        <!-- ПОДСТАВИТЬ 2: адрес политики конфиденциальности -->
+        <a href="#" target="_blank" rel="noopener">Политика конфиденциальности</a>
+        <span>Не является публичной офертой</span>
+      </span>
     </div>
   </div>
-  <div class="ft-bt"><div class="wrap"><span>© 2026 Акватория Завидово</span><span>Коллекция Завидово · Тверская область</span></div></div>
 </footer>
+
+<style>
+/* ---------- токены подвала ---------- */
+#azFooter{
+  --azf-emerald:#09763F;
+  --azf-ink:#1d2723; --azf-ink2:#4a5551; --azf-muted:#676e6a; --azf-line:#e7e4df;
+  --azf-gutter:clamp(24px,6vw,86px);
+  --azf-ease:cubic-bezier(.22,.75,.24,1);
+  --azf-ease-out:cubic-bezier(.23,1,.32,1);
+
+  position:relative; overflow:hidden; background:#fff;
+  font-family:'Montserrat',sans-serif; font-weight:300; font-size:13px;
+  line-height:1.5; color:var(--azf-ink2) !important;
+  -webkit-font-smoothing:antialiased;
+}
+#azFooter *{margin:0;padding:0;box-sizing:border-box}
+#azFooter img{display:block;max-width:100%;border:0}
+#azFooter a{text-decoration:none;color:inherit !important}
+#azFooter a:focus-visible{outline:1.5px solid var(--azf-emerald);outline-offset:4px}
+#azFooter .azf-wrap{position:relative;z-index:1;
+  width:100%;max-width:1420px;margin:0 auto;padding-inline:var(--azf-gutter)}
+
+/* ---------- сетка колонок ---------- */
+/* фон лежит внутри блока колонок, поэтому центрируется ровно по нему */
+#azFooter .azf-cols{position:relative;display:grid;
+  grid-template-columns:1.5fr 1fr 1.05fr .85fr;
+  padding-top:clamp(46px,5vw,68px);padding-bottom:clamp(44px,4.8vw,66px)}
+
+/* колонки разделены волосяными линейками во всю высоту: ровная нижняя
+   кромка вместо рваной, и блок читается как спецификация.
+   z-index обязателен, иначе фон ляжет поверх текста. */
+#azFooter .azf-col{position:relative;z-index:1;
+  border-left:1px solid var(--azf-line);
+  padding-left:clamp(22px,2.4vw,40px);padding-right:clamp(14px,1.6vw,26px)}
+#azFooter .azf-col:first-child{border-left:0;padding-left:0}
+
+/* стартовая линия у всех четырёх колонок одна; высоту задаёт бриллиант */
+#azFooter .azf-head{display:flex;align-items:center;min-height:38px;margin-bottom:22px}
+/* заголовки держим на --azf-ink2, а не на сером: они попадают на фон,
+   а серый там даёт 4:1 и для 10px этого мало */
+#azFooter h5{font-family:'Montserrat',sans-serif;font-weight:400;font-size:10px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--azf-ink2) !important}
+
+/* ---------- знак «Коллекция Завидово» ----------
+   гарнитура и градиент один в один с боевой шапкой header-collection.html */
+#azFooter .azf-coll{display:inline-flex;align-items:center;gap:12px}
+#azFooter .azf-coll img{width:36px;height:36px;object-fit:contain;flex:none;
+  transition:transform .2s var(--azf-ease-out)}
+#azFooter .azf-lock{display:flex;flex-direction:column;line-height:1}
+#azFooter .azf-lock .t{font-family:'Poiret One',sans-serif;text-transform:uppercase;
+  letter-spacing:.4em;font-size:10.5px;color:var(--azf-muted) !important;white-space:nowrap}
+#azFooter .azf-lock .b{font-family:'Poiret One',sans-serif;text-transform:uppercase;
+  letter-spacing:.2em;font-size:17px;margin-top:4px;white-space:nowrap;
+  background:linear-gradient(100deg,#1bad03,#15a06a 45%,#1f9be6);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent !important}
+@media (hover:hover) and (pointer:fine){
+  #azFooter .azf-coll:hover img{transform:scale(1.12)}
+}
+#azFooter .azf-coll:active img{transform:scale(1.04)}
+
+/* ---------- текст первой колонки ---------- */
+/* одна фраза курсивным серифом — единственная смена голоса на весь подвал */
+#azFooter .azf-about{font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;
+  font-size:17px;line-height:1.55;color:var(--azf-ink) !important;max-width:27ch}
+#azFooter .azf-adr{margin-top:18px;line-height:1.7;
+  color:var(--azf-muted) !important;max-width:25ch}
+
+/* ---------- ссылки колонок ---------- */
+/* колонка — flex-столбец, поэтому ссылки встают друг под друга без <br>,
+   а подчёркивание совпадает с шириной текста */
+#azFooter .azf-nav{display:flex;flex-direction:column;align-items:flex-start}
+#azFooter .azf-nav a{position:relative;display:inline-block;padding:5px 0;margin-bottom:1px;
+  color:var(--azf-ink2) !important;transition:color .3s var(--azf-ease)}
+#azFooter .azf-nav a::after{content:"";position:absolute;left:0;bottom:3px;width:100%;height:1px;
+  background:currentColor;transform:scaleX(0);transform-origin:right;
+  transition:transform .45s var(--azf-ease)}
+#azFooter .azf-nav a:hover{color:var(--azf-emerald) !important}
+#azFooter .azf-nav a:hover::after{transform:scaleX(1);transform-origin:left}
+/* текущий раздел — единственная добавка к утверждённому блоку:
+   на этой странице пункт «Курорт» активен */
+#azFooter .azf-nav a[aria-current="page"]{color:var(--azf-emerald) !important}
+
+/* ---------- контакты ---------- */
+/* display:block обязателен: как inline-block ссылка ловит метрики Poiret One
+   и строчный бокс раздувается втрое */
+#azFooter .azf-ph{display:block;font-family:'Poiret One',sans-serif;font-size:22px;
+  line-height:1.25;letter-spacing:.015em;color:var(--azf-ink) !important;
+  width:max-content;max-width:100%;transition:color .3s var(--azf-ease)}
+#azFooter .azf-ph:hover{color:var(--azf-emerald) !important}
+#azFooter .azf-em{display:block;margin-top:10px;transition:color .3s var(--azf-ease)}
+#azFooter .azf-em:hover{color:var(--azf-emerald) !important}
+/* «записаться» — подчёркнутая ссылка со стрелкой, не кнопка */
+#azFooter .azf-book{display:inline-flex;align-items:center;gap:9px;margin-top:20px;
+  color:var(--azf-ink) !important;border-bottom:1px solid var(--azf-line);padding-bottom:4px;
+  transition:border-color .3s var(--azf-ease),color .3s var(--azf-ease)}
+#azFooter .azf-book .ar{transition:transform .2s var(--azf-ease-out)}
+#azFooter .azf-book:hover{color:var(--azf-emerald) !important;border-color:var(--azf-emerald)}
+#azFooter .azf-book:hover .ar{transform:translateX(5px)}
+
+/* ---------- фон ---------- */
+/* знак квадратный (1917×1917), поэтому размер задаём по высоте блока колонок.
+   Цвет свой, не обесцвеченный: приглушаем насыщенностью и прозрачностью —
+   текст поверх остаётся на 5,4:1. */
+#azFooter .azf-bg{position:absolute;z-index:0;pointer-events:none;
+  user-select:none;-webkit-user-select:none;
+  right:0;top:50%;translate:0 -50%;
+  height:96%;width:auto;max-width:none;
+  opacity:.3;filter:saturate(.55)}
+
+/* ---------- юридическая строка ---------- */
+#azFooter .azf-legal{display:flex;justify-content:space-between;gap:10px 28px;flex-wrap:wrap;
+  border-top:1px solid var(--azf-line);padding-block:19px;
+  font-size:11.5px;color:var(--azf-muted) !important}
+#azFooter .azf-legal .r{display:flex;gap:22px;flex-wrap:wrap}
+#azFooter .azf-legal a{transition:color .3s var(--azf-ease)}
+#azFooter .azf-legal a:hover{color:var(--azf-emerald) !important}
+
+/* ---------- адаптив ---------- */
+@media (max-width:1080px){
+  #azFooter .azf-cols{grid-template-columns:1fr 1fr;row-gap:36px}
+  #azFooter .azf-col:nth-child(4){border-left:0;padding-left:0}
+  #azFooter .azf-about{max-width:38ch}
+}
+@media (max-width:640px){
+  #azFooter .azf-cols{grid-template-columns:1fr;row-gap:30px;padding-top:44px}
+  /* вертикальные линейки становятся горизонтальными разделителями */
+  #azFooter .azf-col{border-left:0;padding-left:0;padding-right:0;
+    border-top:1px solid var(--azf-line);padding-top:26px}
+  #azFooter .azf-col:first-child{border-top:0;padding-top:0}
+  #azFooter .azf-head{min-height:0;margin-bottom:16px}
+  #azFooter .azf-about{max-width:34ch}
+  #azFooter .azf-legal{flex-direction:column;gap:9px}
+  #azFooter .azf-legal .r{gap:16px}
+  /* на узком экране фон уходит к нижнему краю колонок:
+     по центру он лёг бы поверх всех списков сразу */
+  #azFooter .azf-bg{height:auto;width:76vw;top:auto;bottom:0;translate:0 0;right:0}
+}
+@media (prefers-reduced-motion:reduce){
+  #azFooter *,#azFooter *::before,#azFooter *::after{transition-duration:.01ms !important}
+}
+</style>
 
 <!-- МОБИЛЬНАЯ ПАНЕЛЬ -->
 <div class="mbar" aria-label="Быстрая связь">
