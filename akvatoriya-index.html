@@ -499,44 +499,62 @@ body.mo .brg span:nth-child(2){transform:translateY(-5.5px) rotate(-45deg);width
 .ukB-l{position:sticky;top:96px}
 .ukB-l .h2{margin-top:20px}
 .ukB-l .lead{margin-top:22px;max-width:32ch}
-.ukB-grid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+/* три слоя: сцена (класс .in) → перспектива → объём.
+   filter/opacity/mask сбрасывают transform-style в flat, поэтому не смешиваем */
+.ukB-stage{position:relative}
+.ukB-scene{perspective:1250px;perspective-origin:50% 42%}
+.ukB-grid{display:grid;grid-template-columns:repeat(3,1fr);transform-style:preserve-3d;
+  border-top:1px solid var(--line);border-left:1px solid var(--line)}
 .ukB-c{position:relative;background:var(--white);border-right:1px solid var(--line);border-bottom:1px solid var(--line);
-  padding:clamp(22px,2.3vw,32px);min-height:clamp(152px,13.4vw,186px);display:flex;flex-direction:column}
+  padding:clamp(20px,1.9vw,27px);min-height:clamp(148px,12.4vw,178px);display:flex;flex-direction:column}
 .ukB-c::before{content:"";position:absolute;left:-1px;right:-1px;top:-1px;height:1px;background:var(--emerald);
   transform:scaleX(0);transform-origin:left;transition:transform .55s var(--ease-out);z-index:2}
 .ukB-ic{color:var(--emerald);transition:transform .5s var(--ease-out)}
-.ukB-ic svg{width:30px;height:30px;display:block;fill:none;stroke:currentColor;stroke-width:1.25;
+.ukB-ic svg{width:28px;height:28px;display:block;fill:none;stroke:currentColor;stroke-width:1.25;
   stroke-linecap:round;stroke-linejoin:round}
-.ukB-n{position:absolute;top:clamp(20px,2.1vw,30px);right:clamp(20px,2.1vw,30px);
+.ukB-n{position:absolute;top:clamp(18px,1.8vw,25px);right:clamp(18px,1.8vw,25px);
   font-family:'Montserrat',sans-serif;font-weight:500;font-size:10px;letter-spacing:.26em;color:#c2c7c4}
-.ukB-tx{margin-top:auto;padding-top:22px}
-.ukB-t{font-size:clamp(17px,1.6vw,23px);line-height:1.16;letter-spacing:.01em}
-.ukB-s{margin-top:9px;font-family:'Montserrat',sans-serif;font-weight:300;font-size:10.5px;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.ukB-tx{margin-top:auto;padding-top:20px}
+.ukB-t{font-size:clamp(16px,1.32vw,21px);line-height:1.18;letter-spacing:.01em}
+.ukB-s{margin-top:8px;font-family:'Montserrat',sans-serif;font-weight:300;font-size:10px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 @media (hover:hover) and (pointer:fine){
   .ukB-c:hover{background:var(--sand)}
   .ukB-c:hover::before{transform:scaleX(1)}
   .ukB-c:hover .ukB-ic{transform:translateY(-3px)}
 }
-/* появление карточек — диагональный каскад (выбрано клиентом 28.07.2026) */
-.ukB-c.rv{opacity:0;transform:translate(10px,14px) scale(.985);
-  transition:opacity .72s var(--ease) var(--sd,0ms),transform .72s var(--ease) var(--sd,0ms),
+/* ПОЯВЛЕНИЕ ПЛИТОК — «живые из глубины» (выбрано клиентом 12.08.2026).
+   Плитки идут прямо на зрителя из глубины и по дороге собираются в резкость.
+   Волна слева направо по колонкам, шаг 70 мс + личный сдвиг --jt у каждой,
+   чтобы девять штук не шли строем. Перелёт слабый: плитка проскакивает
+   место примерно на 13 px и садится обратно.
+   После прилёта плитки продолжают жить — см. скрипт внизу файла. */
+.ukB-c{--cd:calc(var(--c,0) * 70ms + var(--jt,0ms))}
+.ukB-c{opacity:0;filter:blur(5px);
+  transform:translate3d(var(--dx,0px),var(--dy,0px),var(--dz,-210px)) rotate(var(--rz,0deg));
+  transition:transform .7s cubic-bezier(.34,1.42,.64,1) var(--cd),
+             opacity .38s linear var(--cd),
+             filter .48s var(--ease-out) var(--cd),
              background .45s var(--ease-out) 0s}
-.ukB-c.rv.in{opacity:1;transform:none}
-.ukB-c.rv:nth-child(2){--sd:80ms}
-.ukB-c.rv:nth-child(3){--sd:105ms}
-.ukB-c.rv:nth-child(4){--sd:185ms}
-.ukB-c.rv:nth-child(5){--sd:210ms}
-.ukB-c.rv:nth-child(6){--sd:290ms}
+.ukB-stage.in .ukB-c{opacity:1;transform:none;filter:blur(0)}
+.ukB-stage.in .ukB-c.live{transition:background .45s var(--ease-out)}
 @media (max-width:1080px){
   .ukB .wrap{grid-template-columns:1fr;gap:38px}
   .ukB-l{position:static}
   .ukB-l .lead{max-width:52ch}
 }
-@media (max-width:760px){
+@media (max-width:900px){
+  .ukB-grid{grid-template-columns:repeat(2,1fr)}
+  .ukB-c{--cd:calc(var(--i,0) * 45ms + var(--jt,0ms))}
+}
+@media (max-width:620px){
   .ukB-grid{grid-template-columns:1fr}
-  .ukB-c{min-height:0;padding:24px}
+  .ukB-c{min-height:0;padding:24px;--cd:calc(var(--i,0) * 40ms + var(--jt,0ms))}
   .ukB-tx{padding-top:20px}
+  .ukB-scene{perspective:900px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ukB-c{transition:opacity .25s ease!important;transform:none!important;filter:none!important;opacity:1}
 }
 
 /* ---------- КАК КУПИТЬ УЧАСТОК ---------- */
@@ -1420,6 +1438,22 @@ body.mo,body.lbo{overflow:hidden}
     <path d="M4.3 10.4 4.9 7.3l3-.6M19.7 13.6l-.6 3.1-3 .6"/>
     <path d="M7.9 17.3l-3-.6-.6-3.1M16.1 6.7l3 .6.6 3.1"/>
   </symbol>
+  <!-- добавлены 12.08.2026 под пункт 9: озеленение, яхт-клуб, инфраструктура -->
+  <symbol id="ic-green" viewBox="0 0 24 24">
+    <path d="M12 21.2v-8.6"/>
+    <path d="M12 12.6C11.4 9 8.9 6.8 5.3 6.5c.2 3.7 2.9 6.1 6.7 6.1Z"/>
+    <path d="M12 12.6c.5-3 2.8-5 6-5.3-.2 3.2-2.6 5.3-6 5.3Z"/>
+    <path d="M6.6 21.2h10.8"/>
+  </symbol>
+  <symbol id="ic-yacht" viewBox="0 0 24 24">
+    <path d="M12 3.2v12.2"/>
+    <path d="M13.3 5.4 18.6 15.4h-5.3"/>
+    <path d="M10.7 7.8 6.2 15.4h4.5"/>
+    <path d="M3.6 17.7h16.8l-2.6 3.5H6.2L3.6 17.7Z"/>
+  </symbol>
+  <symbol id="ic-infra" viewBox="0 0 24 24">
+    <path d="M19.9 4.6 16.8 7.7l-2.5-.6-.6-2.5 3.1-3.1a5.3 5.3 0 0 0-6.5 6.4l-7.1 7.1a2 2 0 0 0 2.8 2.8l7.1-7.1a5.3 5.3 0 0 0 6.8-6.1Z"/>
+  </symbol>
 </defs></svg>
 
 <section class="sec ukB" id="service">
@@ -1429,38 +1463,61 @@ body.mo,body.lbo{overflow:hidden}
       <h2 class="h2 rv" style="--d:1">Посёлок обслуживается круглый год</h2>
       <p class="lead rv" style="--d:2">Собственная обслуживающая компания на территории посёлка. Полный спектр услуг для вашего комфорта, круглый год.</p>
     </div>
-    <div class="ukB-grid">
-      <div class="ukB-c rv">
+    <!-- Девять плиток, сетка 3×3. Пункт 9 клиента от 06.08.2026:
+         добавлены озеленение, услуги яхт-клуба и поддержание инфраструктуры.
+         --c колонка (волна слева направо), --i порядковый номер (мобилка),
+         --dz/--dx/--dy/--rz/--jt личный разнобой плитки: своя глубина, снос,
+         поворот и доля секунды, чтобы девять штук не шли строем.
+         Значения фиксированные, не случайные — стена собирается одинаково.
+         Подписи клиент задала 12.08.2026. Пустая одна — обслуживание
+         парков, прудов и пляжа: так решили оставить. -->
+    <div class="ukB-stage"><div class="ukB-scene"><div class="ukB-grid">
+      <div class="ukB-c" style="--c:0;--i:0;--dz:-186px;--dx:6px;--dy:-9px;--rz:-.5deg;--jt:10ms">
         <span class="ukB-ic"><svg aria-hidden="true"><use href="#ic-light"/></svg></span>
         <span class="ukB-n">01</span>
-        <div class="ukB-tx"><div class="ukB-t">Освещение территории</div><div class="ukB-s">каждый вечер</div></div>
+        <div class="ukB-tx"><div class="ukB-t">Освещение территории</div><div class="ukB-s">по всему посёлку</div></div>
       </div>
-      <div class="ukB-c rv">
+      <div class="ukB-c" style="--c:1;--i:1;--dz:-248px;--dx:-11px;--dy:7px;--rz:.7deg;--jt:44ms">
         <span class="ukB-ic"><svg aria-hidden="true"><use href="#ic-waste"/></svg></span>
         <span class="ukB-n">02</span>
         <div class="ukB-tx"><div class="ukB-t">Вывоз мусора</div><div class="ukB-s">по графику</div></div>
       </div>
-      <div class="ukB-c rv">
+      <div class="ukB-c" style="--c:2;--i:2;--dz:-205px;--dx:9px;--dy:12px;--rz:-.3deg;--jt:18ms">
         <span class="ukB-ic"><svg aria-hidden="true"><use href="#ic-guard"/></svg></span>
         <span class="ukB-n">03</span>
-        <div class="ukB-tx"><div class="ukB-t">Охрана и КПП</div><div class="ukB-s">круглосуточно</div></div>
+        <div class="ukB-tx"><div class="ukB-t">Охрана и КПП</div><div class="ukB-s">круглосуточный пост охраны</div></div>
       </div>
-      <div class="ukB-c rv">
+      <div class="ukB-c" style="--c:0;--i:3;--dz:-232px;--dx:-7px;--dy:-6px;--rz:.4deg;--jt:36ms">
         <span class="ukB-ic"><svg aria-hidden="true"><use href="#ic-cam"/></svg></span>
         <span class="ukB-n">04</span>
-        <div class="ukB-tx"><div class="ukB-t">Видеонаблюдение</div><div class="ukB-s">без выходных</div></div>
+        <div class="ukB-tx"><div class="ukB-t">Видеонаблюдение</div><div class="ukB-s">по всему посёлку</div></div>
       </div>
-      <div class="ukB-c rv">
+      <div class="ukB-c" style="--c:1;--i:4;--dz:-175px;--dx:12px;--dy:9px;--rz:-.6deg;--jt:6ms">
         <span class="ukB-ic"><svg aria-hidden="true"><use href="#ic-park"/></svg></span>
         <span class="ukB-n">05</span>
-        <div class="ukB-tx"><div class="ukB-t">Обслуживание парков, прудов и пляжа</div><div class="ukB-s">регулярный уход</div></div>
+        <div class="ukB-tx"><div class="ukB-t">Обслуживание парков, прудов и пляжа</div></div>
       </div>
-      <div class="ukB-c rv">
+      <div class="ukB-c" style="--c:2;--i:5;--dz:-260px;--dx:-5px;--dy:-11px;--rz:.3deg;--jt:50ms">
         <span class="ukB-ic"><svg aria-hidden="true"><use href="#ic-snow"/></svg></span>
         <span class="ukB-n">06</span>
-        <div class="ukB-tx"><div class="ukB-t">Уборка дорог зимой</div><div class="ukB-s">в зимний сезон</div></div>
+        <div class="ukB-tx"><div class="ukB-t">Уборка дорог зимой</div><div class="ukB-s">снег и наледь</div></div>
       </div>
-    </div>
+      <div class="ukB-c" style="--c:0;--i:6;--dz:-215px;--dx:8px;--dy:6px;--rz:.6deg;--jt:24ms">
+        <span class="ukB-ic"><svg aria-hidden="true"><use href="#ic-green"/></svg></span>
+        <span class="ukB-n">07</span>
+        <div class="ukB-tx"><div class="ukB-t">Озеленение</div><div class="ukB-s">посадки и газоны</div></div>
+      </div>
+      <div class="ukB-c" style="--c:1;--i:7;--dz:-192px;--dx:-10px;--dy:10px;--rz:-.4deg;--jt:14ms">
+        <span class="ukB-ic"><svg aria-hidden="true"><use href="#ic-yacht"/></svg></span>
+        <span class="ukB-n">08</span>
+        <div class="ukB-tx"><div class="ukB-t">Услуги яхт-клуба</div><div class="ukB-s">спуск и хранение</div></div>
+      </div>
+      <div class="ukB-c" style="--c:2;--i:8;--dz:-240px;--dx:5px;--dy:-8px;--rz:.5deg;--jt:40ms">
+        <span class="ukB-ic"><svg aria-hidden="true"><use href="#ic-infra"/></svg></span>
+        <span class="ukB-n">09</span>
+        <div class="ukB-tx"><div class="ukB-t">Поддержание объектов инфраструктуры</div><div class="ukB-s">ремонт и замена</div></div>
+      </div>
+    </div></div></div>
   </div>
 </section>
 
@@ -2042,10 +2099,10 @@ body.mo,body.lbo{overflow:hidden}
 
   var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){
     x.target.classList.add('in'); io.unobserve(x.target); } }); },{threshold:.16,rootMargin:'0px 0px -6% 0px'});
-  document.querySelectorAll('.rv,.mask,.st,.cg-r').forEach(function(el){ io.observe(el); });
+  document.querySelectorAll('.rv,.mask,.st,.cg-r,.ukB-stage').forEach(function(el){ io.observe(el); });
   setTimeout(function(){ document.querySelectorAll('.hero .mask').forEach(function(m){ m.classList.add('in'); }); },120);
   /* СТРАХОВКА: ни один .rv не должен остаться невидимым (баг blank-reveal) */
-  function rvSweep(){ document.querySelectorAll('.rv:not(.in),.mask:not(.in),.st:not(.in),.cg-r:not(.in)').forEach(function(el){
+  function rvSweep(){ document.querySelectorAll('.rv:not(.in),.mask:not(.in),.st:not(.in),.cg-r:not(.in),.ukB-stage:not(.in)').forEach(function(el){
     if(el.getBoundingClientRect().top < innerHeight*0.9){ el.classList.add('in'); } }); }
   addEventListener('scroll',rvSweep,{passive:true}); addEventListener('load',rvSweep); setTimeout(rvSweep,500);
 
@@ -2316,6 +2373,90 @@ body.mo,body.lbo{overflow:hidden}
       }
     });
   });
+})();
+</script>
+<script>
+/* ============================================================
+   УК · ЖИЗНЬ ПЛИТОК ПОСЛЕ ПРИЛЁТА (выбрано клиентом 12.08.2026)
+   Стена собирается через общий .in на .ukB-stage — его вешает
+   основной наблюдатель вместе с rvSweep. Когда прилёт закончился,
+   плитки начинают тянуться за курсором и слегка расходиться по
+   глубине на скролле.
+   Значения не привязаны к мыши напрямую: каждый кадр текущее
+   положение подтягивается к цели на 12% — иначе параллакс
+   выглядит приклеенным к курсору.
+   ============================================================ */
+(function(){
+  var stage = document.querySelector('.ukB-stage');
+  if(!stage || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var tiles = stage.querySelectorAll('.ukB-c'), COLS = 3;
+  if(!tiles.length) return;
+
+  /* ждём, когда стена соберётся, и только потом отдаём плитки живому циклу */
+  function arm(){
+    setTimeout(function(){
+      for(var i=0;i<tiles.length;i++) tiles[i].classList.add('live');
+      start();
+    }, 1400);
+  }
+  if(stage.classList.contains('in')) arm();
+  else new MutationObserver(function(m,ob){
+    if(stage.classList.contains('in')){ ob.disconnect(); arm(); }
+  }).observe(stage,{attributes:true,attributeFilter:['class']});
+
+  function start(){
+    var cur = [], geo = [], pointerIn = false, mx = 0, my = 0;
+    /* Положение плиток внутри сцены не меняется — кешируем его и берём
+       на кадре только один прямоугольник сцены. Иначе девять
+       getBoundingClientRect на каждый кадр дёргают лейаут. */
+    function measure(){
+      geo.length = 0;
+      for(var i=0;i<tiles.length;i++){
+        geo.push({x:tiles[i].offsetLeft, y:tiles[i].offsetTop,
+                  w:tiles[i].offsetWidth, h:tiles[i].offsetHeight});
+      }
+    }
+    measure();
+    addEventListener('resize', measure);
+    for(var i=0;i<tiles.length;i++) cur.push({x:0,y:0,z:0});
+
+    /* На тач-устройствах pointermove прилетает от пальца при скролле —
+       плитки бы дёргались. Курсорную часть включаем только с настоящей мышью. */
+    if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+      stage.addEventListener('pointermove', function(e){ pointerIn=true; mx=e.clientX; my=e.clientY; });
+      stage.addEventListener('pointerleave', function(){ pointerIn=false; });
+    }
+
+    function frame(){
+      var box = stage.getBoundingClientRect();
+      /* блок за экраном — не тратим кадры */
+      if(box.bottom < -200 || box.top > innerHeight + 200){ requestAnimationFrame(frame); return; }
+      var prog = (box.top + box.height/2 - innerHeight/2) / innerHeight;
+      prog = Math.max(-1, Math.min(1, prog));
+
+      for(var i=0;i<tiles.length;i++){
+        var g = geo[i], col = i % COLS;
+        var tz = prog * (col - 1) * 9;            // колонки расходятся по глубине
+        var ty = prog * (col === 1 ? 5 : -3);
+        var tx = 0;
+        if(pointerIn){
+          var dx = (mx - (box.left + g.x + g.w/2)) / g.w;
+          var dy = (my - (box.top  + g.y + g.h/2)) / g.h;
+          var pull = Math.max(0, 1 - Math.min(1, Math.sqrt(dx*dx + dy*dy) / 2.2));
+          tx += dx * 7 * pull;
+          ty += dy * 7 * pull;
+          tz += pull * pull * 22;                 // ближняя плитка выходит вперёд
+        }
+        var c = cur[i];
+        c.x += (tx - c.x) * .12;
+        c.y += (ty - c.y) * .12;
+        c.z += (tz - c.z) * .12;
+        tiles[i].style.transform = 'translate3d('+c.x.toFixed(2)+'px,'+c.y.toFixed(2)+'px,'+c.z.toFixed(2)+'px)';
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
 })();
 </script>
 </body>
