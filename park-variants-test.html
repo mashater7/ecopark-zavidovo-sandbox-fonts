@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кадр главы «Парк» — варианты</title>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--cream:#fbf9f4;--ink:#14201a;--muted:#6d7a72;--line:#e4e0d6;--green:#09763F}
+body{background:var(--cream);color:var(--ink);font-family:'Cormorant Garamond',serif}
+.wrap{max-width:1250px;margin:0 auto;padding-inline:clamp(20px,5vw,90px)}
+
+.top{padding:clamp(40px,6vw,80px) 0 clamp(24px,3vw,40px)}
+.top h1{font-family:'Poiret One',cursive;font-weight:400;font-size:clamp(30px,4.4vw,58px);line-height:1.1}
+.top h1 em{font-style:italic;font-family:'Cormorant Garamond',serif;color:var(--green);display:block}
+.top p{font-size:clamp(15px,1.35vw,19px);line-height:1.75;color:#3b4a42;max-width:62ch;margin-top:22px}
+.top p b{font-weight:400;color:var(--green)}
+
+.v{margin-top:clamp(46px,6vw,84px)}
+.vhead{border-top:1px solid var(--line);padding-top:16px;margin-bottom:18px;
+  display:flex;flex-wrap:wrap;gap:10px 26px;align-items:baseline}
+.vnum{font-family:'Poiret One',cursive;font-size:34px;line-height:1;color:var(--green)}
+.vname{font-family:'Montserrat',sans-serif;font-weight:500;font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase}
+.vmeta{font-family:'Montserrat',sans-serif;font-weight:300;font-size:11.5px;letter-spacing:.06em;
+  color:var(--muted)}
+.vmeta .ok{color:var(--green)}
+.vmeta .no{color:#a8603f}
+
+/* блок ровно как на сайте: во всю ширину, картинка cover, снизу затемнение */
+.bleed{position:relative;width:100%;overflow:hidden;background:#e8e6e1}
+.bleed img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+.bleed::after{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;z-index:1;
+  background:linear-gradient(to top,rgba(6,18,13,.42),rgba(6,18,13,0))}
+
+.a179{aspect-ratio:2560/1428}
+.a219{aspect-ratio:1905/870}
+.a240{aspect-ratio:1600/667}
+.a284{aspect-ratio:1320/465}
+
+/* вариант «в колонке» — не во всю ширину */
+.incol{position:relative;overflow:hidden;background:#e8e6e1;aspect-ratio:3/2}
+.incol img{width:100%;height:100%;object-fit:cover;display:block}
+
+.foot{padding:clamp(50px,7vw,90px) 0 clamp(60px,8vw,110px)}
+.foot p{font-family:'Montserrat',sans-serif;font-weight:300;font-size:13px;line-height:1.8;
+  color:var(--muted);max-width:70ch}
+</style></head><body>
+
+<div class="wrap top">
+  <h1>Парк<em>шесть вариантов кадра.</em></h1>
+  <p>Один и тот же снимок в разной обрезке и в блоках разной высоты. Выбирать приходится между двумя вещами: <b>чем теснее режем по парку, тем сильнее кадр растягивается на вашем экране и тем мягче картинка.</b> В исходнике 2560 пикселей по ширине, а экран просит около 1905 — запас всего на 25 процентов обрезки. Под каждым вариантом написано, есть растяжение или нет.</p>
+  <p>Текст главы для контекста: «Парк начинается за оградой участка: тропы для прогулок и пробежек, поляны, детские и спортивные площадки».</p>
+</div>
+
+<div class="v">
+  <div class="wrap vhead"><span class="vnum">1</span><span class="vname">Кадр целиком</span>
+    <span class="vmeta"><span class="ok">резко</span> · блок высокий, 1.79:1 · виден весь парк и посёлок вокруг</span></div>
+  <div class="bleed a179"><img src="assets/gallery/pkv-1.jpg" alt="Парк посёлка сверху, кадр целиком"></div>
+</div>
+
+<div class="v">
+  <div class="wrap vhead"><span class="vnum">2</span><span class="vname">Широкий, без растяжения</span>
+    <span class="vmeta"><span class="ok">резко</span> · 2.19:1 · парк во всю ширину, по краям немного домов</span></div>
+  <div class="bleed a219"><img src="assets/gallery/pkv-2.jpg" alt="Парк посёлка сверху, широкая обрезка"></div>
+</div>
+
+<div class="v">
+  <div class="wrap vhead"><span class="vnum">3</span><span class="vname">Средний</span>
+    <span class="vmeta"><span class="no">растяжение 1.19×</span> · 2.40:1 · парк крупнее, домов меньше</span></div>
+  <div class="bleed a240"><img src="assets/gallery/pkv-3.jpg" alt="Парк посёлка сверху, средняя обрезка"></div>
+</div>
+
+<div class="v">
+  <div class="wrap vhead"><span class="vnum">4</span><span class="vname">Тесно по парку — как сейчас на сайте</span>
+    <span class="vmeta"><span class="no">растяжение 1.44×, мылит</span> · 2.84:1 · домов почти нет, но кадр мягкий</span></div>
+  <div class="bleed a284"><img src="assets/gallery/pkv-4.jpg" alt="Парк посёлка сверху, тесная обрезка"></div>
+</div>
+
+<div class="v">
+  <div class="wrap vhead"><span class="vnum">5</span><span class="vname">Не во всю ширину, кадром в колонке</span>
+    <span class="vmeta"><span class="ok">резко</span> · 3:2 · парк крупный, но ритм главы меняется</span></div>
+  <div class="wrap"><div class="incol"><img src="assets/gallery/pkv-5.jpg" alt="Парк посёлка сверху, кадр в колонке"></div></div>
+</div>
+
+<div class="v">
+  <div class="wrap vhead"><span class="vnum">6</span><span class="vname">Снимок ИУ целиком</span>
+    <span class="vmeta"><span class="no">растяжение 1.49×</span> · 1.79:1 · снят выше: в кадре две дороги и больше крыш</span></div>
+  <div class="bleed a179"><img src="assets/gallery/pkv-6.jpg" alt="Парк посёлка сверху, снимок ИУ"></div>
+</div>
+
+<div class="wrap foot">
+  <p>Скажите номер — поставлю на страницу. Если нужен именно ИУ, но без мыла, пришлите его в исходном размере: тот, что лежит сейчас, 1280 пикселей по ширине, это сжатая копия из мессенджера.</p>
+</div>
+
+</body></html>

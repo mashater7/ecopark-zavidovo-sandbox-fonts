@@ -902,7 +902,7 @@ body.mo,body.lbo{overflow:hidden}
    2560x1428), поэтому в полосе 3.5:1 его вытесняли крыши по краям. Кадр
    обрезан по самому парку (2.84:1), а блок показывает его целиком, без
    вертикального реза: высоту задаёт пропорция снимка, а не экран. */
-.chp-park .cg-bleed{height:auto;aspect-ratio:1320/465}
+.chp-park .cg-bleed{height:auto;aspect-ratio:1905/870}
 .cg-bleed::after{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;z-index:1;
   background:linear-gradient(to top,rgba(6,18,13,.58),rgba(6,18,13,0))}
 .cg-note-on{position:absolute;z-index:2;left:var(--gutter);right:var(--gutter);
@@ -1386,9 +1386,10 @@ body.mo,body.lbo{overflow:hidden}
     <!-- кадр заменён клиентом 31.07: было квадратное фото парка, стала аэросъёмка
          реки с парком по берегу. Пропорция сменилась с 1:1 на 3:2, поэтому
          размеры и точка кадрирования пересчитаны: держим реку в кадре. -->
-    <!-- кадр обрезан по самому парку (1320x465). Блок под него подстроен
-         через aspect-ratio, поэтому object-position не нужен. -->
-    <div class="cg-f cg-r"><img src="assets/gallery/p1-park-osnovnoe.jpg" alt="Парк посёлка с высоты: берёзовые аллеи, дорожки для прогулок и детские площадки" width="1320" height="465" loading="lazy"></div>
+    <!-- ВРЕМЕННО вариант 2 из park-variants-test.html: обрезка 1905x870 идёт
+         один в один по ширине экрана, поэтому кадр не растягивается и не мылит.
+         Клиент выбирает окончательный вариант на тест-странице. -->
+    <div class="cg-f cg-r"><img src="assets/gallery/p1-park-osnovnoe.jpg" alt="Парк посёлка с высоты: берёзовые аллеи, дорожки для прогулок и детские площадки" width="1905" height="870" loading="lazy"></div>
     <!-- подпись на кадре убрана по правке клиента 31.07 -->
   </div>
   <div class="wrap">
