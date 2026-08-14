@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Блок «Парк» — четыре композиции</title>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --emerald:#09763F; --cream:#f7f6f4; --sand:#fcfbfa; --white:#fff;
+  --ink:#1d2723; --ink-2:#4a5551; --muted:#8b918e; --line:#e7e4df; --line-2:#f0eeea;
+  --gutter:clamp(24px,6vw,86px);
+  --ease-out:cubic-bezier(.23,1,.32,1);
+}
+body{font-family:'Poiret One',sans-serif;color:var(--ink);background:var(--white);line-height:1.5}
+h2{font-weight:400;text-wrap:balance}
+.wrap{width:100%;max-width:1420px;margin:0 auto;padding-inline:var(--gutter)}
+.lead{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(17px,1.45vw,21px);
+  line-height:1.62;color:var(--ink-2)}
+.chp h2 em{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--emerald)}
+.cg-f{position:relative;overflow:hidden;background:var(--line-2)}
+.cg-f img{width:100%;height:100%;object-fit:cover;display:block}
+.whole{aspect-ratio:2560/1428}
+
+/* ——— шапка страницы ——— */
+.intro{padding:clamp(44px,6vw,86px) 0 clamp(18px,2vw,28px)}
+.intro h1{font-size:clamp(30px,4.2vw,54px);line-height:1.1}
+.intro h1 em{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--emerald);display:block}
+.intro p{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(16px,1.35vw,19px);
+  line-height:1.7;color:var(--ink-2);max-width:64ch;margin-top:18px}
+
+.vhead{border-top:1px solid var(--line);padding-top:15px;margin-top:clamp(56px,7vw,110px);
+  display:flex;flex-wrap:wrap;gap:8px 26px;align-items:baseline}
+.vnum{font-size:36px;line-height:1;color:var(--emerald)}
+.vname{font-family:'Montserrat',sans-serif;font-weight:500;font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+.vmeta{font-family:'Montserrat',sans-serif;font-weight:300;font-size:11.5px;letter-spacing:.05em;color:var(--muted)}
+
+.chp{padding-block:clamp(40px,5vw,72px)}
+.pk-head{max-width:48ch;margin-bottom:clamp(26px,3.2vw,46px)}
+.pk-head h2{font-size:clamp(34px,5.6vw,84px);line-height:.99}
+.pk-head .lead{margin-top:clamp(16px,1.8vw,26px);max-width:44ch}
+
+/* ═══ A · РАЗВОРОТ: текст слева, кадр справа, на одной линии ═══ */
+.vA{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);
+  gap:clamp(28px,4vw,72px);align-items:center}
+.vA h2{font-size:clamp(30px,3.5vw,54px);line-height:1.02}
+.vA .lead{margin-top:18px;max-width:36ch}
+.vA .cap{margin-top:20px;font-family:'Montserrat',sans-serif;font-weight:300;font-size:11px;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+
+/* ═══ B · ПОДПИСЬ НА КАДРЕ (приём страницы: градиент + белая строка) ═══ */
+.vB .frame{position:relative}
+.vB .frame::after{content:"";position:absolute;left:0;right:0;bottom:0;height:52%;z-index:1;
+  background:linear-gradient(to top,rgba(6,18,13,.62),rgba(6,18,13,0))}
+.vB .on{position:absolute;z-index:2;left:clamp(20px,2.6vw,38px);right:clamp(20px,2.6vw,38px);
+  bottom:clamp(18px,2.4vw,32px);color:#fff;display:flex;flex-wrap:wrap;
+  justify-content:space-between;align-items:flex-end;gap:12px}
+.vB .on i{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(19px,1.9vw,30px);line-height:1.3;text-shadow:0 1px 18px rgba(6,18,13,.5)}
+.vB .on b{font-weight:400;font-size:clamp(30px,3.6vw,54px);line-height:.9;
+  text-shadow:0 1px 18px rgba(6,18,13,.5)}
+.vB .on b s{text-decoration:none;font-size:.4em;letter-spacing:.14em;margin-left:.28em}
+
+/* ═══ C · КАДР И ЦИФРА ═══ */
+.vC{display:grid;grid-template-columns:minmax(0,1.62fr) minmax(0,1fr);
+  gap:clamp(26px,3.6vw,64px);align-items:end}
+.vC .num{font-size:clamp(64px,9vw,150px);line-height:.82;color:var(--emerald);letter-spacing:-.02em}
+.vC .num s{text-decoration:none;font-size:.26em;letter-spacing:.16em;margin-left:.2em;
+  vertical-align:.9em;color:var(--ink)}
+.vC .txt{margin-top:20px;font-family:'Montserrat',sans-serif;font-weight:300;font-size:14.5px;
+  line-height:1.8;color:var(--ink-2);max-width:30ch}
+.vC .rule{border-top:1px solid var(--line);padding-top:18px}
+
+/* ═══ D · ПАСПАРТУ (музейная этикетка) ═══ */
+.vD .plate{width:min(1040px,92vw);margin-inline:auto}
+.vD .top{display:flex;justify-content:space-between;align-items:baseline;
+  border-top:1px solid var(--ink);padding-top:13px;margin-bottom:clamp(18px,2vw,28px);
+  font-family:'Montserrat',sans-serif;font-weight:500;font-size:10.5px;
+  letter-spacing:.28em;text-transform:uppercase}
+.vD .top span:last-child{font-weight:300;color:var(--muted)}
+.vD .bot{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+  margin-top:clamp(14px,1.6vw,20px)}
+.vD .bot i{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(17px,1.45vw,23px);color:var(--ink-2)}
+.vD .bot em{font-style:normal;font-size:clamp(22px,2.4vw,36px);color:var(--emerald)}
+.vD .bot em s{text-decoration:none;font-size:.4em;letter-spacing:.14em;margin-left:.25em;color:var(--ink)}
+
+.foot{padding:clamp(56px,7vw,96px) 0 clamp(64px,9vw,120px)}
+.foot p{font-family:'Montserrat',sans-serif;font-weight:300;font-size:13px;line-height:1.85;
+  color:var(--muted);max-width:72ch}
+
+@media (max-width:860px){
+  .vA,.vC{grid-template-columns:1fr;gap:26px}
+  .vC{align-items:start}
+}
+</style></head><body>
+
+<div class="wrap intro">
+  <h1>Блок «Парк»<em>четыре композиции.</em></h1>
+  <p>Снимок везде один и тот же и везде целиком, без обрезки. Меняется не размер, а то, как кадр связан с текстом. Все четыре собраны на приёмах, которые страница уже использует в других главах: подпись прямо на кадре, вылет за правый край, крупная изумрудная цифра внутри фразы, тонкая линейка-рубрика.</p>
+</div>
+
+<!-- ══════════ A ══════════ -->
+<div class="wrap"><div class="vhead"><span class="vnum">A</span><span class="vname">Разворот</span>
+  <span class="vmeta">текст и кадр на одной линии, кадр держит правую половину</span></div></div>
+<section class="chp"><div class="wrap vA">
+  <div>
+    <h2>Парк<br><em>и всё, что в нём.</em></h2>
+    <p class="lead">Парк начинается за оградой участка: тропы для прогулок и пробежек, поляны, детские и спортивные площадки.</p>
+    <p class="cap">Лесопарк · 15 гектаров</p>
+  </div>
+  <div class="cg-f whole"><img src="assets/gallery/p1-park-osnovnoe.jpg" alt="Парк посёлка с высоты"></div>
+</div></section>
+
+<!-- ══════════ B ══════════ -->
+<div class="wrap"><div class="vhead"><span class="vnum">B</span><span class="vname">Подпись на кадре</span>
+  <span class="vmeta">приём главы «Вода»: затемнение снизу и строка поверх снимка</span></div></div>
+<section class="chp"><div class="wrap">
+  <div class="pk-head"><h2>Парк<br><em>и всё, что в нём.</em></h2>
+    <p class="lead">Парк начинается за оградой участка: тропы для прогулок и пробежек, поляны, детские и спортивные площадки.</p></div>
+  <div class="vB"><div class="frame cg-f whole"><img src="assets/gallery/p1-park-osnovnoe.jpg" alt="Парк посёлка с высоты">
+    <div class="on"><i>Тропы, поляны и площадки — за оградой участка</i><b>15<s>га</s></b></div>
+  </div></div>
+</div></section>
+
+<!-- ══════════ C ══════════ -->
+<div class="wrap"><div class="vhead"><span class="vnum">C</span><span class="vname">Кадр и цифра</span>
+  <span class="vmeta">крупное число рядом с кадром — как «14 участков» в главе «Вода»</span></div></div>
+<section class="chp"><div class="wrap">
+  <div class="pk-head"><h2>Парк<br><em>и всё, что в нём.</em></h2>
+    <p class="lead">Парк начинается за оградой участка: тропы для прогулок и пробежек, поляны, детские и спортивные площадки.</p></div>
+  <div class="vC">
+    <div class="cg-f whole"><img src="assets/gallery/p1-park-osnovnoe.jpg" alt="Парк посёлка с высоты"></div>
+    <div class="rule">
+      <div class="num">15<s>га</s></div>
+      <p class="txt">Лесопарк и парковые зоны по проекту. Прогулка и пробежка начинаются у дома, а не в получасе езды.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══════════ D ══════════ -->
+<div class="wrap"><div class="vhead"><span class="vnum">D</span><span class="vname">Паспарту</span>
+  <span class="vmeta">кадр как экспонат: линейка-рубрика сверху, этикетка снизу</span></div></div>
+<section class="chp"><div class="wrap">
+  <div class="pk-head"><h2>Парк<br><em>и всё, что в нём.</em></h2>
+    <p class="lead">Парк начинается за оградой участка: тропы для прогулок и пробежек, поляны, детские и спортивные площадки.</p></div>
+  <div class="vD"><div class="plate">
+    <div class="top"><span>Парк посёлка</span><span>вид с высоты</span></div>
+    <div class="cg-f whole"><img src="assets/gallery/p1-park-osnovnoe.jpg" alt="Парк посёлка с высоты"></div>
+    <div class="bot"><i>Тропы для прогулок и пробежек, поляны, детские и спортивные площадки</i><em>15<s>га</s></em></div>
+  </div></div>
+</div></section>
+
+<div class="wrap foot">
+  <p>Скажите букву — соберу её на боевой странице целиком, вместе с тремя кадрами внизу главы. Ничего, кроме этого блока, не трогаю.</p>
+</div>
+
+</body></html>
