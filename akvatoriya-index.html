@@ -898,11 +898,13 @@ body.mo,body.lbo{overflow:hidden}
 /* главный кадр главы показываем целиком: высоту задаёт не экран,
    а пропорции самого снимка — иначе низ и края срезаются */
 .cg-bleed .cg-f{position:absolute;inset:0}
-/* Глава «Парк»: парк на аэросъёмке — почти квадратное пятно (1030x870 из
-   2560x1428), поэтому в полосе 3.5:1 его вытесняли крыши по краям. Кадр
-   обрезан по самому парку (2.84:1), а блок показывает его целиком, без
-   вертикального реза: высоту задаёт пропорция снимка, а не экран. */
-.chp-park .cg-bleed{height:auto;aspect-ratio:1905/870}
+/* Глава «Парк»: кадр показываем ЦЕЛИКОМ, без обрезки — парк должен быть
+   виден весь. Во всю ширину так нельзя: 1905px по горизонтали дают 1064
+   по вертикали, кадр перестаёт помещаться в экран. Поэтому главный кадр
+   главы идёт полосой до 1600px по центру: пропорция блока равна пропорции
+   снимка, обрезки нет вообще, высота около 890px укладывается в экран. */
+.chp-park .cg-bleed{height:auto;aspect-ratio:2560/1428;
+  width:min(1600px,92vw);margin-inline:auto}
 .cg-bleed::after{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;z-index:1;
   background:linear-gradient(to top,rgba(6,18,13,.58),rgba(6,18,13,0))}
 .cg-note-on{position:absolute;z-index:2;left:var(--gutter);right:var(--gutter);
@@ -949,8 +951,8 @@ body.mo,body.lbo{overflow:hidden}
 
 @media (max-width:860px){
   .cg-bleed{height:clamp(300px,52vh,460px)}
-  /* на телефоне узкая колонка: широкий кадр парка режем по высоте как обычно */
-  .chp-park .cg-bleed{height:clamp(300px,52vh,460px);aspect-ratio:auto}
+  /* на телефоне кадр парка тоже целиком, просто во всю ширину экрана */
+  .chp-park .cg-bleed{height:auto;aspect-ratio:2560/1428;width:100%}
   .cg-pair{grid-template-columns:1fr;gap:clamp(30px,7vw,44px);margin-top:clamp(34px,8vw,52px)}
   .cg-pair .p-sm{margin-top:0;order:2}
   .cg-pair .p-sm .cg-f{aspect-ratio:3/2}
@@ -1386,10 +1388,8 @@ body.mo,body.lbo{overflow:hidden}
     <!-- кадр заменён клиентом 31.07: было квадратное фото парка, стала аэросъёмка
          реки с парком по берегу. Пропорция сменилась с 1:1 на 3:2, поэтому
          размеры и точка кадрирования пересчитаны: держим реку в кадре. -->
-    <!-- ВРЕМЕННО вариант 2 из park-variants-test.html: обрезка 1905x870 идёт
-         один в один по ширине экрана, поэтому кадр не растягивается и не мылит.
-         Клиент выбирает окончательный вариант на тест-странице. -->
-    <div class="cg-f cg-r"><img src="assets/gallery/p1-park-osnovnoe.jpg" alt="Парк посёлка с высоты: берёзовые аллеи, дорожки для прогулок и детские площадки" width="1905" height="870" loading="lazy"></div>
+    <!-- кадр целиком, обрезки нет: пропорция блока равна пропорции снимка -->
+    <div class="cg-f cg-r"><img src="assets/gallery/p1-park-osnovnoe.jpg" alt="Парк посёлка с высоты: берёзовые аллеи и дорожки для прогулок, детские и спортивные площадки, поляны" width="1800" height="1004" loading="lazy"></div>
     <!-- подпись на кадре убрана по правке клиента 31.07 -->
   </div>
   <div class="wrap">
