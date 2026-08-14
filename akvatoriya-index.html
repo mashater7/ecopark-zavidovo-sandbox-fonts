@@ -1216,8 +1216,10 @@ body.mo,body.lbo{overflow:hidden}
     <div class="break-sl" style="background-image:url('assets/gallery/02-semya-prichal.jpg')"></div>
     <div class="break-sl" style="background-image:url('assets/gallery/03-ozero-aero.jpg')"></div>
     <div class="break-sl" style="background-image:url('assets/gallery/04-les.jpg')"></div>
-    <!-- кадр вертикальный (1536x2048): без сдвига низ с катером срезается -->
-    <div class="break-sl" style="background-image:url('assets/gallery/05-rybalka.jpg');background-position:center 45%"></div>
+    <!-- кадр вертикальный (1536x2048), в широкий блок влезает узкая полоса.
+         55% — единственное положение, где катер целиком (мотор и волна) и сверху
+         ещё остаётся берег. Ниже 55% режет днище, выше 62% берег уходит из кадра. -->
+    <div class="break-sl" style="background-image:url('assets/gallery/05-rybalka.jpg');background-position:center 55%"></div>
     <!-- люди на газоне лежат в нижних 15% кадра — тянем кадрирование вниз -->
     <div class="break-sl" style="background-image:url('assets/gallery/06-dom-vecher.jpg');background-position:center 65%"></div>
   </div>
