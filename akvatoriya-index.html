@@ -210,12 +210,15 @@ body.mo .brg span:nth-child(2){transform:translateY(-5.5px) rotate(-45deg);width
    Тот же блок, что был: кадры плавно сменяют друг друга во всю ширину,
    с медленным наездом. Стало заметно крупнее: было clamp(400px,66vh,700px). */
 .break{position:relative;height:clamp(620px,94vh,1080px);overflow:hidden;display:flex;align-items:center;justify-content:center}
-.break-bg{position:absolute;inset:-12% 0;will-change:transform}
+/* было -12%: вместе с наездом съедало ~27% высоты кадра, низ уходил за кромку
+   (в «доме вечером» обрезало людей и собаку). Параллакс сдвигает максимум на 19px —
+   4% (25–43px) ему хватает. */
+.break-bg{position:absolute;inset:-4% 0;will-change:transform}
 .break-sl{position:absolute;inset:0;background-size:cover;background-position:center 35%;
   opacity:0;transition:opacity 1.6s var(--ease)}
 .break-sl.on{opacity:1}
 .break-sl.on{animation:slKb 9s linear forwards}
-@keyframes slKb{from{transform:scale(1.02)}to{transform:scale(1.09)}}
+@keyframes slKb{from{transform:scale(1.01)}to{transform:scale(1.04)}}
 .break-dots{position:absolute;left:50%;bottom:clamp(20px,2.6vw,34px);transform:translateX(-50%);z-index:3;
   display:flex;gap:9px}
 .break-dots button{width:26px;height:2px;border:0;padding:0;cursor:pointer;background:rgba(255,255,255,.38);
@@ -1213,8 +1216,10 @@ body.mo,body.lbo{overflow:hidden}
     <div class="break-sl" style="background-image:url('assets/gallery/02-semya-prichal.jpg')"></div>
     <div class="break-sl" style="background-image:url('assets/gallery/03-ozero-aero.jpg')"></div>
     <div class="break-sl" style="background-image:url('assets/gallery/04-les.jpg')"></div>
-    <div class="break-sl" style="background-image:url('assets/gallery/05-rybalka.jpg')"></div>
-    <div class="break-sl" style="background-image:url('assets/gallery/06-dom-vecher.jpg')"></div>
+    <!-- кадр вертикальный (1536x2048): без сдвига низ с катером срезается -->
+    <div class="break-sl" style="background-image:url('assets/gallery/05-rybalka.jpg');background-position:center 45%"></div>
+    <!-- люди на газоне лежат в нижних 15% кадра — тянем кадрирование вниз -->
+    <div class="break-sl" style="background-image:url('assets/gallery/06-dom-vecher.jpg');background-position:center 65%"></div>
   </div>
   <blockquote class="break-q"><p>Тишина, у которой есть берег</p><span>Акватория Завидово</span></blockquote>
   <div class="break-dots" id="brDots" role="tablist" aria-label="Кадры">
