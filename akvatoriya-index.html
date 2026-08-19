@@ -1263,6 +1263,161 @@ body.mo,body.lbo{overflow:hidden}
   </div>
 </section>
 
+<!-- ============================================================
+     ЗАПОВЕДНИК · национальный парк «Завидово» рядом
+     Вставлен 19.08.2026 между «Ключевыми фактами» и генпланом.
+     Композиция «Экран»: кадр во всю ширину окна и почти во всю
+     высоту вьюпорта, две строки текста поверх кадра слева внизу.
+
+     ВСЁ ЗАСКОПЛЕНО ПОД #zp. Классы .rv и .cg-r страницы НЕ используются
+     намеренно: у страницы .cg-r img{transform:scale(1.14)} подрался бы
+     с собственным трансформом кадра. Свои классы .zp-rv / .zp-r и свой
+     наблюдатель. Переменные тоже свои (--zp-*), иначе --rail блока
+     затёр бы --rail фиксированной шапки.
+     ============================================================ -->
+<style>
+#zp{
+  --zp-z:1.08; --zp-ox:50%; --zp-oy:42%; --zp-opos:50% 38%; --zp-py:0px;
+  --zp-shelf:clamp(34px,6.6vh,76px);
+  --zp-title:clamp(25px,2.9vw,42px);
+  position:relative;padding-top:8vh;padding-bottom:12vh;background:var(--white)
+}
+#zp .zp-frame{position:relative;width:100%;height:92vh;height:92svh;min-height:460px;
+  overflow:hidden;background:var(--line-2)}
+#zp .zp-media{position:absolute;inset:0;transform-origin:var(--zp-ox) var(--zp-oy)}
+#zp .zp-img{position:absolute;inset:0;width:100%;height:100%;max-width:none;
+  object-fit:cover;object-position:var(--zp-opos);
+  transform-origin:var(--zp-ox) var(--zp-oy);
+  transform:translate3d(0,var(--zp-py),0) scale(var(--zp-z));
+  will-change:transform;backface-visibility:hidden}
+/* затемнение снизу: замерено поверх самого светлого места кадра под каждой
+   строкой, белый текст держит 5:1 и выше. Верх кадра не трогается. */
+#zp .zp-scrim{position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:
+    linear-gradient(to top,
+      rgba(8,14,11,.52) 0%,rgba(8,14,11,.40) 16%,rgba(8,14,11,.22) 36%,
+      rgba(8,14,11,.06) 54%,rgba(8,14,11,0) 66%),
+    radial-gradient(115% 80% at 6% 104%,
+      rgba(8,14,11,.40) 0%,rgba(8,14,11,.20) 46%,rgba(8,14,11,0) 74%)}
+/* текст выровнен по сетке .wrap, как у кинополосы курорта: так он
+   гарантированно расходится с фиксированной шапкой-рельсом слева */
+#zp .zp-in{position:absolute;left:0;right:0;bottom:var(--zp-shelf);z-index:3;
+  max-width:1420px;margin-inline:auto;padding-inline:var(--gutter);pointer-events:none}
+#zp .zp-copy{max-width:min(54ch,52vw)}
+#zp .zp-h{font-family:'Poiret One',sans-serif;font-weight:400;font-size:var(--zp-title);
+  line-height:1.18;letter-spacing:.012em;color:#fff;
+  text-shadow:0 1px 2px rgba(6,12,9,.42),0 10px 40px rgba(6,12,9,.34)}
+#zp .zp-lead{margin-top:clamp(15px,1.6vw,22px);font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:400;font-size:var(--fs-lead);line-height:1.5;
+  letter-spacing:.005em;color:rgba(255,255,255,.94);max-width:52ch;
+  text-shadow:0 1px 2px rgba(6,12,9,.4),0 8px 30px rgba(6,12,9,.3);
+  /* Cormorant по умолчанию даёт старостильные цифры: «133 000» набиралось «133 ooo» */
+  font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+
+/* появление — свои классы, чтобы не пересечься с .rv/.cg-r страницы */
+#zp .zp-rv{opacity:0;transform:translateY(20px);
+  transition:opacity .95s var(--ease-out),transform .95s var(--ease-out);
+  transition-delay:calc(var(--d,0)*110ms + 240ms)}
+#zp .zp-rv.in{opacity:1;transform:none}
+#zp .zp-r{clip-path:inset(0 0 100% 0);transition:clip-path 1.15s var(--ease-out)}
+#zp .zp-r.in{clip-path:inset(0 0 0 0)}
+#zp .zp-r .zp-media{transform:scale(1.09);transition:transform 1.9s var(--ease-out)}
+#zp .zp-r.in .zp-media{transform:none}
+
+#zp .zp-dbr{display:inline}
+#zp .zp-mbr{display:none}
+@media (max-width:899px){
+  #zp{--zp-z:1.06; --zp-ox:50%; --zp-oy:50%; --zp-opos:50% 46%;
+      --zp-title:clamp(25px,6.4vw,34px);padding-top:5vh;padding-bottom:9vh}
+  /* на узком экране текст поднимается выше по кадру — затемнение тянется дальше */
+  #zp .zp-scrim{background:linear-gradient(to top,
+      rgba(8,14,11,.64) 0%,rgba(8,14,11,.54) 14%,rgba(8,14,11,.42) 34%,
+      rgba(8,14,11,.24) 52%,rgba(8,14,11,.08) 68%,rgba(8,14,11,0) 84%)}
+  #zp .zp-copy{max-width:none}
+  #zp .zp-lead{max-width:none}
+}
+@media (max-width:700px){
+  #zp .zp-h{letter-spacing:.022em;line-height:1.24;text-wrap:balance}
+  #zp .zp-dbr{display:none}
+  #zp .zp-mbr{display:inline}
+}
+@media (prefers-reduced-motion: reduce){
+  #zp .zp-rv{opacity:1;transform:none;transition:none}
+  #zp .zp-r{clip-path:none;transition:none}
+  #zp .zp-r .zp-media,#zp .zp-r.in .zp-media{transform:none;transition:none}
+  #zp .zp-img{transform:scale(var(--zp-z))}
+}
+</style>
+
+<section class="zp" id="zp">
+  <div class="zp-frame zp-r" id="zpFrame">
+    <div class="zp-media">
+      <img class="zp-img" id="zpImg" src="assets/zapovednik/zapovednik.jpg"
+           width="1200" height="803" loading="lazy" decoding="async"
+           alt="Вид с высоты: разливы реки, песчаные острова и лес до горизонта">
+    </div>
+    <div class="zp-scrim" aria-hidden="true"></div>
+    <div class="zp-in">
+      <div class="zp-copy">
+        <!-- Текст по образцу «Волжского берега»: две фразы, ни одного обращения
+             к покупателю. Строки про Красную книгу и про даты 1972/1992 сняты
+             заказчицей — не возвращать без её просьбы.
+             133&nbsp;000 — неразрывный пробел обязателен, иначе число рвётся. -->
+        <h2 class="zp-h zp-rv" style="--d:0">Чистый воздух <br class="zp-dbr">и живая природа.</h2>
+        <p class="zp-lead zp-rv" style="--d:1">В десяти минутах&nbsp;— национальный парк «Завидово», <br class="zp-dbr">133&nbsp;000 гектаров леса, лугов и воды.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* Блок заповедника: своё появление и свой параллакс, изолированы от страницы. */
+(function(){
+  var root = document.getElementById('zp'); if(!root) return;
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = [].slice.call(root.querySelectorAll('.zp-rv,.zp-r'));
+  function inAll(){ els.forEach(function(el){ el.classList.add('in'); }); }
+
+  if(rm || !('IntersectionObserver' in window)){
+    inAll();
+  } else {
+    var io = new IntersectionObserver(function(en){
+      en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } });
+    },{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+    els.forEach(function(el){ io.observe(el); });
+    /* страховка: ни один элемент не должен остаться невидимым */
+    function sweep(){
+      els.forEach(function(el){
+        if(!el.classList.contains('in') && el.getBoundingClientRect().top < innerHeight*0.92){ el.classList.add('in'); }
+      });
+    }
+    addEventListener('scroll',sweep,{passive:true});
+    addEventListener('load',sweep);
+    setTimeout(sweep,300); setTimeout(sweep,1200);
+    setTimeout(inAll,3000);
+  }
+
+  /* кадр идёт чуть медленнее полосы прокрутки, максимум 40px и только вниз */
+  var frame = document.getElementById('zpFrame'), img = document.getElementById('zpImg');
+  if(frame && img && !rm){
+    var pending = false;
+    function upd(){
+      pending = false;
+      var r = frame.getBoundingClientRect();
+      if(r.bottom < -240 || r.top > innerHeight + 240) return;
+      var R = Math.min(40, r.height * 0.045);
+      var p = r.bottom / (innerHeight + r.height);
+      p = p < 0 ? 0 : (p > 1 ? 1 : p);
+      img.style.setProperty('--zp-py',(R*p).toFixed(2)+'px');
+    }
+    function onScroll(){ if(!pending){ pending = true; requestAnimationFrame(upd); } }
+    addEventListener('scroll',onScroll,{passive:true});
+    addEventListener('resize',onScroll,{passive:true});
+    addEventListener('load',onScroll);
+    upd();
+  }
+})();
+</script>
 <!-- ГЕНПЛАН -->
 <section class="sec plan" id="plan">
   <div class="wrap">
