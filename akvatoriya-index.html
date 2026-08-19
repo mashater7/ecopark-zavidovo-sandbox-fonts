@@ -420,6 +420,11 @@ body.mo .brg span:nth-child(2){transform:translateY(-5.5px) rotate(-45deg);width
   transition:color .28s var(--ease),border-color .28s var(--ease),background-color .28s var(--ease)}
 .qopt:hover{border-color:var(--emerald);color:var(--emerald)}
 .qopt[aria-pressed="true"]{background:var(--emerald);border-color:var(--emerald);color:#fff}
+/* последний экран: выбор целевого действия над полями, «когда приехать»
+   раскрывается только под запись на просмотр */
+.qact{margin-bottom:clamp(26px,2.8vw,36px)}
+.qwhen{display:flex;flex-direction:column;gap:12px}
+.qwhen .qhint{margin:0}
 #qMsg{margin-top:clamp(14px,1.4vw,20px)}
 .qnav{display:flex;align-items:center;justify-content:space-between;gap:18px;
   margin-top:auto;padding-top:clamp(28px,3vw,44px);border-top:1px solid var(--line-2)}
@@ -1554,15 +1559,15 @@ body.mo,body.lbo{overflow:hidden}
   <div class="wrap">
     <div class="q-head">
       <span class="kick rv">Подбор участка</span>
-      <h2 class="h2 rv" style="--d:1">Семь вопросов, чтобы подобрать ваш участок</h2>
-      <p class="lead rv" style="--d:2">Ответьте на семь вопросов, и мы пришлём свободные участки под ваши критерии, генплан и условия покупки. Займёт меньше минуты. Не готовы отвечать? Просто <a href="#form" style="text-decoration:underline">запишитесь на просмотр</a>.</p>
+      <h2 class="h2 rv" style="--d:1">Семь пунктов вашего идеального участка</h2>
+      <p class="lead rv" style="--d:2">Пройдите опрос и получите подбор участков по вашим параметрам.</p>
     </div>
     <div class="qsplit rv" style="--d:1">
       <!-- Кадр меняется на каждом шаге: два слоя картинки дают кроссфейд
            без мигания. Все снимки свои, из assets/ — стоков в квизе нет. -->
       <div class="q-visual" aria-hidden="true">
-        <img class="q-ph on" id="qPhA" src="assets/gallery/02-semya-prichal.jpg" alt="" width="2000" height="1333" loading="lazy" decoding="async">
-        <img class="q-ph" id="qPhB" src="assets/gallery/01-poselok-aero.jpg" alt="" width="2000" height="1124" loading="lazy" decoding="async">
+        <img class="q-ph on" id="qPhA" src="assets/quiz/q1-villa-pruda.jpg" alt="" width="736" height="736" loading="lazy" decoding="async">
+        <img class="q-ph" id="qPhB" src="assets/quiz/q2-dvor-dom.jpg" alt="" width="1200" height="1200" loading="lazy" decoding="async">
         <!-- Номер кадра и подпись убраны по правке клиента 31.07.
              Скрипт квиза обращается к ним через if(cap)/if(idx)/if(meta),
              поэтому пустой контейнер оставлять не нужно — он просто не найдётся. -->
@@ -1570,7 +1575,7 @@ body.mo,body.lbo{overflow:hidden}
         </div>
       </div>
       <div class="qbox">
-      <div class="qprog"><span class="st" id="qLbl">Шаг 1 из 8</span><div class="bar"><i id="qBar"></i></div></div>
+      <div class="qprog"><span class="st" id="qLbl">Пункт 1 из 7</span><div class="bar"><i id="qBar"></i></div></div>
       <form id="quizForm" novalidate>
         <div class="qstep on" data-step="1">
           <div class="qq" tabindex="-1">С какой целью вы покупаете участок?</div>
@@ -1637,10 +1642,26 @@ body.mo,body.lbo{overflow:hidden}
           </div>
         </div>
         <div class="qstep" data-step="8">
-          <div class="qq" tabindex="-1">Куда прислать подборку?</div>
+          <div class="qq" tabindex="-1">Что для вас удобнее?</div>
+          <!-- Целевое действие человек выбирает сам: подписи кнопки, поля и
+               экран «Спасибо» подстраиваются под выбор (см. ACT в скрипте).
+               По умолчанию выбрана подборка — то, что квиз и обещает. -->
+          <div class="qopts qact">
+            <button type="button" class="qopt f" data-act="send" aria-pressed="true">Прислать подборку</button>
+            <button type="button" class="qopt f" data-act="visit" aria-pressed="false">Записаться на просмотр</button>
+            <button type="button" class="qopt f" data-act="call" aria-pressed="false">Позвонить мне</button>
+          </div>
           <div class="frm" style="border:0;padding:0;background:none;gap:26px">
             <div class="fld"><label for="qName">Имя</label><input id="qName" type="text" name="name" placeholder="Как к вам обращаться" autocomplete="name" required></div>
             <div class="fld"><label for="qPhone">Телефон</label><input id="qPhone" type="tel" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" required></div>
+            <div class="qwhen" id="qWhen" hidden>
+              <span class="qhint">Когда удобно приехать</span>
+              <div class="chans">
+                <button type="button" class="chan f" aria-pressed="false">В эти выходные</button>
+                <button type="button" class="chan f" aria-pressed="false">На следующей неделе</button>
+                <button type="button" class="chan f" aria-pressed="false">Позже</button>
+              </div>
+            </div>
             <label class="cons"><input type="checkbox" id="qCons"><span>Согласен на обработку персональных данных в соответствии с <a href="#" target="_blank" rel="noopener">политикой конфиденциальности</a>.</span></label>
           </div>
         </div>
@@ -2217,14 +2238,14 @@ body.mo,body.lbo{overflow:hidden}
     /* Кадр и подпись на каждый шаг. ТОЛЬКО свои фотографии проекта:
        никаких стоков. Подпись .q-cap пишется отсюда же. */
     var qImgs=[
-      ['assets/gallery/02-semya-prichal.jpg','Выходные на своём причале'],
-      ['assets/gallery/01-poselok-aero.jpg','Посёлок с высоты'],
+      ['assets/quiz/q1-villa-pruda.jpg','Дом и вода'],
+      ['assets/quiz/q2-dvor-dom.jpg','Дом и участок'],
       ['assets/eco-aerial.jpg','Земля у воды'],
       ['assets/gallery/p1-park-osnovnoe.jpg','Парк посёлка'],
       ['assets/gallery/04-les.jpg','Лес рядом с посёлком'],
-      ['assets/gallery/03-ozero-aero.jpg','Берег и вода'],
+      ['assets/quiz/q6-dom-u-vody.jpg','Дом у воды'],
       ['assets/gallery/w4-yahtclub.jpg','Яхт-клуб посёлка'],
-      ['assets/gallery/w3-kafe-na-beregu.jpg','Кафе на берегу'],
+      ['assets/quiz/q8-semya-terrasa.jpg','Семья на террасе'],
       ['assets/gallery/w7-glavnoe.jpg','До встречи на берегу']
     ];
     /* два слоя <img> — верхний проявляется поверх нижнего, кадр не мигает.
@@ -2265,6 +2286,21 @@ body.mo,body.lbo{overflow:hidden}
           o.setAttribute('aria-pressed','true'); }
         m.textContent=''; }); });
     });
+    /* целевое действие последнего экрана: подпись кнопки, поле «когда приехать»
+       и текст «Спасибо» читаются отсюда, чтобы обещание совпадало с выбором */
+    var ACT={
+      send: {btn:'Прислать подборку', done:'Пришлём свободные участки с ценами и всё, что вы отметили, в течение 15 минут в рабочее время.'},
+      visit:{btn:'Записаться',        done:'Менеджер позвонит, чтобы согласовать день и время просмотра.'},
+      call: {btn:'Жду звонка',        done:'Менеджер позвонит в течение 15 минут в рабочее время.'}
+    };
+    var when=document.getElementById('qWhen'), doneTxt=f.querySelector('.qdone .body');
+    function act(){ var a=f.querySelector('.qact .qopt[aria-pressed="true"]'); return (a && ACT[a.dataset.act]) ? a.dataset.act : 'send'; }
+    function syncAct(){
+      var a=act();
+      if(when) when.hidden = a!=='visit';
+      if(cur===total) next.firstChild.nodeValue=ACT[a].btn+' ';
+    }
+    f.querySelectorAll('.qact .qopt').forEach(function(b){ b.addEventListener('click', syncAct); });
     var booted=false;
     function show(n){
       steps.forEach(function(s){ s.classList.toggle('on', +s.dataset.step===n); });
@@ -2279,8 +2315,11 @@ body.mo,body.lbo{overflow:hidden}
       nav.style.display='flex';
       /* без округления: заливка обязана попадать в деления дорожки */
       bar.style.width=(n/total*100).toFixed(2)+'%';
-      lbl.textContent='Шаг '+n+' из '+total;
-      next.firstChild.nodeValue = n===total ? 'Получить подборку ' : 'Далее ';
+      /* заголовок обещает семь пунктов — счётчик считает их же,
+         восьмой экран не вопрос об участке, а контакты */
+      lbl.textContent = n===total ? 'Контакты' : 'Пункт '+n+' из '+(total-1);
+      next.firstChild.nodeValue = n===total ? ACT[act()].btn+' ' : 'Далее ';
+      if(n===total) syncAct();
     }
     next.addEventListener('click',function(){
       var s=steps[cur-1], single=s.querySelector('.qopts:not([data-multi])');
@@ -2290,6 +2329,7 @@ body.mo,body.lbo{overflow:hidden}
         if(!n){ m.textContent='Пожалуйста, укажите имя.'; f.name.focus(); return; }
         if(p.length<10){ m.textContent='Проверьте номер телефона.'; f.phone.focus(); return; }
         if(!document.getElementById('qCons').checked){ m.textContent='Нужно согласие на обработку данных.'; return; }
+        if(doneTxt) doneTxt.textContent=ACT[act()].done;
         m.textContent=''; show(total+1); return;
       }
       m.textContent=''; show(cur+1);
