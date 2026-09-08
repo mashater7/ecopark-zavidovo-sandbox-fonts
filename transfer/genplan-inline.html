@@ -224,6 +224,73 @@ body.mo,body.lbo{overflow:hidden}
 .plan-fig--live{cursor:default;background:#fff}
 .plan-fig--live .mk{padding:0;background:#fff}
 .plan-fig--live .mk__wrap{width:100%;max-width:none;margin:0;padding:0}
+/* ── карта участков в стиле Акватории ───────────────────────────────────────
+   Острые углы, тонкие линии, Montserrat, изумрудный акцент.
+   Всё под .plan-fig--live, чужие стили карты не трогаем — только перекрываем. */
+.plan-fig--live .mk{
+  --ink:#1d2723; --muted:#8b918e; --border:#e7e4df; --green:#09763f;
+  --cream:#fff; --sand:#fff; --paper:#fff; --green-soft:#eef3ef;
+  font:400 14px/1.55 'Montserrat',sans-serif;color:#1d2723;
+}
+.plan-fig--live .mk *{border-radius:0!important;box-shadow:none!important}
+.plan-fig--live .mk__map-card{background:#fff;border:1px solid #e7e4df;padding:0}
+.plan-fig--live .mk__viewport{border:0}
+
+/* панель сверху: кнопка, подсказка, зум — плоские, с волосяной рамкой */
+.plan-fig--live .mk__toolbar,
+.plan-fig--live .mk__zoom{gap:1px}
+.plan-fig--live .mk__toolbar button,
+.plan-fig--live .mk__zoom button,
+.plan-fig--live .mk__zoom > *{
+  background:rgba(255,255,255,.94);border:1px solid #e7e4df;color:#1d2723;
+  font:400 11px/1 'Montserrat',sans-serif;letter-spacing:.16em;text-transform:uppercase;
+  padding:11px 15px;transition:background .35s ease,color .35s ease,border-color .35s ease}
+.plan-fig--live .mk__toolbar button:hover,
+.plan-fig--live .mk__zoom button:hover{background:#09763f;border-color:#09763f;color:#fff}
+.plan-fig--live .mk__guide{
+  background:rgba(255,255,255,.94);border:1px solid #e7e4df;color:#626a67;
+  font:300 12px/1.4 'Montserrat',sans-serif;letter-spacing:.01em;padding:10px 16px}
+.plan-fig--live .mk__guide i{background:#09763f}
+
+/* поиск по номеру */
+.plan-fig--live .mk__search{
+  background:rgba(255,255,255,.96);border:1px solid #e7e4df;padding:0 14px}
+.plan-fig--live .mk__search input{
+  font:300 14px/1 'Montserrat',sans-serif;color:#1d2723;background:none;border:0}
+.plan-fig--live .mk__search input::placeholder{color:#8b918e}
+
+/* легенда под картой */
+.plan-fig--live .mk__legend{
+  font:400 10.5px/1.6 'Montserrat',sans-serif;letter-spacing:.16em;
+  text-transform:uppercase;color:#8b918e;padding:14px 2px 2px;border-top:1px solid #e7e4df}
+.plan-fig--live .mk__legend b,.plan-fig--live .mk__legend strong{font-weight:400;color:#1d2723}
+
+/* карточка участка и всё, что всплывает */
+.plan-fig--live .mk__tooltip,
+.plan-fig--live .mk__modal-card,
+.plan-fig--live .mk__package{background:#fff;border:1px solid #e7e4df}
+.plan-fig--live .mk__modal-card{font-family:'Montserrat',sans-serif}
+.plan-fig--live .mk__package-title,
+.plan-fig--live .mk__modal-card h2,
+.plan-fig--live .mk__modal-card h3{font-family:'Poiret One',sans-serif;font-weight:400;letter-spacing:.01em}
+.plan-fig--live .mk__row{border-bottom:1px solid #f0eeea}
+.plan-fig--live .mk__row--total{border-top:1px solid #e7e4df;border-bottom:0}
+.plan-fig--live .mk__chip,
+.plan-fig--live .mk__package-tag{
+  background:#eef3ef;border:1px solid #dfe8e2;color:#09763f;
+  font:400 10.5px/1 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;padding:8px 12px}
+.plan-fig--live .mk__submit,
+.plan-fig--live .mk__lead-btn{
+  background:#09763f;border:1px solid #09763f;color:#fff;
+  font:400 11px/1 'Montserrat',sans-serif;letter-spacing:.18em;text-transform:uppercase;padding:15px 26px}
+.plan-fig--live .mk__submit:hover,
+.plan-fig--live .mk__lead-btn:hover{background:#0a8a49;border-color:#0a8a49}
+.plan-fig--live .mk__modal-close{border:1px solid #e7e4df;background:#fff;color:#1d2723}
+.plan-fig--live .mk__backdrop{background:rgba(10,22,17,.55)}
+.plan-fig--live .mk__hint,
+.plan-fig--live .mk__overview-hint,
+.plan-fig--live .mk__status{font:300 12px/1.5 'Montserrat',sans-serif;color:#626a67}
+
 </style>
 <section class="sec plan az" id="plan"> <div class="wrap"> <div class="plan-head"> <div> <span class="kick rv">Генплан</span> <h2 class="h2 rv" style="--d:1">Схема посёлка</h2> </div> <p class="rv" style="--d:2">Улицы и участки в окружении леса, бухта, пляж и причалы. Свободные участки и их площади подскажем на просмотре — цену конкретного участка пришлём в ответ на заявку.</p> </div> <figure class="plan-fig plan-fig--live rv" id="azPlanFig">
 <main class="mk" id="mkMap"><div class="mk__wrap"><section class="mk__map-card"><div class="mk__viewport" id="mkViewport"><svg id="mkSvg" viewBox="0 205 1440 816" aria-label="Карта участков Мелково"><g id="mkScene"><image class="mk__bg" href="https://static.tildacdn.com/tild3335-6362-4938-b235-303561663831/melkovo_tilda_base.jpg?v=20260903-2033" xlink:href="https://static.tildacdn.com/tild3335-6362-4938-b235-303561663831/melkovo_tilda_base.jpg?v=20260903-2033" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="1920" height="1088" preserveAspectRatio="none"></image><g><g class="mk__plots" id="mkPlots"></g><g class="mk__search-fx" id="mkSearchFx" pointer-events="none"></g><g id="mkLabels"></g></g></g></svg><div class="mk__guide"><i></i><span>Введите номер — участок плавно центрируется примерно на 250%, снизу появится краткая информация</span></div><div class="mk__toolbar"><button type="button" id="mkFullscreen">⛶&nbsp; На весь экран</button></div><div class="mk__zoom"><button type="button" data-z="out" aria-label="Уменьшить">−</button><button type="button" data-z="reset">100%</button><button type="button" data-z="in" aria-label="Увеличить">+</button></div><label class="mk__search">№ <input id="mkSearch" inputmode="numeric" placeholder="Номер участка" aria-label="Номер участка"></label><div class="mk__tooltip" id="mkTooltip"></div><div class="mk__overview-hint" id="mkOverviewHint">Обзор посёлка · нажмите «Участки»</div></div><div class="mk__legend"><span><i></i>Доступный участок</span><span><i class="mk__lg-active"></i>Выбранный участок</span><span>Свайп — перемещение · два пальца — масштаб · тап работает с увеличенной зоной попадания</span></div></section></div><div class="mk__modal" id="mkModal" aria-hidden="true"><button class="mk__backdrop" type="button" data-close aria-label="Закрыть"></button><div class="mk__modal-card" role="dialog" aria-modal="true" aria-labelledby="mkTitle"><button class="mk__modal-close" type="button" data-close aria-label="Закрыть">×</button><div class="mk__modal-grid"><section class="mk__modal-info"><span class="mk__status">Свободен</span><h2 id="mkTitle">Участок</h2><div class="mk__chips"><div class="mk__chip"><span>Площадь</span><b id="mkArea">—</b></div><div class="mk__chip"><span>Периметр</span><b id="mkPerimeter">—</b></div></div><div class="mk__land"><span>Стоимость участка</span><strong>По запросу</strong></div><div class="mk__package"><div class="mk__package-head"><div class="mk__package-title">Участок и забор</div><div class="mk__package-tag">Расчёт готов</div></div><div class="mk__row"><span>Цена участка</span><b>По запросу</b></div><div class="mk__row"><span>Примерная длина забора</span><b id="mkFenceMeters">—</b></div><div class="mk__row"><span>Стоимость забора</span><b id="mkFencePrice">—</b></div><div class="mk__row mk__row--total"><span>Общая стоимость</span><b id="mkTotal">Уточним</b></div><p class="mk__hint">Мы уже вычли 10 м под ворота и калитку, а общие стороны с соседями разделили поровну.</p></div><div class="mk__actions"><button class="mk__lead-btn" type="button" id="mkLeadBtn">Оставить заявку</button><button type="button" id="mkShare">Поделиться</button></div></section><form class="mk__lead" id="mkForm"><h3>Оставьте заявку</h3><p id="mkFormText">Мы свяжемся с вами и расскажем детали покупки и бронирования.</p><label>Участок<input id="mkPlotField" readonly></label><label>Ваше имя<input id="mkName" autocomplete="name" placeholder="Как к вам обращаться" required></label><label>Телефон<input id="mkPhone" autocomplete="tel" placeholder="+7 ___ ___-__-__" required></label><label>Комментарий<textarea id="mkComment">Хочу узнать подробности и условия бронирования по выбранному участку.</textarea></label><button class="mk__submit" type="submit">Отправить заявку</button><div class="mk__success" id="mkSuccess">Спасибо! Заявка отправлена.</div><p class="mk__contacts-title">Или свяжитесь с нами сразу:</p><div class="mk__contacts"><a href="tel:+74951203878">Позвонить</a><a id="mkWa" target="_blank" rel="noopener">WhatsApp</a><a href="https://t.me/ecopark_nikitino" target="_blank" rel="noopener">Telegram</a></div></form></div></div></div></main>
