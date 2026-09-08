@@ -1,0 +1,249 @@
+ <!-- ============================================================================
+     АКВАТОРИЯ ЗАВИДОВО · БЛОК 07 — ГЕНПЛАН + ИНТЕРАКТИВНАЯ КАРТА
+     Тильда: блок T123 (HTML). Контейнер 100%, отступы блока 0.
+     Файл самодостаточный: шрифты и общие стили вшиты ниже, ничего
+     отдельно в HEAD добавлять НЕ НУЖНО.
+
+     Что это: схема посёлка крупным кадром (клик — лайтбокс во весь экран)
+     и две кнопки под ней. Первая открывает поверх страницы карту участков
+     Яндекс-конструктора, вторая — ту же схему во весь экран.
+     Оба слоя лежат в конце файла и всплывают только по клику;
+     iframe карты грузится лишь при первом открытии, чтобы не тормозить страницу.
+
+     ЯКОРЬ БЛОКА: plan
+     ПОДСТАВИТЬ: ничего. Хэш конструктора карты уже свой
+     (c6ef59ca…5461) — он в переменной MAP в скрипте и в ссылке подвала окна.
+     Z-INDEX: карта и лайтбокс — 300. Выше меню (200), это правильно.
+     ============================================================================ --> <!-- ▼▼▼ ОБЩЕЕ ЯДРО: шрифты, цвета, кнопки, появление на скролле ▼▼▼
+     Вшито в каждый блок, поэтому файл работает сам по себе — можно
+     просто открыть его в браузере и увидеть блок как он есть.
+     Повторы безвредны: правила одинаковые, скрипт запускается один раз.
+     Если решите вынести это в HEAD сайта — удалите кусок до метки ▲▲▲
+     в каждом блоке и вставьте в HEAD файл 00-YADRO-v-HEAD.html. --> <meta charset="utf-8"> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"> <style>
+:root{
+  --emerald:#09763F; --emerald-hi:#0a8a49; --emerald-soft:#e8f1ec;
+  --accent:#09763F;
+  --cream:#f7f6f4; --sand:#fcfbfa; --white:#fff;
+  --ink:#1d2723; --ink-2:#4a5551; --muted:#8b918e; --line:#e7e4df; --line-2:#f0eeea;
+  --fs-display:clamp(46px,8.2vw,132px);
+  --fs-h2:clamp(30px,4.6vw,62px);
+  --fs-lead:clamp(17px,1.45vw,21px);
+  --gutter:clamp(24px,6vw,86px); --rail:84px;
+  --ease:cubic-bezier(.22,.75,.24,1); --ease-inout:cubic-bezier(.76,0,.24,1);
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --sec:clamp(64px,7.2vw,110px);
+}
+/* сброс заскоуплен под .az — глобальный `*` ломает родные блоки Тильды */
+html{scroll-behavior:smooth;overflow-x:clip}
+body{margin:0;overflow-x:clip}
+.az{font-family:'Poiret One',sans-serif;color:var(--ink);line-height:1.5;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.az,.az *,.az *::before,.az *::after{box-sizing:border-box}
+/* --- СБРОС. СПЕЦИФИЧНОСТЬ НЕ МЕНЯТЬ. Правка 31.08.2026 -------------------
+   Было:  .az h1,.az h2,...,.az p,...{margin:0;padding:0}   -> (0,1,1)
+   Эта специфичность выше, чем у собственных правил блоков вида
+   .zvk-lede{margin-top:16px} -> (0,1,0). Сброс побеждал дизайн, и все
+   внутренние отступы обнулялись. На живой странице так умерло 23 правила:
+   врезка заявки потеряла 104px высоты (552 -> 448), блок формы — 53px.
+   Содержимое сжималось в комок, а внешние отступы секций оставались
+   прежними — отсюда ощущение «дыр» и «огромных расстояний».
+   Стало:  :where(.az) :is(h1,...)                          -> (0,0,1)
+   Ровно столько, чтобы перебить типографику Тильды
+   (:where(.t-records) ul{padding-left:20px} — тоже (0,0,1), но наш <style>
+   идёт позже в каскаде) и при этом уступить любому нашему классу.
+   В песочнице ту же роль играет обычный `*{margin:0;padding:0}`.
+   -------------------------------------------------------------------- */
+:where(.az) :is(h1,h2,h3,h4,h5,p,ul,ol,li,figure,figcaption,blockquote,form,fieldset){margin:0;padding:0}
+:where(.az) :is(ul,ol){list-style:none}
+:where(.az) img{display:block;max-width:100%}
+:where(.az) a{text-decoration:none;color:inherit}
+:where(.az) :is(h1,h2,h3,h4){font-weight:400;text-wrap:balance}
+.az :focus{outline:none}
+.az .f:focus-visible{outline:1.5px solid var(--emerald);outline-offset:5px;border-radius:4px}
+.az .wrap{width:100%;max-width:1420px;margin:0 auto;padding-inline:var(--gutter)}
+.az.sec,.az .sec{padding-block:var(--sec);position:relative}
+/* мелкие подписи-рубрики убраны по всей странице (правка «элегант v2») */
+.az .kick{display:none;align-items:center;gap:16px;font-family:'Montserrat',sans-serif;
+  font-weight:400;font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:var(--accent)}
+.az .kick::before{content:"";width:34px;height:1px;background:currentColor;opacity:.5;flex:none}
+.az .h2{font-size:var(--fs-h2);line-height:1.02;letter-spacing:.015em}
+.az .lead{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:var(--fs-lead);
+  line-height:1.62;color:var(--ink-2)}
+.az .body{font-family:'Montserrat',sans-serif;font-weight:300;font-size:15.5px;
+  line-height:1.85;color:var(--ink-2)}
+.az .btn{display:inline-flex;align-items:center;gap:12px;font-family:'Montserrat',sans-serif;
+  font-weight:400;font-size:12px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+  border:0;border-radius:0;padding:19px 40px;transition:.35s var(--ease)}
+.az .btn .ar{transition:transform .35s var(--ease)}
+.az .btn:hover .ar{transform:translateX(6px)}
+.az .btn-solid{background:var(--emerald);color:#fff}
+.az .btn-solid:hover{background:var(--ink)}
+.az .btn-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.az .btn-line:hover{box-shadow:inset 0 0 0 1px var(--emerald);color:var(--emerald)}
+/* backdrop-filter вернули 01.09.2026. В песочнице у .btn-ghost стоит
+   blur(3px) — кнопка на фото матовое стекло. При нарезке на блоки это
+   свойство потерялось, и кнопка стала просто полупрозрачной рамкой. */
+.az .btn-ghost{background:rgba(255,255,255,.1);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);
+  -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.az .btn-ghost:hover{background:rgba(255,255,255,.2)}
+/* :where(.az) вместо .az — правка 01.09.2026.
+   Ядро вшито в каждый блок, то есть на странице лежит 18 копий, и
+   последняя из них идёт ПОСЛЕ css любого блока. При равной
+   специфичности побеждает последний в документе — поэтому
+   `.az .tlink{color:var(--ink)}` (0,2,0) перебивал
+   `.hero-act .tlink{color:#fff}` (0,2,0) из блока 02: ссылка
+   СМОТРЕТЬ ГЕНПЛАН становилась тёмной на тёмном фото и пропадала.
+   В песочнице ядро одно и стоит первым, поэтому там всё видно.
+   `:where(.az) .tlink` = (0,1,0): базовый вид остаётся, но любое
+   правило блока его перекрывает. Специфичность не повышать. */
+:where(.az) .tlink{font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink);position:relative;padding-bottom:6px;display:inline-block}
+.az .tlink::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;
+  background:currentColor;transform-origin:right;transition:transform .45s var(--ease)}
+.az .tlink:hover::after{animation:azLineSweep .55s var(--ease)}
+@keyframes azLineSweep{0%{transform:scaleX(1);transform-origin:right}
+  49%{transform:scaleX(0);transform-origin:right}
+  50%{transform:scaleX(0);transform-origin:left}100%{transform:scaleX(1);transform-origin:left}}
+.az .rv{opacity:0;transform:translateY(22px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease);
+  transition-delay:calc(var(--d,0)*90ms)}
+.az .rv.in{opacity:1;transform:none}
+.az .mask{display:block;overflow:hidden}
+.az .mask>span{display:block;transform:translateY(105%);transition:transform 1.05s var(--ease);
+  transition-delay:calc(var(--d,0)*95ms)}
+.az .mask.in>span{transform:none}
+body.mo,body.lbo{overflow:hidden}
+.az .cta-info,.az.ov,.az .ov-in{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+@media (max-width:760px){ :root{--rail:0px;--fs-display:clamp(30px,8.8vw,42px)} }
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .az .rv,.az .mask>span{opacity:1!important;transform:none!important;transition:none!important}
+}
+</style> <script>
+/* Появление на скролле для всех блоков Акватории. Запускается один раз,
+   сколько бы блоков ни стояло на странице. rvSweep — страховка от бага
+   «пустая страница»: элемент, который наблюдатель проспал, всё равно
+   показывается, когда доезжает до экрана. */
+(function(){
+  if(window.__azCore) return; window.__azCore=1;
+  var SEL='.az .rv,.az .mask,.az .st,.az .cg-r,.az .ukB-stage';
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function nodes(){ return document.querySelectorAll(SEL); }
+  var io=(!rm && 'IntersectionObserver' in window) ? new IntersectionObserver(function(en){
+    en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } });
+  },{threshold:.16,rootMargin:'0px 0px -6% 0px'}) : null;
+  function scan(){ var l=nodes();
+    for(var i=0;i<l.length;i++){ var el=l[i];
+      if(el.getAttribute('data-az')) continue;
+      el.setAttribute('data-az','1');
+      if(io) io.observe(el); else el.classList.add('in'); } }
+  function sweep(){ var l=nodes();
+    for(var i=0;i<l.length;i++){ var el=l[i];
+      if(!el.classList.contains('in') && el.getBoundingClientRect().top<innerHeight*0.9)
+        el.classList.add('in'); } }
+  function boot(){
+    scan();
+    setTimeout(function(){ document.querySelectorAll('.hero .mask')
+      .forEach(function(m){ m.classList.add('in'); }); },120);
+    addEventListener('scroll',function(){ scan(); sweep(); },{passive:true});
+    addEventListener('resize',sweep,{passive:true});
+    addEventListener('load',function(){ scan(); sweep(); });
+    setTimeout(sweep,400); setTimeout(sweep,1200);
+    /* блоки Тильды могут появиться позже — двадцать секунд подбираем новые */
+    var t=setInterval(function(){ scan(); sweep(); },1000);
+    setTimeout(function(){ clearInterval(t); },20000);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
+  else boot();
+})();
+</script> <!-- ▲▲▲ КОНЕЦ ЯДРА ▲▲▲ --> <style>
+.plan{background:var(--sand)}
+.plan-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;
+  margin-bottom:clamp(32px,4vw,56px)}
+.plan-head .h2{max-width:16ch;margin-top:18px}
+.plan-head p{font-family:'Montserrat',sans-serif;font-weight:300;font-size:14px;line-height:1.8;
+  color:var(--muted);max-width:38ch}
+.plan-fig{position:relative;margin:0;overflow:hidden;cursor:zoom-in;background:#eef1f0}
+.plan-fig img{width:100%;aspect-ratio:2600/1430;object-fit:cover;transition:transform 1.4s var(--ease)}
+.plan-fig:hover img{transform:scale(1.045)}
+.plan-fig figcaption{position:absolute;left:0;right:0;bottom:0;padding:clamp(18px,2.4vw,30px);
+  display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;color:#fff;
+  background:linear-gradient(transparent,rgba(6,28,22,.6))}
+.plan-fig figcaption b{font-weight:400;font-size:clamp(17px,1.7vw,23px);letter-spacing:.03em}
+.plan-fig figcaption i{font-family:'Montserrat',sans-serif;font-style:normal;font-size:10.5px;
+  letter-spacing:.26em;text-transform:uppercase;opacity:.82}
+.plan-cta{margin-top:clamp(26px,3vw,40px);display:flex;align-items:center;
+  gap:clamp(18px,3vw,36px);flex-wrap:wrap}
+
+/* ---------- окно с интерактивной картой ---------- */
+.mm{position:fixed;inset:0;z-index:300;background:rgba(10,22,17,.55);display:none;
+  align-items:center;justify-content:center;padding:clamp(10px,2.4vw,38px)}
+.mm.open{display:flex;animation:azFi .35s var(--ease)}
+@keyframes azFi{from{opacity:0}to{opacity:1}}
+.mm-in{position:relative;width:min(1320px,100%);height:min(86vh,880px);background:#fff;
+  border:1px solid var(--line);box-shadow:0 40px 90px rgba(10,25,18,.28);
+  display:flex;flex-direction:column}
+.mm-hd{display:flex;align-items:center;justify-content:space-between;gap:16px;flex:none;
+  padding:15px clamp(16px,2vw,26px);border-bottom:1px solid var(--line)}
+.mm-hd b{font-weight:400;font-size:clamp(16px,1.5vw,20px);letter-spacing:.02em}
+.mm .cl{width:38px;height:38px;flex:none;border-radius:50%;background:none;
+  border:1px solid rgba(0,0,0,.12);cursor:pointer;position:relative;transition:.5s var(--ease)}
+.mm .cl:hover{transform:rotate(90deg);border-color:var(--emerald)}
+.mm .cl::before,.mm .cl::after{content:"";position:absolute;top:50%;left:50%;
+  width:15px;height:1px;background:var(--ink)}
+.mm .cl::before{transform:translate(-50%,-50%) rotate(45deg)}
+.mm .cl::after{transform:translate(-50%,-50%) rotate(-45deg)}
+.mm-fr{flex:1;position:relative;background:#eef1f0}
+.mm-fr iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mm-ft{flex:none;padding:12px clamp(16px,2vw,26px);border-top:1px solid var(--line);display:flex;
+  align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-family:'Montserrat',sans-serif;font-weight:300;font-size:12px;color:var(--muted)}
+.mm-ft a{color:var(--ink);text-decoration:underline}
+
+/* ---------- лайтбокс со схемой ---------- */
+.lb{position:fixed;inset:0;z-index:300;background:rgba(255,255,255,.97);display:none;
+  align-items:center;justify-content:center;padding:20px;overflow:auto}
+.lb.open{display:flex;animation:azFi .35s var(--ease)}
+.lb img{max-width:96vw;max-height:90vh;width:auto;height:auto}
+.lb-cl{position:fixed;top:20px;right:22px;width:46px;height:46px;border-radius:50%;cursor:pointer;
+  background:#fff;border:1px solid var(--line)}
+.lb-cl::before,.lb-cl::after{content:"";position:absolute;top:50%;left:50%;width:16px;height:1px;background:var(--ink)}
+.lb-cl::before{transform:translate(-50%,-50%) rotate(45deg)}
+.lb-cl::after{transform:translate(-50%,-50%) rotate(-45deg)}
+
+@media (max-width:1080px){
+  .plan-lg span{margin-left:0!important;flex-basis:100%}
+}
+@media (max-width:760px){
+  .mm-in{height:88vh}
+}
+</style> 
+<link rel="stylesheet" href="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/melkovo-map.css">
+<style>
+/* интерактивная карта участков стоит прямо в схеме посёлка */
+.plan-fig--live{cursor:default;background:#fff}
+.plan-fig--live .mk{padding:0;background:#fff}
+.plan-fig--live .mk__wrap{width:100%;max-width:none;margin:0;padding:0}
+</style>
+<section class="sec plan az" id="plan"> <div class="wrap"> <div class="plan-head"> <div> <span class="kick rv">Генплан</span> <h2 class="h2 rv" style="--d:1">Схема посёлка</h2> </div> <p class="rv" style="--d:2">Улицы и участки в окружении леса, бухта, пляж и причалы. Свободные участки и их площади подскажем на просмотре — цену конкретного участка пришлём в ответ на заявку.</p> </div> <figure class="plan-fig plan-fig--live rv" id="azPlanFig">
+<main class="mk" id="mkMap"><div class="mk__wrap"><section class="mk__map-card"><div class="mk__viewport" id="mkViewport"><svg id="mkSvg" viewBox="0 205 1440 816" aria-label="Карта участков Мелково"><g id="mkScene"><image class="mk__bg" href="https://static.tildacdn.com/tild3335-6362-4938-b235-303561663831/melkovo_tilda_base.jpg?v=20260903-2033" xlink:href="https://static.tildacdn.com/tild3335-6362-4938-b235-303561663831/melkovo_tilda_base.jpg?v=20260903-2033" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="1920" height="1088" preserveAspectRatio="none"></image><g><g class="mk__plots" id="mkPlots"></g><g class="mk__search-fx" id="mkSearchFx" pointer-events="none"></g><g id="mkLabels"></g></g></g></svg><div class="mk__guide"><i></i><span>Введите номер — участок плавно центрируется примерно на 250%, снизу появится краткая информация</span></div><div class="mk__toolbar"><button type="button" id="mkFullscreen">⛶&nbsp; На весь экран</button></div><div class="mk__zoom"><button type="button" data-z="out" aria-label="Уменьшить">−</button><button type="button" data-z="reset">100%</button><button type="button" data-z="in" aria-label="Увеличить">+</button></div><label class="mk__search">№ <input id="mkSearch" inputmode="numeric" placeholder="Номер участка" aria-label="Номер участка"></label><div class="mk__tooltip" id="mkTooltip"></div><div class="mk__overview-hint" id="mkOverviewHint">Обзор посёлка · нажмите «Участки»</div></div><div class="mk__legend"><span><i></i>Доступный участок</span><span><i class="mk__lg-active"></i>Выбранный участок</span><span>Свайп — перемещение · два пальца — масштаб · тап работает с увеличенной зоной попадания</span></div></section></div><div class="mk__modal" id="mkModal" aria-hidden="true"><button class="mk__backdrop" type="button" data-close aria-label="Закрыть"></button><div class="mk__modal-card" role="dialog" aria-modal="true" aria-labelledby="mkTitle"><button class="mk__modal-close" type="button" data-close aria-label="Закрыть">×</button><div class="mk__modal-grid"><section class="mk__modal-info"><span class="mk__status">Свободен</span><h2 id="mkTitle">Участок</h2><div class="mk__chips"><div class="mk__chip"><span>Площадь</span><b id="mkArea">—</b></div><div class="mk__chip"><span>Периметр</span><b id="mkPerimeter">—</b></div></div><div class="mk__land"><span>Стоимость участка</span><strong>По запросу</strong></div><div class="mk__package"><div class="mk__package-head"><div class="mk__package-title">Участок и забор</div><div class="mk__package-tag">Расчёт готов</div></div><div class="mk__row"><span>Цена участка</span><b>По запросу</b></div><div class="mk__row"><span>Примерная длина забора</span><b id="mkFenceMeters">—</b></div><div class="mk__row"><span>Стоимость забора</span><b id="mkFencePrice">—</b></div><div class="mk__row mk__row--total"><span>Общая стоимость</span><b id="mkTotal">Уточним</b></div><p class="mk__hint">Мы уже вычли 10 м под ворота и калитку, а общие стороны с соседями разделили поровну.</p></div><div class="mk__actions"><button class="mk__lead-btn" type="button" id="mkLeadBtn">Оставить заявку</button><button type="button" id="mkShare">Поделиться</button></div></section><form class="mk__lead" id="mkForm"><h3>Оставьте заявку</h3><p id="mkFormText">Мы свяжемся с вами и расскажем детали покупки и бронирования.</p><label>Участок<input id="mkPlotField" readonly></label><label>Ваше имя<input id="mkName" autocomplete="name" placeholder="Как к вам обращаться" required></label><label>Телефон<input id="mkPhone" autocomplete="tel" placeholder="+7 ___ ___-__-__" required></label><label>Комментарий<textarea id="mkComment">Хочу узнать подробности и условия бронирования по выбранному участку.</textarea></label><button class="mk__submit" type="submit">Отправить заявку</button><div class="mk__success" id="mkSuccess">Спасибо! Заявка отправлена.</div><p class="mk__contacts-title">Или свяжитесь с нами сразу:</p><div class="mk__contacts"><a href="tel:+74951203878">Позвонить</a><a id="mkWa" target="_blank" rel="noopener">WhatsApp</a><a href="https://t.me/ecopark_nikitino" target="_blank" rel="noopener">Telegram</a></div></form></div></div></div></main>
+
+</figure> <div class="plan-cta"> <a class="btn btn-solid f" href="#" id="azPlanBtn">Схема во весь экран <span class="ar" aria-hidden="true">&rarr;</span></a> </div> </div> </section> <!-- ЛАЙТБОКС СО СХЕМОЙ --> <div class="lb az" id="azLb" role="dialog" aria-modal="true" aria-label="Генплан посёлка"> <button class="lb-cl f" id="azLbCl" aria-label="Закрыть"></button> <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/genplan-akvatoriya.jpg"
+       alt="Генеральный план посёлка Акватория Завидово в полном размере"> </div> <script>
+(function(){
+  /* --- лайтбокс со схемой --- */
+  var lb=document.getElementById('azLb'), fig=document.getElementById('azPlanFig'),
+      pb=document.getElementById('azPlanBtn'), cl=document.getElementById('azLbCl');
+  function lbOpen(e){ if(e) e.preventDefault(); lb.classList.add('open');
+    document.body.classList.add('lbo'); cl.focus(); }
+  function lbShut(){ lb.classList.remove('open'); document.body.classList.remove('lbo'); }
+  if(fig){ fig.addEventListener('click',lbOpen);
+    fig.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' ') lbOpen(e); }); }
+  if(pb) pb.addEventListener('click',lbOpen);
+  if(cl) cl.addEventListener('click',lbShut);
+  if(lb) lb.addEventListener('click',function(e){ if(e.target===lb) lbShut(); });
+  addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb&&lb.classList.contains('open')) lbShut(); });
+
+  })();
+</script>
+<script src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/melkovo-map.js"></script>
