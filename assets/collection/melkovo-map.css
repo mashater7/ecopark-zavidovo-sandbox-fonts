@@ -1,0 +1,1308 @@
+.mk{--ink:#202326;--muted:rgba(32,35,38,.58);--cream:#f8efe4;--sand:#f3eadf;--green-soft:#e9efdf;--paper:#fffaf3;--border:rgba(187,145,107,.22);--green:#00853f;--blue:#42b8ec;position:relative;isolation:isolate;width:100%;max-width:100%;padding:78px 0 92px;overflow:hidden;background:radial-gradient(circle at 8% 12%,rgba(223,194,164,.34),transparent 34%),radial-gradient(circle at 88% 10%,rgba(198,214,181,.56),transparent 38%),linear-gradient(105deg,#f8efe4 0%,#f5efe6 48%,#e9efdf 100%);color:var(--ink);font:15px/1.45 Arial,sans-serif}.mk,.mk *{box-sizing:border-box}.mk button,.mk input,.mk textarea{font:inherit}.mk__wrap{width:min(1720px,calc(100% - 32px));margin:auto}.mk__head{display:flex;align-items:end;justify-content:space-between;gap:28px;margin:0 0 28px}.mk__eyebrow{margin:0 0 7px;color:var(--green);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.mk h1{max-width:920px;margin:0;font-size:clamp(42px,5.3vw,78px);font-weight:520;line-height:.92;letter-spacing:-.065em}.mk__intro{max-width:560px;margin:0 0 4px;color:var(--muted);font-size:17px}.mk__map-card{position:relative;padding:16px;border:1px solid rgba(255,255,255,.8);border-radius:36px;background:rgba(255,251,245,.76);box-shadow:0 30px 90px rgba(74,55,35,.16);backdrop-filter:blur(12px)}.mk__viewport{position:relative;aspect-ratio:1920/1088;overflow:hidden;border-radius:25px;background:#1b291d}.mk__viewport svg{display:block;width:100%;height:100%;touch-action:none;user-select:none}.mk__bg{pointer-events:none}.mk__plots polygon{pointer-events:all;touch-action:manipulation;fill:rgba(0,133,63,.018);stroke:rgba(255,255,255,.62);stroke-width:.92;stroke-linejoin:round;vector-effect:non-scaling-stroke;cursor:pointer;outline:none;transition:fill .24s cubic-bezier(.22,.61,.36,1),stroke .24s cubic-bezier(.22,.61,.36,1),stroke-width .24s cubic-bezier(.22,.61,.36,1),filter .28s cubic-bezier(.22,.61,.36,1),opacity .24s ease;}.mk__plots polygon:hover,.mk__plots polygon.is-hover{fill:rgba(66,184,236,.17);stroke:rgba(255,255,255,1);stroke-width:2.15;filter:drop-shadow(0 0 2px rgba(255,255,255,.78)) drop-shadow(0 4px 9px rgba(10,34,44,.30));}.mk__plots polygon.is-selected{fill:rgba(66,184,236,.26);stroke:#42b8ec;stroke-width:2.45;filter:drop-shadow(0 0 3px rgba(66,184,236,.85)) drop-shadow(0 4px 10px rgba(10,34,44,.30));}.mk__label-bg{fill:rgba(255,250,243,.84);stroke:rgba(255,255,255,.94);stroke-width:.75;vector-effect:non-scaling-stroke;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(24,35,29,.22));transition:fill .24s cubic-bezier(.22,.61,.36,1),stroke .24s cubic-bezier(.22,.61,.36,1),filter .28s cubic-bezier(.22,.61,.36,1);}.mk__label{font-family:Arial,sans-serif;font-weight:900;font-size:6.2px;text-anchor:middle;dominant-baseline:central;fill:#202326;stroke:rgba(255,255,255,.96);stroke-width:.72px;paint-order:stroke fill;vector-effect:non-scaling-stroke;pointer-events:none;transition:fill .22s ease,stroke .22s ease;}.mk__guide{position:absolute;z-index:4;left:50%;top:18px;display:flex;align-items:center;gap:10px;max-width:calc(100% - 310px);padding:12px 18px;border:1px solid rgba(255,255,255,.8);border-radius:999px;background:rgba(255,250,243,.94);box-shadow:0 12px 35px rgba(20,31,23,.16);transform:translateX(-50%);color:#405046;font-size:13px;white-space:nowrap;backdrop-filter:blur(12px)}.mk__guide i{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 6px rgba(0,133,63,.1)}.mk__toolbar{position:absolute;z-index:5;left:18px;top:18px;display:flex;gap:8px}.mk__toolbar button,.mk__zoom button{appearance:none;min-height:48px;padding:0 17px;border:1px solid var(--border);border-radius:999px;background:rgba(255,250,243,.96);color:var(--ink);box-shadow:0 12px 30px rgba(32,35,38,.12);cursor:pointer}.mk__toolbar button:hover,.mk__zoom button:hover{background:#fff}.mk__zoom{position:absolute;z-index:5;right:18px;top:18px;display:flex;gap:6px;padding:6px;border:1px solid var(--border);border-radius:999px;background:rgba(255,250,243,.94);box-shadow:0 12px 30px rgba(32,35,38,.12)}.mk__zoom button{width:43px;min-height:43px;padding:0;border:0;box-shadow:none;background:#fff}.mk__zoom button:nth-child(2){width:auto;min-width:70px;padding:0 10px;color:#8a6242;font-size:13px}.mk__search{position:absolute;z-index:5;left:18px;bottom:18px;display:flex;align-items:center;gap:8px;width:220px;height:48px;padding:0 15px;border:1px solid var(--border);border-radius:999px;background:rgba(255,250,243,.96);box-shadow:0 12px 30px rgba(32,35,38,.12)}.mk__search input{width:100%;border:0;outline:0;background:transparent;color:var(--ink)}.mk__tooltip{position:absolute;z-index:12;display:none;width:320px;padding:18px;border:1px solid var(--border);border-radius:24px;background:rgba(255,252,247,.98);box-shadow:0 24px 60px rgba(10,22,15,.25);pointer-events:none}.mk__tip-status,.mk__status{display:inline-flex;padding:6px 10px;border-radius:999px;background:#eaf5eb;color:var(--green);font-size:11px;font-weight:750}.mk__tooltip h3{margin:10px 0 11px;font-size:25px;font-weight:520;line-height:1;letter-spacing:-.04em}.mk__tip-row{display:flex;justify-content:space-between;gap:16px;padding:7px 0;border-top:1px solid rgba(32,35,38,.08);font-size:13px}.mk__tip-row span{color:var(--muted)}.mk__tip-row b{text-align:right}.mk__tip-action{margin:11px 0 0;color:var(--green);font-size:12px;font-weight:750}.mk__legend{display:flex;flex-wrap:wrap;align-items:center;gap:18px;padding:15px 6px 2px;color:var(--muted);font-size:12px}.mk__legend span{display:flex;align-items:center;gap:7px}.mk__legend i{width:14px;height:14px;border:1px solid #fff;border-radius:5px;background:rgba(0,133,63,.25);box-shadow:0 1px 4px rgba(0,0,0,.14)}.mk__legend .mk__lg-active{background:rgba(66,184,236,.62);border-color:#202326}.mk__modal{position:fixed;z-index:2147483600;inset:0;display:none;align-items:center;justify-content:center;padding:24px}.mk__modal.is-open{display:flex}.mk__backdrop{position:absolute;inset:0;border:0;background:rgba(18,23,20,.68);backdrop-filter:blur(14px);cursor:pointer}.mk__modal-card{position:relative;z-index:1;width:min(1040px,calc(100vw - 36px));max-height:calc(100dvh - 38px);overflow:auto;border:1px solid rgba(255,255,255,.7);border-radius:30px;background:#f8f3eb;box-shadow:0 30px 100px rgba(0,0,0,.35)}.mk__modal-grid{display:grid;grid-template-columns:.93fr 1.07fr;gap:16px;padding:22px}.mk__modal-info,.mk__lead{padding:25px;border-radius:23px;background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(250,247,241,.98))}.mk__modal-close{position:absolute;z-index:4;right:16px;top:16px;width:46px;height:46px;border:1px solid rgba(32,35,38,.12);border-radius:50%;background:#fff;color:#202326;box-shadow:0 10px 30px rgba(0,0,0,.14);font-size:30px;line-height:1;cursor:pointer}.mk__modal-close:hover{background:#202326;color:#fff}.mk__modal h2{margin:10px 56px 12px 0;font-size:clamp(36px,4vw,50px);font-weight:520;line-height:.95;letter-spacing:-.055em}.mk__chips{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:17px}.mk__chip{padding:12px 13px;border:1px solid rgba(187,145,107,.18);border-radius:17px;background:#f5f1ea}.mk__chip span{display:block;margin-bottom:5px;color:rgba(32,35,38,.48);font-size:11px}.mk__chip b{display:block;font-size:15px;font-weight:650}.mk__land{margin-top:12px;padding:17px 18px;border-radius:21px;background:#202326;color:#fff}.mk__land span{display:block;color:rgba(255,255,255,.56);font-size:12px}.mk__land strong{display:block;margin-top:3px;font-size:28px;font-weight:600;letter-spacing:-.04em}.mk__package{margin-top:12px;padding:16px 17px;border:1px solid rgba(0,133,63,.16);border-radius:21px;background:linear-gradient(145deg,rgba(233,239,223,.95),rgba(248,244,235,.98))}.mk__package-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px}.mk__package-title{font-size:17px;font-weight:680}.mk__package-tag{padding:5px 8px;border-radius:999px;background:rgba(0,133,63,.09);color:var(--green);font-size:10px;font-weight:700}.mk__row{display:flex;justify-content:space-between;gap:16px;padding:7px 0;border-top:1px solid rgba(32,35,38,.07);font-size:13px}.mk__row span{color:rgba(32,35,38,.53)}.mk__row b{text-align:right}.mk__row--total{padding-top:11px}.mk__row--total b{color:var(--green);font-size:20px}.mk__hint{margin:9px 0 0;color:rgba(32,35,38,.5);font-size:11px;line-height:1.4}.mk__actions{display:grid;grid-template-columns:1.3fr .7fr;gap:8px;margin-top:12px}.mk__actions button{min-height:48px;border:1px solid rgba(0,133,63,.24);border-radius:999px;background:#fff;color:var(--ink);cursor:pointer}.mk__actions .mk__lead-btn{border-color:var(--green);background:var(--green);color:#fff}.mk__lead h3{margin:5px 0 6px;font-size:29px;font-weight:520;letter-spacing:-.04em}.mk__lead>p{margin:0 0 17px;color:var(--muted);font-size:13px}.mk__lead label{display:grid;gap:6px;margin:11px 0;color:var(--muted);font-size:12px}.mk__lead input,.mk__lead textarea{width:100%;padding:14px 16px;border:1px solid rgba(187,145,107,.28);border-radius:18px;outline:0;background:#fffaf3;color:var(--ink)}.mk__lead textarea{min-height:98px;resize:vertical}.mk__lead input:focus,.mk__lead textarea:focus{border-color:rgba(0,133,63,.65);box-shadow:0 0 0 4px rgba(0,133,63,.08)}.mk__submit{width:100%;min-height:52px;border:0;border-radius:999px;background:#008f45;color:#fff;cursor:pointer}.mk__submit:disabled{opacity:.65}.mk__contacts-title{margin:17px 0 8px;color:var(--muted);font-size:12px}.mk__contacts{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.mk__contacts a{padding:11px 8px;border-radius:999px;background:#efefed;color:#4f5752;text-align:center;text-decoration:none;font-size:12px}.mk__success{display:none;margin-top:10px;padding:11px;border-radius:14px;background:#eaf5eb;color:var(--green);font-size:12px}.mk.is-fullscreen{position:fixed;z-index:2147483500;inset:0;padding:0;background:#1a211d}.mk.is-fullscreen .mk__wrap{width:100%;height:100%}.mk.is-fullscreen .mk__head,.mk.is-fullscreen .mk__legend{display:none}.mk.is-fullscreen .mk__map-card{height:100%;padding:0;border:0;border-radius:0}.mk.is-fullscreen .mk__viewport{height:100%;aspect-ratio:auto;border-radius:0}html.mk-lock,body.mk-lock{overflow:hidden!important}@media(max-width:980px){.mk{padding:52px 0}.mk__wrap{width:min(100% - 18px,1720px)}.mk__head{display:block;margin-bottom:20px}.mk h1{font-size:46px}.mk__intro{margin-top:13px;font-size:14px}.mk__map-card{padding:8px;border-radius:25px}.mk__viewport{aspect-ratio:4/5;border-radius:19px}.mk__guide{top:72px;max-width:calc(100% - 28px);padding:10px 14px;font-size:11px;white-space:normal}.mk__toolbar{left:13px;top:13px}.mk__toolbar button{min-height:44px;padding:0 13px;font-size:12px}.mk__zoom{right:13px;top:13px}.mk__zoom button{width:38px;min-height:38px}.mk__search{left:13px;bottom:13px;width:190px;height:44px}.mk__tooltip{width:min(300px,calc(100% - 28px))}.mk__modal{align-items:flex-end;padding:92px 0 0}.mk__modal-card{width:100vw;max-width:100vw;max-height:calc(100dvh - 92px);border-radius:28px 28px 0 0}.mk__modal-grid{grid-template-columns:1fr;padding:14px}.mk__modal-info,.mk__lead{padding:20px 16px}.mk__modal-close{position:fixed;right:12px;top:calc(12px + env(safe-area-inset-top,0px));width:48px;height:48px}.mk__actions{grid-template-columns:1fr}.mk__contacts{grid-template-columns:1fr}.mk__chips{grid-template-columns:1fr}}
+
+/* =========================================================
+   MELKOVO MOBILE UX
+   ========================================================= */
+
+/* Tablet */
+@media (min-width:741px) and (max-width:980px){
+  #mkMap.mk{
+    padding:34px 0;
+  }
+  #mkMap .mk__wrap{
+    width:min(100% - 20px,1720px);
+  }
+  #mkMap .mk__head{
+    margin-bottom:16px;
+  }
+  #mkMap h1{
+    font-size:clamp(38px,6vw,52px);
+  }
+  #mkMap .mk__viewport{
+    height:min(72svh,720px);
+    min-height:520px;
+    aspect-ratio:auto;
+  }
+}
+
+/* Phone */
+@media (max-width:740px){
+  html,body{
+    max-width:100%;
+    overflow-x:hidden;
+  }
+
+  #mkMap.mk{
+    width:100vw;
+    max-width:100vw;
+    margin-left:calc(50% - 50vw);
+    padding:26px 0 34px;
+    overflow-x:hidden;
+  }
+
+  #mkMap .mk__wrap{
+    width:100vw;
+    max-width:100vw;
+    margin:0;
+  }
+
+  #mkMap .mk__head{
+    display:block;
+    width:calc(100% - 28px);
+    margin:0 auto 14px;
+  }
+
+  #mkMap .mk__eyebrow{
+    margin-bottom:8px;
+    font-size:11px;
+    letter-spacing:.10em;
+  }
+
+  #mkMap h1{
+    margin:0;
+    font-size:clamp(30px,9.4vw,40px);
+    line-height:.96;
+    letter-spacing:-.045em;
+  }
+
+  #mkMap .mk__intro{
+    max-width:100%;
+    margin-top:10px;
+    font-size:13px;
+    line-height:1.4;
+  }
+
+  #mkMap .mk__map-card{
+    width:100vw;
+    max-width:100vw;
+    margin:0;
+    padding:0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+  }
+
+  #mkMap .mk__viewport{
+    width:100vw;
+    height:clamp(480px,132vw,610px);
+    min-height:480px;
+    max-height:72svh;
+    aspect-ratio:auto;
+    border-radius:0;
+    overflow:hidden;
+    overscroll-behavior:contain;
+    background:#17231a;
+    contain:layout paint;
+  }
+
+  /* Outside fullscreen:
+     page keeps vertical scrolling; map can use horizontal pointer movement. */
+  #mkMap .mk__viewport svg{
+    touch-action:pan-y;
+    -webkit-user-select:none;
+    user-select:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  #mkMap .mk__guide{
+    display:none;
+  }
+
+  #mkMap .mk__toolbar{
+    left:12px;
+    top:calc(12px + env(safe-area-inset-top,0px));
+  }
+
+  #mkMap .mk__toolbar button{
+    min-height:42px;
+    height:42px;
+    padding:0 13px;
+    border-color:rgba(255,255,255,.76);
+    background:rgba(255,252,247,.94);
+    box-shadow:0 7px 22px rgba(16,25,19,.18);
+    font-size:11px;
+    font-weight:700;
+    backdrop-filter:none;
+  }
+
+  #mkMap .mk__zoom{
+    right:12px;
+    top:calc(12px + env(safe-area-inset-top,0px));
+    gap:3px;
+    padding:4px;
+    border-color:rgba(255,255,255,.74);
+    background:rgba(255,252,247,.94);
+    box-shadow:0 7px 22px rgba(16,25,19,.18);
+    backdrop-filter:none;
+  }
+
+  #mkMap .mk__zoom button{
+    width:38px;
+    min-height:38px;
+    height:38px;
+    font-size:18px;
+  }
+
+  #mkMap .mk__zoom button:nth-child(2){
+    min-width:56px;
+    padding:0 7px;
+    font-size:11px;
+  }
+
+  #mkMap .mk__search{
+    left:12px;
+    right:12px;
+    bottom:calc(12px + env(safe-area-inset-bottom,0px));
+    width:auto;
+    height:46px;
+    padding:0 14px;
+    border-color:rgba(255,255,255,.78);
+    background:rgba(255,252,247,.96);
+    box-shadow:0 8px 26px rgba(16,25,19,.20);
+    backdrop-filter:none;
+  }
+
+  #mkMap .mk__search input{
+    min-width:0;
+    font-size:16px; /* prevents iOS auto-zoom */
+  }
+
+  /* No hover card on touch devices. Tap opens modal directly. */
+  #mkMap .mk__tooltip{
+    display:none!important;
+  }
+
+  #mkMap .mk__legend{
+    display:none;
+  }
+
+  #mkMap .mk__plots polygon{
+    cursor:pointer;
+    touch-action:manipulation;
+    transition:
+      fill .16s ease,
+      stroke .16s ease,
+      stroke-width .16s ease;
+  }
+
+  /* Avoid expensive SVG drop-shadow while touching on phone. */
+  #mkMap .mk__plots polygon:hover,
+  #mkMap .mk__plots polygon.is-hover{
+    filter:none;
+  }
+
+  #mkMap .mk__plots polygon.is-selected{
+    filter:none;
+  }
+
+  /* Labels: clean and readable; JS additionally hides collisions. */
+  #mkMap .mk__label-group{
+    transition:
+      transform .18s cubic-bezier(.16,1,.3,1),
+      opacity .14s ease;
+  }
+
+  #mkMap .mk__label-group.is-hover{
+    transform:scale(1.22);
+    filter:none;
+  }
+
+  #mkMap .mk__label-group.is-selected{
+    transform:scale(1.18);
+    filter:none;
+  }
+
+  /* Bottom-sheet card */
+  #mkMap .mk__modal{
+    align-items:flex-end;
+    padding:0;
+  }
+
+  #mkMap .mk__backdrop{
+    background:rgba(18,23,20,.56);
+    backdrop-filter:none;
+  }
+
+  #mkMap .mk__modal-card{
+    width:100vw;
+    max-width:100vw;
+    max-height:min(88dvh,760px);
+    margin:0;
+    border-radius:24px 24px 0 0;
+    border-bottom:0;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    box-shadow:0 -16px 60px rgba(0,0,0,.30);
+  }
+
+  #mkMap .mk__modal-grid{
+    display:block;
+    padding:
+      14px
+      12px
+      calc(18px + env(safe-area-inset-bottom,0px));
+  }
+
+  #mkMap .mk__modal-info,
+  #mkMap .mk__lead{
+    padding:18px 15px;
+    border-radius:18px;
+  }
+
+  #mkMap .mk__lead{
+    margin-top:10px;
+  }
+
+  #mkMap .mk__modal-close{
+    position:sticky;
+    float:right;
+    right:10px;
+    top:10px;
+    width:44px;
+    height:44px;
+    margin:0 0 -44px 0;
+    font-size:27px;
+    box-shadow:0 6px 20px rgba(0,0,0,.16);
+  }
+
+  #mkMap .mk__modal h2{
+    margin:8px 52px 12px 0;
+    font-size:32px;
+    line-height:.98;
+  }
+
+  #mkMap .mk__chips{
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+  }
+
+  #mkMap .mk__chip{
+    padding:10px 11px;
+    border-radius:14px;
+  }
+
+  #mkMap .mk__land{
+    padding:14px 15px;
+  }
+
+  #mkMap .mk__land strong{
+    font-size:24px;
+  }
+
+  #mkMap .mk__actions,
+  #mkMap .mk__contacts{
+    grid-template-columns:1fr;
+  }
+
+  #mkMap input,
+  #mkMap textarea,
+  #mkMap button{
+    font-size:16px;
+  }
+
+  /* Fullscreen on phone */
+  #mkMap.mk.is-fullscreen{
+    width:100vw;
+    height:100dvh;
+    min-height:100dvh;
+    margin:0;
+    padding:0;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    background:#17231a;
+  }
+
+  #mkMap.mk.is-fullscreen .mk__wrap,
+  #mkMap.mk.is-fullscreen .mk__map-card{
+    width:100%;
+    height:100%;
+    max-width:none;
+  }
+
+  #mkMap.mk.is-fullscreen .mk__viewport{
+    width:100%;
+    height:100%;
+    min-height:0;
+    max-height:none;
+  }
+
+  #mkMap.mk.is-fullscreen .mk__viewport svg{
+    touch-action:none;
+  }
+
+  #mkMap.mk.is-fullscreen .mk__toolbar{
+    top:calc(10px + env(safe-area-inset-top,0px));
+  }
+
+  #mkMap.mk.is-fullscreen .mk__zoom{
+    top:calc(10px + env(safe-area-inset-top,0px));
+  }
+
+  #mkMap.mk.is-fullscreen .mk__search{
+    bottom:calc(10px + env(safe-area-inset-bottom,0px));
+  }
+}
+
+@media (max-width:370px){
+  #mkMap .mk__viewport{
+    height:500px;
+    max-height:70svh;
+  }
+  #mkMap .mk__toolbar button{
+    padding:0 10px;
+    font-size:10px;
+  }
+  #mkMap .mk__zoom button:nth-child(2){
+    min-width:50px;
+  }
+}
+
+
+/* MELKOVO MOBILE V2 */
+#mkMap.mk-mobile-ui{
+  width:100vw!important;
+  max-width:100vw!important;
+  margin-left:calc(50% - 50vw)!important;
+  overflow:hidden!important;
+}
+#mkMap.mk-mobile-ui .mk__wrap,
+#mkMap.mk-mobile-ui .mk__map-card{
+  width:100%!important;
+  max-width:100%!important;
+}
+#mkMap.mk-mobile-ui .mk__viewport,
+#mkMap.mk-mobile-ui .mk__viewport svg,
+#mkMap.mk-mobile-ui .mk__plots,
+#mkMap.mk-mobile-ui .mk__plots polygon{
+  touch-action:none!important;
+  overscroll-behavior:none!important;
+  -webkit-user-select:none!important;
+  user-select:none!important;
+  -webkit-touch-callout:none!important;
+}
+#mkMap.mk-mobile-ui .mk__viewport{
+  height:clamp(390px,108vw,485px)!important;
+  min-height:390px!important;
+  max-height:62dvh!important;
+  aspect-ratio:auto!important;
+  border-radius:0!important;
+}
+#mkMap.mk-mobile-ui .mk__guide{display:none!important}
+#mkMap.mk-mobile-ui .mk__zoom{
+  top:12px!important;
+  right:10px!important;
+  gap:5px!important;
+  padding:5px!important;
+  border-radius:18px!important;
+  background:rgba(255,252,247,.97)!important;
+  box-shadow:0 8px 26px rgba(18,28,21,.24)!important;
+}
+#mkMap.mk-mobile-ui .mk__zoom button{
+  width:48px!important;
+  min-width:48px!important;
+  height:48px!important;
+  min-height:48px!important;
+  padding:0!important;
+  border-radius:14px!important;
+  font-size:23px!important;
+  font-weight:700!important;
+}
+#mkMap.mk-mobile-ui .mk__zoom button:nth-child(2){
+  width:64px!important;
+  min-width:64px!important;
+  font-size:12px!important;
+}
+#mkMap.mk-mobile-ui .mk__toolbar{
+  top:12px!important;
+  left:10px!important;
+}
+#mkMap.mk-mobile-ui .mk__toolbar button{
+  height:48px!important;
+  min-height:48px!important;
+  padding:0 14px!important;
+  border-radius:16px!important;
+}
+#mkMap.mk-mobile-ui .mk__search{
+  left:10px!important;
+  right:10px!important;
+  bottom:10px!important;
+  width:auto!important;
+  height:48px!important;
+}
+#mkMap.mk-mobile-ui .mk__tooltip{display:none!important}
+#mkMap.mk-mobile-ui .mk__label{
+  font-size:10.6px!important;
+  stroke-width:1.15px!important;
+}
+#mkMap.mk-mobile-ui .mk__label-bg{
+  stroke-width:1px!important;
+  filter:none!important;
+}
+#mkMap.mk-mobile-ui .mk__label-group.is-hover{
+  transform:scale(1.16)!important;
+  filter:none!important;
+}
+#mkMap.mk-mobile-ui .mk__label-group.is-selected{
+  transform:scale(1.18)!important;
+  filter:none!important;
+}
+
+/* Forced mobile bottom sheet */
+#mkMap.mk-mobile-ui .mk__modal{
+  display:none;
+  align-items:flex-end!important;
+  justify-content:center!important;
+  padding:0!important;
+}
+#mkMap.mk-mobile-ui .mk__modal.is-open{display:flex!important}
+#mkMap.mk-mobile-ui .mk__backdrop{
+  background:rgba(15,20,17,.58)!important;
+  backdrop-filter:none!important;
+}
+#mkMap.mk-mobile-ui .mk__modal-card{
+  width:100vw!important;
+  max-width:100vw!important;
+  max-height:88dvh!important;
+  margin:0!important;
+  border-radius:26px 26px 0 0!important;
+  border-bottom:0!important;
+  overflow:auto!important;
+  -webkit-overflow-scrolling:touch!important;
+  overscroll-behavior:contain!important;
+}
+#mkMap.mk-mobile-ui .mk__modal-grid{
+  display:block!important;
+  grid-template-columns:none!important;
+  padding:14px 12px calc(18px + env(safe-area-inset-bottom,0px))!important;
+}
+#mkMap.mk-mobile-ui .mk__modal-info,
+#mkMap.mk-mobile-ui .mk__lead{
+  width:100%!important;
+  padding:18px 15px!important;
+  border-radius:18px!important;
+}
+#mkMap.mk-mobile-ui .mk__lead{margin-top:10px!important}
+#mkMap.mk-mobile-ui .mk__modal-close{
+  position:sticky!important;
+  float:right!important;
+  top:10px!important;
+  right:10px!important;
+  width:46px!important;
+  height:46px!important;
+  margin:0 0 -46px 0!important;
+  z-index:20!important;
+}
+#mkMap.mk-mobile-ui .mk__modal h2{
+  margin:8px 58px 13px 0!important;
+  font-size:31px!important;
+  line-height:1!important;
+}
+#mkMap.mk-mobile-ui .mk__chips{
+  grid-template-columns:1fr 1fr!important;
+  gap:7px!important;
+}
+#mkMap.mk-mobile-ui .mk__actions,
+#mkMap.mk-mobile-ui .mk__contacts{
+  grid-template-columns:1fr!important;
+}
+#mkMap.mk-mobile-ui .mk__lead input,
+#mkMap.mk-mobile-ui .mk__lead textarea,
+#mkMap.mk-mobile-ui .mk__lead button{
+  font-size:16px!important;
+}
+#mkMap.mk-mobile-ui.is-fullscreen .mk__viewport{
+  height:100%!important;
+  min-height:0!important;
+  max-height:none!important;
+}
+@media (orientation:landscape) and (max-height:600px){
+  #mkMap.mk-mobile-ui .mk__viewport{
+    height:calc(100dvh - 12px)!important;
+    max-height:none!important;
+  }
+  #mkMap.mk-mobile-ui:not(.is-fullscreen) .mk__search{
+    display:none!important;
+  }
+}
+
+
+/* =========================================================
+   MELKOVO MOBILE LABELS V3
+   All plot numbers visible at 100%.
+   ========================================================= */
+
+/* Mobile default number */
+#mkMap.mk-mobile-ui .mk__label-group{
+  opacity:1!important;
+}
+#mkMap.mk-mobile-ui .mk__label{
+  fill:#17221c!important;
+  stroke:rgba(255,255,255,.98)!important;
+  stroke-width:1.7px!important;
+  paint-order:stroke fill!important;
+  font-weight:900!important;
+  font-size:12.4px!important;
+  letter-spacing:-.25px!important;
+  filter:none!important;
+}
+#mkMap.mk-mobile-ui .mk__label-bg{
+  transition:
+    opacity .18s ease,
+    fill .18s ease,
+    stroke .18s ease!important;
+}
+
+/* 100–145% = compact overview.
+   Circles are removed so all 417 numbers can coexist. */
+#mkMap.mk-mobile-ui.mk-mobile-overview .mk__label-bg{
+  opacity:0!important;
+  fill:transparent!important;
+  stroke:transparent!important;
+}
+#mkMap.mk-mobile-ui.mk-mobile-overview .mk__label{
+  fill:#14251b!important;
+  stroke:rgba(255,255,255,1)!important;
+  stroke-width:2.05px!important;
+  font-size:12.8px!important;
+  letter-spacing:-.32px!important;
+}
+#mkMap.mk-mobile-ui.mk-mobile-overview .mk__label-group{
+  transform:none!important;
+  filter:none!important;
+}
+
+/* Hover is irrelevant on touch; selected plot may still have a badge. */
+#mkMap.mk-mobile-ui.mk-mobile-overview .mk__label-group.is-selected{
+  transform:scale(1.12)!important;
+}
+#mkMap.mk-mobile-ui.mk-mobile-overview .mk__label-group.is-selected .mk__label-bg{
+  opacity:1!important;
+  fill:rgba(245,255,249,.97)!important;
+  stroke:#00853f!important;
+  stroke-width:1.25px!important;
+}
+#mkMap.mk-mobile-ui.mk-mobile-overview .mk__label-group.is-selected .mk__label{
+  fill:#006b34!important;
+  stroke:#fff!important;
+  stroke-width:2.1px!important;
+}
+
+/* Once there is enough screen space, return normal badges. */
+#mkMap.mk-mobile-ui:not(.mk-mobile-overview) .mk__label-bg{
+  opacity:1!important;
+}
+#mkMap.mk-mobile-ui:not(.mk-mobile-overview) .mk__label{
+  font-size:10.8px!important;
+  stroke-width:1.15px!important;
+  letter-spacing:0!important;
+}
+
+
+/* MELKOVO MOBILE V4 — map-like logic */
+
+/* DETAIL: readable working scale, all labels in visible area */
+#mkMap.mk-mobile-ui.mk-mobile-detail-mode .mk__label-group{opacity:1}
+#mkMap.mk-mobile-ui.mk-mobile-detail-mode .mk__label-bg{
+  opacity:1!important;
+  fill:rgba(255,252,247,.94)!important;
+  stroke:rgba(255,255,255,.99)!important;
+  stroke-width:.85px!important;
+  filter:drop-shadow(0 1px 2px rgba(24,35,29,.24))!important;
+}
+#mkMap.mk-mobile-ui.mk-mobile-detail-mode .mk__label{
+  fill:#1f2b24!important;
+  stroke:rgba(255,255,255,.99)!important;
+  stroke-width:.85px!important;
+  paint-order:stroke fill!important;
+  letter-spacing:-.14px!important;
+  filter:none!important;
+}
+#mkMap.mk-mobile-ui.mk-mobile-detail-mode .mk__label-group.is-selected{
+  transform:scale(1.14)!important;
+}
+#mkMap.mk-mobile-ui.mk-mobile-detail-mode .mk__label-group.is-selected .mk__label-bg{
+  fill:#f4fff8!important;
+  stroke:#00853f!important;
+  stroke-width:1.25px!important;
+}
+#mkMap.mk-mobile-ui.mk-mobile-detail-mode .mk__label-group.is-selected .mk__label{
+  fill:#006b34!important;
+  stroke:#fff!important;
+}
+
+/* OVERVIEW: real map overview, labels are hidden */
+#mkMap.mk-mobile-ui.mk-mobile-overview-mode .mk__viewport{
+  height:56.6667vw!important;
+  min-height:0!important;
+  max-height:320px!important;
+  transition:height .30s cubic-bezier(.22,.61,.36,1)!important;
+}
+#mkMap.mk-mobile-ui:not(.mk-mobile-overview-mode) .mk__viewport{
+  transition:height .30s cubic-bezier(.22,.61,.36,1)!important;
+}
+#mkMap.mk-mobile-ui.mk-mobile-overview-mode .mk__label-group{
+  opacity:0!important;
+  pointer-events:none!important;
+}
+#mkMap.mk-mobile-ui.mk-mobile-overview-mode .mk__plots polygon{
+  fill:rgba(66,184,236,.025)!important;
+  stroke:rgba(255,255,255,.54)!important;
+  stroke-width:.75!important;
+}
+#mkMap.mk-mobile-ui.is-fullscreen.mk-mobile-overview-mode .mk__viewport{
+  height:100%!important;
+  max-height:none!important;
+}
+
+/* Middle zoom button is map mode toggle on phone */
+#mkMap.mk-mobile-ui .mk__zoom button:nth-child(2){
+  width:72px!important;
+  min-width:72px!important;
+  font-size:11px!important;
+  letter-spacing:-.02em!important;
+}
+
+#mkMap.mk-mobile-ui .mk__overview-hint{
+  display:none;
+  position:absolute;
+  left:50%;
+  bottom:66px;
+  z-index:8;
+  transform:translateX(-50%);
+  padding:7px 10px;
+  border-radius:999px;
+  background:rgba(31,38,33,.78);
+  color:#fff;
+  font:700 10px/1.1 Arial,sans-serif;
+  white-space:nowrap;
+  pointer-events:none;
+}
+#mkMap.mk-mobile-ui.mk-mobile-overview-mode .mk__overview-hint{display:block}
+
+@media(max-width:370px){
+  #mkMap.mk-mobile-ui .mk__zoom button:nth-child(2){
+    width:64px!important;
+    min-width:64px!important;
+    font-size:10px!important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE NUMBER FIT — ONLY
+   ========================================================= */
+
+/* Уменьшаем только мобильный номер, чтобы он гарантированно
+   помещался в существующий круглый бейдж. */
+#mkMap.mk-mobile-ui.mk-mobile-detail-mode .mk__label{
+  font-size:6.85px!important;
+  font-weight:900!important;
+  letter-spacing:-.18px!important;
+  fill:#202922!important;
+  stroke:rgba(255,255,255,.98)!important;
+  stroke-width:.78px!important;
+  paint-order:stroke fill!important;
+}
+
+/* Кружки остаются круглыми, форму и размер не меняем. */
+#mkMap.mk-mobile-ui.mk-mobile-detail-mode .mk__label-bg{
+  opacity:1!important;
+  fill:rgba(255,252,247,.94)!important;
+  stroke:rgba(255,255,255,.99)!important;
+  stroke-width:.85px!important;
+}
+
+
+/* =========================================================
+   MOBILE SEARCH FOCUS — functional only
+   ========================================================= */
+#mkMap.mk-mobile-ui .mk__search.is-searching{
+  box-shadow:
+    0 0 0 2px rgba(66,184,236,.30),
+    0 8px 26px rgba(16,25,19,.20)!important;
+}
+#mkMap.mk-mobile-ui .mk__search.is-invalid{
+  box-shadow:
+    0 0 0 2px rgba(205,73,73,.42),
+    0 8px 26px rgba(16,25,19,.20)!important;
+}
+#mkMap .mk__plots polygon.is-search-focus{
+  fill:rgba(66,184,236,.17)!important;
+  stroke:#fff!important;
+  stroke-width:2.15!important;
+}
+#mkMap.mk-mobile-ui .mk__plots polygon.is-search-focus{
+  filter:none!important;
+}
+#mkMap .mk__label-group.is-search-focus{
+  opacity:1!important;
+  transform:scale(1.14)!important;
+}
+#mkMap .mk__label-group.is-search-focus .mk__label-bg{
+  fill:#fff!important;
+  stroke:#42b8ec!important;
+  stroke-width:1.15px!important;
+}
+#mkMap .mk__label-group.is-search-focus .mk__label{
+  fill:#17475b!important;
+}
+
+
+/* =========================================================
+   SEARCH V4.5 — STABLE HTML OVERLAY + SVG SEARCH FX
+   ========================================================= */
+
+#mkMap .mk__viewport{
+  position:relative!important;
+}
+
+/* Search belongs to the viewport UI, not to the moving SVG map. */
+#mkMap .mk__search{
+  position:absolute!important;
+  z-index:80!important;
+  pointer-events:auto!important;
+  touch-action:manipulation!important;
+  transform:translateZ(0);
+  contain:layout paint;
+}
+
+#mkMap:not(.mk-mobile-ui) .mk__search{
+  left:18px!important;
+  right:auto!important;
+  bottom:18px!important;
+}
+
+#mkMap.mk-mobile-ui .mk__search{
+  left:10px!important;
+  right:10px!important;
+  bottom:calc(10px + env(safe-area-inset-bottom,0px))!important;
+}
+
+/* The FX group itself can never steal clicks. */
+#mkMap .mk__search-fx,
+#mkMap .mk__search-fx *{
+  pointer-events:none!important;
+}
+
+/* Keep a subtle static fallback under the animated overlay. */
+#mkMap .mk__plots polygon.is-search-focus{
+  fill:rgba(66,184,236,.10)!important;
+  stroke:rgba(255,255,255,.92)!important;
+  stroke-width:1.55!important;
+}
+
+#mkMap .mk__label-group.is-search-focus{
+  opacity:1!important;
+  transform:scale(1.10)!important;
+}
+
+#mkMap .mk__label-group.is-search-focus .mk__label-bg{
+  fill:#fff!important;
+  stroke:#42b8ec!important;
+  stroke-width:1.15px!important;
+}
+
+#mkMap .mk__label-group.is-search-focus .mk__label{
+  fill:#17475b!important;
+}
+
+
+/* =========================================================
+   SEARCH UI OVERLAY — ALWAYS LEFT/BOTTOM OF MAP VIEWPORT
+   ========================================================= */
+
+#mkMap .mk__viewport{
+  position:relative!important;
+}
+
+#mkMap .mk__ui-overlay{
+  position:absolute!important;
+  inset:0!important;
+  z-index:70!important;
+  pointer-events:none!important;
+  overflow:hidden!important;
+}
+
+/* Search itself remains interactive */
+#mkMap .mk__ui-overlay .mk__search{
+  position:absolute!important;
+  left:16px!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:16px!important;
+  z-index:2!important;
+  pointer-events:auto!important;
+  transform:none!important;
+  margin:0!important;
+}
+
+/* Mobile safe area */
+#mkMap.mk-mobile-ui .mk__ui-overlay .mk__search{
+  left:10px!important;
+  right:10px!important;
+  width:auto!important;
+  bottom:calc(10px + env(safe-area-inset-bottom,0px))!important;
+}
+
+/* Fullscreen: still bottom-left inside fullscreen map */
+#mkMap.is-fullscreen .mk__ui-overlay .mk__search{
+  bottom:calc(12px + env(safe-area-inset-bottom,0px))!important;
+}
+
+/* Prevent any older layout rule from moving the search panel */
+#mkMap .mk__search{
+  translate:none!important;
+  transform:none!important;
+}
+
+
+/* =========================================================
+   V4.7 — FIXED SEARCH UI + UNIFIED CAMERA
+   ========================================================= */
+
+#mkMap .mk__viewport{
+  position:relative!important;
+  isolation:isolate;
+}
+
+/* UI layer is independent from SVG movement */
+#mkMap .mk__ui-overlay{
+  position:absolute!important;
+  inset:0!important;
+  z-index:120!important;
+  pointer-events:none!important;
+  overflow:visible!important;
+}
+
+/* Search is ALWAYS attached to map viewport bottom-left */
+#mkMap .mk__ui-overlay .mk__search{
+  position:absolute!important;
+  left:16px!important;
+  bottom:16px!important;
+  right:auto!important;
+  top:auto!important;
+  margin:0!important;
+  transform:none!important;
+  translate:none!important;
+  z-index:121!important;
+  pointer-events:auto!important;
+}
+
+/* Desktop exact position */
+@media (min-width:741px){
+  #mkMap .mk__ui-overlay .mk__search{
+    left:18px!important;
+    bottom:18px!important;
+    right:auto!important;
+    top:auto!important;
+    width:min(420px,calc(100% - 36px))!important;
+  }
+}
+
+/* Mobile retains its safe-area logic */
+#mkMap.mk-mobile-ui .mk__ui-overlay .mk__search{
+  left:10px!important;
+  right:10px!important;
+  bottom:calc(10px + env(safe-area-inset-bottom,0px))!important;
+  width:auto!important;
+}
+
+/* Fullscreen remains anchored to map, not browser content */
+#mkMap.is-fullscreen .mk__ui-overlay .mk__search{
+  left:18px!important;
+  bottom:calc(18px + env(safe-area-inset-bottom,0px))!important;
+}
+#mkMap.mk-mobile-ui.is-fullscreen .mk__ui-overlay .mk__search{
+  left:10px!important;
+  right:10px!important;
+  bottom:calc(10px + env(safe-area-inset-bottom,0px))!important;
+}
+
+/* Override any legacy positioning */
+#mkMap .mk__search{
+  translate:none!important;
+  transform:none!important;
+}
+
+
+/* =========================================================
+   V4.9 — SEARCH UI INSIDE MAP VIEWPORT
+   ========================================================= */
+#mkMap .mk__viewport{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate;
+}
+#mkMap .mk__ui-overlay{
+  position:absolute!important;
+  inset:0!important;
+  z-index:90!important;
+  pointer-events:none!important;
+  overflow:hidden!important;
+}
+#mkMap .mk__ui-overlay .mk__search{
+  position:absolute!important;
+  left:18px!important;
+  bottom:18px!important;
+  right:auto!important;
+  top:auto!important;
+  width:300px!important;
+  max-width:calc(100% - 36px)!important;
+  margin:0!important;
+  translate:none!important;
+  transform:none!important;
+  z-index:92!important;
+  pointer-events:auto!important;
+}
+
+/* Compact search preview, not the full modal */
+#mkMap .mk__search-preview{
+  position:absolute;
+  left:18px;
+  bottom:78px;
+  z-index:91;
+  display:none;
+  width:300px;
+  max-width:calc(100% - 36px);
+  padding:14px 15px 13px;
+  border:1px solid rgba(255,255,255,.82);
+  border-radius:18px;
+  background:rgba(255,252,247,.97);
+  box-shadow:0 14px 38px rgba(20,31,23,.20);
+  color:#202326;
+  pointer-events:none;
+}
+#mkMap .mk__search-preview.is-open{display:block}
+#mkMap .mk__preview-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:9px;
+}
+#mkMap .mk__preview-status{
+  display:inline-flex;
+  padding:5px 8px;
+  border-radius:999px;
+  background:#eaf5eb;
+  color:#00853f;
+  font-size:10px;
+  font-weight:800;
+}
+#mkMap .mk__preview-title{
+  font-size:18px;
+  font-weight:800;
+  line-height:1;
+  letter-spacing:-.035em;
+}
+#mkMap .mk__preview-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px 10px;
+  padding-top:9px;
+  border-top:1px solid rgba(32,35,38,.08);
+  font-size:11px;
+}
+#mkMap .mk__preview-grid span{color:#7b817d}
+#mkMap .mk__preview-grid b{text-align:right;white-space:nowrap}
+#mkMap .mk__preview-hint{
+  margin:9px 0 0;
+  color:#00853f;
+  font-size:10px;
+  font-weight:750;
+}
+
+/* Mobile keeps current approved placement */
+#mkMap.mk-mobile-ui .mk__ui-overlay .mk__search{
+  left:10px!important;
+  right:10px!important;
+  bottom:calc(10px + env(safe-area-inset-bottom,0px))!important;
+  width:auto!important;
+  max-width:none!important;
+}
+#mkMap.mk-mobile-ui .mk__search-preview{
+  left:10px;
+  right:10px;
+  bottom:calc(68px + env(safe-area-inset-bottom,0px));
+  width:auto;
+  max-width:none;
+}
+#mkMap.is-fullscreen .mk__ui-overlay .mk__search{
+  bottom:calc(18px + env(safe-area-inset-bottom,0px))!important;
+}
+#mkMap.mk-mobile-ui.is-fullscreen .mk__ui-overlay .mk__search{
+  bottom:calc(10px + env(safe-area-inset-bottom,0px))!important;
+}
+
+
+/* =========================================================
+   V4.10.1 — MOBILE COMPACT SEARCH PREVIEW
+   ========================================================= */
+
+/* Desktop preview remains exactly as before. */
+#mkMap .mk__preview-mobile-line{
+  display:none;
+}
+
+/* Phone: compact map-style preview, not a mini modal */
+#mkMap.mk-mobile-ui .mk__search-preview{
+  left:10px!important;
+  right:10px!important;
+  bottom:calc(68px + env(safe-area-inset-bottom,0px))!important;
+
+  width:auto!important;
+  max-width:none!important;
+  min-height:0!important;
+  max-height:none!important;
+
+  padding:8px 11px 8px!important;
+  border-radius:14px!important;
+
+  background:rgba(255,252,247,.96)!important;
+  box-shadow:0 8px 24px rgba(20,31,23,.16)!important;
+}
+
+/* First row: status + plot number */
+#mkMap.mk-mobile-ui .mk__search-preview .mk__preview-top{
+  justify-content:flex-start!important;
+  gap:7px!important;
+  margin:0 0 4px!important;
+  min-height:20px!important;
+}
+
+#mkMap.mk-mobile-ui .mk__search-preview .mk__preview-status{
+  flex:0 0 auto;
+  padding:3px 6px!important;
+  border-radius:999px!important;
+  font-size:8.5px!important;
+  line-height:1.1!important;
+}
+
+#mkMap.mk-mobile-ui .mk__search-preview .mk__preview-title{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+
+  font-size:14.5px!important;
+  line-height:1.05!important;
+  letter-spacing:-.025em!important;
+}
+
+/* Mobile gets only one concise data line. */
+#mkMap.mk-mobile-ui .mk__search-preview .mk__preview-mobile-line{
+  display:flex!important;
+  align-items:center;
+  gap:6px;
+  min-width:0;
+
+  color:#626963;
+  font-size:10.5px;
+  line-height:1.15;
+  white-space:nowrap;
+  overflow:hidden;
+}
+
+#mkMap.mk-mobile-ui .mk__search-preview .mk__preview-mobile-line b{
+  color:#252b27;
+  font-weight:800;
+}
+
+#mkMap.mk-mobile-ui .mk__search-preview .mk__preview-mobile-dot{
+  flex:0 0 auto;
+  opacity:.45;
+}
+
+/* Full desktop-style rows are unnecessary in a phone preview. */
+#mkMap.mk-mobile-ui .mk__search-preview .mk__preview-grid,
+#mkMap.mk-mobile-ui .mk__search-preview .mk__preview-hint{
+  display:none!important;
+}
+
+/* Very narrow phones */
+@media(max-width:360px){
+  #mkMap.mk-mobile-ui .mk__search-preview{
+    padding:7px 9px!important;
+  }
+  #mkMap.mk-mobile-ui .mk__search-preview .mk__preview-title{
+    font-size:13.5px!important;
+  }
+  #mkMap.mk-mobile-ui .mk__search-preview .mk__preview-mobile-line{
+    font-size:9.8px!important;
+    gap:5px;
+  }
+}
+
+
+/* =========================================================
+   V4.10.2 — MOBILE RICH COMPACT PREVIEW
+   ========================================================= */
+
+/* Desktop uses the original preview. */
+#mkMap .mk__preview-mobile-rich{
+  display:none;
+}
+
+/* Mobile card stays compact and floats above search */
+#mkMap.mk-mobile-ui .mk__search-preview{
+  left:10px!important;
+  right:10px!important;
+  bottom:calc(68px + env(safe-area-inset-bottom,0px))!important;
+
+  width:auto!important;
+  max-width:none!important;
+  min-height:0!important;
+  max-height:none!important;
+
+  padding:9px 11px 10px!important;
+  border-radius:15px!important;
+  border:1px solid rgba(255,255,255,.82)!important;
+
+  background:rgba(255,252,247,.965)!important;
+  box-shadow:0 10px 28px rgba(20,31,23,.17)!important;
+  backdrop-filter:blur(7px);
+}
+
+/* Header remains one compact row */
+#mkMap.mk-mobile-ui .mk__search-preview .mk__preview-top{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:7px!important;
+  min-height:20px!important;
+  margin:0 0 7px!important;
+}
+
+#mkMap.mk-mobile-ui .mk__search-preview .mk__preview-status{
+  flex:0 0 auto!important;
+  padding:3px 6px!important;
+  border-radius:999px!important;
+  font-size:8.5px!important;
+  line-height:1.1!important;
+}
+
+#mkMap.mk-mobile-ui .mk__search-preview .mk__preview-title{
+  min-width:0!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+
+  font-size:15px!important;
+  line-height:1.05!important;
+  letter-spacing:-.025em!important;
+}
+
+/* Two dense rows with four useful values */
+#mkMap.mk-mobile-ui .mk__preview-mobile-rich{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:5px 8px!important;
+
+  padding-top:7px!important;
+  border-top:1px solid rgba(32,35,38,.075)!important;
+}
+
+#mkMap.mk-mobile-ui .mk__preview-mobile-item{
+  min-width:0!important;
+  display:flex!important;
+  align-items:baseline!important;
+  justify-content:space-between!important;
+  gap:5px!important;
+
+  padding:0!important;
+  font-size:9.5px!important;
+  line-height:1.15!important;
+}
+
+#mkMap.mk-mobile-ui .mk__preview-mobile-item span{
+  min-width:0!important;
+  color:#7b817d!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+
+#mkMap.mk-mobile-ui .mk__preview-mobile-item b{
+  flex:0 0 auto!important;
+  color:#252b27!important;
+  font-weight:800!important;
+  white-space:nowrap!important;
+}
+
+/* Old ultra-compact line and desktop content are hidden on phone */
+#mkMap.mk-mobile-ui .mk__preview-mobile-line,
+#mkMap.mk-mobile-ui .mk__preview-grid,
+#mkMap.mk-mobile-ui .mk__preview-hint{
+  display:none!important;
+}
+
+/* Narrow iPhones: abbreviate visually without changing data */
+@media(max-width:360px){
+  #mkMap.mk-mobile-ui .mk__search-preview{
+    padding:8px 9px 9px!important;
+  }
+  #mkMap.mk-mobile-ui .mk__search-preview .mk__preview-title{
+    font-size:14px!important;
+  }
+  #mkMap.mk-mobile-ui .mk__preview-mobile-rich{
+    gap:4px 6px!important;
+  }
+  #mkMap.mk-mobile-ui .mk__preview-mobile-item{
+    font-size:8.9px!important;
+  }
+}
+
+
+/* V4.10.3 — mobile preview values only */
+#mkMap.mk-mobile-ui .mk__preview-mobile-total span,
+#mkMap.mk-mobile-ui .mk__preview-mobile-total b{
+  color:#00853f!important;
+}
+
+
+#mkMap .mk__label-group{
+  pointer-events:none;
+  transform-box:fill-box;
+  transform-origin:center;
+  transition:
+    transform .26s cubic-bezier(.16,1,.3,1),
+    opacity .22s ease,
+    filter .28s cubic-bezier(.16,1,.3,1);
+  will-change:transform;
+}
+#mkMap .mk__label-group.is-hover{
+  transform:scale(1.42);
+  filter:drop-shadow(0 3px 7px rgba(17,37,47,.25));
+}
+#mkMap .mk__label-group.is-hover .mk__label-bg{
+  fill:rgba(255,255,255,.98);
+  stroke:rgba(66,184,236,.96);
+  filter:
+    drop-shadow(0 0 2px rgba(255,255,255,.92))
+    drop-shadow(0 2px 5px rgba(66,184,236,.34));
+}
+#mkMap .mk__label-group.is-hover .mk__label{
+  fill:#123d51;
+  stroke:#fff;
+}
+#mkMap .mk__label-group.is-selected{
+  transform:scale(1.32);
+  filter:drop-shadow(0 3px 7px rgba(0,72,36,.22));
+}
+#mkMap .mk__label-group.is-selected .mk__label-bg{
+  fill:rgba(245,255,249,.98);
+  stroke:#00853f;
+}
+#mkMap .mk__label-group.is-selected .mk__label{
+  fill:#006b34;
+  stroke:#fff;
+}
+
+/* На устройствах без hover ничего само по себе не масштабируется */
+@media (hover:none){
+  #mkMap .mk__label-group.is-hover{
+    transform:none;
+    filter:none;
+  }
+}
