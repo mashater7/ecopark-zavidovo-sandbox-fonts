@@ -287,6 +287,14 @@ body.mo,body.lbo{overflow:hidden}
 .plan-fig--live .mk__lead-btn:hover{background:#0a8a49;border-color:#0a8a49}
 .plan-fig--live .mk__modal-close{border:1px solid #e7e4df;background:#fff;color:#1d2723}
 .plan-fig--live .mk__backdrop{background:rgba(10,22,17,.55)}
+
+/* тёмная плашка со стоимостью — в палитру сайта */
+.plan-fig--live .mk__land{background:#f7f6f4!important;border:1px solid #e7e4df;color:#1d2723;padding:18px 22px}
+.plan-fig--live .mk__land span{color:#8b918e;font:400 10.5px/1 'Montserrat',sans-serif;letter-spacing:.18em;text-transform:uppercase}
+.plan-fig--live .mk__land strong{color:#1d2723;font:400 clamp(22px,2.2vw,30px)/1.1 'Poiret One',sans-serif;display:block;margin-top:8px}
+.plan-fig--live .mk__status{background:#eef3ef;border:1px solid #dfe8e2;color:#09763f;
+  font:400 10.5px/1 'Montserrat',sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:8px 12px;display:inline-block}
+.plan-fig--live #mkTitle{font-family:'Poiret One',sans-serif;font-weight:400}
 .plan-fig--live .mk__hint,
 .plan-fig--live .mk__overview-hint,
 .plan-fig--live .mk__status{font:300 12px/1.5 'Montserrat',sans-serif;color:#626a67}
@@ -304,8 +312,7 @@ body.mo,body.lbo{overflow:hidden}
   function lbOpen(e){ if(e) e.preventDefault(); lb.classList.add('open');
     document.body.classList.add('lbo'); cl.focus(); }
   function lbShut(){ lb.classList.remove('open'); document.body.classList.remove('lbo'); }
-  if(fig){ fig.addEventListener('click',lbOpen);
-    fig.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' ') lbOpen(e); }); }
+  /* клик по схеме не перехватываем: внутри интерактивная карта */
   if(pb) pb.addEventListener('click',lbOpen);
   if(cl) cl.addEventListener('click',lbShut);
   if(lb) lb.addEventListener('click',function(e){ if(e.target===lb) lbShut(); });
