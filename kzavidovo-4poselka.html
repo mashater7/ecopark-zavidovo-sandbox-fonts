@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Коллекция Завидово — четыре посёлка · 3 варианта</title>
+
+<!-- ============================================================================ -->
+<!--  ТЕСТОВАЯ СТРАНИЦА: как четвёртый посёлок Marina Zavidovo Village             -->
+<!--  вписывается в существующий сплит-экран «Коллекция Завидово».                 -->
+<!--  Три рабочих варианта, контент одинаковый, разная композиция.                 -->
+<!--  Файл самодостаточный: открывается двойным кликом, ничего не подключать.      -->
+<!--                                                                              -->
+<!--  ЧТО ПЕРЕЕДЕТ В TILDA: блок <style id="cs-core"> + разметка выбранного        -->
+<!--  варианта (<div class="colsplit" id="...">) + блок <script id="cs-js">.       -->
+<!--  Переключатель вариантов и служебные стили (id="testpage-only") —             -->
+<!--  ТОЛЬКО для этой страницы, в Tilda их не переносим.                           -->
+<!-- ============================================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+
+<!-- ▼▼▼ СЛУЖЕБНОЕ — В TILDA НЕ ПЕРЕНОСИТЬ ▼▼▼ -->
+<style id="testpage-only">
+  body{margin:0;background:#0b1712}
+  #vswitch{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+    padding:10px 16px;background:#0b1712;border-bottom:1px solid rgba(255,255,255,.12);
+    font-family:'Poiret One','Century Gothic',sans-serif;color:#fff}
+  #vswitch .vs-lab{font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.55;margin-right:4px}
+  #vswitch button{font-family:inherit;font-size:14px;letter-spacing:.1em;color:#fff;cursor:pointer;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);border-radius:40px;
+    padding:9px 20px;min-height:44px;transition:background .2s,border-color .2s}
+  #vswitch button:hover{background:rgba(255,255,255,.14)}
+  #vswitch button[aria-pressed="true"]{background:linear-gradient(100deg,#1bad03,#15a06a 45%,#007fe2);border-color:transparent}
+  #vswitch button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+  #vswitch .vs-note{flex:1 1 260px;min-width:200px;font-size:13px;line-height:1.4;opacity:.8}
+  #vswitch .vs-note b{font-weight:400;opacity:1;letter-spacing:.06em}
+  .vsec[hidden]{display:none}
+  /* только для этой страницы: вычитаем высоту панели переключения,
+     чтобы блок целиком помещался в экран. В Tilda у блока честные 100vh. */
+  @media (min-width:861px){
+    .vsec .colsplit .cs-split{height:calc(100vh - var(--vsw,65px))}
+  }
+</style>
+<!-- ▲▲▲ КОНЕЦ СЛУЖЕБНОГО ▲▲▲ -->
+
+
+<!-- ============================================================================ -->
+<!--  ЯДРО БЛОКА. Всё под .colsplit — глобальных селекторов и правок body нет,     -->
+<!--  соседние блоки Tilda не заденет.                                            -->
+<!-- ============================================================================ -->
+<style id="cs-core">
+.colsplit{
+  --green:#1bad03;--blue:#007fe2;--brown:#bb916b;
+  --grad:linear-gradient(100deg,var(--green),#15a06a 45%,var(--blue));
+  --font:'Poiret One','Century Gothic',sans-serif;
+  position:relative;width:100%;color:#fff;background:#0f231b;overflow:hidden;
+  font-family:var(--font);-webkit-font-smoothing:antialiased;line-height:1.5;
+}
+.colsplit *{box-sizing:border-box;margin:0;padding:0;font-family:var(--font)}
+
+/* плавающая шапка поверх панелей */
+.colsplit .cs-head{position:absolute;z-index:5;top:0;left:0;right:0;text-align:center;padding:26px 24px;
+  pointer-events:none;background:linear-gradient(180deg,rgba(10,25,18,.55),transparent)}
+.colsplit .cs-diamond{width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.5));margin:0 auto 6px;display:block}
+.colsplit .cs-brand{font-size:clamp(20px,3.4vw,38px);letter-spacing:.24em;text-transform:uppercase;font-weight:400;
+  text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.colsplit .cs-tagline{margin-top:6px;font-size:clamp(11px,1.4vw,15px);letter-spacing:.2em;text-transform:uppercase;opacity:.92}
+
+/* ——— сплит ——— */
+.colsplit .cs-split{display:flex;height:100vh;min-height:560px}
+.colsplit .cs-panel{position:relative;flex:1;overflow:hidden;cursor:pointer;text-decoration:none;color:#fff;
+  transition:flex .55s cubic-bezier(.7,0,.2,1)}
+/* бесшовные стыки: без рамок, панели перекрываются на 1px чтобы не светилась тёмная подложка */
+.colsplit .cs-panel + .cs-panel{margin-left:-1px}
+.colsplit .cs-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transition:transform .8s ease,filter .55s ease;filter:saturate(1.02)}
+.colsplit .cs-panel::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,25,18,0) 58%,rgba(10,25,18,.5) 100%)}
+.colsplit .cs-in{position:absolute;z-index:2;inset:auto 0 0 0;padding:0 26px 46px;text-align:center;
+  transform-origin:bottom center;transition:transform .55s cubic-bezier(.7,0,.2,1),opacity .4s ease}
+.colsplit .cs-badge{width:62px;height:62px;border-radius:50%;margin:0 auto 14px;
+  background:rgba(255,255,255,.92);display:grid;place-items:center;box-shadow:0 8px 20px -8px rgba(0,0,0,.6)}
+.colsplit .cs-badge img{width:38px;height:38px;object-fit:contain;position:static;filter:none}
+.colsplit .cs-kicker{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#ffe;opacity:.85}
+.colsplit .cs-name{font-size:clamp(26px,3vw,40px);letter-spacing:.14em;text-transform:uppercase;font-weight:400;
+  text-shadow:0 2px 16px rgba(0,0,0,.55);margin-top:2px}
+.colsplit .cs-reveal{max-height:0;opacity:0;overflow:hidden;transition:max-height .55s ease,opacity .45s ease}
+.colsplit .cs-desc{margin:14px auto 0;max-width:340px;font-size:15.5px;line-height:1.55;opacity:.95}
+.colsplit .cs-btn{margin-top:18px;display:inline-flex;align-items:center;gap:10px;font-family:var(--font);
+  font-size:14px;letter-spacing:.16em;text-transform:uppercase;padding:12px 26px;border-radius:40px;
+  color:#fff;background:var(--grad);text-decoration:none;transition:gap .25s,filter .25s}
+.colsplit .cs-panel:focus-visible{outline:2px solid #fff;outline-offset:-6px}
+
+/* ——— MARINA: имя в две строки (лок-ап) ——— */
+/* Крупная строка держит тот же кегль, что у соседей, вторая строка — подпись
+   с широким трекингом. Панель по массе выходит не тише, а чуть заметнее. */
+.colsplit .cs-name--lock{line-height:1.04}
+.colsplit .cs-lock1{display:block}
+.colsplit .cs-lock2{display:block;margin-top:.34em;font-size:.46em;letter-spacing:.26em;white-space:nowrap;opacity:.96}
+
+/* ——— MARINA: монограмма вместо логотипа (логотипа посёлка пока нет) ——— */
+.colsplit .cs-mono{display:block;font-size:30px;line-height:1;color:#12291f;
+  letter-spacing:.08em;text-indent:.08em;transform:translateY(1px)}
+.colsplit .cs-soon__logo .cs-mono{font-size:36px}
+/* временная подложка панели Marina, пока фото едет на GitHub Pages */
+.colsplit .cs-panel[data-soon="marina"]{background:linear-gradient(165deg,#2b2e2b,#14201a 70%)}
+
+/* раскрытие на десктопе (hover) */
+@media (hover:hover) and (min-width:861px){
+  .colsplit .cs-split:not(.cs-grid2):hover .cs-panel{flex:.72}
+  .colsplit .cs-split:not(.cs-grid2) .cs-panel:hover{flex:2.1}
+  .colsplit .cs-panel:hover img{transform:scale(1.06);filter:saturate(1.08) brightness(1.04)}
+  .colsplit .cs-panel:hover .cs-reveal,
+  .colsplit .cs-panel:focus-within .cs-reveal{max-height:260px;opacity:1}
+}
+
+/* ——— мобайл: панели в столбик, всё видно ——— */
+@media (max-width:860px){
+  .colsplit .cs-head{position:relative;background:#10231b}
+  .colsplit .cs-split{flex-direction:column;height:auto}
+  .colsplit .cs-panel{flex:none;height:62vh;min-height:380px;border-left:0;border-top:0}
+  .colsplit .cs-panel + .cs-panel{margin-left:0;margin-top:-1px}
+  .colsplit .cs-in{padding-bottom:36px}
+  .colsplit .cs-reveal{max-height:280px;opacity:1}
+}
+
+/* ——— оверлей «сайт в разработке» ——— */
+.colsplit .cs-soon{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;
+  padding:28px;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility .4s}
+.colsplit .cs-soon.on{opacity:1;visibility:visible}
+.colsplit .cs-soon__bg{position:absolute;inset:0;background-size:cover;background-position:center;
+  background-color:#12201c;filter:saturate(.8) brightness(.4)}
+.colsplit .cs-soon__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(8,20,30,.78),rgba(10,40,55,.86))}
+.colsplit .cs-soon__card{position:relative;z-index:2;max-width:540px;width:100%;text-align:center;
+  background:rgba(16,35,45,.55);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.16);
+  border-radius:26px;padding:54px 40px 46px;box-shadow:0 40px 90px -30px rgba(0,0,0,.7)}
+.colsplit .cs-soon__logo{width:74px;height:74px;border-radius:50%;margin:0 auto 22px;background:rgba(255,255,255,.94);
+  display:grid;place-items:center;box-shadow:0 10px 26px -10px rgba(0,0,0,.6)}
+.colsplit .cs-soon__logo img{width:44px;height:44px;object-fit:contain}
+.colsplit .cs-soon__kick{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:#bfe0ff;opacity:.9}
+.colsplit .cs-soon__name{font-size:clamp(21px,5.4vw,44px);letter-spacing:.1em;text-transform:uppercase;font-weight:400;margin:6px 0 18px;line-height:1.1;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.colsplit .cs-soon__dev{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+  padding:9px 18px;border-radius:40px;margin-bottom:20px}
+.colsplit .cs-soon__dev .dot{width:8px;height:8px;border-radius:50%;background:#ffd34d;box-shadow:0 0 0 0 rgba(255,211,77,.7);animation:cs-pulse 1.8s infinite}
+@keyframes cs-pulse{0%{box-shadow:0 0 0 0 rgba(255,211,77,.6)}70%{box-shadow:0 0 0 12px rgba(255,211,77,0)}100%{box-shadow:0 0 0 0 rgba(255,211,77,0)}}
+.colsplit .cs-soon__txt{font-size:16px;line-height:1.6;color:rgba(255,255,255,.9);max-width:400px;margin:0 auto 28px}
+.colsplit .cs-soon__back{display:inline-flex;align-items:center;gap:10px;font-family:var(--font);cursor:pointer;
+  font-size:14px;letter-spacing:.16em;text-transform:uppercase;padding:13px 30px;border-radius:40px;
+  color:#fff;background:var(--grad);border:0;text-decoration:none;transition:gap .25s,filter .25s}
+.colsplit .cs-soon__back:hover{gap:16px;filter:brightness(1.08)}
+.colsplit .cs-soon__close{position:absolute;top:16px;right:18px;z-index:3;width:44px;height:44px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font-size:22px;line-height:1;cursor:pointer}
+.colsplit .cs-soon__close:hover{background:rgba(255,255,255,.18)}
+.colsplit .cs-soon__close:focus-visible,.colsplit .cs-soon__back:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@media(max-width:560px){.colsplit .cs-soon__card{padding:40px 22px 34px}.colsplit .cs-soon__name{letter-spacing:.04em}}
+
+
+/* ============================================================================ */
+/*  ВАРИАНТ 1 и 3 — полоса из ЧЕТЫРЁХ панелей.                                  */
+/*  На 1440 это ≈360px на панель, поэтому подтянуты кегли, трекинг и паддинги,   */
+/*  а неактивные панели при наведении на соседа мягко ужимаются (transform),     */
+/*  чтобы длинные имена («АКВАТОРИЯ») не упирались в края.                       */
+/* ============================================================================ */
+/* только на десктопе: на мобилке панели идут в столбик во всю ширину,
+   там кегли не жмём — работает базовая шкала. */
+@media (min-width:861px){
+  .colsplit .cs-4 .cs-in{padding:0 18px 44px}
+  .colsplit .cs-4 .cs-name{font-size:clamp(20px,2.2vw,34px);letter-spacing:.12em}
+  .colsplit .cs-4 .cs-kicker{font-size:clamp(9.5px,.74vw,11px);letter-spacing:.24em}
+  .colsplit .cs-4 .cs-badge{width:56px;height:56px;margin-bottom:12px}
+  .colsplit .cs-4 .cs-badge img{width:34px;height:34px}
+  .colsplit .cs-4 .cs-mono{font-size:27px}
+  .colsplit .cs-4 .cs-desc{max-width:320px;font-size:15px}
+}
+@media (hover:hover) and (min-width:861px){
+  .colsplit .cs-4:hover .cs-in{transform:scale(.9);opacity:.86}
+  .colsplit .cs-4 .cs-panel:hover .cs-in{transform:none;opacity:1}
+}
+@media (min-width:861px) and (max-width:1100px){
+  .colsplit .cs-4 .cs-in{padding:0 12px 38px}
+  .colsplit .cs-4 .cs-name{font-size:clamp(17px,2.05vw,24px);letter-spacing:.08em}
+  .colsplit .cs-4 .cs-lock2{font-size:.58em;letter-spacing:.14em}
+  .colsplit .cs-4 .cs-badge{width:48px;height:48px;margin-bottom:10px}
+  .colsplit .cs-4 .cs-badge img{width:29px;height:29px}
+  .colsplit .cs-4 .cs-mono{font-size:23px}
+}
+
+/* ——— ВАРИАНТ 3: Marina чуть шире + тихая плашка «новый посёлок» ——— */
+@media (min-width:861px){
+  #colsplit-v3 .cs-panel{flex:1}
+  #colsplit-v3 .cs-panel[data-soon="marina"]{flex:1.34}
+  #colsplit-v3 .cs-split:hover .cs-panel[data-soon="marina"]{flex:.95}
+  #colsplit-v3 .cs-split .cs-panel[data-soon="marina"]:hover{flex:2.2}
+}
+.colsplit .cs-new{display:inline-flex;align-items:center;gap:8px;margin:0 auto 12px;
+  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.86);
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);
+  padding:6px 14px;border-radius:40px;backdrop-filter:blur(4px)}
+.colsplit .cs-new i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.75);font-style:normal}
+
+/* ============================================================================ */
+/*  ВАРИАНТ 2 — сетка 2×2 во весь экран.                                        */
+/*  Два ряда по две панели. При наведении растёт активная панель ВМЕСТЕ          */
+/*  со своим рядом — та же логика «увеличивается активная», только по двум осям. */
+/* ============================================================================ */
+.colsplit .cs-grid2{flex-direction:column;height:100vh}
+.colsplit .cs-grid2 .cs-row{display:flex;flex:1;min-height:0;transition:flex .55s cubic-bezier(.7,0,.2,1)}
+.colsplit .cs-grid2 .cs-row + .cs-row{margin-top:-1px}
+@media (hover:hover) and (min-width:861px){
+  .colsplit .cs-grid2:hover .cs-row{flex:.84}
+  .colsplit .cs-grid2 .cs-row:hover{flex:1.3}
+  .colsplit .cs-grid2 .cs-row:hover .cs-panel{flex:.8}
+  .colsplit .cs-grid2 .cs-row .cs-panel:hover{flex:1.45}
+}
+@media (min-width:861px){
+  #colsplit-v2 .cs-name{font-size:clamp(26px,2.6vw,42px)}
+  #colsplit-v2 .cs-in{padding:0 30px 52px}
+}
+@media (max-width:860px){
+  .colsplit .cs-grid2{height:auto}
+  .colsplit .cs-grid2 .cs-row{flex-direction:column;flex:none}
+  .colsplit .cs-grid2 .cs-row + .cs-row{margin-top:-1px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .colsplit .cs-panel,.colsplit .cs-in,.colsplit .cs-grid2 .cs-row{transition:none}
+  .colsplit .cs-panel img{transition:none}
+  .colsplit .cs-soon__dev .dot{animation:none}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ▼▼▼ СЛУЖЕБНЫЙ ПЕРЕКЛЮЧАТЕЛЬ — В TILDA НЕ ПЕРЕНОСИТЬ ▼▼▼ -->
+<div id="vswitch">
+  <span class="vs-lab">Вариант</span>
+  <button type="button" data-v="1" aria-pressed="true">Равные четыре</button>
+  <button type="button" data-v="2" aria-pressed="false">Сетка 2×2</button>
+  <button type="button" data-v="3" aria-pressed="false">Три + новинка</button>
+  <span class="vs-note" id="vs-note"></span>
+</div>
+<!-- ▲▲▲ КОНЕЦ ПЕРЕКЛЮЧАТЕЛЯ ▲▲▲ -->
+
+
+<!-- ==========================================================================
+     ВАРИАНТ 1 — «РАВНЫЕ ЧЕТЫРЕ»
+     Та же полоса, что на сайте, просто четвёртая равная панель.
+     Фото Marina: кадр A (общий вид дома с ландшафтом).
+     ========================================================================== -->
+<section class="vsec" id="vsec-1">
+<div class="colsplit" id="colsplit-v1">
+
+  <header class="cs-head">
+    <img class="cs-diamond" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+    <div class="cs-brand">Коллекция Завидово</div>
+    <div class="cs-tagline">четыре посёлка — один курорт</div>
+  </header>
+
+  <main class="cs-split cs-4">
+
+    <a class="cs-panel" data-go="les" href="#">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg" alt="">
+      <div class="cs-in">
+        <span class="cs-badge"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-lesnoy.png" alt=""></span>
+        <div class="cs-kicker">экопарк</div>
+        <div class="cs-name">Лесной</div>
+        <div class="cs-reveal">
+          <p class="cs-desc">Уединённые коттеджи в сосновом бору. Тишина и природа в шаге от дома.</p>
+          <span class="cs-btn">Выбрать →</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="cs-panel" data-go="zav" href="#">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="">
+      <div class="cs-in">
+        <span class="cs-badge"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-zavidovo.png" alt=""></span>
+        <div class="cs-kicker">экопарк · флагман</div>
+        <div class="cs-name">Завидово</div>
+        <div class="cs-reveal">
+          <p class="cs-desc">Сердце курорта: гольф, спа, рестораны и вся инфраструктура.</p>
+          <span class="cs-btn">Выбрать →</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="cs-panel" data-go="akva" data-soon="akva" href="#" aria-haspopup="dialog">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="">
+      <div class="cs-in">
+        <span class="cs-badge"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt=""></span>
+        <div class="cs-kicker">акватория</div>
+        <div class="cs-name">Акватория</div>
+        <div class="cs-reveal">
+          <p class="cs-desc">Жизнь у воды: дома на берегу, собственный пляж, причал и бассейны.</p>
+          <span class="cs-btn">Скоро →</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- ЧЕТВЁРТАЯ ПАНЕЛЬ — MARINA ZAVIDOVO VILLAGE -->
+    <a class="cs-panel" data-go="marina" data-soon="marina" href="#" aria-haspopup="dialog">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-a.jpg" alt="">
+      <div class="cs-in">
+        <span class="cs-badge"><span class="cs-mono" aria-hidden="true">M</span></span>
+        <div class="cs-kicker">завидово</div>
+        <div class="cs-name cs-name--lock">
+          <span class="cs-lock1">Marina</span>
+          <span class="cs-lock2">Zavidovo Village</span>
+        </div>
+        <div class="cs-reveal">
+          <!-- текст на подтверждение клиента -->
+          <p class="cs-desc">Современные резиденции в камне и дереве — авторская архитектура каждого дома.</p>
+          <span class="cs-btn">Скоро →</span>
+        </div>
+      </div>
+    </a>
+
+  </main>
+
+  <!-- оверлей «сайт в разработке» — Акватория -->
+  <div class="cs-soon" data-soon-target="akva" role="dialog" aria-modal="true" aria-label="Акватория Завидово — сайт в разработке">
+    <div class="cs-soon__bg" style="background-image:url('https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg')"></div>
+    <button class="cs-soon__close" type="button" aria-label="Закрыть">&times;</button>
+    <div class="cs-soon__card">
+      <div class="cs-soon__logo"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt=""></div>
+      <div class="cs-soon__kick">акватория</div>
+      <div class="cs-soon__name">Акватория Завидово</div>
+      <div class="cs-soon__dev"><span class="dot"></span>сайт в разработке</div>
+      <p class="cs-soon__txt">Готовим отдельный сайт посёлка у воды: дома на берегу, собственный пляж,
+        причал и бассейны. Совсем скоро здесь будет на что посмотреть.</p>
+      <button class="cs-soon__back" type="button">← Вернуться к коллекции</button>
+    </div>
+  </div>
+
+  <!-- оверлей «сайт в разработке» — Marina -->
+  <div class="cs-soon" data-soon-target="marina" role="dialog" aria-modal="true" aria-label="Marina Zavidovo Village — сайт в разработке">
+    <div class="cs-soon__bg" style="background-image:url('https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-a.jpg')"></div>
+    <button class="cs-soon__close" type="button" aria-label="Закрыть">&times;</button>
+    <div class="cs-soon__card">
+      <div class="cs-soon__logo"><span class="cs-mono" aria-hidden="true">M</span></div>
+      <div class="cs-soon__kick">завидово</div>
+      <div class="cs-soon__name cs-name--lock"><span class="cs-lock1">Marina</span><span class="cs-lock2">Zavidovo Village</span></div>
+      <div class="cs-soon__dev"><span class="dot"></span>сайт в разработке</div>
+      <!-- текст на подтверждение клиента -->
+      <p class="cs-soon__txt">Готовим отдельный сайт посёлка: современные резиденции в камне и дереве,
+        авторская архитектура каждого дома. Совсем скоро здесь будет на что посмотреть.</p>
+      <button class="cs-soon__back" type="button">← Вернуться к коллекции</button>
+    </div>
+  </div>
+
+</div>
+</section>
+
+
+<!-- ==========================================================================
+     ВАРИАНТ 2 — «СЕТКА 2×2»
+     Четыре панели квадратами во весь экран; при наведении активная растёт
+     вместе со своим рядом. Фото Marina: кадр B (вечер, бассейн и камин).
+     ========================================================================== -->
+<section class="vsec" id="vsec-2" hidden>
+<div class="colsplit" id="colsplit-v2">
+
+  <header class="cs-head">
+    <img class="cs-diamond" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+    <div class="cs-brand">Коллекция Завидово</div>
+    <div class="cs-tagline">четыре посёлка — один курорт</div>
+  </header>
+
+  <main class="cs-split cs-grid2">
+
+    <div class="cs-row">
+      <a class="cs-panel" data-go="les" href="#">
+        <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg" alt="">
+        <div class="cs-in">
+          <span class="cs-badge"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-lesnoy.png" alt=""></span>
+          <div class="cs-kicker">экопарк</div>
+          <div class="cs-name">Лесной</div>
+          <div class="cs-reveal">
+            <p class="cs-desc">Уединённые коттеджи в сосновом бору. Тишина и природа в шаге от дома.</p>
+            <span class="cs-btn">Выбрать →</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="cs-panel" data-go="zav" href="#">
+        <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="">
+        <div class="cs-in">
+          <span class="cs-badge"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-zavidovo.png" alt=""></span>
+          <div class="cs-kicker">экопарк · флагман</div>
+          <div class="cs-name">Завидово</div>
+          <div class="cs-reveal">
+            <p class="cs-desc">Сердце курорта: гольф, спа, рестораны и вся инфраструктура.</p>
+            <span class="cs-btn">Выбрать →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cs-row">
+      <a class="cs-panel" data-go="akva" data-soon="akva" href="#" aria-haspopup="dialog">
+        <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="">
+        <div class="cs-in">
+          <span class="cs-badge"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt=""></span>
+          <div class="cs-kicker">акватория</div>
+          <div class="cs-name">Акватория</div>
+          <div class="cs-reveal">
+            <p class="cs-desc">Жизнь у воды: дома на берегу, собственный пляж, причал и бассейны.</p>
+            <span class="cs-btn">Скоро →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- ЧЕТВЁРТАЯ ПАНЕЛЬ — MARINA ZAVIDOVO VILLAGE -->
+      <a class="cs-panel" data-go="marina" data-soon="marina" href="#" aria-haspopup="dialog">
+        <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-b.jpg" alt="">
+        <div class="cs-in">
+          <span class="cs-badge"><span class="cs-mono" aria-hidden="true">M</span></span>
+          <div class="cs-kicker">завидово</div>
+          <div class="cs-name cs-name--lock">
+            <span class="cs-lock1">Marina</span>
+            <span class="cs-lock2">Zavidovo Village</span>
+          </div>
+          <div class="cs-reveal">
+            <!-- текст на подтверждение клиента -->
+            <p class="cs-desc">Современные резиденции в камне и дереве — авторская архитектура каждого дома.</p>
+            <span class="cs-btn">Скоро →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+  </main>
+
+  <div class="cs-soon" data-soon-target="akva" role="dialog" aria-modal="true" aria-label="Акватория Завидово — сайт в разработке">
+    <div class="cs-soon__bg" style="background-image:url('https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg')"></div>
+    <button class="cs-soon__close" type="button" aria-label="Закрыть">&times;</button>
+    <div class="cs-soon__card">
+      <div class="cs-soon__logo"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt=""></div>
+      <div class="cs-soon__kick">акватория</div>
+      <div class="cs-soon__name">Акватория Завидово</div>
+      <div class="cs-soon__dev"><span class="dot"></span>сайт в разработке</div>
+      <p class="cs-soon__txt">Готовим отдельный сайт посёлка у воды: дома на берегу, собственный пляж,
+        причал и бассейны. Совсем скоро здесь будет на что посмотреть.</p>
+      <button class="cs-soon__back" type="button">← Вернуться к коллекции</button>
+    </div>
+  </div>
+
+  <div class="cs-soon" data-soon-target="marina" role="dialog" aria-modal="true" aria-label="Marina Zavidovo Village — сайт в разработке">
+    <div class="cs-soon__bg" style="background-image:url('https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-b.jpg')"></div>
+    <button class="cs-soon__close" type="button" aria-label="Закрыть">&times;</button>
+    <div class="cs-soon__card">
+      <div class="cs-soon__logo"><span class="cs-mono" aria-hidden="true">M</span></div>
+      <div class="cs-soon__kick">завидово</div>
+      <div class="cs-soon__name cs-name--lock"><span class="cs-lock1">Marina</span><span class="cs-lock2">Zavidovo Village</span></div>
+      <div class="cs-soon__dev"><span class="dot"></span>сайт в разработке</div>
+      <!-- текст на подтверждение клиента -->
+      <p class="cs-soon__txt">Готовим отдельный сайт посёлка: современные резиденции в камне и дереве,
+        авторская архитектура каждого дома. Совсем скоро здесь будет на что посмотреть.</p>
+      <button class="cs-soon__back" type="button">← Вернуться к коллекции</button>
+    </div>
+  </div>
+
+</div>
+</section>
+
+
+<!-- ==========================================================================
+     ВАРИАНТ 3 — «ТРИ + НОВИНКА»
+     Полоса из четырёх, Marina чуть шире соседей и с тихой плашкой
+     «новый посёлок». Фото Marina: кадр C (въезд с улицы, навес-портал).
+     ========================================================================== -->
+<section class="vsec" id="vsec-3" hidden>
+<div class="colsplit" id="colsplit-v3">
+
+  <header class="cs-head">
+    <img class="cs-diamond" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+    <div class="cs-brand">Коллекция Завидово</div>
+    <div class="cs-tagline">четыре посёлка — один курорт</div>
+  </header>
+
+  <main class="cs-split cs-4">
+
+    <a class="cs-panel" data-go="les" href="#">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg" alt="">
+      <div class="cs-in">
+        <span class="cs-badge"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-lesnoy.png" alt=""></span>
+        <div class="cs-kicker">экопарк</div>
+        <div class="cs-name">Лесной</div>
+        <div class="cs-reveal">
+          <p class="cs-desc">Уединённые коттеджи в сосновом бору. Тишина и природа в шаге от дома.</p>
+          <span class="cs-btn">Выбрать →</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="cs-panel" data-go="zav" href="#">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="">
+      <div class="cs-in">
+        <span class="cs-badge"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-zavidovo.png" alt=""></span>
+        <div class="cs-kicker">экопарк · флагман</div>
+        <div class="cs-name">Завидово</div>
+        <div class="cs-reveal">
+          <p class="cs-desc">Сердце курорта: гольф, спа, рестораны и вся инфраструктура.</p>
+          <span class="cs-btn">Выбрать →</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="cs-panel" data-go="akva" data-soon="akva" href="#" aria-haspopup="dialog">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="">
+      <div class="cs-in">
+        <span class="cs-badge"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt=""></span>
+        <div class="cs-kicker">акватория</div>
+        <div class="cs-name">Акватория</div>
+        <div class="cs-reveal">
+          <p class="cs-desc">Жизнь у воды: дома на берегу, собственный пляж, причал и бассейны.</p>
+          <span class="cs-btn">Скоро →</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- ЧЕТВЁРТАЯ ПАНЕЛЬ — MARINA ZAVIDOVO VILLAGE (шире + плашка «новый посёлок») -->
+    <a class="cs-panel" data-go="marina" data-soon="marina" href="#" aria-haspopup="dialog">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-c.jpg" alt="">
+      <div class="cs-in">
+        <span class="cs-new"><i></i>новый посёлок</span>
+        <span class="cs-badge"><span class="cs-mono" aria-hidden="true">M</span></span>
+        <div class="cs-kicker">завидово</div>
+        <div class="cs-name cs-name--lock">
+          <span class="cs-lock1">Marina</span>
+          <span class="cs-lock2">Zavidovo Village</span>
+        </div>
+        <div class="cs-reveal">
+          <!-- текст на подтверждение клиента -->
+          <p class="cs-desc">Современные резиденции в камне и дереве — авторская архитектура каждого дома.</p>
+          <span class="cs-btn">Скоро →</span>
+        </div>
+      </div>
+    </a>
+
+  </main>
+
+  <div class="cs-soon" data-soon-target="akva" role="dialog" aria-modal="true" aria-label="Акватория Завидово — сайт в разработке">
+    <div class="cs-soon__bg" style="background-image:url('https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg')"></div>
+    <button class="cs-soon__close" type="button" aria-label="Закрыть">&times;</button>
+    <div class="cs-soon__card">
+      <div class="cs-soon__logo"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt=""></div>
+      <div class="cs-soon__kick">акватория</div>
+      <div class="cs-soon__name">Акватория Завидово</div>
+      <div class="cs-soon__dev"><span class="dot"></span>сайт в разработке</div>
+      <p class="cs-soon__txt">Готовим отдельный сайт посёлка у воды: дома на берегу, собственный пляж,
+        причал и бассейны. Совсем скоро здесь будет на что посмотреть.</p>
+      <button class="cs-soon__back" type="button">← Вернуться к коллекции</button>
+    </div>
+  </div>
+
+  <div class="cs-soon" data-soon-target="marina" role="dialog" aria-modal="true" aria-label="Marina Zavidovo Village — сайт в разработке">
+    <div class="cs-soon__bg" style="background-image:url('https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-c.jpg')"></div>
+    <button class="cs-soon__close" type="button" aria-label="Закрыть">&times;</button>
+    <div class="cs-soon__card">
+      <div class="cs-soon__logo"><span class="cs-mono" aria-hidden="true">M</span></div>
+      <div class="cs-soon__kick">завидово</div>
+      <div class="cs-soon__name cs-name--lock"><span class="cs-lock1">Marina</span><span class="cs-lock2">Zavidovo Village</span></div>
+      <div class="cs-soon__dev"><span class="dot"></span>сайт в разработке</div>
+      <!-- текст на подтверждение клиента -->
+      <p class="cs-soon__txt">Готовим отдельный сайт посёлка: современные резиденции в камне и дереве,
+        авторская архитектура каждого дома. Совсем скоро здесь будет на что посмотреть.</p>
+      <button class="cs-soon__back" type="button">← Вернуться к коллекции</button>
+    </div>
+  </div>
+
+</div>
+</section>
+
+
+<!-- ============================================================================ -->
+<!--  СКРИПТ БЛОКА — переезжает в Tilda вместе с выбранным вариантом.             -->
+<!-- ============================================================================ -->
+<script id="cs-js">
+(function(){
+  /* ==================== CONFIG — поправьте под боевой сайт ==================== */
+  // Страница сайта с hero-переключателем посёлков.
+  // Панели открывают её с параметром ?poselok=les / ?poselok=zav.
+  var HERO = 'https://ecopark-zavidovo.ru/';
+  /* =========================================================================== */
+
+  var opened = null, lastFocus = null;
+
+  function openSoon(box){
+    if(!box) return;
+    lastFocus = document.activeElement;
+    box.classList.add('on');
+    document.body.style.overflow = 'hidden';
+    opened = box;
+    var c = box.querySelector('.cs-soon__close');
+    if(c) setTimeout(function(){ c.focus(); }, 60);
+  }
+  function closeSoon(){
+    if(!opened) return;
+    opened.classList.remove('on');
+    document.body.style.overflow = '';
+    opened = null;
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  document.querySelectorAll('.colsplit').forEach(function(root){
+
+    // ссылки панелей Лесной / Завидово
+    root.querySelectorAll('.cs-panel[data-go="les"],.cs-panel[data-go="zav"]').forEach(function(a){
+      var k = a.getAttribute('data-go');
+      var sep = HERO.indexOf('?') > -1 ? '&' : '?';
+      a.setAttribute('href', HERO + sep + 'poselok=' + k);
+    });
+
+    // панели с оверлеем «сайт в разработке» (Акватория, Marina)
+    root.querySelectorAll('.cs-panel[data-soon]').forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        openSoon(root.querySelector('.cs-soon[data-soon-target="' + a.getAttribute('data-soon') + '"]'));
+      });
+    });
+
+    root.querySelectorAll('.cs-soon').forEach(function(box){
+      box.querySelector('.cs-soon__close').addEventListener('click', closeSoon);
+      box.querySelector('.cs-soon__back').addEventListener('click', closeSoon);
+      box.addEventListener('click', function(e){ if(e.target === box) closeSoon(); });
+    });
+  });
+
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeSoon(); });
+})();
+</script>
+
+<!-- ▼▼▼ СЛУЖЕБНЫЙ СКРИПТ ПЕРЕКЛЮЧАТЕЛЯ — В TILDA НЕ ПЕРЕНОСИТЬ ▼▼▼ -->
+<script>
+(function(){
+  var NOTES = {
+    '1':'<b>Равные четыре.</b> Та же полоса, что на сайте, — просто четвёртая равная панель; кегли, трекинг и отступы подтянуты под четыре колонки.',
+    '2':'<b>Сетка 2×2.</b> Четыре панели квадратами во весь экран; при наведении активная растёт вместе со своим рядом.',
+    '3':'<b>Три + новинка.</b> Полоса из четырёх, Marina чуть шире соседей и с тихой плашкой «новый посёлок».'
+  };
+  var note = document.getElementById('vs-note');
+  var btns = document.querySelectorAll('#vswitch button');
+  function show(v){
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-v') === v ? 'true' : 'false'); });
+    ['1','2','3'].forEach(function(k){ document.getElementById('vsec-' + k).hidden = (k !== v); });
+    note.innerHTML = NOTES[v];
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ show(b.getAttribute('data-v')); }); });
+  function syncH(){
+    document.documentElement.style.setProperty('--vsw', document.getElementById('vswitch').offsetHeight + 'px');
+  }
+  window.addEventListener('resize', syncH);
+  show('1'); syncH();
+})();
+</script>
+<!-- ▲▲▲ КОНЕЦ СЛУЖЕБНОГО ▲▲▲ -->
+
+</body>
+</html>
