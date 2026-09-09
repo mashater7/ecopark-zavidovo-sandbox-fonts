@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Коллекция Завидово — план курортной зоны</title>
+
+<!-- ============================================================================ -->
+<!--  НАВИГАЦИЯ 2, ВАРИАНТ C — «ПЛАН МЕСТНОСТИ»                                   -->
+<!--                                                                              -->
+<!--  Первый экран — рисованный план курортной зоны во всю ширину: заповедник      -->
+<!--  штриховкой по верху, лесной массив в стипле, пятно курорта, вода с           -->
+<!--  береговыми горизонталями, М11 с выездом. Четыре посёлка стоят на плане       -->
+<!--  геодезическими знаками. Текст живёт ВНУТРИ чертежа врезками: имя коллекции   -->
+<!--  крупно слева сверху, факты узкой колонкой слева снизу, примечание листа —    -->
+<!--  вертикальным набором по правому полю. Центральной оси нет.                   -->
+<!--                                                                              -->
+<!--  Нажатие на знак ведёт к сцене посёлка. Дальше по странице тот же план        -->
+<!--  работает мелким кроком справа: где я и куда перейти.                         -->
+<!--                                                                              -->
+<!--  Схема ЧЕСТНО СХЕМАТИЧНА — условные пятна, без границ и координат.            -->
+<!--  Так и подписано: «схема, не карта».                                          -->
+<!--                                                                              -->
+<!--  ПОДАЧА ПОДПИСИ В СЦЕНАХ — режим «Полка», зафиксирован. Служебный             -->
+<!--  переключатель убран, стили m-glass / m-split удалены. Кадры не затемняются.  -->
+<!--                                                                              -->
+<!--  ФАЙЛ САМОДОСТАТОЧНЫЙ: открывается двойным кликом. Внешний ресурс один —      -->
+<!--  шрифт Poiret One с Google Fonts.                                             -->
+<!--                                                                              -->
+<!--  ЧТО ПЕРЕЕДЕТ В TILDA (блок T123): всё, кроме style id="testpage-only".       -->
+<!--  Все стили под #kzc, глобальных селекторов в блоке НЕТ.                       -->
+<!--                                                                              -->
+<!--  ВАЖНО ПРО TILDA И position:sticky                                           -->
+<!--  Закрепление сцены умрёт, если у предка стоит overflow:hidden / overflow-x.   -->
+<!--  Лечится в Пользовательском CSS: html, body, .t-body { overflow-x: clip; }    -->
+<!--  Именно clip: hidden создаёт скролл-контейнер и ломает sticky.                -->
+<!--                                                                              -->
+<!--  СТРАХОВКА ОТ ПУСТОЙ СТРАНИЦЫ                                                -->
+<!--  Без JS, на мобилке и при prefers-reduced-motion блок = обычная лента из      -->
+<!--  четырёх полноэкранных сцен, все ВИДИМЫ. План при этом остаётся рабочим:      -->
+<!--  знаки посёлков — обычные ссылки на #lesnoy / #zavidovo / #akvatoriya /       -->
+<!--  #marina.                                                                     -->
+<!-- ============================================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+
+<!-- СЛУЖЕБНОЕ — В TILDA НЕ ПЕРЕНОСИТЬ. В Tilda у body уже margin:0. -->
+<style id="testpage-only">
+  html{background:#0f231b}
+  body{margin:0;background:#0f231b}
+</style>
+
+
+<!-- ============================================================================ -->
+<!--  СТИЛИ БЛОКА. Всё под #kzc.                                                  -->
+<!--                                                                              -->
+<!--  КОНТРАСТ (WCAG, фон #0f231b, L = 0.01382):                                   -->
+<!--    #fff                       16.45:1   имя коллекции, имена посёлков        -->
+<!--    rgba(255,255,255,.86)      12.9 :1   слово «Коллекция»                    -->
+<!--    rgba(255,255,255,.72)       9.0 :1   абзац фактов                         -->
+<!--    rgba(255,255,255,.66)       7.7 :1   пояснения под именами                -->
+<!--    rgba(255,255,255,.60)       6.7 :1   подписи зон                          -->
+<!--    rgba(255,255,255,.50)       5.07:1   примечание листа — минимум, ≥4.5     -->
+<!--    #1bad03  5.51:1   ·   #bb916b  5.78:1                                      -->
+<!--  Заливки плана фон ОСВЕТЛЯЮТ, контраст на них только растёт: худшая           -->
+<!--  проверенная точка — зелень леса, 7.9:1 для подписи .72.                      -->
+<!--  Мелкий план лежит поверх фотографии: считан белый кадр под плашкой           -->
+<!--  rgba(9,20,15,.74) — её заголовок 5.74:1.                                     -->
+<!-- ============================================================================ -->
+<style id="kzc-css">
+#kzc{
+  --ink:#0f231b;
+  --green:#1bad03; --blue:#007fe2; --brown:#bb916b;
+  --grad:linear-gradient(100deg,var(--green),#15a06a 45%,var(--blue));
+  --font:'Poiret One','Century Gothic',sans-serif;
+  --sys:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  --ease:cubic-bezier(.23,1,.32,1);
+
+  position:relative;      /* сюда НЕ ставить transform / filter / will-change:  */
+                          /* иначе оверлей position:fixed прилипнет к блоку     */
+  width:100%;
+  background:var(--ink);
+  color:#fff;
+  font-family:var(--sys);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  /* overflow здесь НЕ трогаем — убьёт sticky у сцены */
+}
+#kzc *{box-sizing:border-box}
+#kzc h1,#kzc h2,#kzc p{margin:0}
+#kzc button{font:inherit;color:inherit}
+#kzc .kzc-sr{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+#kzc :focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:4px}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   1. ПЕРВЫЙ ЭКРАН — ЛИСТ ПЛАНА
+   План занимает весь экран. Врезки с текстом стоят поверх него по левому полю,
+   примечание — вертикально по правому. Чертёж тянется под пропорции окна
+   (preserveAspectRatio="none"); линии от этого не толстеют — у всех штрихов
+   стоит vector-effect="non-scaling-stroke".
+   ───────────────────────────────────────────────────────────────────────────── */
+#kzc .kzc-hero{
+  position:relative;overflow:hidden;
+  min-height:100vh; min-height:100svh;
+}
+#kzc .kzc-plan{position:absolute;inset:0;z-index:1}
+#kzc .kzc-plan__svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* воздух вокруг чертежа: широкое поле листа */
+#kzc .kzc-in{
+  position:absolute;z-index:3;
+  left:clamp(22px,4.4vw,68px);
+  max-width:min(38ch,42vw);
+}
+#kzc .kzc-in--a{top:14%}
+#kzc .kzc-in--b{top:58%}
+
+/* ── имя коллекции: два кегля в одной фразе ───────────────────────────────── */
+#kzc .kzc-dia{
+  display:block;margin:0 0 clamp(14px,2vh,24px);
+  width:clamp(30px,2.6vw,40px);height:auto;
+  filter:drop-shadow(0 6px 18px rgba(0,0,0,.5));
+}
+#kzc .kzc-title{font-weight:400;font-family:var(--font);margin:0}
+#kzc .kzc-title__a{
+  display:flex;align-items:center;gap:clamp(14px,1.6vw,26px);
+  font-size:clamp(26px,3.2vw,48px);line-height:1;
+  letter-spacing:.05em;color:rgba(255,255,255,.86);
+}
+#kzc .kzc-title__a::after{
+  content:"";flex:1 1 auto;height:1px;max-width:190px;
+  background:linear-gradient(90deg,rgba(255,255,255,.45),rgba(255,255,255,0));
+}
+#kzc .kzc-title__b{
+  display:block;margin-top:clamp(4px,.8vh,10px);
+  font-size:clamp(50px,6.5vw,100px);line-height:.86;
+  letter-spacing:-.03em;color:#fff;text-transform:uppercase;
+  text-shadow:0 4px 34px rgba(9,20,15,.55);
+}
+
+/* ── факты: врезка с крупным зачином ──────────────────────────────────────── */
+#kzc .kzc-lead__a{
+  display:block;font-family:var(--font);font-weight:400;
+  font-size:clamp(25px,2.5vw,37px);line-height:1;letter-spacing:.01em;color:#fff;
+  margin-bottom:clamp(9px,1.4vh,15px);
+}
+#kzc .kzc-lead{
+  font-size:17px;line-height:1.55;letter-spacing:.01em;
+  color:rgba(255,255,255,.72);
+}
+#kzc .kzc-tip{
+  display:flex;align-items:center;gap:11px;margin-top:clamp(16px,2.4vh,26px);
+  font-size:14px;color:rgba(255,255,255,.56);letter-spacing:.01em;
+}
+#kzc .kzc-tip i{
+  flex:none;width:8px;height:8px;border-radius:50%;background:#fff;
+  box-shadow:0 0 0 4px rgba(255,255,255,.14);
+}
+
+/* ── примечание листа: вертикальный набор по правому полю ─────────────────── */
+#kzc .kzc-cap{
+  position:absolute;z-index:3;right:clamp(14px,1.7vw,26px);top:50%;
+  transform:translateY(-50%);
+  writing-mode:vertical-rl;
+  font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);white-space:nowrap;
+}
+
+/* ── подсказка прокрутки: тонкая линия с бегущей каплей, правый нижний угол ── */
+#kzc .kzc-hint{
+  position:absolute;z-index:3;right:clamp(52px,5.4vw,84px);
+  bottom:clamp(14px,3vh,34px);
+  width:48px;min-height:64px;padding:0;border:0;background:none;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:10px;
+  color:rgba(255,255,255,.5);transition:color .3s var(--ease);
+}
+#kzc .kzc-hint:hover{color:rgba(255,255,255,.9)}
+#kzc .kzc-hint__line{position:relative;display:block;width:1px;height:36px;
+  background:rgba(255,255,255,.16);overflow:hidden}
+#kzc .kzc-hint__line i{position:absolute;left:0;top:-36px;width:1px;height:36px;
+  background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.9));
+  animation:kzc-drop 2.6s var(--ease) infinite}
+@keyframes kzc-drop{0%{transform:translateY(0)}55%{transform:translateY(72px)}100%{transform:translateY(72px)}}
+#kzc .kzc-hint svg{display:block}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   2. ПОДПИСИ НА ПЛАНЕ
+   Подписи — HTML, а не SVG-текст: кегль не зависит от масштаба чертежа,
+   строка не тянется вместе с ним.
+   ───────────────────────────────────────────────────────────────────────────── */
+#kzc .kzc-zn{
+  position:absolute;z-index:2;pointer-events:none;
+  font-family:var(--sys);font-size:12.5px;line-height:1.4;
+  letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(255,255,255,.6);text-shadow:0 1px 12px rgba(9,20,15,.75);
+  opacity:0;animation:kzc-app .9s var(--ease) .4s forwards;
+}
+#kzc .kzc-zn b{display:block;margin-top:5px;font-weight:400;font-size:12.5px;
+  letter-spacing:.04em;text-transform:none;color:rgba(255,255,255,.5)}
+#kzc .kzc-zn--w{max-width:250px}
+#kzc .kzc-zn--tilt{transform:rotate(17deg);transform-origin:0 50%}
+@keyframes kzc-app{to{opacity:1}}
+
+/* ── геодезический знак посёлка: круг, ядро и четыре засечки ──────────────── */
+#kzc .kzc-pts{position:absolute;inset:0;z-index:4;pointer-events:none}
+#kzc .kzc-pt{
+  position:absolute;left:var(--x);top:var(--y);
+  transform:translate(-22px,-50%);pointer-events:auto;
+  display:flex;align-items:center;gap:12px;
+  padding:0;border:0;background:none;cursor:pointer;text-decoration:none;color:#fff;
+  border-radius:10px;-webkit-tap-highlight-color:transparent;
+  opacity:0;animation:kzc-app .8s var(--ease) var(--d,0s) forwards;
+}
+#kzc .kzc-pt--l{flex-direction:row-reverse;text-align:right;
+  transform:translate(calc(-100% + 22px),-50%)}
+#kzc .kzc-pt__hit{flex:none;width:44px;height:44px;display:grid;place-items:center}
+#kzc .kzc-pt__m{
+  display:block;width:30px;height:30px;color:#fff;
+  filter:drop-shadow(0 2px 7px rgba(9,20,15,.95));
+  transition:transform .55s var(--ease);
+}
+#kzc .kzc-pt__m .t{opacity:.45;transition:opacity .45s var(--ease)}
+#kzc .kzc-pt:hover .kzc-pt__m,
+#kzc .kzc-pt:focus-visible .kzc-pt__m{transform:scale(1.18)}
+#kzc .kzc-pt:hover .kzc-pt__m .t,
+#kzc .kzc-pt:focus-visible .kzc-pt__m .t{opacity:1}
+#kzc .kzc-pt__lab{display:block;min-width:0}
+#kzc .kzc-pt__name{
+  display:block;font-family:var(--font);font-weight:400;text-transform:uppercase;
+  font-size:clamp(20px,2.1vw,33px);line-height:1;letter-spacing:.1em;
+  color:#fff;white-space:nowrap;text-shadow:0 2px 18px rgba(9,20,15,.85);
+  text-decoration:none;
+}
+/* подчёркивание только на наведении: прозрачная линия не годится —
+   text-shadow рисует тень даже под невидимой декорацией */
+#kzc .kzc-pt:hover .kzc-pt__name,
+#kzc .kzc-pt:focus-visible .kzc-pt__name{
+  text-decoration:underline;text-decoration-color:rgba(255,255,255,.6);
+  text-decoration-thickness:1px;text-underline-offset:7px}
+#kzc .kzc-pt__sub{
+  display:block;margin-top:7px;font-size:13px;letter-spacing:.05em;white-space:nowrap;
+  color:rgba(255,255,255,.66);text-shadow:0 1px 10px rgba(9,20,15,.8);
+}
+
+/* вода дышит: единственная фоновая анимация на плане */
+#kzc .kzc-wl{animation:kzc-wv 16s ease-in-out infinite alternate}
+@keyframes kzc-wv{from{transform:translateX(-6px)}to{transform:translateX(6px)}}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   3. СЦЕНЫ — БАЗОВЫЙ РЕЖИМ (лента)
+   Так блок выглядит без JS, на мобилке и при prefers-reduced-motion:
+   четыре полноэкранные сцены подряд, всё видно, ничего не закреплено.
+   ───────────────────────────────────────────────────────────────────────────── */
+#kzc .kzc-scenes{position:relative}
+#kzc .kzc-stage{position:relative}
+#kzc .kzc-frame{
+  position:relative;
+  min-height:100vh; min-height:100dvh;
+  display:flex;align-items:flex-end;overflow:hidden;
+  background:var(--ink);
+}
+#kzc .kzc-frame:focus{outline:none}
+#kzc .kzc-frame:focus-visible{outline:2px solid #fff;outline-offset:-6px}
+#kzc .kzc-media{position:absolute;inset:0 0 28% 0;overflow:hidden}
+#kzc .kzc-media img{width:100%;height:100%;object-fit:cover;display:block}
+/* ЗАЛИВОК ПОВЕРХ ФОТОГРАФИИ НЕТ НИ ОДНОЙ. Подпись живёт на своей полке. */
+
+/* ── ПОЛКА: кадр сверху чистый, снизу плотный фирменный тон ────────────────
+   Фон полки лежит на .kzc-frame, а не на .kzc-copy: подпись меняется
+   кроссфейдом, а полка обязана стоять неподвижно.                            */
+#kzc .kzc-copy{
+  position:absolute;left:0;right:0;bottom:0;height:28%;z-index:2;
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:clamp(24px,5vw,90px);
+  padding:0 clamp(22px,5.4vw,104px) clamp(28px,4.2vh,46px);
+}
+#kzc .kzc-copy__a,#kzc .kzc-copy__b,#kzc .kzc-head,#kzc .kzc-ttl{min-width:0}
+#kzc .kzc-head{display:flex;align-items:center;gap:18px}
+#kzc .kzc-mark{
+  width:54px;height:54px;border-radius:50%;flex:none;
+  background:rgba(255,255,255,.94);display:grid;place-items:center;
+  box-shadow:0 10px 26px -12px rgba(0,0,0,.7)}
+#kzc .kzc-mark img{width:32px;height:32px;object-fit:contain;display:block}
+#kzc .kzc-mono{font-family:var(--font);font-size:30px;line-height:1;color:#12291f;
+  letter-spacing:.06em;text-indent:.06em}
+#kzc .kzc-kicker{
+  font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin-bottom:6px}
+#kzc .kzc-name{
+  font-family:var(--font);font-weight:400;text-transform:uppercase;
+  font-size:clamp(30px,4.2vw,60px);line-height:.94;letter-spacing:-.012em}
+#kzc .kzc-name .l2{display:block;font-size:.42em;letter-spacing:.11em;margin-top:.2em;
+  color:rgba(255,255,255,.94)}
+#kzc .kzc-copy__b{flex:0 1 460px;max-width:460px}
+#kzc .kzc-desc{font-size:17px;line-height:1.5;color:rgba(255,255,255,.82)}
+#kzc .kzc-act{
+  display:inline-flex;align-items:center;gap:12px;min-height:48px;
+  margin-top:clamp(10px,1.6vh,18px);
+  font-size:15px;letter-spacing:.02em;color:#fff;text-decoration:none;
+  background:none;border:0;padding:0;cursor:pointer;
+  transition:gap .35s var(--ease)}
+#kzc .kzc-act u{text-decoration:none;box-shadow:inset 0 -1px 0 0 rgba(255,255,255,.45);
+  padding-bottom:3px;transition:box-shadow .3s var(--ease)}
+#kzc .kzc-act svg{flex:none;opacity:.85;transition:transform .35s var(--ease)}
+#kzc .kzc-act:hover{gap:18px}
+#kzc .kzc-act:hover u{box-shadow:inset 0 -1px 0 0 #fff}
+#kzc .kzc-act:hover svg{transform:translateX(3px)}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   4. РЕЖИМ ЗАКРЕПЛЁННОЙ СЦЕНЫ (.is-live ставит скрипт)
+   Контейнер = 4 экрана прокрутки + экран сцены. Кадры перекрывают друг друга:
+   верхний проявляется поверх нижнего, без провала в фон посередине кроссфейда.
+   ───────────────────────────────────────────────────────────────────────────── */
+#kzc.is-live .kzc-scenes{height:calc(100vh * 5);height:calc(100dvh * 5)}
+#kzc.is-live .kzc-stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden}
+#kzc.is-live .kzc-frame{position:absolute;inset:0;min-height:0;opacity:0;will-change:opacity}
+#kzc.is-live .kzc-frame:first-child{opacity:1}  /* до первой отрисовки первая сцена видна */
+#kzc.is-live .kzc-media img{will-change:transform}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   5. МЕЛКИЙ ПЛАН — указатель и навигация во время прокрутки
+   Тот же чертёж, только крупным кроком по четырём знакам. Плашка плотная (.74):
+   под ней бывает светлое небо, заголовок обязан держать 5.7:1 и на белом кадре.
+   ───────────────────────────────────────────────────────────────────────────── */
+#kzc .kzc-mini{
+  position:fixed;z-index:24;top:50%;right:clamp(10px,1.6vw,26px);
+  transform:translateY(-50%);
+  width:196px;padding:10px;border-radius:14px;
+  background:rgba(9,20,15,.74);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 26px 64px -30px rgba(0,0,0,.9);
+  opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s;
+}
+#kzc .kzc-mini.on{opacity:1;visibility:visible}
+#kzc .kzc-mini__t{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);margin:1px 2px 8px}
+#kzc .kzc-mini__box{position:relative;width:176px;aspect-ratio:720/660}
+#kzc .kzc-mini__svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+#kzc .kzc-mpt{
+  position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);
+  width:44px;height:44px;display:grid;place-items:center;
+  background:none;border:0;padding:0;cursor:pointer;border-radius:50%;
+  -webkit-tap-highlight-color:transparent;
+}
+/* размер знака меняется масштабом, а не шириной: ширина дёргает раскладку */
+#kzc .kzc-mpt i{
+  display:block;width:11px;height:11px;border-radius:50%;transform:scale(.62);
+  background:rgba(255,255,255,.6);box-shadow:0 0 0 1px rgba(9,20,15,.7);
+  transition:transform .45s var(--ease),background-color .45s var(--ease),
+             box-shadow .45s var(--ease);
+}
+#kzc .kzc-mpt:hover i,#kzc .kzc-mpt:focus-visible i{background:#fff;transform:scale(.78);
+  box-shadow:0 0 0 1px rgba(9,20,15,.7),0 0 0 5px rgba(255,255,255,.18)}
+#kzc .kzc-mpt[aria-current="true"] i{
+  transform:scale(1);background:#fff;
+  box-shadow:0 0 0 1px rgba(9,20,15,.7),0 0 0 6px rgba(255,255,255,.2)}
+#kzc .kzc-mpt__lab{
+  position:absolute;right:calc(100% - 6px);top:50%;
+  transform:translateY(-50%) translateX(6px);
+  white-space:nowrap;font-size:12.5px;letter-spacing:.02em;color:#fff;
+  background:rgba(9,20,15,.94);border:1px solid rgba(255,255,255,.16);
+  border-radius:8px;padding:5px 10px;pointer-events:none;opacity:0;
+  transition:opacity .28s var(--ease),transform .28s var(--ease);
+}
+#kzc .kzc-mpt:hover .kzc-mpt__lab,
+#kzc .kzc-mpt:focus-visible .kzc-mpt__lab{opacity:1;transform:translateY(-50%) translateX(0)}
+
+/* мобильная замена мелкого плана: возврат к чертежу, один тап */
+#kzc .kzc-back{
+  position:fixed;z-index:24;right:14px;bottom:14px;display:none;
+  align-items:center;gap:9px;min-height:44px;padding:0 17px 0 13px;
+  border-radius:40px;border:1px solid rgba(255,255,255,.18);
+  background:rgba(9,20,15,.86);color:#fff;font-size:14px;cursor:pointer;
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  box-shadow:0 18px 44px -22px rgba(0,0,0,.9);
+  opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility .4s;
+}
+#kzc .kzc-back.on{opacity:1;visibility:visible}
+#kzc .kzc-back svg{flex:none;opacity:.9}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   6. ОВЕРЛЕЙ «САЙТ В РАЗРАБОТКЕ»
+   Лежит СНАРУЖИ .kzc-scenes: внутри sticky-контейнера fixed-оверлей прилипает
+   к предку и перестаёт перекрывать экран.
+   ───────────────────────────────────────────────────────────────────────────── */
+#kzc .kzc-soon{
+  position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;
+  padding:24px;opacity:0;visibility:hidden;
+  transition:opacity .38s var(--ease),visibility .38s}
+#kzc .kzc-soon.on{opacity:1;visibility:visible}
+#kzc .kzc-soon__bg{position:absolute;inset:0;background-size:cover;background-position:center;
+  background-color:#0f231b}
+#kzc .kzc-soon__bg::after{content:"";position:absolute;inset:0;
+  background:rgba(9,21,16,.82);backdrop-filter:blur(22px) saturate(120%);
+  -webkit-backdrop-filter:blur(22px) saturate(120%)}
+#kzc .kzc-soon__card{
+  position:relative;z-index:2;width:100%;max-width:560px;text-align:center;
+  padding:56px 40px 46px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);border-radius:24px;
+  box-shadow:0 40px 90px -34px rgba(0,0,0,.8);
+  transform:scale(.97);transition:transform .45s var(--ease)}
+#kzc .kzc-soon.on .kzc-soon__card{transform:scale(1)}
+#kzc .kzc-soon__mark{width:64px;height:64px;border-radius:50%;margin:0 auto 20px;
+  background:rgba(255,255,255,.95);display:grid;place-items:center;
+  box-shadow:0 12px 28px -14px rgba(0,0,0,.7)}
+#kzc .kzc-soon__mark img{width:38px;height:38px;object-fit:contain;display:block}
+#kzc .kzc-soon__mark .kzc-mono{font-size:34px}
+#kzc .kzc-soon__kick{font-size:11.5px;letter-spacing:.26em;
+  text-transform:uppercase;color:rgba(255,255,255,.7)}
+#kzc .kzc-soon__name{font-family:var(--font);font-weight:400;text-transform:uppercase;
+  font-size:clamp(30px,5.4vw,54px);line-height:.96;letter-spacing:-.012em;margin:6px 0 18px}
+#kzc .kzc-soon__name .l2{display:block;font-size:.42em;letter-spacing:.11em;margin-top:.22em}
+#kzc .kzc-soon__pill{display:inline-flex;align-items:center;gap:9px;
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.9);background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);padding:8px 16px;border-radius:40px}
+#kzc .kzc-soon__pill i{width:7px;height:7px;border-radius:50%;background:var(--grad)}
+#kzc .kzc-soon__txt{font-size:17px;line-height:1.5;
+  color:rgba(255,255,255,.8);max-width:400px;margin:18px auto 26px}
+#kzc .kzc-soon__back{display:inline-flex;align-items:center;gap:10px;min-height:48px;
+  font-size:15px;color:#fff;background:none;border:0;padding:0 4px;
+  cursor:pointer;transition:gap .35s var(--ease)}
+#kzc .kzc-soon__back u{text-decoration:none;box-shadow:inset 0 -1px 0 0 rgba(255,255,255,.45);
+  padding-bottom:3px;transition:box-shadow .3s var(--ease)}
+#kzc .kzc-soon__back:hover{gap:16px}
+#kzc .kzc-soon__back:hover u{box-shadow:inset 0 -1px 0 0 #fff}
+#kzc .kzc-soon__close{position:absolute;z-index:3;top:14px;right:16px;
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;
+  cursor:pointer;transition:background-color .25s var(--ease)}
+#kzc .kzc-soon__close:hover{background:rgba(255,255,255,.2)}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   7. ПЛАНШЕТ И МОБИЛКА (<=860px)
+   Лист разворачивается в колонку: имя, чертёж, факты, примечание. Закрепления
+   сцены нет — обычная лента, но чертёж остаётся рабочей навигацией.
+   ───────────────────────────────────────────────────────────────────────────── */
+@media (max-width:860px){
+  #kzc.is-live .kzc-scenes{height:auto}
+  #kzc.is-live .kzc-stage{position:static;height:auto;overflow:visible}
+  #kzc.is-live .kzc-frame{position:relative;inset:auto;
+    min-height:100vh;min-height:100dvh;opacity:1 !important;visibility:visible !important}
+  #kzc.is-live .kzc-media img{transform:none !important}
+  #kzc.is-live .kzc-copy{transform:none !important;opacity:1 !important}
+
+  #kzc .kzc-hero{
+    display:flex;flex-direction:column;justify-content:center;
+    gap:clamp(16px,2.4vh,26px);padding:52px 20px 64px}
+  #kzc .kzc-plan{position:relative;inset:auto;width:100%;aspect-ratio:1400/1150;order:2}
+  #kzc .kzc-in{position:static;max-width:none;left:auto;top:auto}
+  #kzc .kzc-in--a{order:1}
+  #kzc .kzc-in--b{order:3}
+  #kzc .kzc-cap{position:static;order:4;transform:none;writing-mode:horizontal-tb;
+    white-space:normal;font-size:11.5px;letter-spacing:.16em;line-height:1.5}
+  #kzc .kzc-hint{display:none}
+  #kzc .kzc-dia{margin-bottom:12px;width:30px}
+  #kzc .kzc-title__a{font-size:clamp(22px,6vw,30px)}
+  #kzc .kzc-title__a::after{max-width:110px}
+  #kzc .kzc-title__b{font-size:clamp(42px,12.2vw,64px)}
+  #kzc .kzc-lead__a{font-size:clamp(23px,6.4vw,30px)}
+  #kzc .kzc-lead{font-size:16px}
+  #kzc .kzc-tip{margin-top:12px;font-size:13.5px}
+
+  /* на узком листе числа с подписей уходят — они есть в абзаце фактов */
+  #kzc .kzc-zn{font-size:10.5px;letter-spacing:.16em}
+  #kzc .kzc-zn b{display:none}
+  #kzc .kzc-zn--w{max-width:140px}
+  #kzc .kzc-zn--river{top:63% !important}
+  #kzc .kzc-pt__sub{display:none}
+  #kzc .kzc-pt__name{font-size:19px;letter-spacing:.07em}
+  #kzc .kzc-pt__m{width:26px;height:26px}
+  #kzc .kzc-pt{gap:8px}
+
+  #kzc .kzc-mini{display:none}
+  #kzc .kzc-back{display:inline-flex}
+
+  #kzc .kzc-media{inset:0 0 42% 0}
+  #kzc .kzc-copy{height:42%;
+    flex-direction:column;justify-content:center;align-items:flex-start;
+    gap:0;padding:clamp(18px,2.6vh,28px) 20px clamp(20px,3vh,30px)}
+  #kzc .kzc-head{gap:14px}
+  #kzc .kzc-mark{width:46px;height:46px}
+  #kzc .kzc-mark img{width:27px;height:27px}
+  #kzc .kzc-name{font-size:clamp(28px,8.4vw,46px)}
+  #kzc .kzc-copy__b{max-width:none;flex:none;margin-top:12px}
+  #kzc .kzc-act{margin-top:10px}
+  #kzc .kzc-soon__card{padding:46px 22px 36px;border-radius:20px}
+}
+
+@media (max-width:400px){
+  #kzc .kzc-pt__name{font-size:17px;letter-spacing:.05em}
+  #kzc .kzc-zn{font-size:10px;letter-spacing:.12em}
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   8. PREFERS-REDUCED-MOTION
+   Закрепление, кроссфейды, вода и появление знаков отключены. Страница —
+   обычный список из четырёх сцен, чертёж статичен и полностью виден.
+   ───────────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion:reduce){
+  #kzc.is-live .kzc-scenes{height:auto}
+  #kzc.is-live .kzc-stage{position:static;height:auto;overflow:visible}
+  #kzc.is-live .kzc-frame{position:relative;inset:auto;
+    min-height:100vh;min-height:100dvh;opacity:1 !important;visibility:visible !important}
+  #kzc.is-live .kzc-media img{transform:none !important}
+  #kzc.is-live .kzc-copy{transform:none !important;opacity:1 !important}
+  #kzc .kzc-hint__line i{animation:none;top:0;opacity:.5}
+  #kzc .kzc-wl{animation:none}
+  #kzc .kzc-pt,#kzc .kzc-zn{opacity:1 !important;animation:none !important}
+  #kzc .kzc-act,#kzc .kzc-act svg,#kzc .kzc-soon,#kzc .kzc-soon__card,
+  #kzc .kzc-mini,#kzc .kzc-back,#kzc .kzc-mpt i,#kzc .kzc-mpt__lab,
+  #kzc .kzc-pt__m,#kzc .kzc-pt__m .t,#kzc .kzc-soon__back{transition:none}
+}
+</style>
+</head>
+
+<body>
+
+<div id="kzc">
+
+  <!-- ══════════════════════ 1. ЛИСТ ПЛАНА ══════════════════════ -->
+  <section class="kzc-hero">
+
+    <!-- врезка 1: имя коллекции -->
+    <div class="kzc-in kzc-in--a">
+      <img class="kzc-dia" width="40" height="40" decoding="async"
+           src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png"
+           alt="">
+      <h1 class="kzc-title">
+        <span class="kzc-title__a">Коллекция</span>
+        <span class="kzc-title__b">Завидово</span>
+      </h1>
+    </div>
+
+    <!-- ── ЧЕРТЁЖ ────────────────────────────────────────────────────────────
+         SVG рисует только местность и целиком aria-hidden. Всё, что читают
+         или нажимают, — обычный HTML поверх него.                            -->
+    <div class="kzc-plan">
+      <svg class="kzc-plan__svg" viewBox="0 0 1400 900" preserveAspectRatio="none"
+           aria-hidden="true" focusable="false">
+        <defs>
+          <pattern id="kzcGrid" width="34" height="34" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="1" fill="#fff" fill-opacity=".055"/>
+          </pattern>
+          <pattern id="kzcHatch" width="14" height="14" patternUnits="userSpaceOnUse"
+                   patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="14" stroke="#1bad03" stroke-opacity=".2" stroke-width="1"/>
+          </pattern>
+          <pattern id="kzcStip" width="10" height="10" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r=".9" fill="#1bad03" fill-opacity=".42"/>
+            <circle cx="7" cy="7" r=".65" fill="#1bad03" fill-opacity=".3"/>
+          </pattern>
+          <linearGradient id="kzcWaterG" x1="1" y1="0" x2=".1" y2="1">
+            <stop offset="0" stop-color="#007fe2" stop-opacity=".17"/>
+            <stop offset="1" stop-color="#007fe2" stop-opacity=".06"/>
+          </linearGradient>
+          <linearGradient id="kzcForestG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1bad03" stop-opacity=".05"/>
+            <stop offset="1" stop-color="#1bad03" stop-opacity=".016"/>
+          </linearGradient>
+          <linearGradient id="kzcResortG" x1="0" y1="0" x2=".3" y2="1">
+            <stop offset="0" stop-color="#bb916b" stop-opacity=".10"/>
+            <stop offset="1" stop-color="#bb916b" stop-opacity=".03"/>
+          </linearGradient>
+          <clipPath id="kzcForestClip">
+            <path d="M498,320 C468,378 480,452 508,506 C524,538 512,574 528,606
+                     C548,646 604,690 668,700 C726,708 780,690 806,650
+                     C826,620 812,588 826,556 C842,520 820,492 834,458
+                     C852,414 838,346 792,312 C736,270 588,258 498,320 Z"/>
+          </clipPath>
+        </defs>
+
+        <!-- сетка листа -->
+        <rect width="1400" height="900" fill="url(#kzcGrid)"/>
+
+        <!-- заповедник: полоса штриховки по верхнему полю, граница условная -->
+        <path d="M0,0 H1180 C1120,44 1020,72 880,86 C700,104 420,112 0,106 Z"
+              fill="url(#kzcHatch)"/>
+        <path d="M1180,0 C1120,44 1020,72 880,86 C700,104 420,112 0,106"
+              fill="none" stroke="#1bad03" stroke-opacity=".42" stroke-width="1.2"
+              stroke-dasharray="3 9" stroke-linecap="round"
+              vector-effect="non-scaling-stroke"/>
+
+        <!-- лесной массив: стипль, сосны и точечная граница -->
+        <path d="M498,320 C468,378 480,452 508,506 C524,538 512,574 528,606
+                 C548,646 604,690 668,700 C726,708 780,690 806,650
+                 C826,620 812,588 826,556 C842,520 820,492 834,458
+                 C852,414 838,346 792,312 C736,270 588,258 498,320 Z"
+              fill="url(#kzcForestG)"/>
+        <rect width="1400" height="900" fill="url(#kzcStip)" clip-path="url(#kzcForestClip)"
+              opacity=".34"/>
+        <path d="M498,320 C468,378 480,452 508,506 C524,538 512,574 528,606
+                 C548,646 604,690 668,700 C726,708 780,690 806,650
+                 C826,620 812,588 826,556 C842,520 820,492 834,458
+                 C852,414 838,346 792,312 C736,270 588,258 498,320 Z"
+              fill="none" stroke="#1bad03" stroke-opacity=".46" stroke-width="1.2"
+              stroke-dasharray="2 6" stroke-linecap="round"
+              vector-effect="non-scaling-stroke"/>
+        <g fill="#1bad03" fill-opacity=".4">
+          <path d="M540,360 l5,11 h-10 Z"/><path d="M590,330 l5,11 h-10 Z"/>
+          <path d="M618,352 l5,11 h-10 Z"/><path d="M650,316 l5,11 h-10 Z"/>
+          <path d="M710,324 l5,11 h-10 Z"/><path d="M760,350 l5,11 h-10 Z"/>
+          <path d="M792,398 l5,11 h-10 Z"/><path d="M672,378 l5,11 h-10 Z"/>
+          <path d="M730,396 l5,11 h-10 Z"/><path d="M566,466 l5,11 h-10 Z"/>
+          <path d="M534,502 l5,11 h-10 Z"/><path d="M576,552 l5,11 h-10 Z"/>
+          <path d="M620,592 l5,11 h-10 Z"/><path d="M700,620 l5,11 h-10 Z"/>
+          <path d="M768,566 l5,11 h-10 Z"/><path d="M812,540 l5,11 h-10 Z"/>
+        </g>
+
+        <!-- зона курорта: пунктир вместо границы, внутри условная застройка -->
+        <path d="M868,196 C846,258 862,340 916,382 C976,428 1064,414 1092,352
+                 C1120,290 1096,214 1036,182 C976,152 892,152 868,196 Z"
+              fill="url(#kzcResortG)"
+              stroke="#bb916b" stroke-opacity=".6" stroke-width="1.2"
+              stroke-dasharray="2 6" stroke-linecap="round"
+              vector-effect="non-scaling-stroke"/>
+        <g fill="#bb916b" fill-opacity=".4">
+          <rect x="886" y="236" width="11" height="7" rx="1"/>
+          <rect x="908" y="220" width="11" height="7" rx="1"/>
+          <rect x="932" y="212" width="11" height="7" rx="1"/>
+          <rect x="958" y="214" width="11" height="7" rx="1"/>
+          <rect x="984" y="222" width="11" height="7" rx="1"/>
+          <rect x="1010" y="236" width="11" height="7" rx="1"/>
+          <rect x="1034" y="254" width="11" height="7" rx="1"/>
+          <rect x="900" y="320" width="11" height="7" rx="1"/>
+          <rect x="926" y="332" width="11" height="7" rx="1"/>
+          <rect x="954" y="340" width="11" height="7" rx="1"/>
+          <rect x="982" y="338" width="11" height="7" rx="1"/>
+          <rect x="1008" y="330" width="11" height="7" rx="1"/>
+          <rect x="1032" y="316" width="11" height="7" rx="1"/>
+        </g>
+
+        <!-- вода: берег и уходящие в воду горизонтали, как на старых картах -->
+        <path d="M1290,0 C1240,110 1180,200 1130,300 C1080,400 1010,470 960,560
+                 C910,650 870,760 850,900 H1400 V0 Z"
+              fill="url(#kzcWaterG)"/>
+        <g class="kzc-wl" fill="none" stroke="#fff" stroke-linecap="round">
+          <path d="M1290,0 C1240,110 1180,200 1130,300 C1080,400 1010,470 960,560
+                   C910,650 870,760 850,900" stroke-opacity=".34" stroke-width="1.3"
+                vector-effect="non-scaling-stroke"/>
+          <path d="M1290,0 C1240,110 1180,200 1130,300 C1080,400 1010,470 960,560
+                   C910,650 870,760 850,900" stroke-opacity=".2" stroke-width="1"
+                vector-effect="non-scaling-stroke" transform="translate(13,0)"/>
+          <path d="M1290,0 C1240,110 1180,200 1130,300 C1080,400 1010,470 960,560
+                   C910,650 870,760 850,900" stroke-opacity=".15" stroke-width="1"
+                vector-effect="non-scaling-stroke" transform="translate(30,0)"/>
+          <path d="M1290,0 C1240,110 1180,200 1130,300 C1080,400 1010,470 960,560
+                   C910,650 870,760 850,900" stroke-opacity=".11" stroke-width="1"
+                vector-effect="non-scaling-stroke" transform="translate(50,0)"/>
+          <path d="M1290,0 C1240,110 1180,200 1130,300 C1080,400 1010,470 960,560
+                   C910,650 870,760 850,900" stroke-opacity=".08" stroke-width="1"
+                vector-effect="non-scaling-stroke" transform="translate(73,0)"/>
+          <path d="M1290,0 C1240,110 1180,200 1130,300 C1080,400 1010,470 960,560
+                   C910,650 870,760 850,900" stroke-opacity=".055" stroke-width="1"
+                vector-effect="non-scaling-stroke" transform="translate(99,0)"/>
+        </g>
+
+        <!-- М11 и собственный выезд: двойная линия, как знак дороги -->
+        <g fill="none" stroke-linecap="round">
+          <path d="M0,800 C110,834 250,868 380,890 C440,900 480,900 520,900"
+                stroke="#fff" stroke-opacity=".3" stroke-width="6"
+                vector-effect="non-scaling-stroke"/>
+          <path d="M0,800 C110,834 250,868 380,890 C440,900 480,900 520,900"
+                stroke="#0f231b" stroke-opacity=".95" stroke-width="2.4"
+                vector-effect="non-scaling-stroke"/>
+          <path d="M240,858 L296,790" stroke="#fff" stroke-opacity=".3" stroke-width="2.4"
+                vector-effect="non-scaling-stroke"/>
+        </g>
+        <circle cx="296" cy="790" r="5" fill="none" stroke="#1bad03" stroke-opacity=".85"
+                stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+
+        <!-- поле листа: тонкая рамка и угловые засечки -->
+        <rect x="22" y="22" width="1356" height="856" fill="none"
+              stroke="#fff" stroke-opacity=".09" stroke-width="1"
+              vector-effect="non-scaling-stroke"/>
+        <g stroke="#fff" stroke-opacity=".2" stroke-width="1.1" fill="none">
+          <path d="M22,58 V22 H58" vector-effect="non-scaling-stroke"/>
+          <path d="M1342,22 H1378 V58" vector-effect="non-scaling-stroke"/>
+          <path d="M1378,842 V878 H1342" vector-effect="non-scaling-stroke"/>
+          <path d="M58,878 H22 V842" vector-effect="non-scaling-stroke"/>
+        </g>
+      </svg>
+
+      <!-- словесный эквивалент чертежа для скринридера -->
+      <p class="kzc-sr">План курортной зоны Завидово. Четыре посёлка: Лесной — в лесном
+        массиве в середине плана; Завидово — в зоне курорта правее и выше; Marina Zavidovo
+        Village — на берегу реки справа; Акватория — на берегу ниже. По верхнему полю
+        обозначен национальный заповедник, по нижнему левому — трасса М11 с собственным
+        выездом. Расположение показано условно. Дальше идут ссылки на все четыре посёлка.</p>
+
+      <!-- подписи зон -->
+      <span class="kzc-zn kzc-zn--w" style="left:44%;top:3.8%">национальный заповедник<b>3 км</b></span>
+      <span class="kzc-zn" style="left:37%;top:44%">лесной массив</span>
+      <span class="kzc-zn kzc-zn--w" style="left:62.5%;top:15.5%">курорт Завидово<b>аквапарк, гольф, яхт-клуб · 10 минут</b></span>
+      <span class="kzc-zn kzc-zn--tilt kzc-zn--river" style="left:87%;top:26%">река</span>
+      <span class="kzc-zn kzc-zn--w" style="left:3%;top:88.5%">М11<b>собственный выезд</b></span>
+
+      <!-- знаки посёлков: обычные ссылки на якоря, порядок как в коллекции -->
+      <nav class="kzc-pts" aria-label="Посёлки коллекции на плане">
+        <a class="kzc-pt" href="#lesnoy" data-go="0" style="--x:44%;--y:52%;--d:.06s">
+          <span class="kzc-pt__hit">
+            <svg class="kzc-pt__m" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="7.4" stroke="currentColor" stroke-width="1"/>
+              <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+              <g class="t" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+                <path d="M12 .8V4"/><path d="M12 20v3.2"/><path d="M.8 12H4"/><path d="M20 12h3.2"/>
+              </g>
+            </svg>
+          </span>
+          <span class="kzc-pt__lab">
+            <span class="kzc-pt__name">Лесной</span>
+            <span class="kzc-pt__sub">сосновый бор</span>
+          </span>
+        </a>
+
+        <a class="kzc-pt" href="#zavidovo" data-go="1" style="--x:66.5%;--y:31.5%;--d:.15s">
+          <span class="kzc-pt__hit">
+            <svg class="kzc-pt__m" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="7.4" stroke="currentColor" stroke-width="1"/>
+              <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+              <g class="t" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+                <path d="M12 .8V4"/><path d="M12 20v3.2"/><path d="M.8 12H4"/><path d="M20 12h3.2"/>
+              </g>
+            </svg>
+          </span>
+          <span class="kzc-pt__lab">
+            <span class="kzc-pt__name">Завидово</span>
+            <span class="kzc-pt__sub">сердце курорта</span>
+          </span>
+        </a>
+
+        <a class="kzc-pt" href="#marina" data-go="3" style="--x:71.5%;--y:56%;--d:.24s">
+          <span class="kzc-pt__hit">
+            <svg class="kzc-pt__m" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="7.4" stroke="currentColor" stroke-width="1"/>
+              <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+              <g class="t" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+                <path d="M12 .8V4"/><path d="M12 20v3.2"/><path d="M.8 12H4"/><path d="M20 12h3.2"/>
+              </g>
+            </svg>
+          </span>
+          <span class="kzc-pt__lab">
+            <span class="kzc-pt__name">Marina</span>
+            <span class="kzc-pt__sub">Zavidovo Village</span>
+          </span>
+        </a>
+
+        <a class="kzc-pt kzc-pt--l" href="#akvatoriya" data-go="2" style="--x:60.5%;--y:77.5%;--d:.33s">
+          <span class="kzc-pt__hit">
+            <svg class="kzc-pt__m" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="7.4" stroke="currentColor" stroke-width="1"/>
+              <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+              <g class="t" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+                <path d="M12 .8V4"/><path d="M12 20v3.2"/><path d="M.8 12H4"/><path d="M20 12h3.2"/>
+              </g>
+            </svg>
+          </span>
+          <span class="kzc-pt__lab">
+            <span class="kzc-pt__name">Акватория</span>
+            <span class="kzc-pt__sub">дома на берегу</span>
+          </span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- врезка 2: факты -->
+    <div class="kzc-in kzc-in--b">
+      <p class="kzc-lead"><span class="kzc-lead__a">Четыре посёлка</span>в курортной зоне
+        Завидово. В трёх километрах — национальный заповедник, в десяти минутах — аквапарк,
+        гольф- и яхт-клубы курорта. Собственный выезд на М11.</p>
+      <p class="kzc-tip"><i aria-hidden="true"></i>Нажмите знак, чтобы перейти к посёлку</p>
+    </div>
+
+    <!-- примечание листа -->
+    <p class="kzc-cap">схема, не карта · взаимное расположение без точных границ</p>
+
+    <button class="kzc-hint" type="button" data-hint aria-label="Перейти к посёлкам">
+      <span class="kzc-hint__line" aria-hidden="true"><i></i></span>
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor"
+           stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M1 1.4 8 8l7-6.6"/>
+      </svg>
+    </button>
+  </section>
+
+
+  <!-- ══════════════════════ 2. ЗАКРЕПЛЁННАЯ СЦЕНА ══════════════════════ -->
+  <section class="kzc-scenes" aria-label="Посёлки коллекции">
+    <div class="kzc-stage">
+
+      <!-- ЛЕСНОЙ -->
+      <article class="kzc-frame" id="lesnoy" data-i="0" tabindex="-1" aria-label="Экопарк Лесной">
+        <div class="kzc-media">
+          <img decoding="async"
+               src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg"
+               alt="Экопарк Лесной: коттеджи в сосновом бору">
+        </div>
+        <div class="kzc-copy">
+         <div class="kzc-copy__a">
+          <div class="kzc-head">
+           <div class="kzc-mark">
+            <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-lesnoy.png" alt="">
+           </div>
+           <div class="kzc-ttl">
+            <p class="kzc-kicker">экопарк</p>
+            <h2 class="kzc-name">Лесной</h2>
+           </div>
+          </div>
+         </div>
+         <div class="kzc-copy__b">
+          <p class="kzc-desc">Уединённые коттеджи в сосновом бору. Тишина и природа в шаге от дома.</p>
+          <a class="kzc-act" href="https://ecopark-zavidovo.ru/?poselok=les">
+            <u>Смотреть посёлок</u>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor"
+                 stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 2.2 7.8 6 4 9.8"/>
+            </svg>
+          </a>
+         </div>
+        </div>
+      </article>
+
+      <!-- ЗАВИДОВО -->
+      <article class="kzc-frame" id="zavidovo" data-i="1" tabindex="-1" aria-label="Экопарк Завидово">
+        <div class="kzc-media">
+          <img decoding="async"
+               src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg"
+               alt="Экопарк Завидово: сердце курорта">
+        </div>
+        <div class="kzc-copy">
+         <div class="kzc-copy__a">
+          <div class="kzc-head">
+           <div class="kzc-mark">
+            <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-zavidovo.png" alt="">
+           </div>
+           <div class="kzc-ttl">
+            <p class="kzc-kicker">экопарк · флагман</p>
+            <h2 class="kzc-name">Завидово</h2>
+           </div>
+          </div>
+         </div>
+         <div class="kzc-copy__b">
+          <p class="kzc-desc">Сердце курорта: гольф, спа, рестораны и вся инфраструктура.</p>
+          <a class="kzc-act" href="https://ecopark-zavidovo.ru/?poselok=zav">
+            <u>Смотреть посёлок</u>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor"
+                 stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 2.2 7.8 6 4 9.8"/>
+            </svg>
+          </a>
+         </div>
+        </div>
+      </article>
+
+      <!-- АКВАТОРИЯ -->
+      <article class="kzc-frame" id="akvatoriya" data-i="2" tabindex="-1" aria-label="Акватория">
+        <div class="kzc-media">
+          <img decoding="async"
+               src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg"
+               alt="Акватория: жизнь у воды">
+        </div>
+        <div class="kzc-copy">
+         <div class="kzc-copy__a">
+          <div class="kzc-head">
+           <div class="kzc-mark">
+            <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt="">
+           </div>
+           <div class="kzc-ttl">
+            <p class="kzc-kicker">акватория</p>
+            <h2 class="kzc-name">Акватория</h2>
+           </div>
+          </div>
+         </div>
+         <div class="kzc-copy__b">
+          <p class="kzc-desc">Жизнь у воды: дома на берегу, собственный пляж, причал и бассейны.</p>
+          <button class="kzc-act" type="button" data-soon="akva" aria-haspopup="dialog">
+            <u>Сайт в разработке</u>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor"
+                 stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 2.2 7.8 6 4 9.8"/>
+            </svg>
+          </button>
+         </div>
+        </div>
+      </article>
+
+      <!-- MARINA ZAVIDOVO VILLAGE -->
+      <article class="kzc-frame" id="marina" data-i="3" tabindex="-1" aria-label="Marina Zavidovo Village">
+        <div class="kzc-media">
+          <img decoding="async"
+               src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-c.jpg"
+               alt="Marina Zavidovo Village: современные резиденции">
+        </div>
+        <div class="kzc-copy">
+         <div class="kzc-copy__a">
+          <div class="kzc-head">
+           <!-- логотипа у посёлка пока нет — монограмма Poiret One -->
+           <div class="kzc-mark"><span class="kzc-mono" aria-hidden="true">M</span></div>
+           <div class="kzc-ttl">
+            <p class="kzc-kicker">завидово</p>
+            <h2 class="kzc-name">Marina<span class="l2">Zavidovo Village</span></h2>
+           </div>
+          </div>
+         </div>
+         <div class="kzc-copy__b">
+          <!-- ТЕКСТ-ЧЕРНОВИК: на подтверждение клиента -->
+          <p class="kzc-desc">Современные резиденции в камне и дереве — авторская архитектура каждого дома.</p>
+          <button class="kzc-act" type="button" data-soon="marina" aria-haspopup="dialog">
+            <u>Сайт в разработке</u>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor"
+                 stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 2.2 7.8 6 4 9.8"/>
+            </svg>
+          </button>
+         </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════ 3. МЕЛКИЙ ПЛАН (десктоп) ══════════════════════
+       Тот же чертёж, крупным кроком по четырём знакам: где я и куда перейти.
+       Показывается только внутри сцен. -->
+  <nav class="kzc-mini" aria-label="Переход к посёлку по плану">
+    <p class="kzc-mini__t">план зоны</p>
+    <div class="kzc-mini__box">
+      <svg class="kzc-mini__svg" viewBox="440 140 720 660" preserveAspectRatio="none"
+           aria-hidden="true" focusable="false">
+        <path d="M498,320 C468,378 480,452 508,506 C524,538 512,574 528,606
+                 C548,646 604,690 668,700 C726,708 780,690 806,650
+                 C826,620 812,588 826,556 C842,520 820,492 834,458
+                 C852,414 838,346 792,312 C736,270 588,258 498,320 Z"
+              fill="#1bad03" fill-opacity=".14" stroke="#1bad03" stroke-opacity=".34"
+              stroke-width="1.2" stroke-dasharray="2 7" stroke-linecap="round"
+              vector-effect="non-scaling-stroke"/>
+        <path d="M868,196 C846,258 862,340 916,382 C976,428 1064,414 1092,352
+                 C1120,290 1096,214 1036,182 C976,152 892,152 868,196 Z"
+              fill="#bb916b" fill-opacity=".14" stroke="#bb916b" stroke-opacity=".42"
+              stroke-width="1.2" stroke-dasharray="2 7" stroke-linecap="round"
+              vector-effect="non-scaling-stroke"/>
+        <path d="M1290,0 C1240,110 1180,200 1130,300 C1080,400 1010,470 960,560
+                 C910,650 870,760 850,900 H1400 V0 Z"
+              fill="#007fe2" fill-opacity=".24"/>
+        <path d="M1290,0 C1240,110 1180,200 1130,300 C1080,400 1010,470 960,560
+                 C910,650 870,760 850,900"
+              fill="none" stroke="#fff" stroke-opacity=".32" stroke-width="1.2"
+              vector-effect="non-scaling-stroke"/>
+      </svg>
+      <button class="kzc-mpt" type="button" data-go="0" aria-current="true" style="--x:24.4%;--y:49.7%">
+        <i aria-hidden="true"></i><span class="kzc-mpt__lab">Лесной</span>
+        <span class="kzc-sr">Лесной</span>
+      </button>
+      <button class="kzc-mpt" type="button" data-go="1" style="--x:68.2%;--y:21.8%">
+        <i aria-hidden="true"></i><span class="kzc-mpt__lab">Завидово</span>
+        <span class="kzc-sr">Завидово</span>
+      </button>
+      <button class="kzc-mpt" type="button" data-go="3" style="--x:77.9%;--y:55.2%">
+        <i aria-hidden="true"></i><span class="kzc-mpt__lab">Marina Zavidovo Village</span>
+        <span class="kzc-sr">Marina Zavidovo Village</span>
+      </button>
+      <button class="kzc-mpt" type="button" data-go="2" style="--x:56.5%;--y:84.5%">
+        <i aria-hidden="true"></i><span class="kzc-mpt__lab">Акватория</span>
+        <span class="kzc-sr">Акватория</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- возврат к плану на мобилке -->
+  <button class="kzc-back" type="button" data-back>
+    <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" aria-hidden="true">
+      <circle cx="3.4" cy="4.6" r="1.7"/><circle cx="8.4" cy="3.2" r="1.7"/>
+      <circle cx="12.6" cy="7.4" r="1.7"/><circle cx="9.4" cy="11" r="1.7"/>
+    </svg>
+    План
+  </button>
+
+
+  <!-- ══════════════════════ 4. ОВЕРЛЕИ «САЙТ В РАЗРАБОТКЕ» ══════════════════════
+       Стоят вне .kzc-scenes намеренно: внутри sticky-контейнера position:fixed
+       считается от предка и оверлей не перекрывает экран. -->
+  <div class="kzc-soon" data-soon-box="akva" role="dialog" aria-modal="true"
+       aria-label="Акватория — сайт в разработке">
+    <div class="kzc-soon__bg" aria-hidden="true"
+         style="background-image:url('https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg')"></div>
+    <button class="kzc-soon__close" type="button" aria-label="Закрыть">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor"
+           stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+        <path d="M2 2 13 13M13 2 2 13"/>
+      </svg>
+    </button>
+    <div class="kzc-soon__card">
+      <div class="kzc-soon__mark">
+        <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt="">
+      </div>
+      <div class="kzc-soon__kick">акватория</div>
+      <div class="kzc-soon__name">Акватория</div>
+      <div class="kzc-soon__pill"><i aria-hidden="true"></i>сайт в разработке</div>
+      <p class="kzc-soon__txt">Готовим отдельный сайт посёлка у воды: дома на берегу, собственный пляж,
+        причал и бассейны. Пока рассказываем о нём здесь.</p>
+      <button class="kzc-soon__back" type="button">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor"
+             stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 2.2 4.2 6 8 9.8"/>
+        </svg>
+        <u>Вернуться к коллекции</u>
+      </button>
+    </div>
+  </div>
+
+  <div class="kzc-soon" data-soon-box="marina" role="dialog" aria-modal="true"
+       aria-label="Marina Zavidovo Village — сайт в разработке">
+    <div class="kzc-soon__bg" aria-hidden="true"
+         style="background-image:url('https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-c.jpg')"></div>
+    <button class="kzc-soon__close" type="button" aria-label="Закрыть">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor"
+           stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+        <path d="M2 2 13 13M13 2 2 13"/>
+      </svg>
+    </button>
+    <div class="kzc-soon__card">
+      <div class="kzc-soon__mark"><span class="kzc-mono" aria-hidden="true">M</span></div>
+      <div class="kzc-soon__kick">завидово</div>
+      <div class="kzc-soon__name">Marina<span class="l2">Zavidovo Village</span></div>
+      <div class="kzc-soon__pill"><i aria-hidden="true"></i>сайт в разработке</div>
+      <!-- ТЕКСТ-ЧЕРНОВИК: на подтверждение клиента -->
+      <p class="kzc-soon__txt">Готовим отдельный сайт посёлка: современные резиденции в камне и дереве,
+        авторская архитектура каждого дома. Пока рассказываем о нём здесь.</p>
+      <button class="kzc-soon__back" type="button">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor"
+             stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 2.2 4.2 6 8 9.8"/>
+        </svg>
+        <u>Вернуться к коллекции</u>
+      </button>
+    </div>
+  </div>
+
+</div><!-- /#kzc -->
+
+
+<!-- ============================================================================ -->
+<!--  СКРИПТ БЛОКА. Никаких библиотек. Прокрутка нативная, клавиатура работает    -->
+<!--  как обычно. Анимируем только transform и opacity.                           -->
+<!-- ============================================================================ -->
+<script id="kzc-js">
+(function(){
+  var root = document.getElementById('kzc');
+  if(!root) return;
+
+  var scenes = root.querySelector('.kzc-scenes');
+  var frames = Array.prototype.slice.call(root.querySelectorAll('.kzc-frame'));
+  var mpts   = Array.prototype.slice.call(root.querySelectorAll('.kzc-mpt'));
+  var mini   = root.querySelector('.kzc-mini');
+  var back   = root.querySelector('[data-back]');
+  var planEl = root.querySelector('.kzc-plan');
+  var N = frames.length;
+  if(!scenes || !N) return;
+
+  /* адрес у каждого посёлка свой — порядок совпадает с порядком сцен */
+  var HASH = ['lesnoy','zavidovo','akvatoriya','marina'];
+
+  var hasIO   = ('IntersectionObserver' in window);
+  var wideMQ  = window.matchMedia('(min-width: 861px)');
+  var motionMQ= window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  var rafId = 0, painted = false, live = false, active = -1;
+  var gateIO = null, listIO = null;
+  /* inScenes — сцены на экране. Пока человек на листе плана, адрес в строке
+     браузера не трогаем: там навигацией работает чертёж, а не отдельный посёлок. */
+  var inScenes = false;
+
+  function clamp(v,a,b){ return v < a ? a : (v > b ? b : v); }
+  function reduced(){ return motionMQ.matches === true; }
+  function canLive(){ return hasIO && wideMQ.matches && !reduced(); }
+
+  function setActive(i){
+    if(i === active) return;
+    active = i;
+    for(var k=0;k<mpts.length;k++){
+      if(+mpts[k].getAttribute('data-go') === i) mpts[k].setAttribute('aria-current','true');
+      else mpts[k].removeAttribute('aria-current');
+    }
+    if(inScenes) setHash(i);
+  }
+  /* replaceState, а не location.hash: иначе браузер сам прыгнет по якорю
+     и подерётся с нашей прокруткой. На file:// может быть запрещён — гасим. */
+  function setHash(i){
+    if(!HASH[i]) return;
+    try{
+      history.replaceState(null,'',location.pathname + location.search + '#' + HASH[i]);
+    }catch(e){}
+  }
+
+  function clearInline(){
+    for(var i=0;i<N;i++){
+      var f = frames[i];
+      f.style.opacity = '';
+      f.style.visibility = '';
+      var m = f.querySelector('.kzc-media img');
+      var c = f.querySelector('.kzc-copy');
+      if(m) m.style.transform = '';
+      if(c){ c.style.transform = ''; c.style.opacity = ''; }
+    }
+  }
+
+  /* ПОДМЕТАНИЕ: страховка от пустой страницы. Если наблюдатель не сработал
+     или скрипт упал — снимаем режим сцены, блок = обычная лента, всё видно. */
+  function degrade(){
+    stopLoop();
+    live = false;
+    root.classList.remove('is-live');
+    clearInline();
+    startListObserver();
+  }
+
+  function paint(){
+    rafId = 0;
+    try{
+      var vh = window.innerHeight || 800;
+      var r  = scenes.getBoundingClientRect();
+      var span = r.height - vh;
+      var p = span > 0 ? clamp(-r.top / span, 0, 1) : 0;
+      var u = p * N;                       /* 0..N — позиция «по сценам» */
+      var topOpaque = -1, i, a;
+
+      /* каждый следующий кадр ПРОЯВЛЯЕТСЯ поверх предыдущего: нижний остаётся
+         непрозрачным, поэтому в середине кроссфейда фон не просвечивает */
+      for(i=0;i<N;i++){
+        a = (i === 0) ? 1 : clamp((u - (i - 0.14)) / 0.28, 0, 1);
+        frames[i].style.opacity = a.toFixed(3);
+        if(a >= 1) topOpaque = i;
+      }
+      for(i=0;i<N;i++){
+        frames[i].style.visibility = (i < topOpaque) ? 'hidden' : 'visible';
+      }
+
+      for(i=0;i<N;i++){
+        var f = frames[i];
+        /* кадр «дышит»: приходит чуть крупнее и оседает в размер */
+        var lp = clamp(u - i, 0, 1);
+        var m = f.querySelector('.kzc-media img');
+        if(m) m.style.transform = 'scale(' + (1 + 0.06 * (1 - lp)).toFixed(4) + ')';
+
+        /* подпись меняется раньше кадра и без нахлёста: старая уходит вверх,
+           короткая пауза, новая приходит снизу — сдвиг в сторону жеста */
+        var lo = (i === 0)     ? -99 : (i - 0.06);
+        var hi = (i === N - 1) ?  99 : (i + 0.88);
+        var ca = clamp(Math.min((u - lo) / 0.10, (hi - u) / 0.10), 0, 1);
+        var dir = (u < i + 0.4) ? 1 : -1;
+        var c = f.querySelector('.kzc-copy');
+        if(c){
+          c.style.opacity = ca.toFixed(3);
+          c.style.transform = 'translate3d(0,' + (dir * (1 - ca) * 22).toFixed(1) + 'px,0)';
+        }
+      }
+
+      setActive(clamp(Math.floor(u), 0, N - 1));
+      painted = true;
+    }catch(err){
+      degrade();
+    }
+  }
+
+  function request(){ if(!rafId && live) rafId = window.requestAnimationFrame(paint); }
+  function onScroll(){ request(); }
+
+  function startLoop(){
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
+    request();
+  }
+  function stopLoop(){
+    window.removeEventListener('scroll', onScroll);
+    window.removeEventListener('resize', onScroll);
+    if(rafId){ window.cancelAnimationFrame(rafId); rafId = 0; }
+  }
+
+  /* 1. Ворота: мелкий план (и мобильная пилюля возврата) живут только внутри сцен */
+  function startGate(){
+    if(!hasIO) return;
+    gateIO = new IntersectionObserver(function(ent){
+      for(var i=0;i<ent.length;i++){
+        if(ent[i].isIntersecting){
+          inScenes = true;
+          if(mini) mini.classList.add('on');
+          if(back) back.classList.add('on');
+          if(live) request();
+        }else{
+          inScenes = false;
+          if(mini) mini.classList.remove('on');
+          if(back) back.classList.remove('on');
+        }
+      }
+    /* -45% снизу: указатель не выскакивает на первом экране, пока сцена только
+       подходит снизу — там навигацией работает большой чертёж */
+    }, {rootMargin:'0px 0px -45% 0px', threshold:0});
+    gateIO.observe(scenes);
+  }
+  /* 2. В режиме ленты активный знак подсвечивает наблюдатель по середине экрана */
+  function startListObserver(){
+    if(!hasIO || listIO) return;
+    listIO = new IntersectionObserver(function(ent){
+      for(var i=0;i<ent.length;i++){
+        if(ent[i].isIntersecting) setActive(+ent[i].target.getAttribute('data-i'));
+      }
+    }, {rootMargin:'-45% 0px -45% 0px', threshold:0});
+    frames.forEach(function(f){ listIO.observe(f); });
+  }
+  function stopListObserver(){
+    if(listIO){ listIO.disconnect(); listIO = null; }
+  }
+
+  function apply(){
+    if(canLive()){
+      if(live) return;
+      live = true;
+      stopListObserver();
+      root.classList.add('is-live');
+      startLoop();
+      paint();
+    }else{
+      if(!live && root.classList.contains('is-live') === false){ startListObserver(); return; }
+      degrade();
+    }
+  }
+
+  /* ---- переход к посёлку --------------------------------------------------- */
+  function targetTop(i){
+    if(live){
+      var r = scenes.getBoundingClientRect();
+      var span = r.height - (window.innerHeight || 800);
+      return window.pageYOffset + r.top + span * ((i + 0.5) / N);
+    }
+    return window.pageYOffset + frames[i].getBoundingClientRect().top;
+  }
+  function scrollTo(top, smooth){
+    try{ window.scrollTo({top:top, behavior: smooth ? 'smooth' : 'auto'}); }
+    catch(e){ window.scrollTo(0, top); }
+  }
+  function goto(i, smooth){
+    scrollTo(targetTop(i), smooth && !reduced());
+    setActive(i);
+    setHash(i);
+    /* фокус переезжает в сцену: у клавиатуры дальше Tab идёт по её ссылке,
+       а не возвращается в начало страницы */
+    try{ frames[i].focus({preventScroll:true}); }catch(e){}
+  }
+
+  /* знаки большого чертежа и мелкого плана — один обработчик */
+  root.querySelectorAll('[data-go]').forEach(function(b){
+    b.addEventListener('click', function(e){
+      e.preventDefault();
+      goto(+b.getAttribute('data-go'), true);
+    });
+  });
+
+  var hint = root.querySelector('[data-hint]');
+  if(hint) hint.addEventListener('click', function(){
+    scrollTo(window.pageYOffset + scenes.getBoundingClientRect().top, !reduced());
+  });
+  if(back && planEl) back.addEventListener('click', function(){
+    scrollTo(window.pageYOffset + planEl.getBoundingClientRect().top - 24, !reduced());
+  });
+
+  /* ---- адрес: прямая ссылка на посёлок ------------------------------------- */
+  function fromHash(){
+    var h = (location.hash || '').replace('#','');
+    for(var i=0;i<HASH.length;i++){ if(HASH[i] === h) return i; }
+    return -1;
+  }
+  window.addEventListener('hashchange', function(){
+    var i = fromHash();
+    if(i >= 0) goto(i, true);
+  });
+
+  /* ---- оверлей «сайт в разработке» ----------------------------------------- */
+  var opened = null, lastFocus = null, lockY = 0;
+
+  function openSoon(key, source){
+    var box = root.querySelector('.kzc-soon[data-soon-box="' + key + '"]');
+    if(!box) return;
+    lastFocus = source || document.activeElement;
+    lockY = window.pageYOffset;
+    /* блокируем прокрутку фона через documentElement, а не body:
+       так закреплённая сцена не «прыгает» */
+    document.documentElement.style.overflow = 'hidden';
+    box.classList.add('on');
+    opened = box;
+    var c = box.querySelector('.kzc-soon__close');
+    if(c) window.setTimeout(function(){ c.focus(); }, 60);
+  }
+  function closeSoon(){
+    if(!opened) return;
+    opened.classList.remove('on');
+    opened = null;
+    document.documentElement.style.overflow = '';
+    window.scrollTo(0, lockY);
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  root.querySelectorAll('[data-soon]').forEach(function(b){
+    b.addEventListener('click', function(){ openSoon(b.getAttribute('data-soon'), b); });
+  });
+  root.querySelectorAll('.kzc-soon').forEach(function(box){
+    box.querySelector('.kzc-soon__close').addEventListener('click', closeSoon);
+    box.querySelector('.kzc-soon__back').addEventListener('click', closeSoon);
+    box.addEventListener('mousedown', function(e){
+      if(e.target === box || e.target.className === 'kzc-soon__bg') closeSoon();
+    });
+  });
+  document.addEventListener('keydown', function(e){
+    if(!opened) return;
+    if(e.key === 'Escape' || e.key === 'Esc'){ closeSoon(); return; }
+    if(e.key === 'Tab'){                       /* фокус не уходит из диалога */
+      var f = opened.querySelectorAll('button');
+      if(!f.length) return;
+      var first = f[0], last = f[f.length-1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+  });
+
+  /* ---- старт --------------------------------------------------------------- */
+  /* адрес читаем ДО запуска сцены: дальше блок пишет туда сам, и своя же запись
+     иначе была бы принята за прямую ссылку — страница прыгала бы при открытии */
+  var openAt = fromHash();
+  startGate();
+  apply();
+  if(wideMQ.addEventListener){
+    wideMQ.addEventListener('change', apply);
+    motionMQ.addEventListener('change', apply);
+  }else if(wideMQ.addListener){
+    wideMQ.addListener(apply);
+    motionMQ.addListener(apply);
+  }
+
+  /* открыли страницу по прямой ссылке #akvatoriya — встаём на её сцену */
+  if(openAt >= 0){
+    window.requestAnimationFrame(function(){
+      window.setTimeout(function(){ inScenes = true; goto(openAt, false); }, 60);
+    });
+  }
+
+  function sweep(){
+    if(!root.classList.contains('is-live')){ clearInline(); return; }
+    if(!painted){ degrade(); return; }
+    var visible = false;
+    for(var i=0;i<N;i++){
+      if((parseFloat(frames[i].style.opacity) || 0) > 0.05 &&
+          frames[i].style.visibility !== 'hidden'){ visible = true; break; }
+    }
+    if(!visible) degrade();
+  }
+  window.setTimeout(sweep, 1200);
+  window.addEventListener('load', function(){ window.setTimeout(sweep, 300); });
+})();
+</script>
+
+</body>
+</html>
