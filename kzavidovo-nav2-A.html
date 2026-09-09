@@ -55,6 +55,28 @@
 <style id="testpage-only">
   html{background:#0f231b}
   body{margin:0;background:#0f231b}
+
+  /* переключатель ВАРИАНТОВ ВЕРХА — только для этой страницы.
+     В боевой блок переезжает один выбранный класс v1…v4 на #kzc
+     и его секция стилей, сам переключатель НЕ переносится. */
+  #vswitch{position:fixed;z-index:95;top:12px;left:50%;transform:translateX(-50%);
+    display:flex;align-items:center;gap:4px;padding:5px;border-radius:44px;
+    background:rgba(10,22,17,.7);border:1px solid rgba(255,255,255,.16);
+    -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    box-shadow:0 16px 40px -20px rgba(0,0,0,.7)}
+  #vswitch .vs-lab{padding:0 10px 0 14px;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:rgba(255,255,255,.5);white-space:nowrap}
+  #vswitch button{min-height:44px;padding:0 16px;border:0;border-radius:40px;cursor:pointer;
+    background:none;color:#fff;font:inherit;font-size:14px;letter-spacing:.01em;white-space:nowrap}
+  #vswitch button:hover{background:rgba(255,255,255,.1)}
+  #vswitch button[aria-pressed="true"]{background:linear-gradient(100deg,#1bad03,#15a06a 45%,#007fe2)}
+  #vswitch button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  @media (max-width:860px){
+    #vswitch{top:8px;gap:2px;padding:4px}
+    #vswitch .vs-lab{display:none}
+    #vswitch button{padding:0 11px;font-size:13px}
+  }
 </style>
 
 
@@ -131,27 +153,79 @@
   background:radial-gradient(circle,rgba(27,173,3,.16),rgba(0,127,226,.10) 44%,rgba(15,35,27,0) 68%);
 }
 
-/* ── имя коллекции: мелкое + огромное в одном лого-блоке ─────────────────────
-   Крупный кегль требует ОТРИЦАТЕЛЬНОГО трекинга и плотного интерлиньяжа,
-   мелкий — наоборот, разрядки. Поэтому у двух строк имени параметры
-   противоположные: .34em против -.03em.                                        */
-#kzc .kzc-title{position:relative;z-index:2;display:block;max-width:100%}
-#kzc .kzc-title__k{
-  display:flex;align-items:center;gap:clamp(11px,1.2vw,18px);
-  font-family:var(--font);text-transform:uppercase;
-  font-size:clamp(14px,1.45vw,21px);line-height:1;letter-spacing:.34em;
-  color:rgba(255,255,255,.82);                    /* 11.5:1 на #0f231b */
-  margin-bottom:clamp(13px,2vh,24px);
+/* ═══════════════════════════════════════════════════════════════════════════
+   БРЕНДОВЫЙ БЛОК — ЧЕТЫРЕ ВАРИАНТА (v1…v4 на #kzc)
+   Меняется ТОЛЬКО он. Всё, что ниже — факты, лесенка кадров, подписи,
+   подсказка прокрутки — во всех четырёх одинаково и стоит на месте.
+
+   Общее для всех:
+   · оба слова имени одного порядка величины, поэтому «Завидово» больше не
+     читается как заголовок посёлка — читается имя коллекции целиком;
+   · волоска-градиента между бриллиантом и словом больше нет;
+   · Poiret One тонкий, поэтому крупный кегль набран ПЛОТНО (интерлиньяж
+     около единицы, трекинг близкий к нулю) и только чистым белым — 16.45:1
+     на #0f231b. Волосяных штрихов на гигантском кегле нет ни в одном варианте.
+   ═══════════════════════════════════════════════════════════════════════════ */
+#kzc .kzc-title{
+  position:relative;z-index:2;max-width:100%;
+  display:flex;flex-direction:column;align-items:flex-start;
 }
-#kzc .kzc-dia{flex:none;display:block;width:clamp(24px,2.4vw,34px);height:auto;
+#kzc .kzc-dia{flex:none;display:block;height:auto;
+  width:clamp(22px,2.2vw,32px);
   filter:drop-shadow(0 6px 18px rgba(0,0,0,.45))}
-#kzc .kzc-title__rule{flex:none;width:clamp(26px,4vw,58px);height:1px;background:var(--grad)}
-#kzc .kzc-title__z{
+#kzc .kzc-title__lock{display:flex;flex-direction:column;align-items:flex-start}
+#kzc .kzc-title__w1,#kzc .kzc-title__w2{
   display:block;font-family:var(--font);font-weight:400;
-  /* min(vw,vh) — на низких экранах имя ужимается само, иначе съедает лесенку */
-  font-size:clamp(52px,min(12vw,19vh),172px);
-  line-height:.86;letter-spacing:-.03em;color:#fff;
+  text-transform:uppercase;color:#fff;                 /* 16.45:1 */
 }
+
+/* ── v1 «ЦЕЛЬНОЕ ИМЯ» ────────────────────────────────────────────────────────
+   Два слова одного кегля, плотный интерлиньяж .98 — лок-ап читается как одно
+   имя. Крупно, но не гигантски: на 80px у Poiret штрих уже достаточной
+   толщины, чтобы слово не выглядело хрупким.                                 */
+#kzc.v1 .kzc-dia{margin-bottom:clamp(14px,2vh,22px)}
+#kzc.v1 .kzc-title__w1,#kzc.v1 .kzc-title__w2{
+  font-size:clamp(36px,min(5.6vw,10vh),80px);line-height:.98;letter-spacing:.012em}
+
+/* ── v2 «ТИХИЙ БРЕНД» ────────────────────────────────────────────────────────
+   Имя одной строкой среднего кегля с разрядкой, вокруг много воздуха.
+   Весь вес экрана уходит на кадры.                                           */
+#kzc.v2 .kzc-hero{gap:clamp(46px,13vh,150px)}
+#kzc.v2 .kzc-title{flex-direction:row;align-items:center;gap:clamp(14px,1.6vw,24px)}
+#kzc.v2 .kzc-title__lock{flex-direction:row;align-items:baseline;gap:.42em;flex-wrap:wrap}
+#kzc.v2 .kzc-title__w1,#kzc.v2 .kzc-title__w2{
+  font-size:clamp(18px,2.3vw,32px);line-height:1.05;letter-spacing:.2em}
+
+/* ── v3 «КАДР В ВЕРХНИЙ КРАЙ» ────────────────────────────────────────────────
+   Пустого правого верха больше нет: там кадр, посаженный в самый верх экрана
+   и уходящий за правый край. Бренд слева небольшим блоком в две строки.
+   Кадр декоративный (aria-hidden), по нему не кликают — навигация только
+   в лесенке. Для боевой страницы сюда лучше положить отдельную обложку
+   коллекции, сейчас стоит закатный кадр из имеющихся.                        */
+#kzc .kzc-topshot{display:none}
+#kzc.v3 .kzc-topshot{
+  display:block;position:absolute;z-index:1;top:0;
+  right:calc(-1 * clamp(10px,2vw,34px));
+  width:clamp(280px,40vw,580px);height:clamp(170px,32vh,320px);
+  overflow:hidden;border-radius:0 0 0 14px;
+  box-shadow:0 30px 60px -34px rgba(0,0,0,.9);
+}
+#kzc.v3 .kzc-topshot img{width:100%;height:100%;object-fit:cover;display:block}
+#kzc.v3 .kzc-title{max-width:52%}
+#kzc.v3 .kzc-dia{margin-bottom:clamp(12px,1.8vh,18px)}
+#kzc.v3 .kzc-title__w1,#kzc.v3 .kzc-title__w2{
+  font-size:clamp(26px,3.8vw,54px);line-height:1;letter-spacing:.03em}
+
+/* ── v4 «ВЕРТИКАЛЬНЫЙ НАБОР» ─────────────────────────────────────────────────
+   Имя стоит вдоль левого края двумя вертикальными строками, читается снизу
+   вверх (rotate(180deg) к vertical-rl). Верх отдан воздуху.
+   На мобилке вертикальный набор не годится — там имя становится узкой
+   колонкой в две строки.                                                      */
+#kzc.v4 .kzc-title{flex-direction:row;align-items:flex-end;gap:clamp(12px,1.4vw,20px)}
+#kzc.v4 .kzc-title__lock{flex-direction:row;align-items:flex-end;gap:clamp(10px,1.2vw,18px)}
+#kzc.v4 .kzc-title__w1,#kzc.v4 .kzc-title__w2{
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  font-size:clamp(18px,2.1vw,30px);line-height:1;letter-spacing:.18em}
 
 /* ── нижняя полоса: слева факты, справа лесенка кадров ─────────────────────── */
 /* факты прижаты к НИЗУ полосы: их последняя строка встаёт на одну линию
@@ -452,7 +526,10 @@
    ───────────────────────────────────────────────────────────────────────────── */
 @media (min-width:861px) and (max-width:1150px){
   #kzc .kzc-hero{gap:clamp(18px,3vh,32px)}
-  #kzc .kzc-title__z{font-size:clamp(46px,min(10.4vw,16vh),120px)}
+  #kzc.v2 .kzc-hero{gap:clamp(30px,7vh,80px)}
+  #kzc.v1 .kzc-title__w1,#kzc.v1 .kzc-title__w2{font-size:clamp(32px,min(5vw,9vh),62px)}
+  #kzc.v3 .kzc-title__w1,#kzc.v3 .kzc-title__w2{font-size:clamp(24px,3.2vw,40px)}
+  #kzc.v3 .kzc-topshot{height:clamp(150px,26vh,240px);width:clamp(260px,38vw,440px)}
   #kzc .kzc-band{grid-template-columns:1fr;gap:clamp(18px,2.8vh,30px)}
   #kzc .kzc-facts{max-width:680px}
   #kzc .kzc-hint{margin-top:clamp(12px,2vh,22px)}
@@ -484,10 +561,26 @@
      Ровного ряда одинаковых кадров нет и здесь. */
   #kzc .kzc-hero{padding:clamp(34px,4.6vh,52px) 20px clamp(22px,3.4vh,32px);
     gap:clamp(18px,3vh,30px)}
-  #kzc .kzc-dia{width:25px}
-  #kzc .kzc-title__k{font-size:13px;letter-spacing:.3em;margin-bottom:11px;gap:10px}
-  #kzc .kzc-title__rule{width:26px}
-  #kzc .kzc-title__z{font-size:clamp(38px,11.6vw,60px);line-height:.9;letter-spacing:-.026em}
+  /* брендовый блок: у каждого варианта свой мобильный кегль.
+     Верх обязан оставаться низким — иначе лесенка уезжает за первый экран. */
+  #kzc .kzc-dia{width:24px}
+  #kzc.v1 .kzc-dia,#kzc.v3 .kzc-dia{margin-bottom:12px}
+  #kzc.v1 .kzc-title__w1,#kzc.v1 .kzc-title__w2{
+    font-size:clamp(28px,8.4vw,44px);line-height:1;letter-spacing:.02em}
+  #kzc.v2 .kzc-hero{gap:clamp(22px,5vh,54px)}
+  #kzc.v2 .kzc-title{gap:12px}
+  #kzc.v2 .kzc-title__w1,#kzc.v2 .kzc-title__w2{
+    font-size:clamp(15px,4.1vw,21px);letter-spacing:.16em}
+  #kzc.v3 .kzc-title{max-width:50%}
+  #kzc.v3 .kzc-title__w1,#kzc.v3 .kzc-title__w2{font-size:clamp(20px,5.8vw,30px)}
+  #kzc.v3 .kzc-topshot{width:48%;height:clamp(120px,19vh,190px);border-radius:0 0 0 10px;
+    right:calc(-1 * 8px)}
+  /* вертикальный набор на телефоне не читается — узкая колонка в две строки */
+  #kzc.v4 .kzc-title{flex-direction:column;align-items:flex-start;gap:12px}
+  #kzc.v4 .kzc-title__lock{flex-direction:column;align-items:flex-start;gap:0}
+  #kzc.v4 .kzc-title__w1,#kzc.v4 .kzc-title__w2{
+    writing-mode:horizontal-tb;transform:none;
+    font-size:clamp(24px,7vw,36px);line-height:1.04;letter-spacing:.07em}
 
   #kzc .kzc-band{grid-template-columns:1fr;gap:clamp(18px,2.8vh,28px)}
   #kzc .kzc-facts{max-width:none}
@@ -578,21 +671,38 @@
 
 <body>
 
-<div id="kzc">
+<!-- СЛУЖЕБНЫЙ ПЕРЕКЛЮЧАТЕЛЬ ВЕРХА — В TILDA НЕ ПЕРЕНОСИТЬ -->
+<div id="vswitch">
+  <span class="vs-lab">Верх</span>
+  <button type="button" data-v="v1" aria-pressed="true">Цельное имя</button>
+  <button type="button" data-v="v2" aria-pressed="false">Тихий</button>
+  <button type="button" data-v="v3" aria-pressed="false">Кадр вверху</button>
+  <button type="button" data-v="v4" aria-pressed="false">Вертикаль</button>
+</div>
+
+<div id="kzc" class="v1">
 
   <!-- ══════════════════════ 1. ПЕРВЫЙ ЭКРАН ══════════════════════ -->
   <section class="kzc-hero">
     <div class="kzc-hero__glow" aria-hidden="true"></div>
 
-    <!-- имя коллекции: мелкая разряженная строка над одним огромным словом -->
+    <!-- v3: кадр, посаженный в верхний край. В остальных вариантах скрыт.
+         Декоративный: по нему не кликают, навигация только в лесенке. -->
+    <div class="kzc-topshot" aria-hidden="true">
+      <img decoding="async" alt=""
+           src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg">
+    </div>
+
+    <!-- имя коллекции. Разметка одна на все четыре варианта,
+         различает их только CSS по классу v1…v4 на #kzc. -->
     <h1 class="kzc-title">
-      <span class="kzc-title__k">
-        <img class="kzc-dia" width="34" height="34" decoding="async"
-             src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png"
-             alt="">
-        <i class="kzc-title__rule" aria-hidden="true"></i>Коллекция
+      <img class="kzc-dia" width="32" height="32" decoding="async"
+           src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png"
+           alt="">
+      <span class="kzc-title__lock">
+        <span class="kzc-title__w1">Коллекция</span>
+        <span class="kzc-title__w2">Завидово</span>
       </span>
-      <span class="kzc-title__z">Завидово</span>
     </h1>
 
     <div class="kzc-band">
@@ -1265,6 +1375,37 @@
     openFromHash(false);
     window.setTimeout(sweep, 300);
   });
+})();
+</script>
+
+
+<!-- СЛУЖЕБНЫЙ СКРИПТ ПЕРЕКЛЮЧАТЕЛЯ — В TILDA НЕ ПЕРЕНОСИТЬ.
+     Меняет только класс варианта на #kzc. Ни разметку, ни механику
+     переходов не трогает: лесенка, факты и док остаются как есть. -->
+<script>
+(function(){
+  var root = document.getElementById('kzc');
+  var box  = document.getElementById('vswitch');
+  if(!root || !box) return;
+  var V = ['v1','v2','v3','v4'];
+  var btns = [].slice.call(box.querySelectorAll('button'));
+  function set(v){
+    if(V.indexOf(v) < 0) v = 'v1';
+    V.forEach(function(k){ root.classList.remove(k); });
+    root.classList.add(v);
+    btns.forEach(function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-v') === v ? 'true' : 'false');
+    });
+    /* высота верха поменялась — просим сцену пересчитать кадр */
+    window.dispatchEvent(new Event('scroll'));
+    try{ localStorage.setItem('kzc-top', v); }catch(e){}
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ set(b.getAttribute('data-v')); });
+  });
+  var saved = null;
+  try{ saved = localStorage.getItem('kzc-top'); }catch(e){}
+  set(saved || 'v1');
 })();
 </script>
 
