@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Коллекция Завидово — первый экран, вариант B «Лайнап»</title>
+</head>
+<!-- Обёртка ниже (html/head/body) нужна только для просмотра файла двойным кликом.
+     В Тильду копируется всё между метками «НАЧАЛО БЛОКА» и «КОНЕЦ БЛОКА». -->
+<body style="margin:0;background:#f5f5f7">
+
+<!-- ==========================================================================
+     ВАРИАНТ B — «ЛАЙНАП»
+     Первый экран kzavidovo.ru: четыре посёлка коллекции.
+
+     Что чинит по сравнению со сплит-экраном:
+       • ничего не спрятано под hover — описание и действие видны сразу;
+       • вместо четырёх полноэкранных фото — тихая светлая сетка с воздухом;
+       • раскрытие анимируется transform/opacity, а не flex (нет дёрганья);
+       • заголовок с ОТРИЦАТЕЛЬНЫМ трекингом и плотным интерлиньяжем
+         (сейчас на сайте наоборот — разрежено на +0.24em);
+       • белый текст больше не лежит на светлых участках фото.
+
+     ФАЙЛ САМОДОСТАТОЧЕН: открывается двойным кликом, в Тильду вставляется
+     одним блоком (шрифт подключается ссылкой внутри блока).
+     Все стили под #kzB и .kzB-modal — глобальных * / body / html нет.
+     ========================================================================== -->
+
+<!-- ═══════════════ НАЧАЛО БЛОКА — копировать отсюда ═══════════════ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+
+<style>
+/* ─────────────────────────────  ТОКЕНЫ  ───────────────────────────── */
+#kzB{
+  /* нейтраль Apple: фон и два уровня текста */
+  --bg:#f5f5f7;
+  --ink:#1d1d1f;          /* основной текст — 15.46:1 к фону */
+  --ink2:#6e6e73;         /* вторичный    —  4.66:1 к фону (AA) */
+  --surface:#ffffff;
+  --link:#0068bd;         /* тёмный край фирменного синего — 5.19:1, читаемо */
+  --brown:#bb916b;        /* фирменный коричневый: только тонкие детали */
+  --grad:linear-gradient(100deg,#1bad03,#15a06a 45%,#007fe2);
+
+  /* одна шкала скруглений и одна шкала теней (elevation) */
+  --r:18px;
+  --r-sm:12px;
+  --e1:0 1px 2px rgba(0,0,0,.045), 0 6px 16px -6px rgba(0,0,0,.10);
+  --e2:0 2px 6px rgba(0,0,0,.05),  0 18px 36px -12px rgba(0,0,0,.16);
+  --e3:0 10px 30px rgba(0,0,0,.10), 0 50px 90px -30px rgba(0,0,0,.30);
+
+  --sys:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+  --disp:'Poiret One','Century Gothic','Segoe UI',sans-serif;
+  --ease:cubic-bezier(.32,.72,0,1);   /* критически задемпфированное, без отскока */
+
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sys);
+  -webkit-font-smoothing:antialiased;
+  padding:clamp(44px,6.5vw,92px) 0 clamp(52px,7.5vw,104px);
+}
+#kzB *{box-sizing:border-box}
+#kzB h1,#kzB h2,#kzB p{margin:0}
+#kzB img{max-width:100%}
+
+#kzB .kz-wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+@media (min-width:700px){ #kzB .kz-wrap{padding:0 24px} }
+
+/* ─────────────────────────────  ШАПКА  ───────────────────────────── */
+#kzB .kz-head{text-align:center;margin-bottom:clamp(34px,4.6vw,60px)}
+#kzB .kz-diamond{width:42px;height:42px;object-fit:contain;display:block;margin:0 auto 16px}
+
+/* Приём Apple §типографика: чем крупнее кегль — тем ПЛОТНЕЕ трекинг и интерлиньяж */
+#kzB .kz-title{
+  font-family:var(--disp);
+  font-weight:400;
+  font-size:clamp(34px,5.2vw,60px);
+  line-height:1.05;
+  letter-spacing:-.02em;
+  color:var(--ink);
+}
+#kzB .kz-sub{
+  margin-top:12px;
+  font-size:clamp(16px,1.4vw,19px);
+  line-height:1.5;
+  letter-spacing:0;      /* мелкий кегль — трекинг в норме, не разрежен */
+  color:var(--ink2);
+}
+#kzB .kz-rule{width:44px;height:2px;margin:22px auto 0;border-radius:2px;background:var(--grad);opacity:.9}
+
+/* ─────────────────────────────  СЕТКА  ───────────────────────────── */
+#kzB .kz-grid{display:grid;grid-template-columns:1fr;gap:34px 24px}
+@media (min-width:640px){ #kzB .kz-grid{grid-template-columns:repeat(2,1fr);gap:38px 24px} }
+@media (min-width:1080px){ #kzB .kz-grid{grid-template-columns:repeat(4,1fr)} }
+
+/* ячейка отвечает только за появление — чтобы transform не спорил с hover карточки */
+#kzB .kz-cell{opacity:0;transform:translateY(18px);
+  transition:opacity .55s ease-out, transform .7s var(--ease)}
+#kzB .kz-cell.in{opacity:1;transform:none}
+/* лесенка 40 мс */
+#kzB .kz-cell:nth-child(1){transition-delay:0ms}
+#kzB .kz-cell:nth-child(2){transition-delay:40ms}
+#kzB .kz-cell:nth-child(3){transition-delay:80ms}
+#kzB .kz-cell:nth-child(4){transition-delay:120ms}
+
+/* ─────────────────────────────  КАРТОЧКА  ───────────────────────── */
+#kzB .kz-card{
+  position:relative;height:100%;
+  display:flex;flex-direction:column;
+  background:var(--surface);
+  border-radius:var(--r);
+  box-shadow:var(--e1);
+  /* без обводок: отделяет тень и воздух */
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+#kzB .kz-media{position:relative}
+#kzB .kz-frame{
+  --ar:16/11;                 /* мобилка: горизонтальный кадр */
+  aspect-ratio:var(--ar);     /* место занято до загрузки → нет скачка раскладки */
+  overflow:hidden;
+  border-radius:var(--r) var(--r) 0 0;
+  background:#e8e8ed;
+}
+@media (min-width:640px){ #kzB .kz-frame{--ar:1/1} }    /* 2 колонки: карточка шире — квадрат держит массу */
+@media (min-width:1080px){ #kzB .kz-frame{--ar:4/5} }   /* 4 в ряд: узкий портрет, как в лайнапе Apple */
+#kzB .kz-photo{display:block;width:100%;height:100%;object-fit:cover;
+  transition:transform .7s var(--ease)}
+
+/* круглый логотип на нижней кромке кадра */
+#kzB .kz-badge{
+  position:absolute;left:20px;bottom:-27px;
+  width:60px;height:60px;border-radius:50%;
+  background:#fff;display:grid;place-items:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.06), 0 10px 24px -10px rgba(0,0,0,.35);
+}
+#kzB .kz-badge img{width:36px;height:36px;object-fit:contain;display:block}
+/* у Marina логотипа нет — монограмма шрифтом Poiret One */
+#kzB .kz-mono{font-family:var(--disp);font-size:31px;line-height:1;color:#1d1d1f;
+  text-indent:.06em;transform:translateY(1px)}
+
+#kzB .kz-body{flex:1;display:flex;flex-direction:column;padding:44px 20px 22px}
+@media (min-width:1080px){ #kzB .kz-body{padding:44px 20px 24px} }
+
+#kzB .kz-kick{
+  font-size:12px;line-height:1.2;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;   /* мелкий кегль — трекинг положительный */
+  color:var(--ink2);
+}
+#kzB .kz-name{
+  font-family:var(--disp);font-weight:400;
+  font-size:clamp(27px,2.1vw,32px);
+  line-height:1;
+  letter-spacing:-.01em;
+  color:var(--ink);
+  margin-top:9px;
+  /* имя живёт в блоке фиксированной высоты и центрируется в нём: описания всех
+     четырёх карточек начинаются на одной линии, даже у двухстрочной Marina */
+  min-height:2.02em;
+  display:flex;flex-direction:column;justify-content:center;
+}
+/* лок-ап Marina: MARINA / ZAVIDOVO VILLAGE */
+#kzB .kz-name--lock .l1{display:block}
+#kzB .kz-name--lock .l2{display:block;margin-top:.34em;font-size:.4em;letter-spacing:.16em;
+  color:var(--ink);white-space:nowrap}
+
+#kzB .kz-desc{
+  margin-top:12px;
+  font-family:var(--sys);
+  font-size:16px;line-height:1.5;
+  color:var(--ink2);
+}
+@media (min-width:1080px){ #kzB .kz-desc{font-size:16px} }
+@media (min-width:640px) and (max-width:1079px){ #kzB .kz-desc{font-size:17px;max-width:36ch} }
+
+/* действие: текст + шеврон, как ссылки Apple. Зона тапа ≥44px */
+#kzB .kz-act{
+  margin-top:auto;                 /* прижимает действия всех карточек к одной линии */
+  align-self:flex-start;
+  display:inline-flex;align-items:center;gap:7px;
+  min-height:44px;padding:11px 0 0;
+  font-family:var(--sys);font-size:16px;line-height:1.2;font-weight:400;
+  color:var(--link);background:none;border:0;
+  text-decoration:none;cursor:pointer;
+  transition:gap .35s var(--ease), opacity .2s ease;
+}
+#kzB .kz-act .chev{flex:none;transition:transform .35s var(--ease)}
+#kzB .kz-act .dot{flex:none;width:7px;height:7px;border-radius:50%;background:var(--grad);
+  margin-right:1px}
+/* растянутая ссылка: кликается вся карточка, а в дереве доступности — одна цель */
+#kzB .kz-act::after{content:"";position:absolute;inset:0;border-radius:var(--r)}
+
+/* ─────────────────────────────  СОСТОЯНИЯ  ──────────────────────── */
+@media (hover:hover){
+  /* ховер только УСИЛИВАЕТ видимое: подъём карточки + масштаб кадра. Ничего не появляется */
+  #kzB .kz-card:hover,
+  #kzB .kz-card:focus-within{transform:translateY(-6px);box-shadow:var(--e2)}
+  #kzB .kz-card:hover .kz-photo{transform:scale(1.02)}
+  #kzB .kz-card:hover .kz-act{gap:11px}
+}
+/* отклик на нажатие — мгновенный, на pointer-down */
+#kzB .kz-card:active{transform:translateY(-2px);transition-duration:.1s}
+#kzB .kz-act:focus-visible{outline:none}
+#kzB .kz-card:has(.kz-act:focus-visible){outline:2px solid var(--link);outline-offset:3px}
+#kzB .kz-act:focus-visible{outline:2px solid var(--link);outline-offset:4px;border-radius:6px}
+
+/* сноска под сеткой */
+#kzB .kz-note{margin-top:clamp(28px,3.4vw,44px);text-align:center;
+  font-size:13px;line-height:1.6;color:var(--ink2)}
+#kzB .kz-note b{font-weight:500;color:var(--ink)}
+/* коричневый — только тонкая декоративная деталь: текстом он даёт 2.6:1 и не проходит */
+#kzB .kz-note i{display:inline-block;width:5px;height:5px;margin-right:9px;
+  background:var(--brown);transform:rotate(45deg);border-radius:1px;vertical-align:middle}
+
+/* ─────────────────────────────  ДОСТУПНОСТЬ  ────────────────────── */
+@media (prefers-reduced-motion:reduce){
+  #kzB .kz-cell{opacity:1;transform:none;transition:none;transition-delay:0ms}
+  #kzB .kz-card,#kzB .kz-photo,#kzB .kz-act{transition:none}
+  #kzB .kz-card:hover,#kzB .kz-card:focus-within,#kzB .kz-card:active{transform:none}
+  #kzB .kz-card:hover .kz-photo{transform:none}
+}
+@media (prefers-contrast:more){
+  #kzB .kz-card{box-shadow:none;outline:1px solid rgba(0,0,0,.35)}
+  #kzB .kz-desc,#kzB .kz-kick{color:#4a4a4f}
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   ОВЕРЛЕЙ «САЙТ В РАЗРАБОТКЕ»
+   Стили НЕ вложены в #kzB намеренно: скрипт переносит оверлеи в <body>,
+   иначе position:fixed ломается о transform-контейнеры Тильды.
+   Имена классов с префиксом kzB — глобального ничего нет.
+   ══════════════════════════════════════════════════════════════════ */
+.kzB-modal{
+  position:fixed;inset:0;z-index:100000;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .32s ease, visibility 0s linear .32s;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+}
+.kzB-modal *{box-sizing:border-box}
+.kzB-modal.on{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
+.kzB-modal__scrim{position:absolute;inset:0;background:rgba(29,29,31,.46);
+  -webkit-backdrop-filter:saturate(120%) blur(2px);backdrop-filter:saturate(120%) blur(2px)}
+.kzB-modal__card{
+  position:relative;width:min(420px,100%);max-height:calc(100vh - 40px);overflow:auto;
+  padding:22px 22px 24px;text-align:center;
+  border-radius:22px;
+  /* светлый материал, а не тёмная панель */
+  background:rgba(255,255,255,.88);
+  -webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);
+  box-shadow:0 10px 30px rgba(0,0,0,.10), 0 50px 90px -30px rgba(0,0,0,.45);
+  color:#1d1d1f;
+  transform:scale(.94);opacity:0;
+  transition:transform .42s cubic-bezier(.32,.72,0,1), opacity .28s ease;
+}
+.kzB-modal.on .kzB-modal__card{transform:none;opacity:1}
+.kzB-modal__shot{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px;display:block;
+  background:#e8e8ed}
+.kzB-modal__logo{width:62px;height:62px;border-radius:50%;background:#fff;display:grid;place-items:center;
+  margin:-31px auto 0;position:relative;
+  box-shadow:0 2px 6px rgba(0,0,0,.06), 0 10px 24px -10px rgba(0,0,0,.35)}
+.kzB-modal__logo img{width:38px;height:38px;object-fit:contain;display:block}
+.kzB-modal__logo .kzB-mono{font-family:'Poiret One','Century Gothic',sans-serif;font-size:33px;
+  line-height:1;color:#1d1d1f;text-indent:.06em}
+.kzB-modal__kick{margin-top:14px;font-size:12px;font-weight:500;letter-spacing:.13em;
+  text-transform:uppercase;color:#6e6e73}
+.kzB-modal__name{margin:7px 0 0;font-family:'Poiret One','Century Gothic',sans-serif;font-weight:400;
+  font-size:30px;line-height:1.02;letter-spacing:-.01em;color:#1d1d1f}
+.kzB-modal__name .l2{display:block;margin-top:.3em;font-size:.42em;letter-spacing:.16em}
+.kzB-modal__dev{margin-top:12px;display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;color:#1d1d1f;
+  background:rgba(0,0,0,.05);border-radius:100px;padding:7px 14px}
+.kzB-modal__dev i{width:7px;height:7px;border-radius:50%;
+  background:linear-gradient(100deg,#1bad03,#15a06a 45%,#007fe2)}
+.kzB-modal__txt{margin:14px 0 0;font-size:16px;line-height:1.5;color:#6e6e73}
+.kzB-modal__back{margin-top:18px;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:44px;padding:12px 22px;border:0;border-radius:100px;cursor:pointer;
+  font-family:inherit;font-size:16px;color:#fff;background:#1d1d1f;
+  transition:opacity .2s ease,transform .2s cubic-bezier(.32,.72,0,1)}
+.kzB-modal__back:hover{opacity:.86}
+.kzB-modal__back:active{transform:scale(.98)}
+.kzB-modal__close{
+  position:absolute;top:10px;right:10px;width:44px;height:44px;   /* зона тапа 44×44 */
+  display:grid;place-items:center;cursor:pointer;
+  border:0;border-radius:50%;background:rgba(255,255,255,.72);color:#1d1d1f;
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  box-shadow:0 1px 4px rgba(0,0,0,.14);
+  transition:background .2s ease,transform .2s cubic-bezier(.32,.72,0,1)}
+.kzB-modal__close:hover{background:#fff}
+.kzB-modal__close:active{transform:scale(.94)}
+.kzB-modal__close:focus-visible,.kzB-modal__back:focus-visible{outline:2px solid #0068bd;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){
+  .kzB-modal,.kzB-modal__card{transition:opacity .15s linear}
+  .kzB-modal__card{transform:none}
+}
+@media (prefers-reduced-transparency:reduce){
+  .kzB-modal__card{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .kzB-modal__scrim{background:rgba(29,29,31,.6);-webkit-backdrop-filter:none;backdrop-filter:none}
+}
+</style>
+
+
+<section id="kzB" aria-labelledby="kzB-title">
+  <div class="kz-wrap">
+
+    <!-- ── шапка секции ── -->
+    <header class="kz-head">
+      <img class="kz-diamond" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+      <h1 class="kz-title" id="kzB-title">Коллекция Завидово</h1>
+      <p class="kz-sub">Четыре посёлка — один курорт</p>
+      <div class="kz-rule" aria-hidden="true"></div>
+    </header>
+
+    <!-- ── лайнап ── -->
+    <div class="kz-grid">
+
+      <!-- 1. ЛЕСНОЙ -->
+      <div class="kz-cell rv">
+        <article class="kz-card">
+          <div class="kz-media">
+            <div class="kz-frame">
+              <img class="kz-photo" decoding="async"
+                   src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg"
+                   alt="Посёлок Лесной: коттеджи в сосновом бору">
+            </div>
+            <span class="kz-badge"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-lesnoy.png" alt=""></span>
+          </div>
+          <div class="kz-body">
+            <p class="kz-kick">экопарк</p>
+            <h2 class="kz-name">ЛЕСНОЙ</h2>
+            <p class="kz-desc">Уединённые коттеджи в сосновом бору. Тишина и природа в шаге от дома.</p>
+            <a class="kz-act" href="https://ecopark-zavidovo.ru/?poselok=les">
+              Перейти на сайт
+              <svg class="chev" width="8" height="14" viewBox="0 0 8 14" aria-hidden="true" focusable="false"><path d="M1 1l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <!-- 2. ЗАВИДОВО -->
+      <div class="kz-cell rv">
+        <article class="kz-card">
+          <div class="kz-media">
+            <div class="kz-frame">
+              <img class="kz-photo" decoding="async"
+                   src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg"
+                   alt="Посёлок Завидово: центральная часть курорта">
+            </div>
+            <span class="kz-badge"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-zavidovo.png" alt=""></span>
+          </div>
+          <div class="kz-body">
+            <p class="kz-kick">экопарк · флагман</p>
+            <h2 class="kz-name">ЗАВИДОВО</h2>
+            <p class="kz-desc">Сердце курорта: гольф, спа, рестораны и вся инфраструктура.</p>
+            <a class="kz-act" href="https://ecopark-zavidovo.ru/?poselok=zav">
+              Перейти на сайт
+              <svg class="chev" width="8" height="14" viewBox="0 0 8 14" aria-hidden="true" focusable="false"><path d="M1 1l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <!-- 3. АКВАТОРИЯ — сайт в разработке -->
+      <div class="kz-cell rv">
+        <article class="kz-card">
+          <div class="kz-media">
+            <div class="kz-frame">
+              <img class="kz-photo" decoding="async"
+                   src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg"
+                   alt="Акватория Завидово: дома у воды">
+            </div>
+            <span class="kz-badge"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt=""></span>
+          </div>
+          <div class="kz-body">
+            <p class="kz-kick">акватория</p>
+            <h2 class="kz-name">АКВАТОРИЯ</h2>
+            <p class="kz-desc">Жизнь у воды: дома на берегу, собственный пляж, причал и бассейны.</p>
+            <button class="kz-act" type="button" data-open="akva" aria-haspopup="dialog">
+              <span class="dot" aria-hidden="true"></span>
+              Сайт в разработке
+              <svg class="chev" width="8" height="14" viewBox="0 0 8 14" aria-hidden="true" focusable="false"><path d="M1 1l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </article>
+      </div>
+
+      <!-- 4. MARINA ZAVIDOVO VILLAGE — сайт в разработке, логотипа нет -->
+      <div class="kz-cell rv">
+        <article class="kz-card">
+          <div class="kz-media">
+            <div class="kz-frame">
+              <img class="kz-photo" decoding="async"
+                   src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-b.jpg"
+                   alt="Marina Zavidovo Village: современные резиденции">
+            </div>
+            <span class="kz-badge"><span class="kz-mono" aria-hidden="true">M</span></span>
+          </div>
+          <div class="kz-body">
+            <p class="kz-kick">завидово</p>
+            <h2 class="kz-name kz-name--lock"><span class="l1">MARINA</span><span class="l2">ZAVIDOVO VILLAGE</span></h2>
+            <!-- ЧЕРНОВИК ОПИСАНИЯ — на подтверждение клиента -->
+            <p class="kz-desc">Современные резиденции в камне и дереве — авторская архитектура каждого дома.</p>
+            <button class="kz-act" type="button" data-open="marina" aria-haspopup="dialog">
+              <span class="dot" aria-hidden="true"></span>
+              Сайт в разработке
+              <svg class="chev" width="8" height="14" viewBox="0 0 8 14" aria-hidden="true" focusable="false"><path d="M1 1l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </article>
+      </div>
+
+    </div>
+
+    <p class="kz-note"><i aria-hidden="true"></i>У Акватории и Marina сайты <b>в разработке</b> — карточки открывают короткую справку.</p>
+  </div>
+
+  <!-- ─────── оверлей: АКВАТОРИЯ ─────── -->
+  <div class="kzB-modal" data-modal="akva" role="dialog" aria-modal="true" aria-hidden="true"
+       aria-label="Акватория Завидово — сайт в разработке">
+    <div class="kzB-modal__scrim" data-close></div>
+    <div class="kzB-modal__card">
+      <button class="kzB-modal__close" type="button" data-close aria-label="Закрыть">
+        <svg width="15" height="15" viewBox="0 0 15 15" aria-hidden="true" focusable="false"><path d="M1.5 1.5l12 12M13.5 1.5l-12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <img class="kzB-modal__shot" decoding="async"
+           src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="">
+      <div class="kzB-modal__logo"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt=""></div>
+      <p class="kzB-modal__kick">акватория</p>
+      <p class="kzB-modal__name">АКВАТОРИЯ</p>
+      <p class="kzB-modal__dev"><i aria-hidden="true"></i>сайт в разработке</p>
+      <p class="kzB-modal__txt">Готовим отдельный сайт посёлка у воды: дома на берегу, собственный пляж, причал и бассейны.</p>
+      <button class="kzB-modal__back" type="button" data-close>Вернуться к коллекции</button>
+    </div>
+  </div>
+
+  <!-- ─────── оверлей: MARINA ─────── -->
+  <div class="kzB-modal" data-modal="marina" role="dialog" aria-modal="true" aria-hidden="true"
+       aria-label="Marina Zavidovo Village — сайт в разработке">
+    <div class="kzB-modal__scrim" data-close></div>
+    <div class="kzB-modal__card">
+      <button class="kzB-modal__close" type="button" data-close aria-label="Закрыть">
+        <svg width="15" height="15" viewBox="0 0 15 15" aria-hidden="true" focusable="false"><path d="M1.5 1.5l12 12M13.5 1.5l-12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <img class="kzB-modal__shot" decoding="async"
+           src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-b.jpg" alt="">
+      <div class="kzB-modal__logo"><span class="kzB-mono" aria-hidden="true">M</span></div>
+      <p class="kzB-modal__kick">завидово</p>
+      <p class="kzB-modal__name"><span class="l1">MARINA</span><span class="l2">ZAVIDOVO VILLAGE</span></p>
+      <p class="kzB-modal__dev"><i aria-hidden="true"></i>сайт в разработке</p>
+      <!-- ЧЕРНОВИК ТЕКСТА — на подтверждение клиента -->
+      <p class="kzB-modal__txt">Готовим отдельный сайт посёлка: современные резиденции в камне и дереве, авторская архитектура каждого дома.</p>
+      <button class="kzB-modal__back" type="button" data-close>Вернуться к коллекции</button>
+    </div>
+  </div>
+
+</section>
+
+<script>
+(function(){
+  var root=document.getElementById('kzB');
+  if(!root) return;
+
+  /* оверлеи переносим в body: в Тильде position:fixed ломается о transform-предков */
+  var modals=[].slice.call(root.querySelectorAll('.kzB-modal'));
+  modals.forEach(function(m){ document.body.appendChild(m); });
+
+  /* ─── появление карточек лесенкой ─── */
+  var cells=[].slice.call(root.querySelectorAll('.kz-cell'));
+  var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(el){ el.classList.add('in'); }
+
+  if(reduce || !('IntersectionObserver' in window)){
+    cells.forEach(show);
+  }else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ show(e.target); io.unobserve(e.target); } });
+    },{threshold:.12, rootMargin:'0px 0px -6% 0px'});
+    cells.forEach(function(c){ io.observe(c); });
+
+    /* страховка: ни одна карточка не должна остаться навсегда невидимой */
+    function sweep(all){
+      cells.forEach(function(c){
+        if(c.classList.contains('in')) return;
+        var r=c.getBoundingClientRect();
+        if(all || r.top < (window.innerHeight||0)*1.25) show(c);
+      });
+    }
+    window.addEventListener('load',function(){ sweep(false); });
+    setTimeout(function(){ sweep(false); },900);
+    setTimeout(function(){ sweep(true); },3500);
+  }
+
+  /* ─── оверлеи ─── */
+  var lastFocus=null, scrollLock='';
+  function byName(n){ for(var i=0;i<modals.length;i++){ if(modals[i].getAttribute('data-modal')===n) return modals[i]; } return null; }
+
+  function openModal(name,source){
+    var m=byName(name); if(!m) return;
+    var card=m.querySelector('.kzB-modal__card');
+    /* якорим появление к карточке-источнику: панель растёт оттуда, куда нажали */
+    if(source && card && card.getBoundingClientRect){
+      var s=source.getBoundingClientRect(), c=card.getBoundingClientRect();
+      if(c.width && c.height){
+        var ox=Math.max(-40,Math.min(c.width+40, s.left+s.width/2-c.left));
+        var oy=Math.max(-40,Math.min(c.height+40, s.top+s.height/2-c.top));
+        card.style.transformOrigin=ox+'px '+oy+'px';
+      }
+    }
+    lastFocus=source||null;
+    scrollLock=document.documentElement.style.overflow;
+    document.documentElement.style.overflow='hidden';
+    m.classList.add('on');
+    m.setAttribute('aria-hidden','false');
+    var cb=m.querySelector('.kzB-modal__close'); if(cb) cb.focus();
+  }
+  function closeModal(m){
+    if(!m||!m.classList.contains('on')) return;
+    m.classList.remove('on');
+    m.setAttribute('aria-hidden','true');
+    document.documentElement.style.overflow=scrollLock;
+    if(lastFocus && lastFocus.focus) lastFocus.focus();   /* фокус возвращается на карточку-источник */
+    lastFocus=null;
+  }
+  function openOne(){ for(var i=0;i<modals.length;i++){ if(modals[i].classList.contains('on')) return modals[i]; } return null; }
+
+  root.addEventListener('click',function(e){
+    var t=e.target.closest ? e.target.closest('[data-open]') : null;
+    if(!t) return;
+    e.preventDefault();
+    openModal(t.getAttribute('data-open'),t);
+  });
+
+  modals.forEach(function(m){
+    m.addEventListener('click',function(e){
+      if(e.target.closest && e.target.closest('[data-close]')) closeModal(m);
+    });
+    /* фокус не убегает из диалога */
+    m.addEventListener('keydown',function(e){
+      if(e.key!=='Tab') return;
+      var f=m.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if(!f.length) return;
+      var first=f[0], last=f[f.length-1];
+      if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+    });
+  });
+
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'||e.key==='Esc'){ closeModal(openOne()); }
+  });
+})();
+</script>
+
+<!-- ═══════════════ КОНЕЦ БЛОКА — копировать досюда ═══════════════ -->
+
+</body>
+</html>

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Коллекция Завидово — Вариант A «Витрина»</title>
+
+<!-- ============================================================================ -->
+<!--  ВАРИАНТ A — «ВИТРИНА»                                                       -->
+<!--  Первый экран kzavidovo.ru: на экране ОДИН посёлок, но целиком и крупно.     -->
+<!--  Остальные три — тихой строкой-переключателем внизу (translucent-материал).   -->
+<!--  Референс-приём: страница продукта Apple / приложение Apple TV.               -->
+<!--                                                                              -->
+<!--  ФАЙЛ САМОДОСТАТОЧНЫЙ: открывается двойным кликом, ничего подключать не надо. -->
+<!--                                                                              -->
+<!--  ЧТО ПЕРЕЕДЕТ В TILDA (один блок T123, вставляется целиком):                  -->
+<!--    <link> на Poiret One  +  <style id="kzv-core">  +  <section id="kzvA">     -->
+<!--    +  <script id="kzv-js">.                                                   -->
+<!--  Блок <style id="kzv-testpage-only"> — ТОЛЬКО для этой страницы,              -->
+<!--  в Tilda его НЕ переносим (там body уже без полей).                           -->
+<!--                                                                              -->
+<!--  Все стили живут под #kzvA. Глобальных селекторов нет, правок body/html       -->
+<!--  в переносимой части нет — соседние блоки Tilda не заденет.                   -->
+<!-- ============================================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+
+<!-- ▼▼▼ СЛУЖЕБНОЕ — В TILDA НЕ ПЕРЕНОСИТЬ ▼▼▼ -->
+<style id="kzv-testpage-only">
+  body{margin:0;background:#0f231b}
+</style>
+<!-- ▲▲▲ КОНЕЦ СЛУЖЕБНОГО ▲▲▲ -->
+
+
+<style id="kzv-core">
+/* ============================================================================ */
+/*  ТОКЕНЫ БЛОКА                                                                */
+/* ============================================================================ */
+#kzvA{
+  /* фирменная палитра */
+  --grad:linear-gradient(100deg,#1bad03,#15a06a 45%,#007fe2);
+  --ink:#0f231b;                 /* тёмный фирменный */
+  --brown:#bb916b;               /* фирменный коричневый (используем осветлённый тон) */
+  --warm:#efe2d2;               /* светлый тон коричневого — держит 4.5:1 на затемнении */
+  --scrim:5,16,12;               /* цвет затемнения кадра, rgb-компоненты */
+
+  /* Шрифты. Poiret One — только КРУПНЫЙ текст (имя, логотип-строка, монограмма).
+     Мелкий текст — системный: Poiret One на 13–17px нечитаем (тонкий штрих,
+     широкие межбуквенные просветы). Осознанная замена, см. отчёт.            */
+  --poiret:'Poiret One','Century Gothic',sans-serif;
+  --sys:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+
+  /* Кривая «критически задемпфированной» пружины: быстрый старт, без отскока.
+     Apple: damping 1.0 / response ~0.4 — тут её CSS-эквивалент.               */
+  --ease:cubic-bezier(.32,.72,0,1);
+
+  /* высота нижней полосы-переключателя (учитывает home-indicator на iPhone) */
+  --bar:calc(76px + env(safe-area-inset-bottom, 0px));
+  --pad:clamp(20px,5vw,80px);
+
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  background:var(--ink);
+  color:#fff;
+  font-family:var(--sys);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+/* единственный «сброс» — и тот под корневым id (глобальный * ломает Tilda) */
+#kzvA *{box-sizing:border-box;margin:0;padding:0}
+#kzvA [hidden]{display:none !important}
+
+/* ============================================================================ */
+/*  СЦЕНА                                                                       */
+/* ============================================================================ */
+#kzvA .kzv-stage{
+  position:relative;
+  width:100%;
+  height:100vh;          /* фолбэк */
+  height:100dvh;         /* адресная строка мобильного браузера не режет сцену */
+  min-height:520px;
+  /* Кадры лежат с transform:scale(1.055) и вылезают за сцену на ~40×25px.
+     При overflow:hidden сцена остаётся СКРОЛЛ-КОНТЕЙНЕРОМ: браузер, показывая
+     сфокусированную вкладку, подкручивал её на 25px и полоса отрывалась от низа
+     экрана. overflow:clip обрезает так же, но скролл-контейнером не делает.     */
+  overflow:hidden;
+  overflow:clip;
+  background:var(--ink);
+  touch-action:pan-y;    /* горизонталь ловим сами, вертикальный скролл страницы не мешаем */
+}
+
+/* ——— слой кадров ——— */
+/* Отдельная обёртка нужна, чтобы drag-сдвиг (translate) не спорил               */
+/* с масштабом «материализации» у самих кадров.                                  */
+#kzvA .kzv-frames{position:absolute;inset:0;will-change:transform}
+#kzvA .kzv-frame{
+  position:absolute;inset:0;
+  opacity:0;
+  transform:scale(1.055);
+  /* «материализация», а не моргание: кадр приходит из лёгкого зума в свой масштаб.
+     Анимируем только opacity и transform.                                       */
+  transition:opacity .60s var(--ease), transform .95s var(--ease);
+  will-change:opacity,transform;
+}
+#kzvA .kzv-frame.on{opacity:1;transform:scale(1)}
+#kzvA .kzv-frame img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* ——— затемнение ——— */
+/* Снизу — под имя и описание, сверху — под подпись бренда.                     */
+/* Проценты подобраны так, чтобы в полосе текста альфа была ≥ .58:               */
+/* даже над белым небом это даёт ≥ 5:1 к белому тексту (замер в отчёте).        */
+#kzvA .kzv-scrim{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    linear-gradient(to top,
+      rgba(var(--scrim),.94) 0%,
+      rgba(var(--scrim),.90) 18%,
+      rgba(var(--scrim),.74) 38%,
+      rgba(var(--scrim),.44) 56%,
+      rgba(var(--scrim),.15) 74%,
+      rgba(var(--scrim),0)  92%),
+    linear-gradient(to bottom,
+      rgba(var(--scrim),.74) 0%,
+      rgba(var(--scrim),.56) 10%,
+      rgba(var(--scrim),.24) 19%,
+      rgba(var(--scrim),0)   32%);
+}
+
+/* ============================================================================ */
+/*  ПОДПИСЬ БРЕНДА — тихая. Герой экрана посёлок, а не шапка.                    */
+/* ============================================================================ */
+#kzvA .kzv-brand{
+  position:absolute;z-index:3;top:0;left:0;right:0;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  padding:calc(20px + env(safe-area-inset-top,0px)) var(--pad) 0;
+  text-align:center;pointer-events:none;
+}
+#kzvA .kzv-brand img{width:30px;height:30px;object-fit:contain}
+#kzvA .kzv-word{
+  font-family:var(--poiret);
+  font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.97);
+}
+#kzvA .kzv-tag{
+  font-family:var(--sys);
+  font-size:11.5px;line-height:1.4;letter-spacing:.06em;
+  color:rgba(255,255,255,.92);
+}
+
+/* ============================================================================ */
+/*  ГЕРОЙ — имя посёлка. Ничего не спрятано под hover.                           */
+/* ============================================================================ */
+#kzvA .kzv-hero{
+  position:absolute;z-index:3;left:0;right:0;
+  bottom:calc(var(--bar) + 34px);
+  padding:0 var(--pad);
+  display:flex;flex-direction:column;align-items:flex-start;
+}
+#kzvA .kzv-crest{
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.94);
+  display:grid;place-items:center;flex:none;
+  box-shadow:0 8px 22px -10px rgba(0,0,0,.7);
+}
+#kzvA .kzv-crest img{width:25px;height:25px;object-fit:contain}
+/* у Marina логотипа нет — монограмма Poiret One */
+#kzvA .kzv-mono{font-family:var(--poiret);font-size:22px;line-height:1;color:#12291f;letter-spacing:.06em;text-indent:.06em}
+
+#kzvA .kzv-kick{
+  margin-top:16px;
+  font-family:var(--sys);
+  font-size:13px;font-weight:500;line-height:1.3;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--warm);
+}
+/* Имя: очень крупно, ОТРИЦАТЕЛЬНЫЙ трекинг, плотный интерлиньяж.
+   Poiret One жирного начертания не имеет — «жирнее» здесь делает кегль.        */
+#kzvA .kzv-name{
+  margin-top:10px;
+  font-family:var(--poiret);font-weight:400;
+  font-size:clamp(46px,9.4vw,132px);
+  line-height:1.05;
+  letter-spacing:-.015em;
+  text-transform:uppercase;
+}
+#kzvA .kzv-name .l2{
+  display:block;
+  font-size:.40em;
+  line-height:1.1;
+  letter-spacing:.005em;
+  margin-top:.10em;
+}
+/* Описание: системный шрифт, 17px/1.5, ~55 знаков в строке. */
+#kzvA .kzv-desc{
+  margin-top:16px;
+  font-family:var(--sys);
+  font-size:17px;line-height:1.5;
+  color:rgba(255,255,255,.95);
+  max-width:52ch;
+}
+
+/* ——— действия: текст + шеврон, не тяжёлые кнопки ——— */
+#kzvA .kzv-acts{display:flex;flex-wrap:wrap;align-items:center;gap:4px 30px;margin-top:22px}
+#kzvA .kzv-act{
+  display:inline-flex;align-items:center;gap:10px;
+  min-height:44px;                       /* зона тапа */
+  font-family:var(--sys);font-size:16px;font-weight:500;line-height:1.2;
+  color:#fff;text-decoration:none;background:none;border:0;cursor:pointer;
+  transition:transform .18s var(--ease),opacity .18s ease;
+}
+#kzvA .kzv-act svg{flex:none;display:block}
+#kzvA .kzv-act .chev{transition:transform .3s var(--ease)}
+#kzvA .kzv-act:hover .chev{transform:translateX(3px)}
+/* отклик на нажатии, а не на отпускании */
+#kzvA .kzv-act:active{transform:scale(.975);opacity:.82}
+#kzvA .kzv-act:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:6px}
+
+/* главное действие: шеврон в фирменном градиенте — брендовый акцент без «кнопки» */
+#kzvA .kzv-act--go .disc{
+  width:30px;height:30px;border-radius:50%;
+  background:var(--grad);
+  display:grid;place-items:center;flex:none;
+  transition:transform .3s var(--ease);
+}
+#kzvA .kzv-act--go:hover .disc{transform:translateX(3px)}
+/* второе действие — тише */
+#kzvA .kzv-act--next{color:rgba(255,255,255,.76);font-weight:400}
+#kzvA .kzv-act--next:hover{color:#fff}
+
+/* ============================================================================ */
+/*  ПОЛОСА-ПЕРЕКЛЮЧАТЕЛЬ — translucent-материал (приём Apple «материал»)         */
+/*  полупрозрачный фон + blur/saturate + светлая верхняя кромка.                 */
+/* ============================================================================ */
+#kzvA .kzv-switch{
+  position:absolute;z-index:4;left:0;right:0;bottom:0;
+  height:var(--bar);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  display:flex;align-items:stretch;
+  background:rgba(10,24,19,.42);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+          backdrop-filter:blur(20px) saturate(180%);
+  border-top:1px solid rgba(255,255,255,.22);   /* свет, поймавшийся на кромке материала */
+  overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+#kzvA .kzv-switch::-webkit-scrollbar{display:none}
+#kzvA .kzv-tab{
+  position:relative;
+  flex:1 1 0;min-width:max-content;
+  scroll-snap-align:center;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 20px;min-height:44px;
+  border:0;background:none;cursor:pointer;
+  font-family:var(--poiret);
+  font-size:16px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;
+  color:rgba(255,255,255,.66);
+  transition:color .28s ease,transform .18s var(--ease);
+}
+#kzvA .kzv-tab:hover{color:rgba(255,255,255,.9)}
+#kzvA .kzv-tab:active{transform:scale(.97)}
+#kzvA .kzv-tab[aria-current="true"]{color:#fff}
+#kzvA .kzv-tab:focus-visible{outline:2px solid #fff;outline-offset:-4px}
+/* индикатор активного посёлка — по ширине СЛОВА, а не всей ячейки,
+   и на 9px под ним, а не встык с краем экрана */
+#kzvA .kzv-tab .lbl{position:relative;display:inline-block}
+#kzvA .kzv-tab .lbl::after{
+  content:"";position:absolute;left:-1px;right:-1px;top:calc(100% + 9px);height:2px;
+  background:var(--grad);border-radius:2px;
+  opacity:0;transform:scaleX(.28);
+  transition:opacity .3s ease,transform .5s var(--ease);
+}
+#kzvA .kzv-tab[aria-current="true"] .lbl::after{opacity:1;transform:scaleX(1)}
+
+/* невидимый статус для скринридера */
+#kzvA .kzv-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ============================================================================ */
+/*  ПОЯВЛЕНИЕ ТЕКСТА — короткий stagger, только opacity + transform             */
+/* ============================================================================ */
+@keyframes kzvUp{from{opacity:0;transform:translate3d(0,16px,0)}to{opacity:1;transform:none}}
+#kzvA .kzv-hero.anim > *{animation:kzvUp .58s var(--ease) both}
+#kzvA .kzv-hero.anim > *:nth-child(1){animation-delay:0ms}
+#kzvA .kzv-hero.anim > *:nth-child(2){animation-delay:45ms}
+#kzvA .kzv-hero.anim > *:nth-child(3){animation-delay:90ms}
+#kzvA .kzv-hero.anim > *:nth-child(4){animation-delay:135ms}
+#kzvA .kzv-hero.anim > *:nth-child(5){animation-delay:180ms}
+
+/* ============================================================================ */
+/*  ОВЕРЛЕЙ «САЙТ В РАЗРАБОТКЕ»                                                 */
+/* ============================================================================ */
+#kzvA .kzv-soon{
+  position:fixed;inset:0;z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+}
+#kzvA .kzv-soon[hidden]{display:none !important}
+/* фон — кадр посёлка, размытый и притемнённый */
+#kzvA .kzv-soon-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;background-color:#0d1c17;
+  filter:blur(26px) saturate(.9) brightness(.55);
+  transform:scale(1.16);
+  opacity:0;
+  transition:opacity .42s var(--ease),transform .62s var(--ease);
+}
+#kzvA .kzv-soon-dim{position:absolute;inset:0;background:rgba(5,16,12,.44);opacity:0;transition:opacity .42s var(--ease)}
+#kzvA .kzv-soon.on .kzv-soon-bg{opacity:1;transform:scale(1.1)}
+#kzvA .kzv-soon.on .kzv-soon-dim{opacity:1}
+
+#kzvA .kzv-soon-card{
+  position:relative;z-index:2;width:100%;max-width:520px;
+  text-align:center;
+  padding:52px 38px 42px;
+  border-radius:24px;
+  background:rgba(14,32,26,.52);
+  -webkit-backdrop-filter:blur(24px) saturate(160%);
+          backdrop-filter:blur(24px) saturate(160%);
+  border:1px solid rgba(255,255,255,.16);
+  border-top-color:rgba(255,255,255,.30);      /* светлая кромка сверху */
+  box-shadow:0 44px 90px -34px rgba(0,0,0,.78);
+  opacity:0;transform:scale(.94) translate3d(0,10px,0);
+  transition:opacity .38s var(--ease),transform .52s var(--ease);
+}
+#kzvA .kzv-soon.on .kzv-soon-card{opacity:1;transform:none}
+#kzvA .kzv-soon-crest{
+  width:66px;height:66px;border-radius:50%;margin:0 auto 20px;
+  background:rgba(255,255,255,.95);display:grid;place-items:center;
+  box-shadow:0 12px 28px -12px rgba(0,0,0,.65);
+}
+#kzvA .kzv-soon-crest img{width:40px;height:40px;object-fit:contain}
+#kzvA .kzv-soon-crest .kzv-mono{font-size:34px}
+#kzvA .kzv-soon-kick{font-family:var(--sys);font-size:12.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--warm)}
+#kzvA .kzv-soon-name{
+  font-family:var(--poiret);font-weight:400;
+  font-size:clamp(30px,6vw,52px);line-height:1.06;letter-spacing:-.01em;
+  text-transform:uppercase;margin:8px 0 18px;
+}
+#kzvA .kzv-soon-name .l2{display:block;font-size:.44em;letter-spacing:.02em;margin-top:.1em}
+#kzvA .kzv-soon-dev{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--sys);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  color:#fff;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.24);
+  padding:9px 18px;border-radius:40px;margin-bottom:20px;
+}
+#kzvA .kzv-soon-dev i{width:7px;height:7px;border-radius:50%;background:#ffd34d;flex:none}
+#kzvA .kzv-soon-txt{font-family:var(--sys);font-size:16px;line-height:1.55;color:rgba(255,255,255,.93);max-width:400px;margin:0 auto 26px}
+#kzvA .kzv-soon-back{
+  display:inline-flex;align-items:center;gap:10px;min-height:44px;
+  font-family:var(--sys);font-size:15px;font-weight:500;
+  color:#fff;background:none;border:0;cursor:pointer;
+  transition:transform .18s var(--ease),opacity .18s ease;
+}
+#kzvA .kzv-soon-back:active{transform:scale(.975);opacity:.82}
+#kzvA .kzv-soon-back .disc{width:30px;height:30px;border-radius:50%;background:var(--grad);display:grid;place-items:center;flex:none;transition:transform .3s var(--ease)}
+#kzvA .kzv-soon-back:hover .disc{transform:translateX(-3px)}
+#kzvA .kzv-soon-x{
+  position:absolute;z-index:3;top:14px;right:14px;
+  width:44px;height:44px;border-radius:50%;
+  display:grid;place-items:center;
+  border:1px solid rgba(255,255,255,.26);background:rgba(255,255,255,.10);color:#fff;cursor:pointer;
+  transition:background .2s ease,transform .18s var(--ease);
+}
+#kzvA .kzv-soon-x:hover{background:rgba(255,255,255,.2)}
+#kzvA .kzv-soon-x:active{transform:scale(.94)}
+#kzvA .kzv-soon-x:focus-visible,
+#kzvA .kzv-soon-back:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:8px}
+
+/* ============================================================================ */
+/*  АДАПТИВ                                                                     */
+/* ============================================================================ */
+@media (max-width:760px){
+  #kzvA{--bar:calc(64px + env(safe-area-inset-bottom, 0px))}
+  #kzvA .kzv-hero{bottom:calc(var(--bar) + 26px)}
+  #kzvA .kzv-brand img{width:26px;height:26px}
+  #kzvA .kzv-word{font-size:12px}
+  #kzvA .kzv-tag{font-size:11px}
+  #kzvA .kzv-name{margin-top:8px}
+  #kzvA .kzv-desc{margin-top:14px;max-width:40ch}
+  #kzvA .kzv-acts{margin-top:16px;gap:0 24px}
+  #kzvA .kzv-tab{font-size:15px;padding:0 16px;letter-spacing:.1em}
+  /* на узком экране текстовая полоса выше — усиливаем затемнение в её зоне */
+  #kzvA .kzv-scrim{
+    background:
+      linear-gradient(to top,
+        rgba(var(--scrim),.95) 0%,
+        rgba(var(--scrim),.92) 22%,
+        rgba(var(--scrim),.80) 44%,
+        rgba(var(--scrim),.52) 62%,
+        rgba(var(--scrim),.18) 80%,
+        rgba(var(--scrim),0)  95%),
+      linear-gradient(to bottom,
+        rgba(var(--scrim),.76) 0%,
+        rgba(var(--scrim),.58) 12%,
+        rgba(var(--scrim),.24) 22%,
+        rgba(var(--scrim),0)   36%);
+  }
+  #kzvA .kzv-soon-card{padding:42px 22px 34px;border-radius:20px}
+}
+@media (max-height:660px) and (min-width:761px){
+  #kzvA .kzv-name{font-size:clamp(40px,6.4vh,92px)}
+  #kzvA .kzv-desc{margin-top:12px}
+  #kzvA .kzv-acts{margin-top:16px}
+}
+
+/* ============================================================================ */
+/*  ДОСТУПНОСТЬ                                                                 */
+/* ============================================================================ */
+@media (prefers-reduced-motion:reduce){
+  /* только кроссфейд: ни зума кадра, ни выезда текста, ни авто-смены (JS) */
+  #kzvA .kzv-frame{transform:none;transition:opacity .3s linear}
+  #kzvA .kzv-frame.on{transform:none}
+  #kzvA .kzv-frames{transition:none !important}
+  @keyframes kzvUp{from{opacity:0}to{opacity:1}}
+  #kzvA .kzv-hero.anim > *{animation:kzvUp .28s linear both;animation-delay:0ms !important}
+  #kzvA .kzv-soon-bg,#kzvA .kzv-soon-card{transform:none !important;transition:opacity .2s linear}
+  #kzvA .kzv-tab::after{transition:opacity .2s linear}
+  #kzvA .kzv-act,#kzvA .kzv-tab,#kzvA .kzv-soon-back,#kzvA .kzv-soon-x{transition:none}
+}
+@media (prefers-reduced-transparency:reduce){
+  #kzvA .kzv-switch{background:rgba(8,20,16,.96);-webkit-backdrop-filter:none;backdrop-filter:none}
+  #kzvA .kzv-soon-card{background:rgba(12,28,23,.97);-webkit-backdrop-filter:none;backdrop-filter:none}
+}
+@media (prefers-contrast:more){
+  #kzvA .kzv-switch{background:rgba(6,16,13,.97);border-top-color:rgba(255,255,255,.6)}
+  #kzvA .kzv-tab{color:rgba(255,255,255,.85)}
+  #kzvA .kzv-act--next{color:rgba(255,255,255,.95)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================================ -->
+<!--  БЛОК. Всё внутри #kzvA.                                                     -->
+<!-- ============================================================================ -->
+<section id="kzvA" aria-label="Коллекция Завидово — выбор посёлка">
+
+  <div class="kzv-stage">
+
+    <!-- ——— кадры (все четыре в DOM: переключение без белых вспышек) ——— -->
+    <div class="kzv-frames" aria-hidden="true">
+      <div class="kzv-frame on" data-i="0"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg"    alt="" decoding="async" fetchpriority="high"></div>
+      <div class="kzv-frame"    data-i="1"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg"  alt="" decoding="async"></div>
+      <div class="kzv-frame"    data-i="2"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="" decoding="async"></div>
+      <div class="kzv-frame"    data-i="3"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-a.jpg"   alt="" decoding="async"></div>
+    </div>
+
+    <div class="kzv-scrim" aria-hidden="true"></div>
+
+    <!-- ——— подпись бренда (тихая) ——— -->
+    <header class="kzv-brand">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="" width="30" height="30">
+      <div class="kzv-word">Коллекция Завидово</div>
+      <div class="kzv-tag">четыре посёлка — один курорт</div>
+    </header>
+
+    <!-- ——— герой: имя посёлка. Порядок детей = порядок stagger-появления ——— -->
+    <div class="kzv-hero anim" id="kzvA-hero">
+      <span class="kzv-crest" id="kzvA-crest">
+        <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-lesnoy.png" alt="">
+      </span>
+      <div class="kzv-kick" id="kzvA-kick">экопарк</div>
+      <h2 class="kzv-name" id="kzvA-name">Лесной</h2>
+      <p class="kzv-desc" id="kzvA-desc">Уединённые коттеджи в сосновом бору. Тишина и природа в шаге от дома.</p>
+      <div class="kzv-acts">
+        <a class="kzv-act kzv-act--go" id="kzvA-go" href="https://ecopark-zavidovo.ru/?poselok=les">
+          <span id="kzvA-go-label">Открыть сайт посёлка</span>
+          <span class="disc" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+        <button class="kzv-act kzv-act--next" id="kzvA-next" type="button">
+          <span id="kzvA-next-label">Далее: Завидово</span>
+          <svg class="chev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ——— переключатель посёлков ——— -->
+    <nav class="kzv-switch" id="kzvA-switch" aria-label="Посёлки коллекции">
+      <button class="kzv-tab" type="button" data-i="0" aria-current="true"><span class="lbl">Лесной</span></button>
+      <button class="kzv-tab" type="button" data-i="1" aria-current="false"><span class="lbl">Завидово</span></button>
+      <button class="kzv-tab" type="button" data-i="2" aria-current="false"><span class="lbl">Акватория</span></button>
+      <button class="kzv-tab" type="button" data-i="3" aria-current="false" aria-label="Marina Zavidovo Village"><span class="lbl">Marina</span></button>
+    </nav>
+
+    <p class="kzv-sr" id="kzvA-live" aria-live="polite"></p>
+  </div>
+
+  <!-- ——— оверлей «сайт в разработке» (один на два посёлка, содержимое подставляется) ——— -->
+  <div class="kzv-soon" id="kzvA-soon" role="dialog" aria-modal="true" aria-labelledby="kzvA-soon-name" hidden>
+    <div class="kzv-soon-bg"  id="kzvA-soon-bg"  aria-hidden="true"></div>
+    <div class="kzv-soon-dim" aria-hidden="true"></div>
+    <div class="kzv-soon-card">
+      <button class="kzv-soon-x" id="kzvA-soon-x" type="button" aria-label="Закрыть">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <span class="kzv-soon-crest" id="kzvA-soon-crest"></span>
+      <div class="kzv-soon-kick"  id="kzvA-soon-kick"></div>
+      <h3 class="kzv-soon-name"   id="kzvA-soon-name"></h3>
+      <div class="kzv-soon-dev"><i aria-hidden="true"></i>сайт в разработке</div>
+      <p class="kzv-soon-txt" id="kzvA-soon-txt"></p>
+      <button class="kzv-soon-back" id="kzvA-soon-back" type="button">
+        <span class="disc" aria-hidden="true">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+        </span>
+        Вернуться к коллекции
+      </button>
+    </div>
+  </div>
+
+</section>
+
+
+<script id="kzv-js">
+(function(){
+  var root = document.getElementById('kzvA');
+  if(!root || root.dataset.kzvReady) return;
+  root.dataset.kzvReady = '1';
+
+  /* ==================== ДАННЫЕ ==================== */
+  var BASE = 'https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/';
+  var V = [
+    { tab:'Лесной', kick:'экопарк',
+      name:['Лесной'], full:'Лесной',
+      desc:'Уединённые коттеджи в сосновом бору. Тишина и природа в шаге от дома.',
+      photo:'photo-lesnoy.jpg', logo:'logo-lesnoy.png',
+      href:'https://ecopark-zavidovo.ru/?poselok=les' },
+
+    { tab:'Завидово', kick:'экопарк · флагман',
+      name:['Завидово'], full:'Завидово',
+      desc:'Сердце курорта: гольф, спа, рестораны и вся инфраструктура.',
+      photo:'photo-zavidovo.jpg', logo:'logo-zavidovo.png',
+      href:'https://ecopark-zavidovo.ru/?poselok=zav' },
+
+    { tab:'Акватория', kick:'акватория',
+      name:['Акватория'], full:'Акватория',
+      desc:'Жизнь у воды: дома на берегу, собственный пляж, причал и бассейны.',
+      photo:'photo-akvatoriya.jpg', logo:'logo-akvatoriya.png',
+      soon:'Готовим отдельный сайт посёлка у воды: дома на берегу, собственный пляж, причал и бассейны. Совсем скоро здесь будет на что посмотреть.' },
+
+    { tab:'Marina', kick:'завидово',
+      name:['Marina','Zavidovo Village'], full:'Marina Zavidovo Village',
+      /* ЧЕРНОВОЙ ТЕКСТ — на подтверждение клиента */
+      desc:'Современные резиденции в камне и дереве — авторская архитектура каждого дома.',
+      photo:'photo-marina-a.jpg', mono:'M',
+      /* ЧЕРНОВОЙ ТЕКСТ — на подтверждение клиента */
+      soon:'Готовим отдельный сайт посёлка: современные резиденции в камне и дереве, авторская архитектура каждого дома. Совсем скоро здесь будет на что посмотреть.' }
+  ];
+
+  /* ==================== УЗЛЫ ==================== */
+  var stage   = root.querySelector('.kzv-stage');
+  var framesW = root.querySelector('.kzv-frames');
+  var frames  = [].slice.call(root.querySelectorAll('.kzv-frame'));
+  var hero    = document.getElementById('kzvA-hero');
+  var elCrest = document.getElementById('kzvA-crest');
+  var elKick  = document.getElementById('kzvA-kick');
+  var elName  = document.getElementById('kzvA-name');
+  var elDesc  = document.getElementById('kzvA-desc');
+  var elGo    = document.getElementById('kzvA-go');
+  var elGoLab = document.getElementById('kzvA-go-label');
+  var elNext  = document.getElementById('kzvA-next');
+  var elNextL = document.getElementById('kzvA-next-label');
+  var bar     = document.getElementById('kzvA-switch');
+  var tabs    = [].slice.call(root.querySelectorAll('.kzv-tab'));
+  var live    = document.getElementById('kzvA-live');
+
+  var soon      = document.getElementById('kzvA-soon');
+  var soonBg    = document.getElementById('kzvA-soon-bg');
+  var soonCrest = document.getElementById('kzvA-soon-crest');
+  var soonKick  = document.getElementById('kzvA-soon-kick');
+  var soonName  = document.getElementById('kzvA-soon-name');
+  var soonTxt   = document.getElementById('kzvA-soon-txt');
+  var soonX     = document.getElementById('kzvA-soon-x');
+  var soonBack  = document.getElementById('kzvA-soon-back');
+
+  var RM = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  function reduced(){ return !!(RM && RM.matches); }
+
+  var cur = 0, autoTimer = null, autoDead = false, inView = true;
+
+  /* ==================== ПРЕЛОАД / ДЕКОД КАДРОВ ==================== */
+  /* Все четыре кадра уже в DOM. Просим браузер декодировать их заранее,
+     чтобы переключение не моргало белым.                                     */
+  frames.forEach(function(f){
+    var img = f.querySelector('img');
+    if(img && img.decode) img.decode().catch(function(){});
+  });
+  /* фон оверлея тоже прогреваем */
+  V.forEach(function(v){ var i = new Image(); i.src = BASE + v.photo; });
+
+  /* ==================== ОТРИСОВКА ==================== */
+  function crestHTML(v){
+    return v.logo
+      ? '<img src="' + BASE + v.logo + '" alt="">'
+      : '<span class="kzv-mono" aria-hidden="true">' + v.mono + '</span>';
+  }
+  function nameHTML(v){
+    if(v.name.length === 1) return esc(v.name[0]);
+    return esc(v.name[0]) + '<span class="l2">' + esc(v.name[1]) + '</span>';
+  }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function render(i){
+    var v = V[i], nxt = V[(i + 1) % V.length];
+    cur = i;
+
+    frames.forEach(function(f, k){ f.classList.toggle('on', k === i); });
+
+    elCrest.innerHTML = crestHTML(v);
+    elKick.textContent = v.kick;
+    elName.innerHTML = nameHTML(v);
+    elDesc.textContent = v.desc;
+
+    if(v.href){
+      elGo.setAttribute('href', v.href);
+      elGo.removeAttribute('data-soon');
+      elGo.removeAttribute('aria-haspopup');
+      elGoLab.textContent = 'Открыть сайт посёлка';
+    }else{
+      elGo.setAttribute('href', '#');
+      elGo.setAttribute('data-soon', '1');
+      elGo.setAttribute('aria-haspopup', 'dialog');
+      elGoLab.textContent = 'Сайт в разработке';
+    }
+    elGo.setAttribute('aria-label', elGoLab.textContent + ' — ' + v.full);
+    elNextL.textContent = 'Далее: ' + nxt.tab;
+    elNext.setAttribute('aria-label', 'Показать следующий посёлок: ' + nxt.full);
+
+    tabs.forEach(function(t, k){ t.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+    keepTabVisible(tabs[i]);
+
+    live.textContent = v.full;
+
+    /* перезапуск stagger-появления (только opacity + transform) */
+    hero.classList.remove('anim');
+    void hero.offsetWidth;
+    hero.classList.add('anim');
+  }
+
+  /* активная вкладка не должна уезжать за край полосы на мобилке.
+     Двигаем scrollLeft вручную — scrollIntoView дёргает всю страницу.        */
+  function keepTabVisible(t){
+    if(!t || bar.scrollWidth <= bar.clientWidth + 1) return;
+    var l = t.offsetLeft, r = l + t.offsetWidth;
+    if(l < bar.scrollLeft + 12) bar.scrollTo({left:Math.max(0, l - 12), behavior: reduced() ? 'auto' : 'smooth'});
+    else if(r > bar.scrollLeft + bar.clientWidth - 12) bar.scrollTo({left:r - bar.clientWidth + 12, behavior: reduced() ? 'auto' : 'smooth'});
+  }
+
+  /* ==================== ПЕРЕКЛЮЧЕНИЕ ==================== */
+  function go(i){
+    i = ((i % V.length) + V.length) % V.length;
+    if(i === cur) return;
+    render(i);
+  }
+  /* любое действие пользователя навсегда выключает авто-смену */
+  function userGo(i){ stopAuto(); go(i); }
+
+  /* ==================== АВТО-СМЕНА 7 c ==================== */
+  function startAuto(){
+    if(autoDead || autoTimer || reduced()) return;
+    autoTimer = setInterval(function(){
+      if(document.hidden || !inView) return;
+      go(cur + 1);
+    }, 7000);
+  }
+  function stopAuto(){
+    autoDead = true;
+    if(autoTimer){ clearInterval(autoTimer); autoTimer = null; }
+  }
+
+  /* ==================== ВКЛАДКИ ==================== */
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){ userGo(parseInt(t.getAttribute('data-i'), 10)); });
+  });
+
+  elNext.addEventListener('click', function(){ userGo(cur + 1); });
+
+  /* ==================== КЛАВИАТУРА ←/→ ==================== */
+  document.addEventListener('keydown', function(e){
+    if(soon.hasAttribute('hidden') === false){
+      if(e.key === 'Escape'){ e.preventDefault(); closeSoon(); }
+      else if(e.key === 'Tab'){ trapTab(e); }
+      return;
+    }
+    if(!inView) return;
+    var t = e.target, tag = t && t.tagName;
+    if(tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (t && t.isContentEditable)) return;
+    if(e.key === 'ArrowRight'){ e.preventDefault(); userGo(cur + 1); }
+    else if(e.key === 'ArrowLeft'){ e.preventDefault(); userGo(cur - 1); }
+  });
+
+  /* ==================== СВАЙП ==================== */
+  /* 1:1-отклик во время жеста (кадр и текст идут за пальцем с сопротивлением),
+     решение на отпускании — по спроецированной точке останова, как у Apple.  */
+  var dragging = false, startX = 0, startY = 0, dx = 0, locked = null, pid = null;
+  var hist = [];
+  var HYST = 10;   /* порог, после которого считаем жест горизонтальным */
+
+  function rubber(x){
+    var s = x < 0 ? -1 : 1, a = Math.abs(x) * .38;
+    if(a > 64) a = 64 + (a - 64) * .22;
+    return s * a;
+  }
+  function project(v){ /* Apple: экспоненциальное затухание, d ≈ 0.998 */
+    return (v / 1000) * 0.998 / (1 - 0.998);
+  }
+  function setDrag(px){
+    framesW.style.transition = 'none';
+    hero.style.transition = 'none';
+    framesW.style.transform = 'translate3d(' + px + 'px,0,0)';
+    hero.style.transform = 'translate3d(' + (px * .55) + 'px,0,0)';
+  }
+  function releaseDrag(){
+    var t = reduced() ? 'transform .01s linear' : 'transform .5s cubic-bezier(.32,.72,0,1)';
+    framesW.style.transition = t;
+    hero.style.transition = t;
+    framesW.style.transform = 'translate3d(0,0,0)';
+    hero.style.transform = 'translate3d(0,0,0)';
+  }
+
+  stage.addEventListener('pointerdown', function(e){
+    if(e.button != null && e.button !== 0) return;
+    if(e.target.closest('.kzv-switch,.kzv-act,a,button')) return;
+    dragging = true; locked = null; dx = 0; pid = e.pointerId;
+    startX = e.clientX; startY = e.clientY;
+    hist = [{x:e.clientX, t:performance.now()}];
+  });
+
+  stage.addEventListener('pointermove', function(e){
+    if(!dragging) return;
+    var mx = e.clientX - startX, my = e.clientY - startY;
+    if(locked === null){
+      if(Math.abs(mx) < HYST && Math.abs(my) < HYST) return;
+      locked = Math.abs(mx) > Math.abs(my) ? 'x' : 'y';
+      if(locked === 'x' && stage.setPointerCapture){ try{ stage.setPointerCapture(pid); }catch(err){} }
+    }
+    if(locked !== 'x') return;
+    e.preventDefault();
+    stopAuto();
+    dx = mx;
+    hist.push({x:e.clientX, t:performance.now()});
+    if(hist.length > 6) hist.shift();
+    setDrag(rubber(dx));
+  }, {passive:false});
+
+  function endDrag(){
+    if(!dragging) return;
+    dragging = false;
+    if(locked !== 'x'){ locked = null; return; }
+    locked = null;
+
+    /* скорость по последним точкам */
+    var v = 0;
+    if(hist.length > 1){
+      var a = hist[0], b = hist[hist.length - 1], dt = b.t - a.t;
+      if(dt > 0) v = (b.x - a.x) / dt * 1000;
+    }
+    var projected = dx + project(v);
+    releaseDrag();
+    if(projected <= -90) go(cur + 1);
+    else if(projected >= 90) go(cur - 1);
+    dx = 0; hist = [];
+  }
+  stage.addEventListener('pointerup', endDrag);
+  stage.addEventListener('pointercancel', endDrag);
+  stage.addEventListener('lostpointercapture', endDrag);
+
+  /* любое касание сцены = действие пользователя */
+  stage.addEventListener('pointerdown', stopAuto);
+
+  /* страховка для браузеров без overflow:clip — сцену не двигаем никогда */
+  stage.addEventListener('scroll', function(){
+    if(stage.scrollTop || stage.scrollLeft){ stage.scrollTop = 0; stage.scrollLeft = 0; }
+  }, {passive:true});
+
+  /* ==================== ОВЕРЛЕЙ ==================== */
+  var lastFocus = null, prevOverflow = '';
+
+  function openSoon(i){
+    var v = V[i];
+    if(!v.soon) return;
+    lastFocus = document.activeElement;
+
+    soonBg.style.backgroundImage = 'url("' + BASE + v.photo + '")';
+    soonCrest.innerHTML = crestHTML(v);
+    /* у Акватории кикер и имя — одно и то же слово; в карточке, где имя стоит
+       единственной строкой, повтор читается как ошибка вёрстки — прячем.       */
+    soonKick.textContent = v.kick;
+    soonKick.hidden = (v.kick.toUpperCase() === v.full.toUpperCase());
+    soonName.innerHTML = nameHTML(v);
+    soonTxt.textContent = v.soon;
+
+    soon.hidden = false;
+    prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    /* «материализация»: blur-слой и карточка приходят вместе, а не просто гаснут */
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ soon.classList.add('on'); });
+    });
+    setTimeout(function(){ soonX.focus(); }, 60);
+  }
+  function closeSoon(){
+    if(soon.hidden) return;
+    soon.classList.remove('on');
+    document.body.style.overflow = prevOverflow;
+    var wait = reduced() ? 0 : 260;
+    setTimeout(function(){ soon.hidden = true; }, wait);
+    /* фокус возвращается туда, откуда открыли */
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function trapTab(e){
+    var f = soon.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if(!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  }
+
+  elGo.addEventListener('click', function(e){
+    if(elGo.getAttribute('data-soon')){ e.preventDefault(); stopAuto(); openSoon(cur); }
+  });
+  soonX.addEventListener('click', closeSoon);
+  soonBack.addEventListener('click', closeSoon);
+  soon.addEventListener('click', function(e){
+    if(e.target === soon || e.target.classList.contains('kzv-soon-bg') || e.target.classList.contains('kzv-soon-dim')) closeSoon();
+  });
+
+  /* ==================== ВИДИМОСТЬ БЛОКА ==================== */
+  if(window.IntersectionObserver){
+    new IntersectionObserver(function(en){
+      inView = en[0].isIntersecting;
+    }, {threshold:.35}).observe(stage);
+  }
+
+  /* ==================== СТАРТ ==================== */
+  render(0);
+  startAuto();
+  if(RM && RM.addEventListener) RM.addEventListener('change', function(){ if(reduced()) stopAuto(); });
+  window.addEventListener('resize', function(){ keepTabVisible(tabs[cur]); });
+})();
+</script>
+
+</body>
+</html>
