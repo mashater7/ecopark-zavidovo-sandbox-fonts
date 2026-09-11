@@ -130,7 +130,7 @@
    Находит строку "Телефон" в блоке-спецификации и оборачивает номер в tel:.
    Добавлено 07.09.2026. Другие блоки сайта не затрагивает. */
 (function(){
-  var RE=/(?:\+7|8)[\s\-()]*\d{3}[\s\-()]*\d{3}[\s\-]*\d{2}[\s\-]*\d{2}/g;
+  var RE=/(?:\+7|8)[\s\-()]*\d(?:[\s\-()]*\d){9}/g;
   function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
   function run(){
     var rows=document.querySelectorAll(".piRows .pir");
