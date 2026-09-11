@@ -671,6 +671,9 @@ document.addEventListener('DOMContentLoaded',function(){
     .forEach(function(id){ var e=document.getElementById(id); if(e){ var r=e.closest('.t-rec')||e; r.remove(); } });
   document.querySelectorAll('[data-record-type="257"]').forEach(function(e){
     var r=e.closest('.t-rec')||e; r.remove(); });
+  /* в копии от 10.09 меню шапки ещё вело на ecopark-zavidovo.ru; на живом сайте
+     этих ссылок нет — в превью обезвреживаем, чтобы не путали */
+  document.querySelectorAll('a[href*="ecopark"]').forEach(function(a){ a.setAttribute('href','#'); });
 });
 </script>
 </body></html>
