@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Коллекция Завидово — атлас четырёх сред</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+
+<!--
+THESIS: Выбор среды, а не выбор объявления. Страница отказывается от лендинга
+с героем и четырьмя карточками: это атлас из четырёх листов, где сравнение сред —
+сама конструкция.
+OWN-WORLD: Натуралистический атлас. Тонированная бумага листа, широкие поля,
+колонтитул с номером листа, выноски от кадра в поле, определительный ключ.
+Палитра из бумаг: холодная у воды, зелёная у леса, охристая у обжитого,
+калька у проекта. Poiret One на именах, узкие капительные ярлыки.
+STORY: Посетитель понимает, что посёлки отличаются средой, а не ценой;
+находит свою среду в ключе и уходит на сайт этого посёлка.
+FIRST VIEWPORT: Определительный ключ на всю ширину — четыре развилки ведут
+к листам; под ним кадр воды во всю ширину с выноской в поле. Действие —
+строки ключа.
+FORM: Кандидат 7 моего упорядоченного списка, жеребьёвка 5012e514,
+вырожденный прогон без challenger-карточек. Staging — полосы-листы.
+-->
+
+<style>
+#kzl{
+  --pg:#eceee9; --ink:#232a26; --txt:#3d443e; --mut:#6d746c; --acc:#bb916b;
+  --w-pap:#e4eaee; --w-ink:#1d3a4d; --w-ln:#9db2bf;
+  --f-pap:#e6ebe0; --f-ink:#22402a; --f-ln:#9aac91;
+  --h-pap:#efe9df; --h-ink:#463724; --h-ln:#bda88a;
+  --k-pap:#e8ebeb; --k-ink:#3f4a49; --k-ln:#a7b1b0;
+  --sys:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --po:'Poiret One',cursive;
+  --e:cubic-bezier(.23,1,.32,1);
+  --pad:clamp(20px,5.2vw,92px);
+  --sheet:clamp(64px,9vw,150px);
+  font-family:var(--sys); color:var(--txt); background:var(--pg);
+  font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+#kzl *{box-sizing:border-box}
+#kzl p,#kzl h1,#kzl h2,#kzl h3,#kzl figure,#kzl ul,#kzl li,#kzl dl,#kzl dd,#kzl dt{margin:0;padding:0}
+#kzl ul{list-style:none}
+#kzl img{display:block;max-width:100%}
+#kzl a{color:inherit}
+
+/* ── ярлыки атласа ─────────────────────────────────────────── */
+#kzl .kza-lab{font:600 11px/1.3 var(--sys);letter-spacing:.17em;text-transform:uppercase;color:var(--mut)}
+#kzl .kza-rule{height:1px;background:currentColor;opacity:.28;flex:1 1 auto;min-width:24px}
+
+/* ── колонтитул страницы ───────────────────────────────────── */
+#kzl .kza-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:18px var(--pad);border-bottom:1px solid rgba(35,42,38,.16)}
+#kzl .kza-mark{display:flex;align-items:center;gap:10px;text-decoration:none}
+#kzl .kza-mark img{width:22px;height:auto}
+#kzl .kza-mark span{font-family:var(--po);font-size:19px;color:var(--ink);letter-spacing:.02em}
+#kzl .kza-top .kza-sp{flex:1 1 auto;min-width:10px}
+#kzl .kza-tel{font:600 15px/1 var(--sys);color:var(--ink);text-decoration:none;letter-spacing:.01em;
+  border-bottom:1px solid var(--acc);padding-bottom:3px}
+
+/* ── первый экран: определительный ключ ────────────────────── */
+#kzl .kza-open{padding:clamp(38px,7vw,104px) var(--pad) 0}
+#kzl .kza-open h1{font-family:var(--po);font-weight:400;color:var(--ink);
+  font-size:clamp(36px,6.4vw,84px);line-height:1.02;letter-spacing:-.02em;
+  max-width:15ch;text-wrap:balance}
+#kzl .kza-sub{margin-top:clamp(18px,2.4vw,30px);max-width:60ch;font-size:clamp(16px,1.35vw,19px)}
+#kzl .kza-sub b{font-weight:600;color:var(--ink)}
+
+#kzl .kza-keyhd{display:flex;align-items:center;gap:16px;color:var(--mut);
+  margin:clamp(44px,6vw,86px) 0 8px}
+#kzl .kza-key{border-top:1px solid rgba(35,42,38,.2)}
+#kzl .kza-kr{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:8px 30px;
+  border-bottom:1px solid rgba(35,42,38,.14);padding:clamp(18px,2.5vw,30px) 0;
+  text-decoration:none;color:inherit;transition:padding-left .45s var(--e),background-color .45s var(--e)}
+#kzl .kza-kr:hover,#kzl .kza-kr:focus-visible{padding-left:14px;background:rgba(255,255,255,.5);outline:none}
+#kzl .kza-kr:focus-visible{box-shadow:inset 3px 0 0 var(--acc)}
+#kzl .kza-if{font-size:clamp(16px,1.5vw,21px);color:var(--txt);max-width:46ch}
+#kzl .kza-if b{color:var(--ink);font-weight:600}
+#kzl .kza-to{display:flex;align-items:baseline;gap:12px;justify-self:end;text-align:right}
+#kzl .kza-to i{font-style:normal;font:600 11px/1 var(--sys);letter-spacing:.17em;text-transform:uppercase;color:var(--mut);white-space:nowrap}
+#kzl .kza-to em{font-style:normal;font-family:var(--po);font-size:clamp(21px,2.6vw,34px);color:var(--ink);
+  letter-spacing:-.01em;line-height:1.05;border-bottom:1px solid transparent;transition:border-color .4s var(--e)}
+#kzl .kza-kr:hover .kza-to em{border-bottom-color:var(--acc)}
+
+/* ── общий кадр под ключом ─────────────────────────────────── */
+#kzl .kza-wide{margin-top:clamp(38px,5.5vw,80px);position:relative}
+#kzl .kza-wide img{width:100%;height:clamp(280px,52vh,620px);object-fit:cover}
+#kzl .kza-cap{display:flex;gap:14px;align-items:flex-start;padding:12px var(--pad) 0;color:var(--mut);
+  font-size:13px;line-height:1.5;max-width:74ch}
+#kzl .kza-cap b{font-weight:600;color:var(--ink);white-space:nowrap}
+
+/* ── лист ──────────────────────────────────────────────────── */
+#kzl .kza-sheet{padding:var(--sheet) var(--pad);border-top:1px solid rgba(35,42,38,.14)}
+#kzl .kza-w{background:var(--w-pap);--pin:var(--w-ink);--pln:var(--w-ln)}
+#kzl .kza-f{background:var(--f-pap);--pin:var(--f-ink);--pln:var(--f-ln)}
+#kzl .kza-h{background:var(--h-pap);--pin:var(--h-ink);--pln:var(--h-ln)}
+#kzl .kza-k{background:var(--k-pap);--pin:var(--k-ink);--pln:var(--k-ln);
+  background-image:repeating-linear-gradient(135deg,rgba(63,74,73,.05) 0 2px,transparent 2px 9px)}
+
+#kzl .kza-hd{display:flex;align-items:center;gap:16px;color:var(--pin);opacity:.9;margin-bottom:clamp(26px,3.4vw,46px)}
+#kzl .kza-hd .kza-lab{color:inherit}
+
+#kzl .kza-grid{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
+  gap:clamp(26px,3.6vw,60px)}
+#kzl .kza-nm{font-family:var(--po);font-weight:400;color:var(--pin);
+  font-size:clamp(34px,5vw,68px);line-height:1.04;letter-spacing:-.02em;margin-bottom:18px}
+#kzl .kza-say{font-size:clamp(16px,1.3vw,18px);line-height:1.66;max-width:62ch;color:var(--txt)}
+#kzl .kza-say+.kza-say{margin-top:14px}
+
+/* спецификация листа */
+#kzl .kza-spec{margin-top:clamp(24px,3vw,38px);border-top:1px solid var(--pln)}
+#kzl .kza-spec div{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 20px;
+  align-items:baseline;border-bottom:1px solid var(--pln);padding:11px 0}
+#kzl .kza-spec dt{font:600 11px/1.4 var(--sys);letter-spacing:.15em;text-transform:uppercase;color:var(--pin);opacity:.75;min-width:112px}
+#kzl .kza-spec dd{font-size:15px;line-height:1.5;color:var(--txt)}
+
+#kzl .kza-go{display:inline-flex;align-items:baseline;gap:10px;margin-top:clamp(24px,3vw,38px);
+  font:600 13px/1 var(--sys);letter-spacing:.14em;text-transform:uppercase;color:var(--pin);
+  text-decoration:none;border-bottom:1px solid var(--acc);padding-bottom:6px;
+  transition:gap .4s var(--e)}
+#kzl .kza-go:hover,#kzl .kza-go:focus-visible{gap:18px;outline:none}
+#kzl .kza-go:focus-visible{outline:2px solid var(--pin);outline-offset:4px}
+
+/* ── кадр с выносками ──────────────────────────────────────── */
+#kzl .kza-plate{position:relative}
+#kzl .kza-plate figure{position:relative;overflow:hidden}
+#kzl .kza-plate img{width:100%;aspect-ratio:4/3;object-fit:cover;
+  transform:scale(1.045);transition:transform 1.6s var(--e)}
+#kzl .kza-plate.kza-on img{transform:scale(1)}
+/* нумерованные метки на кадре */
+#kzl .kza-pin{position:absolute;left:var(--x);top:var(--y);width:26px;height:26px;
+  display:grid;place-items:center;border-radius:50%;background:#fff;color:var(--pin);
+  font:600 12px/1 var(--sys);box-shadow:0 2px 12px rgba(22,30,26,.38);
+  transform:translate(-50%,-50%) scale(.55);opacity:0;
+  transition:transform .62s var(--e),opacity .45s var(--e)}
+#kzl .kza-plate.kza-on .kza-pin{opacity:1;transform:translate(-50%,-50%) scale(1)}
+#kzl .kza-plate.kza-on .kza-pin:nth-of-type(2){transition-delay:.42s}
+#kzl .kza-plate.kza-on .kza-pin:nth-of-type(3){transition-delay:.6s}
+#kzl .kza-plate.kza-on .kza-pin:nth-of-type(4){transition-delay:.78s}
+
+/* экспликация: что именно видно на кадре */
+#kzl .kza-exp{margin-top:16px;border-top:1px solid var(--pln)}
+#kzl .kza-exp li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:14px;align-items:baseline;
+  padding:11px 0;border-bottom:1px solid var(--pln);font-size:15px;line-height:1.52;color:var(--txt)}
+#kzl .kza-exp b{font:600 12px/1.4 var(--sys);color:var(--pin);opacity:.8;text-align:right}
+#kzl .kza-ncap{margin-top:12px;color:var(--pin);opacity:.72;font-size:12.5px;line-height:1.5}
+
+/* ── лист III: обжитой, без большого кадра ─────────────────── */
+#kzl .kza-h .kza-grid{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}
+#kzl .kza-small figure{border:1px solid var(--pln);padding:12px;background:rgba(255,255,255,.42)}
+#kzl .kza-small img{width:100%;aspect-ratio:3/2;object-fit:cover}
+#kzl .kza-small figcaption{margin-top:10px;font-size:12.5px;line-height:1.5;color:var(--pin);opacity:.78}
+#kzl .kza-hnums{margin-top:clamp(22px,3vw,34px);display:flex;flex-wrap:wrap;gap:10px 34px}
+#kzl .kza-hnums span{font-size:14.5px;color:var(--txt)}
+#kzl .kza-hnums b{font-family:var(--po);font-size:26px;color:var(--pin);font-weight:400;margin-right:8px;letter-spacing:-.01em}
+
+/* ── лист IV: калька ───────────────────────────────────────── */
+#kzl .kza-trace{border:1px dashed var(--pln);background:rgba(255,255,255,.46);
+  padding:clamp(20px,3vw,44px)}
+#kzl .kza-mono{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+#kzl .kza-mono i{font-style:normal;width:54px;height:54px;border:1px solid var(--pln);
+  display:grid;place-items:center;font-family:var(--po);font-size:30px;color:var(--pin)}
+#kzl .kza-mono u{text-decoration:none;font-family:var(--po);font-size:clamp(21px,2.3vw,29px);
+  line-height:1.12;color:var(--pin);letter-spacing:.01em;display:block}
+#kzl .kza-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+#kzl .kza-strip figure{border:1px solid var(--pln);padding:8px;background:rgba(255,255,255,.5)}
+#kzl .kza-strip img{width:100%;aspect-ratio:4/3;object-fit:cover;opacity:.94}
+#kzl .kza-stamp{display:inline-block;margin-top:4px;border:1px solid var(--pin);color:var(--pin);
+  font:600 11px/1 var(--sys);letter-spacing:.17em;text-transform:uppercase;padding:7px 11px}
+
+/* ── примечания к листам ───────────────────────────────────── */
+#kzl .kza-notes{padding:var(--sheet) var(--pad);border-top:1px solid rgba(35,42,38,.14)}
+#kzl .kza-ngrid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(26px,4vw,70px)}
+#kzl .kza-nh{font-family:var(--po);font-size:clamp(28px,3.8vw,48px);color:var(--ink);
+  line-height:1.06;letter-spacing:-.015em;max-width:16ch}
+#kzl .kza-dl{border-top:1px solid rgba(35,42,38,.18)}
+#kzl .kza-dl div{display:grid;grid-template-columns:minmax(0,1fr) max-content;gap:6px 26px;align-items:baseline;
+  border-bottom:1px solid rgba(35,42,38,.13);padding:15px 0}
+#kzl .kza-dl dt{font-size:15.5px;color:var(--txt);line-height:1.55}
+#kzl .kza-dl dt b{color:var(--ink);font-weight:600;display:block;margin-bottom:2px}
+#kzl .kza-dl dd{font-family:var(--po);font-size:22px;color:var(--ink);white-space:nowrap;letter-spacing:-.01em}
+#kzl .kza-near{margin-top:clamp(24px,3vw,40px);display:flex;flex-wrap:wrap;gap:10px 26px;align-items:baseline}
+#kzl .kza-near a{font-size:14.5px;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--acc);padding-bottom:3px}
+#kzl .kza-near a:hover{border-bottom-color:var(--ink)}
+
+/* ── подвал ────────────────────────────────────────────────── */
+#kzl .kza-foot{padding:clamp(30px,4vw,54px) var(--pad);border-top:1px solid rgba(35,42,38,.16);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:20px 34px;
+  font-size:13.5px;color:var(--mut);line-height:1.6}
+#kzl .kza-foot b{display:block;color:var(--ink);font-weight:600;margin-bottom:4px}
+#kzl .kza-foot a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(187,145,107,.7)}
+
+/* ── оверлей Marina ────────────────────────────────────────── */
+#kzl .kza-ov{position:fixed;inset:0;z-index:9200;display:none;place-items:center;
+  background:rgba(30,38,34,.42);padding:20px}
+#kzl .kza-ov.kza-open2{display:grid}
+#kzl .kza-ovc{background:var(--k-pap);max-width:520px;width:100%;padding:clamp(24px,4vw,42px);
+  border:1px solid var(--k-ln);position:relative}
+#kzl .kza-ovc h3{font-family:var(--po);font-weight:400;font-size:28px;color:var(--k-ink);line-height:1.12;margin-bottom:12px}
+#kzl .kza-ovc p{font-size:15px;line-height:1.6;color:var(--txt)}
+#kzl .kza-x{position:absolute;top:10px;right:12px;background:none;border:0;cursor:pointer;
+  font:400 26px/1 var(--sys);color:var(--k-ink);padding:6px}
+#kzl .kza-ovb{margin-top:20px;display:inline-block;font:600 12px/1 var(--sys);letter-spacing:.15em;
+  text-transform:uppercase;color:var(--k-ink);background:none;border:1px solid var(--k-ink);
+  padding:11px 16px;cursor:pointer}
+
+/* ── появление ─────────────────────────────────────────────── */
+#kzl .kza-js .kza-rv{opacity:0;transform:translateY(16px)}
+#kzl .kza-rv{transition:opacity .85s var(--e),transform .85s var(--e)}
+#kzl .kza-rv.kza-in{opacity:1;transform:none}
+
+@media (max-width:1000px){
+  #kzl .kza-grid,#kzl .kza-h .kza-grid,#kzl .kza-ngrid{grid-template-columns:minmax(0,1fr)}
+  #kzl .kza-plate{order:-1}
+  #kzl .kza-foot{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+}
+@media (max-width:680px){
+  #kzl{font-size:16px}
+  #kzl .kza-kr{grid-template-columns:minmax(0,1fr);gap:12px}
+  #kzl .kza-to{justify-self:start;text-align:left}
+  #kzl .kza-pin{width:23px;height:23px;font-size:11px}
+  #kzl .kza-plate img{aspect-ratio:4/5}
+  #kzl .kza-strip{grid-template-columns:minmax(0,1fr)}
+  #kzl .kza-foot{grid-template-columns:minmax(0,1fr)}
+  #kzl .kza-spec div{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  #kzl .kza-rv,#kzl .kza-plate img,#kzl .kza-pin{
+    transition:none!important;opacity:1!important}
+}
+</style>
+</head>
+<body>
+
+<div id="kzl">
+
+  <header class="kza-top">
+    <a class="kza-mark" href="https://kzavidovo.ru/">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="Знак «Коллекции Завидово»">
+      <span>Коллекция Завидово</span>
+    </a>
+    <span class="kza-sp"></span>
+    <span class="kza-lab">Конаковский район · Тверская область</span>
+    <a class="kza-tel" href="tel:+74993091245">+7 499 309 12 45</a>
+  </header>
+
+  <!-- ════ первый экран: определительный ключ ════ -->
+  <section class="kza-open">
+    <h1 class="kza-rv">Четыре посёлка у одного курорта</h1>
+    <p class="kza-sub kza-rv">Дорога, курорт и национальный парк у них общие: <b>час от Москвы, десять минут
+      до курорта Завидово, заповедник по соседству.</b> Отличается среда — вода, лес, обжитой посёлок
+      или новый проект. Выбирают, как правило, именно среду, поэтому мы разложили посёлки по листам.</p>
+
+    <div class="kza-keyhd kza-rv">
+      <span class="kza-lab">Ключ к листам</span><span class="kza-rule"></span>
+    </div>
+
+    <nav class="kza-key kza-rv" aria-label="Выбор посёлка">
+      <a class="kza-kr" href="#kza-1">
+        <span class="kza-if">Нужна <b>большая вода</b>: свой берег, пляж и причал в нескольких минутах от дома</span>
+        <span class="kza-to"><i>Лист I · Вода</i><em>Акватория Завидово</em></span>
+      </a>
+      <a class="kza-kr" href="#kza-2">
+        <span class="kza-if">Нужен <b>лес</b>: взрослые деревья на самом участке и река в шаговой доступности</span>
+        <span class="kza-to"><i>Лист II · Лес</i><em>Экопарк Лесной</em></span>
+      </a>
+      <a class="kza-kr" href="#kza-3">
+        <span class="kza-if">Нужно <b>въехать в готовое</b>: участок с домом там, где уже живут соседи</span>
+        <span class="kza-to"><i>Лист III · Обжитой</i><em>Экопарк Завидово</em></span>
+      </a>
+      <a class="kza-kr" href="#kza-4">
+        <span class="kza-if">Интересен <b>новый проект</b> у деревни Лазурная — на раннем этапе</span>
+        <span class="kza-to"><i>Лист IV · Проект</i><em>Marina Zavidovo Village</em></span>
+      </a>
+    </nav>
+
+    <div class="kza-wide kza-rv">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg"
+           alt="Вечер на берегу в посёлке Акватория Завидово: вода, газоны, фонари и дома вдоль берега" fetchpriority="high">
+    </div>
+    <p class="kza-cap"><b>Общий кадр.</b> Так выглядит вечер на воде в Акватории. Дальше — по листам: у каждого
+      посёлка свой разбор кадра и свои условия покупки.</p>
+  </section>
+
+  <!-- ════ ЛИСТ I · ВОДА ════ -->
+  <section class="kza-sheet kza-w" id="kza-1">
+    <div class="kza-hd"><span class="kza-lab">Лист I</span><span class="kza-rule"></span><span class="kza-lab">Вода · берег Волги</span></div>
+
+    <div class="kza-grid">
+      <div class="kza-rv">
+        <h2 class="kza-nm">Акватория<br>Завидово</h2>
+        <p class="kza-say">Посёлок стоит на берегу Волги: до воды идут пешком, а не едут. Свой пляж, свой
+          яхт-клуб, свои причалы — выход на воду перестаёт быть выездом на выходные и становится делом
+          десяти минут после работы.</p>
+        <p class="kza-say">Внутри посёлка парк на пятнадцати гектарах: берёзовые аллеи, футбольное поле,
+          теннисные корты, детские площадки, асфальтовые дорожки через всю территорию. Спорткомплекс с
+          бассейном и детский центр — на территории, а не в городе через пробки.</p>
+
+        <dl class="kza-spec">
+          <div><dt>Первая линия</dt><dd>Премиум-очередь — 14 участков, причал у каждого</dd></div>
+          <div><dt>Парк</dt><dd>15 гектаров: аллеи, спортивные и детские площадки</dd></div>
+          <div><dt>На воде</dt><dd>Пляж с прокатом: сапы, лодки, катера. Слип и зимнее хранение</dd></div>
+          <div><dt>Территория</dt><dd>Закрытая и охраняемая, коммуникации подземные, своя УК круглый год</dd></div>
+          <div><dt>Дорога</dt><dd>Час от Москвы по платной М-11, десять минут до курорта</dd></div>
+        </dl>
+
+        <a class="kza-go" href="https://kzavidovo.ru/akvatoria">Открыть сайт Акватории <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="kza-plate kza-rv">
+        <figure>
+          <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg"
+               alt="Берег и парк посёлка Акватория Завидово вечером" loading="lazy">
+          <span class="kza-pin" style="--x:16%;--y:66%" aria-hidden="true">1</span>
+          <span class="kza-pin" style="--x:64%;--y:36%" aria-hidden="true">2</span>
+          <span class="kza-pin" style="--x:84%;--y:76%" aria-hidden="true">3</span>
+        </figure>
+        <p class="kza-ncap">Акватория Завидово, вечер на воде. Что на кадре:</p>
+        <ul class="kza-exp">
+          <li><b>1</b><span>Вода начинается сразу за участками — к берегу идут пешком, а не едут</span></li>
+          <li><b>2</b><span>Дома первой линии стоят вдоль берега; причал у каждого из четырнадцати участков</span></li>
+          <li><b>3</b><span>Дорожки, свет и газоны — часть парка на пятнадцати гектарах</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ ЛИСТ II · ЛЕС ════ -->
+  <section class="kza-sheet kza-f" id="kza-2">
+    <div class="kza-hd"><span class="kza-lab">Лист II</span><span class="kza-rule"></span><span class="kza-lab">Лес · река Дойбица</span></div>
+
+    <div class="kza-grid">
+      <div class="kza-rv">
+        <h2 class="kza-nm">Экопарк<br>Лесной</h2>
+        <p class="kza-say">Триста двадцать четыре участка в хвойно-лиственном лесу на берегу Дойбицы.
+          Взрослые деревья остаются на вашей земле — участок не расчищают под ноль, дом ставят между соснами.</p>
+        <p class="kza-say">Земля размежёвана и стоит на кадастровом учёте, оформляется в собственность.
+          Коммуникации подземные: 15 кВт в три фазы, вода, оптика. Сейчас идёт старт продаж третьей
+          очереди — это лучшая цена очереди и рассрочка без процентов.</p>
+
+        <dl class="kza-spec">
+          <div><dt>Участки</dt><dd>324 в лесу, размежёваны, на кадастровом учёте</dd></div>
+          <div><dt>Коммуникации</dt><dd>15 кВт (три фазы), вода, оптика — под землёй</dd></div>
+          <div><dt>На участке</dt><dd>Забор по периметру, широкие дороги, территория расчищена и промульчирована</dd></div>
+          <div><dt>Вода</dt><dd>Свой пляж и зоны отдыха на реке Дойбица</dd></div>
+          <div><dt>Условия</dt><dd>Земля под дачи (ДНП), в собственность. Рассрочка 0%</dd></div>
+        </dl>
+
+        <a class="kza-go" href="https://ecopark-zavidovo.ru/lesnoy">Открыть сайт Лесного <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="kza-plate kza-rv">
+        <figure>
+          <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg"
+               alt="Дорожки и взрослые деревья в Экопарке Лесной" loading="lazy">
+          <span class="kza-pin" style="--x:22%;--y:30%" aria-hidden="true">1</span>
+          <span class="kza-pin" style="--x:70%;--y:58%" aria-hidden="true">2</span>
+          <span class="kza-pin" style="--x:44%;--y:84%" aria-hidden="true">3</span>
+        </figure>
+        <p class="kza-ncap">Экопарк Лесной, лес на участке. Что на кадре:</p>
+        <ul class="kza-exp">
+          <li><b>1</b><span>Взрослые деревья остаются на вашей земле — участок не расчищают под ноль</span></li>
+          <li><b>2</b><span>Широкие проезды между участками; территория расчищена и промульчирована</span></li>
+          <li><b>3</b><span>Дойбица рядом: свой пляж и зоны отдыха на реке</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ ЛИСТ III · ОБЖИТОЙ ════ -->
+  <section class="kza-sheet kza-h" id="kza-3">
+    <div class="kza-hd"><span class="kza-lab">Лист III</span><span class="kza-rule"></span><span class="kza-lab">Обжитой посёлок</span></div>
+
+    <div class="kza-grid">
+      <div class="kza-rv">
+        <h2 class="kza-nm">Экопарк<br>Завидово</h2>
+        <p class="kza-say">Старший посёлок группы: здесь уже живут. Берут не только участок, но и готовый дом —
+          въехать можно, не проходя стройку. Соседи, дороги и обслуживание существуют не по проекту, а в жизни.</p>
+        <p class="kza-say">Земля под дачи (ДНП) оформляется в собственность. Есть рассрочка, действующие акции
+          и программа Trade-In: участок в другом посёлке можно обменять, не продавая его самостоятельно.
+          Свободные участки видно на интерактивной карте сайта.</p>
+
+        <div class="kza-hnums">
+          <span><b>1&nbsp;час</b>от Москвы по М-10</span>
+          <span><b>10&nbsp;мин</b>до курорта Завидово</span>
+        </div>
+
+        <dl class="kza-spec">
+          <div><dt>Что покупают</dt><dd>Участки и готовые дома</dd></div>
+          <div><dt>Условия</dt><dd>ДНП, в собственность. Рассрочка, акции, Trade-In</dd></div>
+          <div><dt>Выбор участка</dt><dd>Интерактивная карта свободных участков на сайте посёлка</dd></div>
+        </dl>
+
+        <a class="kza-go" href="https://ecopark-zavidovo.ru">Открыть сайт Экопарка Завидово <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="kza-small kza-rv">
+        <figure>
+          <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg"
+               alt="Кадр курортной зоны Завидово по соседству с посёлком" loading="lazy">
+          <figcaption>Кадр курортной зоны по соседству. Фотография самого посёлка готовится — этот лист ждёт своего кадра.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ ЛИСТ IV · ПРОЕКТ (калька) ════ -->
+  <section class="kza-sheet kza-k" id="kza-4">
+    <div class="kza-hd"><span class="kza-lab">Лист IV</span><span class="kza-rule"></span><span class="kza-lab">Проект · лист в работе</span></div>
+
+    <div class="kza-trace kza-rv">
+      <div class="kza-mono">
+        <i aria-hidden="true">M</i>
+        <u>MARINA<br>ZAVIDOVO VILLAGE</u>
+      </div>
+      <p class="kza-say">Четвёртый посёлок Коллекции — Конаковский район, городское поселение Новозавидовский,
+        район деревни Лазурная, участок 2410. Проект в разработке: сайта у него пока нет, поэтому лист
+        полупрозрачный — на нём только то, что уже существует.</p>
+      <p class="kza-say">Ниже — рендеры эскизного проекта дома, а не фотографии посёлка. Ни участков, ни сроков,
+        ни цен по Marina мы не называем: их ещё нет.</p>
+
+      <div class="kza-strip">
+        <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-a.jpg" alt="Рендер эскизного проекта дома Marina Zavidovo Village, общий вид" loading="lazy"></figure>
+        <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-b.jpg" alt="Рендер эскизного проекта дома Marina Zavidovo Village, вечер" loading="lazy"></figure>
+        <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-c.jpg" alt="Рендер эскизного проекта дома Marina Zavidovo Village, въезд" loading="lazy"></figure>
+      </div>
+
+      <button class="kza-stamp" type="button" data-kza-ov>Сайт в разработке</button>
+    </div>
+  </section>
+
+  <!-- ════ ПРИМЕЧАНИЯ К ЛИСТАМ ════ -->
+  <section class="kza-notes">
+    <div class="kza-hd"><span class="kza-lab">Примечания к листам</span><span class="kza-rule"></span><span class="kza-lab">Общее для всех четырёх</span></div>
+
+    <div class="kza-ngrid">
+      <div class="kza-rv">
+        <h2 class="kza-nh">Курорт — чтобы приезжать. Посёлок — чтобы жить.</h2>
+        <p class="kza-say" style="margin-top:18px">Всё, что обычно ищут в отпуске, здесь находится по соседству и
+          работает круглый год. На гольф, в спа или на ужин у воды выезжают после работы: дорога занимает меньше,
+          чем сборы. А когда возвращаешься — за оградой тихо.</p>
+      </div>
+
+      <div class="kza-rv">
+        <dl class="kza-dl">
+          <div><dt><b>Курорт Завидово</b>Гольф, марина, спа, рестораны и аквапарк работают уже сейчас</dt><dd>10 минут</dd></div>
+          <div><dt><b>Национальный парк «Завидово»</b>Лес, луга и вода по соседству с посёлками</dt><dd>133 000 га</dd></div>
+          <div><dt><b>Дорога из Москвы</b>К Акватории — по платной М-11, к Экопаркам — по М-10</dt><dd>1 час</dd></div>
+        </dl>
+        <p class="kza-near">
+          <span class="kza-lab">Места рядом:</span>
+          <a href="https://kzavidovo.ru/where_eat">Кафе и рестораны</a>
+          <a href="https://kzavidovo.ru/where_spa">Спа и бани</a>
+          <a href="https://kzavidovo.ru/where_nature">Природа и прогулки</a>
+          <a href="https://kzavidovo.ru/where_admire">Достопримечательности</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="kza-foot">
+    <p><b>Коллекция Завидово</b>Тверская область, Конаковский район, сельское поселение Завидово</p>
+    <p><b>Отдел продаж</b><a href="tel:+74993091245">+7 499 309 12 45</a><br><a href="mailto:info@ecoparkz.ru">info@ecoparkz.ru</a></p>
+    <p><b>Листы</b><a href="#kza-1">I Вода</a> · <a href="#kza-2">II Лес</a> · <a href="#kza-3">III Обжитой</a> · <a href="#kza-4">IV Проект</a><br>Не является публичной офертой</p>
+  </footer>
+
+  <div class="kza-ov" role="dialog" aria-modal="true" aria-labelledby="kza-ovt" hidden>
+    <div class="kza-ovc">
+      <button class="kza-x" type="button" data-kza-close aria-label="Закрыть">×</button>
+      <h3 id="kza-ovt">Marina Zavidovo Village</h3>
+      <p>Своей страницы у посёлка пока нет — проект в разработке. Позвоните в отдел продаж, и мы расскажем,
+        что уже известно: <a href="tel:+74993091245">+7 499 309 12 45</a>.</p>
+      <button class="kza-ovb" type="button" data-kza-close>Закрыть</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var root=document.getElementById('kzl');
+  if(!root) return;
+  root.classList.add('kza-js');
+
+  var reveal=[].slice.call(root.querySelectorAll('.kza-rv'));
+  var plates=[].slice.call(root.querySelectorAll('.kza-plate'));
+
+  function showAll(){
+    reveal.forEach(function(e){e.classList.add('kza-in');});
+    plates.forEach(function(e){e.classList.add('kza-on');});
+  }
+
+  if(!('IntersectionObserver' in window)){ showAll(); }
+  else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting) en.target.classList.add('kza-in'); });
+    },{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    reveal.forEach(function(e){io.observe(e);});
+
+    var io2=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting) en.target.classList.add('kza-on'); });
+    },{rootMargin:'0px 0px -12% 0px',threshold:.2});
+    plates.forEach(function(e){io2.observe(e);});
+  }
+
+  /* страховка: что бы ни случилось с наблюдателем — через 1,2 с и по load видно всё */
+  window.addEventListener('load',showAll);
+  setTimeout(showAll,1200);
+
+  /* оверлей Marina */
+  var ov=root.querySelector('.kza-ov'), last=null;
+  function open(){ ov.hidden=false; ov.classList.add('kza-open2');
+    last=document.activeElement; var b=ov.querySelector('.kza-x'); if(b) b.focus(); }
+  function close(){ ov.classList.remove('kza-open2'); ov.hidden=true; if(last) last.focus(); }
+  root.querySelectorAll('[data-kza-ov]').forEach(function(b){b.addEventListener('click',open);});
+  root.querySelectorAll('[data-kza-close]').forEach(function(b){b.addEventListener('click',close);});
+  ov.addEventListener('click',function(e){ if(e.target===ov) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&ov.classList.contains('kza-open2')) close(); });
+})();
+</script>
+
+</body>
+</html>
