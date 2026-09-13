@@ -1,0 +1,353 @@
+<!-- ============================================================================
+     КОЛЛЕКЦИЯ ЗАВИДОВО · «ДРУГИЕ НОВОСТИ» — ХВОСТ СТРАНИЦЫ НОВОСТИ
+     Тильда: блок T123 (HTML). Контейнер 100%, отступы блока 0.
+     Ставить на страницы новостей ПОСЛЕ блока-алиаса ленты.
+
+     Как собрана секция. Своих карточек блок не хранит: рядом на странице
+     стоит блок-алиас (Тильда, «ID блока») на ленту новостей с главной
+     — rec3837320601. Одна лента, одно место правки: клиент добавляет
+     новость в редакторе на главной, и она сама появляется в хвосте
+     каждой новости. Этот файл ленту только одевает и достраивает:
+
+       · шапка секции «Другие новости» + ссылка «Все новости» → /news;
+       · карточка как на главной: хайрлайн, кадр 16:10, дата мелким
+         изумрудным капсом, заголовок Poiret One, наведение — линейка
+         зеленеет и кадр наезжает;
+       · из ленты убирается новость, которую читают (сравнение по адресу);
+       · остаётся три карточки — ряд, а не второе полотно новостей;
+       · английские даты Тильды переводятся на русский, эмодзи чистятся.
+
+     ПЕРЕКЛЮЧАТЕЛИ — в начале скрипта:
+       IMYA          «Другие новости»
+       VSE_NOVOSTI   «/news»
+       SKOLKO        3      — сколько карточек оставить (0 — все)
+       KROME_ETOY    true   — убрать из ленты текущую новость
+       DATY_RU       true
+       UBRAT_EMOJI   true
+
+     ВАЖНО: Экопарковскую ленту (rec823077674, 79 новостей со ссылками
+     /premium, /affordable — таких страниц на kzavidovo нет) блок НЕ
+     трогает: она скрыта одёжкой классом .azNHide, и скрипт такие записи
+     пропускает.
+
+     Файл самодостаточный: внизу демо-лента в разметке T404. На странице
+     Тильды скрипт снимает демо сам (признак #allrecords).
+     ============================================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+/* ── корень: лента T404 (своя или алиасом), кроме скрытых одёжкой ──────── */
+.r[data-record-type="404"]:not(.azNHide),
+.r[data-alias-record-type="404"]:not(.azNHide){
+  --emerald:#09763F; --accent:#09763F;
+  --ink:#1d2723; --ink-2:#4a5551; --muted:#8b918e;
+  --line:#e7e4df; --cream:#f7f6f4;
+  --fs-h3:clamp(26px,3.2vw,44px);
+  --gutter:clamp(24px,6vw,86px); --sec:clamp(64px,7.2vw,110px);
+  --ease:cubic-bezier(.22,.75,.24,1);
+  background:#fff;
+  padding-top:0!important; padding-bottom:var(--sec)!important;
+}
+.r[data-record-type="404"]:not(.azNHide) *,
+.r[data-alias-record-type="404"]:not(.azNHide) *{box-sizing:border-box}
+.r[data-record-type="404"]:not(.azNHide) .t404,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404{margin:0!important;padding:0!important}
+
+/* ── шапка секции: линейка сверху, имя слева, ссылка справа ─────────────── */
+/* обёртка держит ширину и поля, линейка — на внутренней строке,
+   поэтому она начинается и кончается ровно там, где хайрлайны карточек */
+.azd-h{
+  width:100%;max-width:1420px;margin:0 auto clamp(28px,3.2vw,46px);
+  padding-inline:var(--gutter)}
+.azd-hin{
+  border-top:1px solid var(--line);padding-top:var(--sec);
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:24px;flex-wrap:wrap}
+.azd-h2{
+  margin:0;font-family:'Poiret One',sans-serif;font-weight:400;
+  font-size:var(--fs-h3);line-height:1.04;letter-spacing:.015em;color:var(--ink)}
+.azd-all{
+  font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;
+  position:relative;padding-bottom:6px;display:inline-block;white-space:nowrap}
+.azd-all::after{
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;
+  background:currentColor;transform-origin:right;transition:transform .45s var(--ease)}
+.azd-all:hover::after{animation:azdSweep .55s var(--ease)}
+@keyframes azdSweep{0%{transform:scaleX(1);transform-origin:right}
+  49%{transform:scaleX(0);transform-origin:right}
+  50%{transform:scaleX(0);transform-origin:left}100%{transform:scaleX(1);transform-origin:left}}
+
+/* ── сетка вместо тильдиных колонок ────────────────────────────────────── */
+.r[data-record-type="404"]:not(.azNHide) .t-container,
+.r[data-alias-record-type="404"]:not(.azNHide) .t-container{
+  width:100%!important;max-width:1420px!important;margin:0 auto!important;
+  padding-inline:var(--gutter)!important;
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(24px,3.4vw,52px)}
+.r[data-record-type="404"]:not(.azNHide) .t-container::before,
+.r[data-record-type="404"]:not(.azNHide) .t-container::after,
+.r[data-alias-record-type="404"]:not(.azNHide) .t-container::before,
+.r[data-alias-record-type="404"]:not(.azNHide) .t-container::after{display:none!important}
+.r[data-record-type="404"]:not(.azNHide) .t404__col,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__col{
+  width:auto!important;max-width:none!important;min-width:0!important;
+  margin:0!important;padding:0!important;float:none!important;
+  min-height:0!important;height:auto!important}
+.azd-skip{display:none!important}
+/* пустые ряды-контейнеры Тильды: класс, а не инлайн — своё
+   `display:grid!important` выше инлайнового стиля не пропускает */
+.azd-row-off{display:none!important}
+
+/* ── карточка = та же, что на главной ──────────────────────────────────── */
+.r[data-record-type="404"]:not(.azNHide) .t404__link,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__link{
+  display:flex!important;flex-direction:column;gap:12px;
+  padding-top:24px;border-top:1px solid var(--line);
+  text-decoration:none!important;color:var(--ink)!important;
+  transition:border-color .5s var(--ease)}
+.r[data-record-type="404"]:not(.azNHide) .t404__col:hover .t404__link,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__col:hover .t404__link{border-top-color:var(--emerald)}
+
+.r[data-record-type="404"]:not(.azNHide) .t404__imgbox,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__imgbox{
+  margin:0 0 6px!important;padding:0!important;height:auto!important;
+  overflow:hidden;background:var(--cream)}
+.r[data-record-type="404"]:not(.azNHide) .t404__img,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__img{
+  position:static!important;width:100%!important;height:auto!important;
+  aspect-ratio:16/10;--ar:16/10!important;
+  background-size:cover!important;background-position:center!important;
+  transition:transform 1.3s var(--ease)}
+.r[data-record-type="404"]:not(.azNHide) .t404__col:hover .t404__img,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__col:hover .t404__img{transform:scale(1.05)}
+.r[data-record-type="404"]:not(.azNHide) .t404__separator,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__separator{display:none!important}
+
+.r[data-record-type="404"]:not(.azNHide) .t404__textwrapper,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__textwrapper{
+  display:flex;flex-direction:column;gap:12px;padding:0!important;margin:0!important}
+.r[data-record-type="404"]:not(.azNHide) .t404__uptitle,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__uptitle{margin:0!important;padding:0!important}
+.r[data-record-type="404"]:not(.azNHide) .t404__date,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__date{
+  font-family:'Montserrat',sans-serif!important;font-weight:300!important;
+  font-size:11px!important;letter-spacing:.24em!important;line-height:1.4!important;
+  text-transform:uppercase!important;color:var(--accent)!important}
+.r[data-record-type="404"]:not(.azNHide) .t404__title,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__title{
+  font-family:'Poiret One',sans-serif!important;font-weight:400!important;
+  font-size:clamp(19px,1.75vw,25px)!important;line-height:1.24!important;
+  color:var(--ink)!important;margin:0!important;height:auto!important;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  transition:color .4s var(--ease)}
+.r[data-record-type="404"]:not(.azNHide) .t404__col:hover .t404__title,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__col:hover .t404__title{color:var(--emerald)!important}
+.r[data-record-type="404"]:not(.azNHide) .t404__descr,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__descr{
+  font-family:'Montserrat',sans-serif!important;font-weight:300!important;
+  font-size:15.5px!important;line-height:1.85!important;color:var(--ink-2)!important;
+  margin:0!important;height:auto!important;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ── появление на скролле ──────────────────────────────────────────────── */
+.r[data-record-type="404"]:not(.azNHide) .t404__col:not(.azd-skip),
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__col:not(.azd-skip){
+  opacity:0;transform:translateY(22px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease);
+  transition-delay:calc(var(--d,0)*90ms)}
+.r[data-record-type="404"]:not(.azNHide) .t404__col.azd-in,
+.r[data-alias-record-type="404"]:not(.azNHide) .t404__col.azd-in{opacity:1;transform:none}
+
+@media (max-width:1080px){
+  .r[data-record-type="404"]:not(.azNHide) .t-container,
+  .r[data-alias-record-type="404"]:not(.azNHide) .t-container{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){
+  .r[data-record-type="404"]:not(.azNHide) .t-container,
+  .r[data-alias-record-type="404"]:not(.azNHide) .t-container{grid-template-columns:minmax(0,1fr)}
+  .r[data-record-type="404"]:not(.azNHide) .t404__img,
+  .r[data-alias-record-type="404"]:not(.azNHide) .t404__img{aspect-ratio:3/2;--ar:3/2!important}}
+@media (prefers-reduced-motion:reduce){
+  .r[data-record-type="404"] .t404__col{opacity:1!important;transform:none!important;transition:none!important}
+  .r[data-record-type="404"] .t404__img{transition:none!important}}
+</style>
+
+<script>
+(function(){
+  /* ── переключатели ─────────────────────────────────────────────────── */
+  var IMYA        = 'Другие новости';
+  var VSE_NOVOSTI = '/news';
+  var SKOLKO      = 3;
+  var KROME_ETOY  = true;
+  var DATY_RU     = true;
+  var UBRAT_EMOJI = true;
+
+  var MES = {january:'января',february:'февраля',march:'марта',april:'апреля',
+    may:'мая',june:'июня',july:'июля',august:'августа',september:'сентября',
+    october:'октября',november:'ноября',december:'декабря',
+    jan:'января',feb:'февраля',mar:'марта',apr:'апреля',jun:'июня',jul:'июля',
+    aug:'августа',sep:'сентября',sept:'сентября',oct:'октября',nov:'ноября',dec:'декабря'};
+  var EMO = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu;
+
+  function poRusski(t){
+    var s = t.toLowerCase(), mon = null, dlina = 0;
+    for (var k in MES) if (s.indexOf(k) > -1 && k.length > dlina) { mon = k; dlina = k.length; }
+    if (!mon) return null;
+    var bezGoda = s.replace(/20\d{2}/,'');
+    var d = bezGoda.match(/\d{1,2}/);
+    if (!d) return null;
+    var y = s.match(/20\d{2}/);
+    return parseInt(d[0],10) + ' ' + MES[mon] + (y ? ' ' + y[0] : '');
+  }
+
+  function chistyPut(h){
+    if (!h) return '';
+    return h.replace(/^https?:\/\/[^\/]+/,'').replace(/[?#].*$/,'').replace(/\/+$/,'').toLowerCase();
+  }
+
+  function snyatVysoty(rec){
+    [].forEach.call(rec.querySelectorAll('.t404__title,.t404__descr,.t404__col'), function(el){
+      if (el.style.height && el.style.height !== 'auto') el.style.height = 'auto';
+    });
+  }
+
+  function odet(rec){
+    if (rec.classList.contains('azNHide')) return;            /* лента Экопарка — не наша */
+    if (rec.getAttribute('data-azd') === 'y') { snyatVysoty(rec); return; }
+    rec.setAttribute('data-azd','y');
+
+    var lenta = rec.querySelector('.t404'), cont = rec.querySelector('.t-container');
+    if (!lenta || !cont) return;
+
+    /* Тильда кладёт по три карточки в СВОЙ .t-container (это ряд).
+       Из-за этого скрытая новость оставляет в ряду дыру, а следующая
+       карточка уезжает вниз. Поэтому нужные карточки собираются
+       в первый контейнер, остальные контейнеры гасятся. */
+    var conts = [].slice.call(rec.querySelectorAll('.t-container'));
+
+    /* шапка секции */
+    var h = document.createElement('div');
+    h.className = 'azd-h';
+    h.innerHTML = '<div class="azd-hin"><h3 class="azd-h2"></h3><a class="azd-all"></a></div>';
+    h.querySelector('.azd-h2').textContent = IMYA;
+    var a = h.querySelector('.azd-all');
+    a.textContent = 'Все новости';
+    a.setAttribute('href', VSE_NOVOSTI);
+    lenta.insertBefore(h, cont);
+
+    /* отбор карточек: без текущей новости, не больше SKOLKO.
+       `?azput=/vivayachts` — подмена адреса, чтобы проверять отбор
+       в локальном превью (на боевой параметра нет, берётся pathname). */
+    var podmena = null;
+    try { podmena = new URLSearchParams(location.search).get('azput'); } catch (e) {}
+    var tut = chistyPut(podmena || location.pathname);
+    var ostalos = 0;
+    [].forEach.call(rec.querySelectorAll('.t404__col'), function(col){
+      var ssylka = col.querySelector('a');
+      var put = chistyPut(ssylka ? ssylka.getAttribute('href') : '');
+      var eto_tekushchaya = KROME_ETOY && put && put === tut;
+      if (eto_tekushchaya || (SKOLKO > 0 && ostalos >= SKOLKO)) { col.classList.add('azd-skip'); return; }
+      col.style.setProperty('--d', ostalos);
+      ostalos++;
+      if (col.parentNode !== cont) cont.appendChild(col);   /* все выбранные — в один ряд */
+
+      var dt = col.querySelector('.t404__date');
+      if (DATY_RU && dt) { var r = poRusski(dt.textContent.trim()); if (r) dt.textContent = r; }
+      if (UBRAT_EMOJI) {
+        [].forEach.call(col.querySelectorAll('.t404__title,.t404__descr'), function(el){
+          el.textContent = el.textContent.replace(EMO,'').replace(/\s{2,}/g,' ').trim();
+        });
+      }
+    });
+
+    /* если показывать нечего — секции на странице не будет */
+    if (!ostalos) { rec.style.display = 'none'; return; }
+
+    /* лишние ряды-контейнеры гасим, чтобы под рядом не осталось пустот */
+    conts.forEach(function(c, i){ if (i > 0) c.classList.add('azd-row-off'); });
+    snyatVysoty(rec);
+
+    var zhivye = [].filter.call(rec.querySelectorAll('.t404__col'), function(c){
+      return !c.classList.contains('azd-skip'); });
+
+    function pokazat(el){ el.classList.add('azd-in'); }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if (e.isIntersecting) { pokazat(e.target); io.unobserve(e.target); } });
+      }, {rootMargin:'0px 0px -8% 0px', threshold:.05});
+      zhivye.forEach(function(c){ io.observe(c); });
+      setTimeout(function(){ zhivye.forEach(pokazat); }, 2200);
+    } else {
+      zhivye.forEach(pokazat);
+    }
+
+    [400, 1200, 2500].forEach(function(ms){ setTimeout(function(){ snyatVysoty(rec); }, ms); });
+  }
+
+  function start(){
+    var demo = document.getElementById('azd-demo');
+    if (demo && document.getElementById('allrecords')) demo.remove();
+    [].forEach.call(document.querySelectorAll('.r[data-record-type="404"],.r[data-alias-record-type="404"]'), odet);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+  window.addEventListener('load', start);
+})();
+</script>
+
+<!-- ▼▼▼ ДЕМО: так хвост выглядит в одёжке. На странице Тильды снимается само ▼▼▼ -->
+<div id="azd-demo">
+<div class="r t-rec" data-record-type="404" style="padding-top:0;padding-bottom:90px">
+ <div class="t404">
+  <div class="t-container">
+
+   <div class="t404__col t-col t-col_4 t-align_left">
+    <a class="t404__link" href="/aquaopen">
+     <div class="t404__imgbox">
+      <div class="t404__img t-bgimg" style="background-image:url('https://static.tildacdn.com/tild3230-6135-4964-a461-343638643839/de-1200.jpg')"></div>
+      <div class="t404__separator"></div>
+     </div>
+     <div class="t404__textwrapper">
+      <div class="t404__uptitle t-uptitle"><span class="t404__date">Friday, November 21</span></div>
+      <div class="t404__title t-heading t-heading_xs">Аквапарк открыт</div>
+      <div class="t404__descr t-descr t-descr_xs">Пока работает для гостей отелей курорта и прессы. Полностью для посетителей откроется позже.</div>
+     </div>
+    </a>
+   </div>
+
+   <div class="t404__col t-col t-col_4 t-align_left">
+    <a class="t404__link" href="/tpu">
+     <div class="t404__imgbox">
+      <div class="t404__img t-bgimg" style="background-image:url('https://static.tildacdn.com/tild3230-6131-4830-b133-666236363438/_wF80hgOphc.jpg')"></div>
+      <div class="t404__separator"></div>
+     </div>
+     <div class="t404__textwrapper">
+      <div class="t404__uptitle t-uptitle"><span class="t404__date">Tuesday, June 10</span></div>
+      <div class="t404__title t-heading t-heading_xs">Последние новости о ТПУ «Завидово»</div>
+      <div class="t404__descr t-descr t-descr_xs">Проект, который превратит Завидово в центр туризма федерального уровня.</div>
+     </div>
+    </a>
+   </div>
+
+   <div class="t404__col t-col t-col_4 t-align_left">
+    <a class="t404__link" href="/teplohod">
+     <div class="t404__imgbox">
+      <div class="t404__img t-bgimg" style="background-image:url('https://static.tildacdn.com/tild3136-3934-4436-b838-376239623561/Frame_2784.jpg')"></div>
+      <div class="t404__separator"></div>
+     </div>
+     <div class="t404__textwrapper">
+      <div class="t404__uptitle t-uptitle"><span class="t404__date">Tuesday, June 17</span></div>
+      <div class="t404__title t-heading t-heading_xs">Расписание теплохода в Конаково</div>
+      <div class="t404__descr t-descr t-descr_xs">Речные прогулки по Волге начались — публикуем расписание рейсов на сезон.</div>
+     </div>
+    </a>
+   </div>
+
+  </div>
+ </div>
+</div>
+</div>
+<!-- ▲▲▲ КОНЕЦ ДЕМО ▲▲▲ -->
