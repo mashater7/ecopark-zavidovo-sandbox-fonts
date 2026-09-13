@@ -6,7 +6,7 @@
 <title>Коллекция Завидово — атлас четырёх сред</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&family=Poiret+One&display=swap" rel="stylesheet">
 
 <!--
 THESIS: Выбор среды, а не выбор объявления. Страница отказывается от лендинга
@@ -26,19 +26,21 @@ FORM: Кандидат 7 моего упорядоченного списка, �
 -->
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&family=Poiret+One&display=swap');
 #kzl{
-  --pg:#eceee9; --ink:#232a26; --txt:#3d443e; --mut:#6d746c; --acc:#bb916b;
+  --pg:#eceee9; --ink:#232a26; --txt:#3d443e; --mut:#5c635b; --acc:#bb916b;
   --w-pap:#e4eaee; --w-ink:#1d3a4d; --w-ln:#9db2bf;
   --f-pap:#e6ebe0; --f-ink:#22402a; --f-ln:#9aac91;
   --h-pap:#efe9df; --h-ink:#463724; --h-ln:#bda88a;
   --k-pap:#e8ebeb; --k-ink:#3f4a49; --k-ln:#a7b1b0;
-  --sys:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --sys:'Poiret One',-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
   --po:'Poiret One',cursive;
+  --mont:'Montserrat',-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
   --e:cubic-bezier(.23,1,.32,1);
   --pad:clamp(20px,5.2vw,92px);
   --sheet:clamp(64px,9vw,150px);
   font-family:var(--sys); color:var(--txt); background:var(--pg);
-  font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
+  font-size:19px; line-height:1.66; -webkit-font-smoothing:antialiased;
 }
 #kzl *{box-sizing:border-box}
 #kzl p,#kzl h1,#kzl h2,#kzl h3,#kzl figure,#kzl ul,#kzl li,#kzl dl,#kzl dd,#kzl dt{margin:0;padding:0}
@@ -47,7 +49,7 @@ FORM: Кандидат 7 моего упорядоченного списка, �
 #kzl a{color:inherit}
 
 /* ── ярлыки атласа ─────────────────────────────────────────── */
-#kzl .kza-lab{font:600 11px/1.3 var(--sys);letter-spacing:.17em;text-transform:uppercase;color:var(--mut)}
+#kzl .kza-lab{font:600 11px/1.3 var(--mont);letter-spacing:.17em;text-transform:uppercase;color:var(--mut)}
 #kzl .kza-rule{height:1px;background:currentColor;opacity:.28;flex:1 1 auto;min-width:24px}
 
 /* ── колонтитул страницы ───────────────────────────────────── */
@@ -57,11 +59,11 @@ FORM: Кандидат 7 моего упорядоченного списка, �
 #kzl .kza-mark img{width:22px;height:auto}
 #kzl .kza-mark span{font-family:var(--po);font-size:19px;color:var(--ink);letter-spacing:.02em}
 #kzl .kza-top .kza-sp{flex:1 1 auto;min-width:10px}
-#kzl .kza-tel{font:600 15px/1 var(--sys);color:var(--ink);text-decoration:none;letter-spacing:.01em;
+#kzl .kza-tel{font:600 16px/1 var(--mont);color:var(--ink);text-decoration:none;letter-spacing:.01em;
   border-bottom:1px solid var(--acc);padding-bottom:3px}
 
 /* ── первый экран: определительный ключ ────────────────────── */
-#kzl .kza-open{padding:clamp(38px,7vw,104px) var(--pad) 0}
+#kzl .kza-open{padding:clamp(26px,3.6vw,52px) var(--pad) 0}
 #kzl .kza-open h1{font-family:var(--po);font-weight:400;color:var(--ink);
   font-size:clamp(36px,6.4vw,84px);line-height:1.02;letter-spacing:-.02em;
   max-width:15ch;text-wrap:balance}
@@ -69,26 +71,26 @@ FORM: Кандидат 7 моего упорядоченного списка, �
 #kzl .kza-sub b{font-weight:600;color:var(--ink)}
 
 #kzl .kza-keyhd{display:flex;align-items:center;gap:16px;color:var(--mut);
-  margin:clamp(44px,6vw,86px) 0 8px}
+  margin:clamp(26px,3vw,40px) 0 8px}
 #kzl .kza-key{border-top:1px solid rgba(35,42,38,.2)}
 #kzl .kza-kr{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:8px 30px;
   border-bottom:1px solid rgba(35,42,38,.14);padding:clamp(18px,2.5vw,30px) 0;
   text-decoration:none;color:inherit;transition:padding-left .45s var(--e),background-color .45s var(--e)}
 #kzl .kza-kr:hover,#kzl .kza-kr:focus-visible{padding-left:14px;background:rgba(255,255,255,.5);outline:none}
-#kzl .kza-kr:focus-visible{box-shadow:inset 3px 0 0 var(--acc)}
+#kzl .kza-kr:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 #kzl .kza-if{font-size:clamp(16px,1.5vw,21px);color:var(--txt);max-width:46ch}
 #kzl .kza-if b{color:var(--ink);font-weight:600}
 #kzl .kza-to{display:flex;align-items:baseline;gap:12px;justify-self:end;text-align:right}
-#kzl .kza-to i{font-style:normal;font:600 11px/1 var(--sys);letter-spacing:.17em;text-transform:uppercase;color:var(--mut);white-space:nowrap}
+#kzl .kza-to i{font-style:normal;font:600 11px/1 var(--mont);letter-spacing:.17em;text-transform:uppercase;color:var(--mut);white-space:nowrap}
 #kzl .kza-to em{font-style:normal;font-family:var(--po);font-size:clamp(21px,2.6vw,34px);color:var(--ink);
   letter-spacing:-.01em;line-height:1.05;border-bottom:1px solid transparent;transition:border-color .4s var(--e)}
 #kzl .kza-kr:hover .kza-to em{border-bottom-color:var(--acc)}
 
 /* ── общий кадр под ключом ─────────────────────────────────── */
-#kzl .kza-wide{margin-top:clamp(38px,5.5vw,80px);position:relative}
-#kzl .kza-wide img{width:100%;height:clamp(280px,52vh,620px);object-fit:cover}
-#kzl .kza-cap{display:flex;gap:14px;align-items:flex-start;padding:12px var(--pad) 0;color:var(--mut);
-  font-size:13px;line-height:1.5;max-width:74ch}
+#kzl .kza-wide{margin-top:clamp(26px,3vw,44px);position:relative;margin-inline:calc(var(--pad)*-1)}
+#kzl .kza-wide img{width:100%;height:clamp(300px,58vh,680px);object-fit:cover}
+#kzl .kza-cap{display:flex;gap:14px;align-items:flex-start;padding:14px 0 0;color:var(--mut);
+  font-size:15px;line-height:1.5;max-width:74ch}
 #kzl .kza-cap b{font-weight:600;color:var(--ink);white-space:nowrap}
 
 /* ── лист ──────────────────────────────────────────────────── */
@@ -106,18 +108,18 @@ FORM: Кандидат 7 моего упорядоченного списка, �
   gap:clamp(26px,3.6vw,60px)}
 #kzl .kza-nm{font-family:var(--po);font-weight:400;color:var(--pin);
   font-size:clamp(34px,5vw,68px);line-height:1.04;letter-spacing:-.02em;margin-bottom:18px}
-#kzl .kza-say{font-size:clamp(16px,1.3vw,18px);line-height:1.66;max-width:62ch;color:var(--txt)}
+#kzl .kza-say{font-size:clamp(17px,1.45vw,21px);line-height:1.7;max-width:62ch;color:var(--txt)}
 #kzl .kza-say+.kza-say{margin-top:14px}
 
 /* спецификация листа */
 #kzl .kza-spec{margin-top:clamp(24px,3vw,38px);border-top:1px solid var(--pln)}
 #kzl .kza-spec div{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 20px;
   align-items:baseline;border-bottom:1px solid var(--pln);padding:11px 0}
-#kzl .kza-spec dt{font:600 11px/1.4 var(--sys);letter-spacing:.15em;text-transform:uppercase;color:var(--pin);opacity:.75;min-width:112px}
-#kzl .kza-spec dd{font-size:15px;line-height:1.5;color:var(--txt)}
+#kzl .kza-spec dt{font:600 11px/1.4 var(--mont);letter-spacing:.15em;text-transform:uppercase;color:var(--pin);opacity:.95;min-width:112px}
+#kzl .kza-spec dd{font-size:17px;line-height:1.55;color:var(--txt)}
 
 #kzl .kza-go{display:inline-flex;align-items:baseline;gap:10px;margin-top:clamp(24px,3vw,38px);
-  font:600 13px/1 var(--sys);letter-spacing:.14em;text-transform:uppercase;color:var(--pin);
+  font:600 13px/1 var(--mont);letter-spacing:.14em;text-transform:uppercase;color:var(--pin);
   text-decoration:none;border-bottom:1px solid var(--acc);padding-bottom:6px;
   transition:gap .4s var(--e)}
 #kzl .kza-go:hover,#kzl .kza-go:focus-visible{gap:18px;outline:none}
@@ -130,9 +132,9 @@ FORM: Кандидат 7 моего упорядоченного списка, �
   transform:scale(1.045);transition:transform 1.6s var(--e)}
 #kzl .kza-plate.kza-on img{transform:scale(1)}
 /* нумерованные метки на кадре */
-#kzl .kza-pin{position:absolute;left:var(--x);top:var(--y);width:26px;height:26px;
+#kzl .kza-pin{display:none;position:absolute;left:var(--x);top:var(--y);width:26px;height:26px;
   display:grid;place-items:center;border-radius:50%;background:#fff;color:var(--pin);
-  font:600 12px/1 var(--sys);box-shadow:0 2px 12px rgba(22,30,26,.38);
+  font:600 12px/1 var(--mont);box-shadow:0 2px 12px rgba(22,30,26,.38);
   transform:translate(-50%,-50%) scale(.55);opacity:0;
   transition:transform .62s var(--e),opacity .45s var(--e)}
 #kzl .kza-plate.kza-on .kza-pin{opacity:1;transform:translate(-50%,-50%) scale(1)}
@@ -143,9 +145,18 @@ FORM: Кандидат 7 моего упорядоченного списка, �
 /* экспликация: что именно видно на кадре */
 #kzl .kza-exp{margin-top:16px;border-top:1px solid var(--pln)}
 #kzl .kza-exp li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:14px;align-items:baseline;
-  padding:11px 0;border-bottom:1px solid var(--pln);font-size:15px;line-height:1.52;color:var(--txt)}
-#kzl .kza-exp b{font:600 12px/1.4 var(--sys);color:var(--pin);opacity:.8;text-align:right}
-#kzl .kza-ncap{margin-top:12px;color:var(--pin);opacity:.72;font-size:12.5px;line-height:1.5}
+  padding:12px 0;border-bottom:1px solid var(--pln);font-size:17px;line-height:1.52;color:var(--txt)}
+#kzl .kza-exp b{font:600 12px/1.4 var(--mont);color:var(--pin);opacity:.8;text-align:right}
+#kzl .kza-ncap{margin-top:12px;color:var(--pin);opacity:1;font-size:14.5px;line-height:1.5}
+
+/* ── полоса кадров листа ──────────────────────────────────── */
+#kzl .kza-row{margin-top:clamp(26px,3.4vw,52px);display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,22px)}
+#kzl .kza-row figure{min-width:0}
+#kzl .kza-row img{width:100%;aspect-ratio:3/2;object-fit:cover}
+#kzl .kza-row figcaption{margin-top:9px;font-size:14.5px;line-height:1.45;color:var(--pin);opacity:.9}
+#kzl .kza-row .kza-tall{grid-row:span 1}
+@media (max-width:680px){#kzl .kza-row{grid-template-columns:minmax(0,1fr)}}
 
 /* ── лист III: обжитой, без большого кадра ─────────────────── */
 #kzl .kza-h .kza-grid{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}
@@ -168,7 +179,7 @@ FORM: Кандидат 7 моего упорядоченного списка, �
 #kzl .kza-strip figure{border:1px solid var(--pln);padding:8px;background:rgba(255,255,255,.5)}
 #kzl .kza-strip img{width:100%;aspect-ratio:4/3;object-fit:cover;opacity:.94}
 #kzl .kza-stamp{display:inline-block;margin-top:4px;border:1px solid var(--pin);color:var(--pin);
-  font:600 11px/1 var(--sys);letter-spacing:.17em;text-transform:uppercase;padding:7px 11px}
+  font:600 11px/1 var(--mont);letter-spacing:.17em;text-transform:uppercase;padding:7px 11px}
 
 /* ── примечания к листам ───────────────────────────────────── */
 #kzl .kza-notes{padding:var(--sheet) var(--pad);border-top:1px solid rgba(35,42,38,.14)}
@@ -178,7 +189,7 @@ FORM: Кандидат 7 моего упорядоченного списка, �
 #kzl .kza-dl{border-top:1px solid rgba(35,42,38,.18)}
 #kzl .kza-dl div{display:grid;grid-template-columns:minmax(0,1fr) max-content;gap:6px 26px;align-items:baseline;
   border-bottom:1px solid rgba(35,42,38,.13);padding:15px 0}
-#kzl .kza-dl dt{font-size:15.5px;color:var(--txt);line-height:1.55}
+#kzl .kza-dl dt{font-size:17px;color:var(--txt);line-height:1.55}
 #kzl .kza-dl dt b{color:var(--ink);font-weight:600;display:block;margin-bottom:2px}
 #kzl .kza-dl dd{font-family:var(--po);font-size:22px;color:var(--ink);white-space:nowrap;letter-spacing:-.01em}
 #kzl .kza-near{margin-top:clamp(24px,3vw,40px);display:flex;flex-wrap:wrap;gap:10px 26px;align-items:baseline}
@@ -201,23 +212,33 @@ FORM: Кандидат 7 моего упорядоченного списка, �
 #kzl .kza-ovc h3{font-family:var(--po);font-weight:400;font-size:28px;color:var(--k-ink);line-height:1.12;margin-bottom:12px}
 #kzl .kza-ovc p{font-size:15px;line-height:1.6;color:var(--txt)}
 #kzl .kza-x{position:absolute;top:10px;right:12px;background:none;border:0;cursor:pointer;
-  font:400 26px/1 var(--sys);color:var(--k-ink);padding:6px}
-#kzl .kza-ovb{margin-top:20px;display:inline-block;font:600 12px/1 var(--sys);letter-spacing:.15em;
+  font:400 26px/1 var(--mont);color:var(--k-ink);padding:6px}
+#kzl .kza-ovb{margin-top:20px;display:inline-block;font:600 12px/1 var(--mont);letter-spacing:.15em;
   text-transform:uppercase;color:var(--k-ink);background:none;border:1px solid var(--k-ink);
   padding:11px 16px;cursor:pointer}
 
 /* ── появление ─────────────────────────────────────────────── */
+#kzl .kza-js .kza-pin{display:grid}
 #kzl .kza-js .kza-rv{opacity:0;transform:translateY(16px)}
 #kzl .kza-rv{transition:opacity .85s var(--e),transform .85s var(--e)}
 #kzl .kza-rv.kza-in{opacity:1;transform:none}
 
 @media (max-width:1000px){
   #kzl .kza-grid,#kzl .kza-h .kza-grid,#kzl .kza-ngrid{grid-template-columns:minmax(0,1fr)}
-  #kzl .kza-plate{order:-1}
   #kzl .kza-foot{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 }
 @media (max-width:680px){
-  #kzl{font-size:16px}
+  #kzl{font-size:17px}
+  /* на телефоне кадр идёт сразу под заголовком */
+  #kzl .kza-open{display:flex;flex-direction:column}
+  #kzl .kza-open h1{order:1}
+  #kzl .kza-wide{order:2;margin-top:22px}
+  #kzl .kza-cap{order:3}
+  #kzl .kza-sub{order:4;margin-top:26px}
+  #kzl .kza-keyhd{order:5}
+  #kzl .kza-key{order:6}
+  #kzl .kza-top .kza-lab{display:none}
+  #kzl .kza-wide img{height:clamp(320px,54vh,420px)}
   #kzl .kza-kr{grid-template-columns:minmax(0,1fr);gap:12px}
   #kzl .kza-to{justify-self:start;text-align:left}
   #kzl .kza-pin{width:23px;height:23px;font-size:11px}
@@ -250,7 +271,7 @@ FORM: Кандидат 7 моего упорядоченного списка, �
   <section class="kza-open">
     <h1 class="kza-rv">Четыре посёлка у одного курорта</h1>
     <p class="kza-sub kza-rv">Дорога, курорт и национальный парк у них общие: <b>час от Москвы, десять минут
-      до курорта Завидово, заповедник по соседству.</b> Отличается среда — вода, лес, обжитой посёлок
+      до курорта Завидово, национальный парк по соседству.</b> Отличается среда — вода, лес, обжитой посёлок
       или новый проект. Выбирают, как правило, именно среду, поэтому мы разложили посёлки по листам.</p>
 
     <div class="kza-keyhd kza-rv">
@@ -277,11 +298,11 @@ FORM: Кандидат 7 моего упорядоченного списка, �
     </nav>
 
     <div class="kza-wide kza-rv">
-      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg"
-           alt="Вечер на берегу в посёлке Акватория Завидово: вода, газоны, фонари и дома вдоль берега" fetchpriority="high">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/gallery/w7-glavnoe.jpg"
+           alt="Берег, пляж и лодочные места посёлка с высоты" fetchpriority="high">
     </div>
-    <p class="kza-cap"><b>Общий кадр.</b> Так выглядит вечер на воде в Акватории. Дальше — по листам: у каждого
-      посёлка свой разбор кадра и свои условия покупки.</p>
+    <p class="kza-cap"><b>Общий кадр.</b> Берег, пляж и лодочные места — так начинается вода в Акватории. Дальше — по листам:
+      у каждого посёлка свой берег, свой лес и свои условия покупки.</p>
   </section>
 
   <!-- ════ ЛИСТ I · ВОДА ════ -->
@@ -291,12 +312,11 @@ FORM: Кандидат 7 моего упорядоченного списка, �
     <div class="kza-grid">
       <div class="kza-rv">
         <h2 class="kza-nm">Акватория<br>Завидово</h2>
-        <p class="kza-say">Посёлок стоит на берегу Волги: до воды идут пешком, а не едут. Свой пляж, свой
-          яхт-клуб, свои причалы — выход на воду перестаёт быть выездом на выходные и становится делом
-          десяти минут после работы.</p>
+        <p class="kza-say">Посёлок стоит на берегу Волги: до воды идут пешком, а не едут. Свой пляж,
+          свой яхт-клуб, свои причалы.</p>
         <p class="kza-say">Внутри посёлка парк на пятнадцати гектарах: берёзовые аллеи, футбольное поле,
-          теннисные корты, детские площадки, асфальтовые дорожки через всю территорию. Спорткомплекс с
-          бассейном и детский центр — на территории, а не в городе через пробки.</p>
+          баскетбольная и теннисная площадки, детская площадка, асфальтовые дорожки через всю территорию.
+          На территории спорткомплекс с бассейном и детский центр.</p>
 
         <dl class="kza-spec">
           <div><dt>Первая линия</dt><dd>Премиум-очередь — 14 участков, причал у каждого</dd></div>
@@ -325,6 +345,15 @@ FORM: Кандидат 7 моего упорядоченного списка, �
         </ul>
       </div>
     </div>
+
+    <div class="kza-row kza-rv">
+      <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/gallery/02-semya-prichal.jpg" alt="Семья сидит на деревянном причале у воды" loading="lazy">
+        <figcaption>Причал в конце дня — обычный вечер, а не выезд на выходные.</figcaption></figure>
+      <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/gallery/w3-kafe-na-beregu.jpg" alt="Столик кафе на берегу у воды" loading="lazy">
+        <figcaption>Кафе на берегу: завтрак с видом на реку в десяти минутах от дома.</figcaption></figure>
+      <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/gallery/03-ozero-aero.jpg" alt="Большая вода и берега с высоты" loading="lazy">
+        <figcaption>Большая вода начинается сразу за посёлком.</figcaption></figure>
+    </div>
   </section>
 
   <!-- ════ ЛИСТ II · ЛЕС ════ -->
@@ -334,16 +363,15 @@ FORM: Кандидат 7 моего упорядоченного списка, �
     <div class="kza-grid">
       <div class="kza-rv">
         <h2 class="kza-nm">Экопарк<br>Лесной</h2>
-        <p class="kza-say">Триста двадцать четыре участка в хвойно-лиственном лесу на берегу Дойбицы.
+        <p class="kza-say">324 участка в хвойно-лиственном лесу на берегу Дойбицы.
           Взрослые деревья остаются на вашей земле — участок не расчищают под ноль, дом ставят между соснами.</p>
         <p class="kza-say">Земля размежёвана и стоит на кадастровом учёте, оформляется в собственность.
-          Коммуникации подземные: 15 кВт в три фазы, вода, оптика. Сейчас идёт старт продаж третьей
-          очереди — это лучшая цена очереди и рассрочка без процентов.</p>
+          Коммуникации подземные: 15 кВт в три фазы, вода, оптика. Сейчас идёт старт продаж третьей очереди, рассрочка без процентов.</p>
 
         <dl class="kza-spec">
           <div><dt>Участки</dt><dd>324 в лесу, размежёваны, на кадастровом учёте</dd></div>
           <div><dt>Коммуникации</dt><dd>15 кВт (три фазы), вода, оптика — под землёй</dd></div>
-          <div><dt>На участке</dt><dd>Забор по периметру, широкие дороги, территория расчищена и промульчирована</dd></div>
+          <div><dt>На участке</dt><dd>Забор на каждом участке, широкие дороги, территория расчищена и промульчирована</dd></div>
           <div><dt>Вода</dt><dd>Свой пляж и зоны отдыха на реке Дойбица</dd></div>
           <div><dt>Условия</dt><dd>Земля под дачи (ДНП), в собственность. Рассрочка 0%</dd></div>
         </dl>
@@ -367,6 +395,15 @@ FORM: Кандидат 7 моего упорядоченного списка, �
         </ul>
       </div>
     </div>
+
+    <div class="kza-row kza-rv">
+      <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/gallery/04-les.jpg" alt="Сосновый лес со взрослыми деревьями" loading="lazy">
+        <figcaption>Такой лес стоит на самих участках — его не сводят под ноль.</figcaption></figure>
+      <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/lesnoy/hero-new.jpg" alt="Мама с дочкой на пикнике в поле" loading="lazy">
+        <figcaption>Летний день начинается за калиткой, а не на парковке.</figcaption></figure>
+      <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/gallery/05-rybalka.jpg" alt="Лодка на реке среди берегов с деревьями" loading="lazy">
+        <figcaption>Дойбица рядом: лодка, рыбалка и свой берег для отдыха.</figcaption></figure>
+    </div>
   </section>
 
   <!-- ════ ЛИСТ III · ОБЖИТОЙ ════ -->
@@ -377,10 +414,8 @@ FORM: Кандидат 7 моего упорядоченного списка, �
       <div class="kza-rv">
         <h2 class="kza-nm">Экопарк<br>Завидово</h2>
         <p class="kza-say">Старший посёлок группы: здесь уже живут. Берут не только участок, но и готовый дом —
-          въехать можно, не проходя стройку. Соседи, дороги и обслуживание существуют не по проекту, а в жизни.</p>
-        <p class="kza-say">Земля под дачи (ДНП) оформляется в собственность. Есть рассрочка, действующие акции
-          и программа Trade-In: участок в другом посёлке можно обменять, не продавая его самостоятельно.
-          Свободные участки видно на интерактивной карте сайта.</p>
+          въехать можно, не проходя стройку. Посёлок уже обжит: это видно по улицам и по тому, как выглядят участки соседей.</p>
+        <p class="kza-say">Земля под дачи (ДНП) оформляется в собственность. Есть рассрочка, акции и программа Trade-In. Свободные участки видно на интерактивной карте сайта.</p>
 
         <div class="kza-hnums">
           <span><b>1&nbsp;час</b>от Москвы по М-10</span>
@@ -398,11 +433,20 @@ FORM: Кандидат 7 моего упорядоченного списка, �
 
       <div class="kza-small kza-rv">
         <figure>
-          <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg"
-               alt="Кадр курортной зоны Завидово по соседству с посёлком" loading="lazy">
-          <figcaption>Кадр курортной зоны по соседству. Фотография самого посёлка готовится — этот лист ждёт своего кадра.</figcaption>
+          <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/gallery/06-dom-vecher.jpg"
+               alt="Дом с освещёнными окнами на закате" loading="lazy">
+          <figcaption>Вечер в обжитом посёлке: свет в окнах, газон, соседи за деревьями.</figcaption>
         </figure>
       </div>
+    </div>
+
+    <div class="kza-row kza-rv">
+      <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/gallery/park-bassein.jpg" alt="Ребёнок в бассейне на надувном круге" loading="lazy">
+        <figcaption>Бассейн, куда ребёнка ведут пешком, а не везут через город.</figcaption></figure>
+      <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/gallery/pkv-3.jpg" alt="Улицы и дома посёлка среди зелени" loading="lazy">
+        <figcaption>Улицы, зелень и участки соседей: посёлок уже обжит.</figcaption></figure>
+      <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/gallery/park-detskiy-centr.jpg" alt="Дети на занятии в детском центре" loading="lazy">
+        <figcaption>Детский центр внутри территории — занятия рядом с домом.</figcaption></figure>
     </div>
   </section>
 
@@ -438,9 +482,8 @@ FORM: Кандидат 7 моего упорядоченного списка, �
     <div class="kza-ngrid">
       <div class="kza-rv">
         <h2 class="kza-nh">Курорт — чтобы приезжать. Посёлок — чтобы жить.</h2>
-        <p class="kza-say" style="margin-top:18px">Всё, что обычно ищут в отпуске, здесь находится по соседству и
-          работает круглый год. На гольф, в спа или на ужин у воды выезжают после работы: дорога занимает меньше,
-          чем сборы. А когда возвращаешься — за оградой тихо.</p>
+        <p class="kza-say" style="margin-top:18px">Всё, что обычно ищут в отпуске, здесь находится по соседству: гольф, марина, спа, рестораны
+          и аквапарк курорта работают уже сейчас, в десяти минутах от участка.</p>
       </div>
 
       <div class="kza-rv">
