@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Коллекция Завидово — четыре посёлка. Вариант B: журнальный разворот</title>
+</head>
+<body style="margin:0;background:#f5f2f0">
+
+<!-- ===================================================================
+     ВАРИАНТ B — «ЖУРНАЛЬНЫЙ РАЗВОРОТ»
+     Композиция держится 12-колоночной модульной сеткой печатного
+     разворота: модули разной ширины и высоты, иерархия задана размером
+     и пустотой. Всё лежит под одним корневым id #kzl, классы с
+     префиксом kz, каждое CSS-правило начинается с #kzl.
+     Для блока Тильды T123 копировать от <link ...> до </div>
+     включительно: шрифт, стили и скрипт лежат внутри блока,
+     файл работает сам по себе.
+     =================================================================== -->
+
+<div id="kzl">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap">
+<style>
+/* ---------- ядро, скоуп только внутри #kzl ---------- */
+#kzl{
+  --kz-bg:#f5f2f0; --kz-ink:#333; --kz-dark:#0f231b; --kz-acc:#bb916b;
+  --kz-rule:#d8d1ca; --kz-mut:#56504b; --kz-frame:#e8e2dc; --kz-acc2:#856341;
+  --kz-pad:clamp(18px,4.4vw,64px);
+  --kz-gap:clamp(12px,1.9vw,28px);
+  --kz-ez:cubic-bezier(.23,1,.32,1);
+  background:var(--kz-bg); color:var(--kz-ink);
+  font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  font-size:16px; line-height:1.5; overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+#kzl,#kzl *{box-sizing:border-box}
+#kzl p,#kzl h1,#kzl h2,#kzl h3,#kzl h4,#kzl ul,#kzl ol,#kzl li,
+#kzl figure,#kzl figcaption,#kzl blockquote,#kzl form,#kzl label,#kzl button{margin:0;padding:0}
+#kzl ul,#kzl ol{list-style:none}
+#kzl img{display:block;width:100%;height:100%;object-fit:cover}
+#kzl a{color:inherit;text-decoration:none}
+#kzl .kzPage{max-width:1680px;margin:0 auto;padding:0 var(--kz-pad)}
+
+/* ---------- модульная сетка: 12 колонок ---------- */
+#kzl .kzG{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--kz-gap)}
+#kzl .kzBleedR{margin-right:calc(-1 * var(--kz-pad))}
+#kzl .kzBleedL{margin-left:calc(-1 * var(--kz-pad))}
+#kzl .kzBleedL>.kzCap{padding-left:var(--kz-pad)}
+
+/* ---------- типографика ---------- */
+#kzl .kzPo{font-family:"Poiret One","Segoe UI",Geneva,Verdana,sans-serif;font-weight:400}
+#kzl .kzH1{font-size:clamp(34px,4.4vw,68px);line-height:1;letter-spacing:-.015em;color:var(--kz-dark)}
+#kzl .kzH2{font-size:clamp(27px,3.3vw,50px);line-height:1.06;letter-spacing:-.015em;color:var(--kz-dark)}
+#kzl .kzH3{font-size:clamp(24px,2.5vw,38px);line-height:1.12;letter-spacing:-.015em;color:var(--kz-dark)}
+#kzl .kzName{font-size:clamp(26px,2.9vw,42px);line-height:1.04;letter-spacing:-.015em;color:var(--kz-dark)}
+#kzl .kzEy{font-size:11px;line-height:1.3;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--kz-mut)}
+#kzl .kzCap{font-size:12.5px;line-height:1.5;color:var(--kz-mut);margin-top:10px}
+#kzl .kzCapN{font-weight:600;color:var(--kz-ink)}
+#kzl .kzFact{font-size:15px;line-height:1.6}
+#kzl .kzLead{font-size:17px;line-height:1.62}
+#kzl .kzHang{text-indent:-.42em}
+
+/* буквица */
+#kzl .kzDrop::first-letter{
+  font-family:"Poiret One","Segoe UI",serif;font-size:4.2em;line-height:.72;
+  float:left;margin:.04em .1em 0 0;color:var(--kz-dark)
+}
+
+/* ---------- шапка: выходные данные, без центральной оси ---------- */
+#kzl .kzMast{padding:22px 0 14px;align-items:end}
+#kzl .kzMastL{grid-column:1 / 7;display:flex;align-items:center;gap:14px}
+#kzl .kzDia{width:26px;height:auto;object-fit:contain;flex:0 0 auto}
+#kzl .kzMastName{font-size:24px;letter-spacing:-.01em;color:var(--kz-dark);white-space:nowrap}
+#kzl .kzMastR{grid-column:8 / 13;display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+#kzl .kzTel{font-size:15px;font-weight:600;letter-spacing:.02em;color:var(--kz-dark)}
+#kzl .kzTel:hover{color:var(--kz-acc2)}
+#kzl .kzGrad{height:2px;background:linear-gradient(90deg,#1bad03,#007fe2);opacity:.85}
+
+/* ---------- кадры ---------- */
+#kzl .kzFrame{background:var(--kz-frame);overflow:hidden;min-height:160px}
+#kzl .kzFrHero{aspect-ratio:4/5;max-height:74vh}
+#kzl .kzFrTall{aspect-ratio:5/4}
+#kzl .kzFrMed{aspect-ratio:16/10}
+#kzl .kzFrWide{aspect-ratio:21/9}
+#kzl .kzFrSml{aspect-ratio:16/9}
+#kzl .kzFrPort{aspect-ratio:3/4}
+#kzl .kzFrSq{aspect-ratio:1/1}
+#kzl .kzImgLow{object-position:50% 74%}
+
+/* ---------- первый экран: разворот-открытие ---------- */
+#kzl .kzHero{padding:clamp(26px,3.4vw,52px) 0 clamp(40px,5vw,80px);align-items:start}
+#kzl .kzHeroT{grid-column:1 / 7}
+#kzl .kzHeroEy{margin-bottom:18px}
+#kzl .kzHeroT .kzH1{margin-bottom:26px}
+#kzl .kzHeroT .kzLead{max-width:33em;margin-bottom:34px}
+#kzl .kzHeroF{grid-column:8 / 13;padding-top:6px}
+
+/* оглавление разворота */
+#kzl .kzIdx{border-top:1px solid var(--kz-dark)}
+#kzl .kzIdx li{
+  display:grid;grid-template-columns:2.6em minmax(0,auto) minmax(0,1fr) auto;
+  align-items:baseline;column-gap:12px;padding:12px 0;border-bottom:1px solid var(--kz-rule)
+}
+#kzl .kzIdxN{font-size:11px;font-weight:600;letter-spacing:.12em;color:var(--kz-mut)}
+#kzl .kzIdxName{font-size:clamp(22px,1.9vw,28px);letter-spacing:-.012em;color:var(--kz-dark)}
+#kzl .kzIdxName:hover{color:var(--kz-acc2)}
+#kzl .kzDot{align-self:center;height:0;border-bottom:1px dotted var(--kz-rule)}
+#kzl .kzIdxD{font-size:12.5px;color:var(--kz-mut);white-space:nowrap}
+
+/* ---------- шапки разделов ---------- */
+#kzl .kzSec{padding:clamp(46px,6vw,104px) 0 0}
+#kzl .kzSecHd{align-items:center;padding-bottom:clamp(22px,2.6vw,40px)}
+#kzl .kzSecNum{grid-column:1 / 2;font-size:26px;color:var(--kz-acc2)}
+#kzl .kzSecTtl{grid-column:2 / 6}
+#kzl .kzSecRule{grid-column:6 / 13;height:1px;background:var(--kz-rule)}
+
+/* ---------- 01 Коллекция ---------- */
+#kzl .kzCollT{grid-column:1 / 8}
+#kzl .kzCollF{grid-column:9 / 13;padding-top:10px}
+#kzl .kzFacts li+li{margin-top:20px}
+#kzl .kzFacts .kzEy{display:block;margin-bottom:6px}
+#kzl .kzCollFig{grid-column:4 / 13;margin-top:clamp(30px,3.6vw,58px)}
+
+/* ---------- 02 курортная зона ---------- */
+#kzl .kzShelf{background:var(--kz-dark);color:#fff}
+#kzl .kzQuote{grid-column:1 / 8;padding:clamp(28px,3.6vw,56px);display:flex;flex-direction:column;
+  justify-content:space-between;min-height:clamp(210px,25vw,360px)}
+#kzl .kzQ{font-size:clamp(27px,3.3vw,50px);line-height:1.12;letter-spacing:-.015em;color:#fff}
+#kzl .kzQSrc{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#a9bdb2;margin-top:30px}
+#kzl .kzKurF{grid-column:9 / 13}
+#kzl .kzNear{grid-column:3 / 11;margin-top:clamp(28px,3vw,46px);border-top:1px solid var(--kz-rule);padding-top:18px}
+#kzl .kzNearL{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:14px}
+#kzl .kzNearL a{font-size:14px;border-bottom:1px solid var(--kz-acc);padding-bottom:2px}
+#kzl .kzNearL a:hover{color:var(--kz-acc2)}
+
+/* ---------- 03 посёлки: модули разного веса ---------- */
+#kzl .kzMod{padding-bottom:clamp(46px,5.6vw,96px);align-items:start}
+#kzl .kzFol{display:block;font-size:11px;font-weight:600;letter-spacing:.18em;color:var(--kz-acc2);margin-bottom:16px}
+#kzl .kzLogo{width:auto;height:34px;object-fit:contain;margin-bottom:16px}
+#kzl .kzSub{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--kz-mut);margin-top:12px}
+#kzl .kzList{margin-top:20px;border-top:1px solid var(--kz-rule)}
+#kzl .kzList li{font-size:15px;line-height:1.55;padding:11px 0;border-bottom:1px solid var(--kz-rule)}
+#kzl .kzLink{display:inline-block;margin-top:22px;font-size:13.5px;font-weight:600;letter-spacing:.06em;
+  color:var(--kz-dark);border-bottom:1px solid var(--kz-acc);padding-bottom:4px}
+#kzl .kzLink:hover{border-bottom-color:var(--kz-dark)}
+
+#kzl .kzAFig{grid-column:1 / 9}
+#kzl .kzAT{grid-column:9 / 13;padding-top:4px}
+#kzl .kzLT{grid-column:1 / 5;padding-top:4px}
+#kzl .kzLFig{grid-column:5 / 12}
+#kzl .kzZFig{grid-column:1 / 7;margin-top:clamp(6px,1.4vw,26px)}
+#kzl .kzZT{grid-column:7 / 11}
+#kzl .kzMT{grid-column:5 / 9;align-self:end;padding-bottom:8px}
+#kzl .kzMCol{grid-column:10 / 13}
+#kzl .kzMCol figure+figure{margin-top:clamp(16px,1.8vw,26px)}
+#kzl .kzMono{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;
+  border:1px solid var(--kz-dark);border-radius:50%;font-size:30px;line-height:1;color:var(--kz-dark);margin-bottom:18px}
+#kzl .kzNameM{font-size:clamp(22px,2.2vw,32px);line-height:1.14}
+#kzl .kzTag{display:inline-block;margin-top:14px;background:var(--kz-dark);color:#fff;font-size:11px;
+  font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:7px 12px}
+
+/* ---------- 04 заявка: печатный купон ---------- */
+#kzl .kzFormT{grid-column:1 / 6}
+#kzl .kzFormT .kzCap{margin-top:18px;max-width:30em}
+#kzl .kzForm{grid-column:7 / 13;border-top:1px solid var(--kz-dark);padding-top:22px}
+#kzl .kzFRow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) auto;align-items:end;gap:26px}
+#kzl .kzFRow[hidden]{display:none}
+#kzl .kzField label{display:block;margin-bottom:8px}
+#kzl .kzIn{width:100%;border:0;border-bottom:1px solid var(--kz-dark);border-radius:0;background:transparent;
+  padding:9px 2px;font:inherit;font-size:17px;color:var(--kz-ink)}
+#kzl .kzIn:focus{outline:none;border-bottom-color:var(--kz-acc2);box-shadow:0 1px 0 0 var(--kz-acc2)}
+#kzl .kzBtn{display:inline-block;border:0;border-radius:0;background:var(--kz-dark);color:#fff;font:inherit;
+  font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:15px 28px;
+  cursor:pointer;transition:transform .3s var(--kz-ez)}
+#kzl .kzBtn:hover{transform:translateY(-2px)}
+#kzl .kzBtnQ{border:1px solid var(--kz-rule);border-radius:0;background:transparent;color:var(--kz-dark);
+  font:inherit;font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:15px 22px;cursor:pointer}
+#kzl .kzOk{font-size:17px;line-height:1.5;color:var(--kz-dark)}
+#kzl .kzOk[hidden]{display:none}
+
+/* ---------- выходные данные ---------- */
+#kzl .kzColo{margin-top:clamp(50px,6vw,100px);padding:26px 0 40px;border-top:1px solid var(--kz-dark);
+  align-items:start;row-gap:24px}
+#kzl .kzColo1{grid-column:1 / 3;display:flex;align-items:center;gap:10px}
+#kzl .kzColo2{grid-column:4 / 8}
+#kzl .kzColo3{grid-column:8 / 11}
+#kzl .kzColo4{grid-column:11 / 13}
+#kzl .kzColo .kzEy{display:block;margin-bottom:10px}
+#kzl .kzColo li,#kzl .kzColo p{font-size:13.5px;line-height:1.7;color:var(--kz-mut)}
+#kzl .kzColo a:hover{color:var(--kz-acc2)}
+#kzl .kzColoName{font-size:22px;letter-spacing:-.01em;color:var(--kz-dark);line-height:1.15}
+
+/* ---------- оверлей Marina ---------- */
+#kzl .kzModal{position:fixed;inset:0;z-index:99990;display:none;padding:clamp(16px,4vw,48px);
+  background:rgba(245,242,240,.94);overflow:auto}
+#kzl .kzModal.kzOpen{display:flex;align-items:center;justify-content:center}
+#kzl .kzModalC{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);max-width:880px;width:100%;
+  background:#fff;border:1px solid var(--kz-rule)}
+#kzl .kzModalImg{height:100%;min-height:280px}
+#kzl .kzModalB{padding:clamp(22px,3vw,40px)}
+#kzl .kzModalT{font-size:clamp(26px,2.6vw,38px);line-height:1.12;letter-spacing:-.015em;color:var(--kz-dark);margin:12px 0 16px}
+#kzl .kzModalActs{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+
+/* ---------- сдержанное появление ----------
+   скрытие ставит ТОЛЬКО JS (класс kzJs на корне).
+   Если JS не выполнился — весь текст виден сразу.                        */
+#kzl.kzJs .kzRv{opacity:0;transform:translateY(16px)}
+#kzl.kzJs .kzRv.kzOn{opacity:1;transform:none;
+  transition:opacity .6s var(--kz-ez),transform .6s var(--kz-ez)}
+
+/* ---------- 1024 ---------- */
+@media (max-width:1080px){
+  #kzl .kzHeroT{grid-column:1 / 8}
+  #kzl .kzHeroF{grid-column:8 / 13}
+  #kzl .kzCollT{grid-column:1 / 9}
+  #kzl .kzCollF{grid-column:9 / 13}
+  #kzl .kzCollFig{grid-column:3 / 13}
+  #kzl .kzQuote{grid-column:1 / 9}
+  #kzl .kzKurF{grid-column:9 / 13}
+  #kzl .kzNear{grid-column:1 / 11}
+  #kzl .kzAFig{grid-column:1 / 8}
+  #kzl .kzAT{grid-column:8 / 13}
+  #kzl .kzLT{grid-column:1 / 6}
+  #kzl .kzLFig{grid-column:6 / 13}
+  #kzl .kzZFig{grid-column:1 / 8}
+  #kzl .kzZT{grid-column:8 / 13}
+  #kzl .kzMT{grid-column:1 / 7}
+  #kzl .kzMCol{grid-column:8 / 13}
+  #kzl .kzFormT{grid-column:1 / 6}
+  #kzl .kzForm{grid-column:6 / 13}
+  #kzl .kzColo1{grid-column:1 / 4}
+  #kzl .kzColo2{grid-column:4 / 8}
+  #kzl .kzFrHero{max-height:none}
+  #kzl .kzMCol figure+figure{margin-top:20px}
+}
+
+/* ---------- 500 ---------- */
+@media (max-width:680px){
+  #kzl .kzG>*{grid-column:1 / -1 !important}
+  #kzl .kzMast{padding-bottom:16px}
+  #kzl .kzMastL{grid-row:1}
+  #kzl .kzMastR{grid-row:2;margin-top:14px}
+  #kzl .kzMastName{font-size:22px}
+  #kzl .kzHeroF{padding-top:30px}
+  #kzl .kzFrTall{aspect-ratio:4/5}
+  #kzl .kzFrWide{aspect-ratio:16/10}
+  #kzl .kzIdx li{grid-template-columns:2.4em minmax(0,1fr);row-gap:2px}
+  #kzl .kzDot{display:none}
+  #kzl .kzIdxD{grid-column:2;white-space:normal}
+  #kzl .kzSecHd{grid-template-columns:2.6em minmax(0,1fr);align-items:baseline}
+  #kzl .kzSecHd .kzSecNum{grid-column:1 !important}
+  #kzl .kzSecHd .kzSecTtl{grid-column:2 !important}
+  #kzl .kzSecRule{display:none}
+  #kzl .kzCollF,#kzl .kzKurF{margin-top:28px}
+  #kzl .kzCollFig,#kzl .kzZFig{margin-top:26px}
+  #kzl .kzAT,#kzl .kzZT,#kzl .kzMT{margin-top:26px}
+  #kzl .kzLFig,#kzl .kzMCol{margin-top:26px}
+  #kzl .kzNear{margin-top:26px}
+  #kzl .kzQuote{min-height:0}
+  #kzl .kzFRow{grid-template-columns:minmax(0,1fr);gap:22px;align-items:stretch}
+  #kzl .kzForm{margin-top:30px}
+  #kzl .kzBtn{width:100%;text-align:center}
+  #kzl .kzModalC{grid-template-columns:minmax(0,1fr)}
+  #kzl .kzModalImg{min-height:0;height:auto;aspect-ratio:16/10}
+  #kzl .kzDrop::first-letter{font-size:3.4em}
+  #kzl .kzColo{row-gap:22px}
+}
+
+/* ---------- меньше движения ---------- */
+@media (prefers-reduced-motion:reduce){
+  #kzl.kzJs .kzRv{opacity:1 !important;transform:none !important}
+  #kzl.kzJs .kzRv.kzOn{transition:none !important}
+  #kzl .kzBtn{transition:none}
+  #kzl .kzBtn:hover{transform:none}
+}
+</style>
+
+<div class="kzPage">
+
+  <!-- ======== ШАПКА / выходные данные ======== -->
+  <header class="kzMast kzG">
+    <div class="kzMastL">
+      <img class="kzDia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="Логотип Коллекции Завидово">
+      <span class="kzPo kzMastName">Коллекция Завидово</span>
+    </div>
+    <div class="kzMastR">
+      <span class="kzEy">Конаковский район, Тверская область</span>
+      <a class="kzTel" href="tel:+74993091245">+7 499 309 12 45</a>
+    </div>
+  </header>
+  <div class="kzGrad" aria-hidden="true"></div>
+
+  <!-- ======== ПЕРВЫЙ ЭКРАН: разворот-открытие ======== -->
+  <section class="kzHero kzG">
+    <div class="kzHeroT kzRv">
+      <p class="kzEy kzHeroEy">Курортная зона Завидово · четыре посёлка</p>
+      <h1 class="kzPo kzH1">Четыре посёлка<br>у одного курорта<br>на Волге</h1>
+      <p class="kzLead kzDrop">Час от Москвы и десять минут до курорта Завидово. Четыре посёлка Коллекции стоят в одной курортной зоне Конаковского района Тверской области: здесь покупают участок или участок с домом — под дачу либо под постоянную жизнь.</p>
+      <ol class="kzIdx">
+        <li>
+          <span class="kzIdxN">01</span>
+          <a class="kzPo kzIdxName" href="#kzA">Акватория Завидово</a>
+          <span class="kzDot" aria-hidden="true"></span>
+          <span class="kzIdxD">берег Волги</span>
+        </li>
+        <li>
+          <span class="kzIdxN">02</span>
+          <a class="kzPo kzIdxName" href="#kzL">Экопарк Лесной</a>
+          <span class="kzDot" aria-hidden="true"></span>
+          <span class="kzIdxD">лес на Дойбице</span>
+        </li>
+        <li>
+          <span class="kzIdxN">03</span>
+          <a class="kzPo kzIdxName" href="#kzZ">Экопарк Завидово</a>
+          <span class="kzDot" aria-hidden="true"></span>
+          <span class="kzIdxD">участки и готовые дома</span>
+        </li>
+        <li>
+          <span class="kzIdxN">04</span>
+          <a class="kzPo kzIdxName" href="#kzM">Marina Zavidovo Village</a>
+          <span class="kzDot" aria-hidden="true"></span>
+          <span class="kzIdxD">проект в разработке</span>
+        </li>
+      </ol>
+    </div>
+
+    <figure class="kzHeroF kzRv">
+      <div class="kzFrame kzFrHero">
+        <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="Акватория Завидово: посёлок на берегу Волги">
+      </div>
+      <figcaption class="kzCap"><span class="kzCapN">Акватория Завидово</span> — флагман Коллекции: свой берег, пляж, яхт-клуб и причалы.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ======== 01. ЧТО ТАКОЕ КОЛЛЕКЦИЯ ======== -->
+  <section class="kzSec" id="kzColl">
+    <div class="kzSecHd kzG kzRv">
+      <span class="kzSecNum kzPo">01</span>
+      <h2 class="kzEy kzSecTtl">Что такое Коллекция Завидово</h2>
+      <span class="kzSecRule" aria-hidden="true"></span>
+    </div>
+
+    <div class="kzG">
+      <div class="kzCollT kzRv">
+        <p class="kzPo kzH2">Один курорт по соседству,<br>четыре разных посёлка<br>на выбор.</p>
+      </div>
+
+      <ul class="kzFacts kzCollF kzRv">
+        <li>
+          <span class="kzEy">Дорога</span>
+          <p class="kzFact">Час от Москвы, десять минут до курорта Завидово. К Акватории ведёт платная М-11, к Экопаркам — М-10.</p>
+        </li>
+        <li>
+          <span class="kzEy">Земля</span>
+          <p class="kzFact">В Лесном и Экопарке Завидово земля под дачи (ДНП) и оформляется в собственность. Участки Акватории и Лесного стоят на кадастровом учёте.</p>
+        </li>
+        <li>
+          <span class="kzEy">Выбор</span>
+          <p class="kzFact">Берег Волги в Акватории, хвойно-лиственный лес на берегу Дойбицы в Лесном, участки и готовые дома в Экопарке Завидово, новый проект Marina.</p>
+        </li>
+      </ul>
+
+      <figure class="kzCollFig kzBleedR kzRv">
+        <div class="kzFrame kzFrWide">
+          <img loading="lazy" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg" alt="Экопарк Лесной: участки в хвойно-лиственном лесу">
+        </div>
+        <figcaption class="kzCap"><span class="kzCapN">Экопарк Лесной</span> — взрослые деревья растут прямо на участке.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ======== 02. КУРОРТНАЯ ЗОНА ВОКРУГ ======== -->
+  <section class="kzSec" id="kzKurort">
+    <div class="kzSecHd kzG kzRv">
+      <span class="kzSecNum kzPo">02</span>
+      <h2 class="kzEy kzSecTtl">Курортная зона вокруг</h2>
+      <span class="kzSecRule" aria-hidden="true"></span>
+    </div>
+
+    <div class="kzG">
+      <blockquote class="kzQuote kzShelf kzRv">
+        <p class="kzPo kzQ kzHang">«Курорт — чтобы приезжать.<br>Посёлок — чтобы жить.»</p>
+        <p class="kzQSrc">десять минут до курорта · час от Москвы по платной М-11</p>
+      </blockquote>
+
+      <ul class="kzFacts kzKurF kzRv">
+        <li>
+          <span class="kzEy">Курорт Завидово</span>
+          <p class="kzFact">Растущий туристический центр на берегу Волги по соседству. Гольф, марина, спа, рестораны и аквапарк работают уже сейчас.</p>
+        </li>
+        <li>
+          <span class="kzEy">Национальный парк</span>
+          <p class="kzFact">«Завидово» — 133 000 гектаров леса, лугов и воды, в десяти минутах.</p>
+        </li>
+        <li>
+          <span class="kzEy">Что рядом</span>
+          <p class="kzFact">У Коллекции собрано 88 страниц о местах рядом — по рубрикам ниже.</p>
+        </li>
+      </ul>
+
+      <div class="kzNear kzRv">
+        <span class="kzEy">Места рядом</span>
+        <div class="kzNearL">
+          <a href="https://kzavidovo.ru/where_eat">Кафе и рестораны</a>
+          <a href="https://kzavidovo.ru/where_spa">Спа и бани</a>
+          <a href="https://kzavidovo.ru/where_admire">Достопримечательности</a>
+          <a href="https://kzavidovo.ru/where_nature">Природа и прогулки</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== 03. ЧЕТЫРЕ ПОСЁЛКА: МОДУЛИ РАЗНОГО ВЕСА ======== -->
+  <section class="kzSec" id="kzPos">
+    <div class="kzSecHd kzG kzRv">
+      <span class="kzSecNum kzPo">03</span>
+      <h2 class="kzEy kzSecTtl">Четыре посёлка подробнее</h2>
+      <span class="kzSecRule" aria-hidden="true"></span>
+    </div>
+
+    <!-- А. Акватория — самый крупный модуль, кадр уходит в левое поле -->
+    <article class="kzMod kzG" id="kzA">
+      <figure class="kzAFig kzBleedL kzRv">
+        <div class="kzFrame kzFrTall">
+          <img class="kzImgLow" loading="lazy" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="Акватория Завидово: берег Волги, пляж и причалы">
+        </div>
+        <figcaption class="kzCap">Территория закрытая и охраняемая, коммуникации подземные, своя управляющая компания круглый год.</figcaption>
+      </figure>
+      <div class="kzAT kzRv">
+        <span class="kzFol">01 / 04</span>
+        <img class="kzLogo" loading="lazy" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt="Логотип Акватории Завидово">
+        <h3 class="kzPo kzName">Акватория<br>Завидово</h3>
+        <p class="kzSub">Флагман · вода</p>
+        <ul class="kzList">
+          <li>Посёлок на берегу Волги: до воды идут пешком — свой пляж, свой яхт-клуб, свои причалы.</li>
+          <li>Премиум-очередь: 14 участков первой линии, причал у каждого.</li>
+          <li>Парк на 15 гектарах: футбольное поле, теннисная и баскетбольная площадки, берёзовые аллеи.</li>
+          <li>Спорткомплекс с бассейном, детский центр, ресторан с панорамным залом на реку.</li>
+        </ul>
+        <a class="kzLink" href="https://kzavidovo.ru/akvatoria">Страница Акватории &rarr;</a>
+      </div>
+    </article>
+
+    <!-- Б. Лесной — средний модуль, имя в белом поле слева от кадра -->
+    <article class="kzMod kzG" id="kzL">
+      <div class="kzLT kzRv">
+        <span class="kzFol">02 / 04</span>
+        <img class="kzLogo" loading="lazy" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-lesnoy.png" alt="Логотип Экопарка Лесной">
+        <h3 class="kzPo kzName">Экопарк<br>Лесной</h3>
+        <p class="kzSub">Лес</p>
+        <ul class="kzList">
+          <li>324 участка в хвойно-лиственном лесу на берегу реки Дойбица.</li>
+          <li>Взрослые деревья растут прямо на участке.</li>
+          <li>Подземные коммуникации: 15 кВт в три фазы, вода, оптика.</li>
+          <li>Идёт старт продаж третьей очереди, рассрочка 0%.</li>
+        </ul>
+        <a class="kzLink" href="https://ecopark-zavidovo.ru/lesnoy">Страница Лесного &rarr;</a>
+      </div>
+      <figure class="kzLFig kzRv">
+        <div class="kzFrame kzFrMed">
+          <img loading="lazy" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg" alt="Экопарк Лесной: лес на берегу реки Дойбица">
+        </div>
+        <figcaption class="kzCap">Свой пляж и зоны отдыха на реке Дойбица, забор на каждом участке, широкие дороги.</figcaption>
+      </figure>
+    </article>
+
+    <!-- В. Экопарк Завидово — средний модуль меньшего веса -->
+    <article class="kzMod kzG" id="kzZ">
+      <figure class="kzZFig kzRv">
+        <div class="kzFrame kzFrSml">
+          <img loading="lazy" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Курортная зона Завидово: временный кадр вместо фотографии Экопарка Завидово">
+        </div>
+        <figcaption class="kzCap">Кадр курортной зоны. Фотография Экопарка Завидово готовится.</figcaption>
+      </figure>
+      <div class="kzZT kzRv">
+        <span class="kzFol">03 / 04</span>
+        <img class="kzLogo" loading="lazy" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-zavidovo.png" alt="Логотип Экопарка Завидово">
+        <h3 class="kzPo kzName">Экопарк<br>Завидово</h3>
+        <p class="kzSub">Старший · обжитой</p>
+        <ul class="kzList">
+          <li>Коттеджный посёлок: участки и готовые дома.</li>
+          <li>Земля под дачи (ДНП), участки в собственность.</li>
+          <li>Рассрочка, акции, программа Trade-In.</li>
+          <li>На сайте — интерактивная карта свободных участков.</li>
+        </ul>
+        <a class="kzLink" href="https://ecopark-zavidovo.ru">Сайт Экопарка Завидово &rarr;</a>
+      </div>
+    </article>
+
+    <!-- Г. Marina — узкий вертикальный модуль, честная пометка «проект» -->
+    <article class="kzMod kzG" id="kzM">
+      <div class="kzMT kzRv">
+        <span class="kzFol">04 / 04</span>
+        <span class="kzPo kzMono" aria-hidden="true">M</span>
+        <h3 class="kzPo kzName kzNameM">MARINA<br>ZAVIDOVO VILLAGE</h3>
+        <p class="kzTag">Проект в разработке</p>
+        <ul class="kzList">
+          <li>Конаковский район, г.п. Новозавидовский, район деревни Лазурная, участок 2410.</li>
+          <li>Своей страницы у проекта пока нет.</li>
+        </ul>
+        <p style="margin-top:22px"><button class="kzBtn" type="button" data-kz-open="1">Подробнее о проекте</button></p>
+      </div>
+      <div class="kzMCol kzRv">
+        <figure>
+          <div class="kzFrame kzFrPort">
+            <img loading="lazy" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-a.jpg" alt="Marina Zavidovo Village: рендер эскизного проекта дома, общий вид">
+          </div>
+          <figcaption class="kzCap">Рендер эскизного проекта дома, а не фотография посёлка.</figcaption>
+        </figure>
+        <figure>
+          <div class="kzFrame kzFrSq">
+            <img loading="lazy" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-b.jpg" alt="Marina Zavidovo Village: рендер эскизного проекта дома, вечер, бассейн">
+          </div>
+          <figcaption class="kzCap">Тот же проект вечером.</figcaption>
+        </figure>
+      </div>
+    </article>
+  </section>
+
+  <!-- ======== 04. ЗАЯВКА ======== -->
+  <section class="kzSec" id="kzForm">
+    <div class="kzSecHd kzG kzRv">
+      <span class="kzSecNum kzPo">04</span>
+      <h2 class="kzEy kzSecTtl">Заявка</h2>
+      <span class="kzSecRule" aria-hidden="true"></span>
+    </div>
+
+    <div class="kzG">
+      <div class="kzFormT kzRv">
+        <p class="kzPo kzH3">Расскажем, какие участки свободны в любом из четырёх посёлков.</p>
+        <p class="kzCap">Нужны имя и телефон. Перезвоним в рабочее время. Можно позвонить сразу: <a href="tel:+74993091245">+7 499 309 12 45</a>.</p>
+      </div>
+
+      <form class="kzForm kzRv" id="kzFormEl" novalidate>
+        <div class="kzFRow" id="kzFRow">
+          <div class="kzField">
+            <label class="kzEy" for="kzName">Имя</label>
+            <input class="kzIn" id="kzName" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="kzField">
+            <label class="kzEy" for="kzPhone">Телефон</label>
+            <input class="kzIn" id="kzPhone" name="phone" type="tel" autocomplete="tel" required>
+          </div>
+          <button class="kzBtn" type="submit">Отправить</button>
+        </div>
+        <p class="kzOk" id="kzOk" hidden>Спасибо. Мы перезвоним по указанному номеру.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ======== ВЫХОДНЫЕ ДАННЫЕ ======== -->
+  <footer class="kzColo kzG">
+    <div class="kzColo1">
+      <img class="kzDia" loading="lazy" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+      <span class="kzPo kzColoName">Коллекция<br>Завидово</span>
+    </div>
+    <div class="kzColo2">
+      <span class="kzEy">Контакты</span>
+      <ul>
+        <li><a href="tel:+74993091245">+7 499 309 12 45</a></li>
+        <li><a href="mailto:info@ecoparkz.ru">info@ecoparkz.ru</a></li>
+        <li>Тверская область, Конаковский район, с/п Завидово</li>
+      </ul>
+    </div>
+    <div class="kzColo3">
+      <span class="kzEy">Посёлки</span>
+      <ul>
+        <li><a href="https://kzavidovo.ru/akvatoria">Акватория Завидово</a></li>
+        <li><a href="https://ecopark-zavidovo.ru/lesnoy">Экопарк Лесной</a></li>
+        <li><a href="https://ecopark-zavidovo.ru">Экопарк Завидово</a></li>
+        <li>Marina Zavidovo Village — проект</li>
+      </ul>
+    </div>
+    <div class="kzColo4">
+      <span class="kzEy">Места рядом</span>
+      <ul>
+        <li><a href="https://kzavidovo.ru/where_eat">Кафе и рестораны</a></li>
+        <li><a href="https://kzavidovo.ru/where_spa">Спа и бани</a></li>
+        <li><a href="https://kzavidovo.ru/where_admire">Достопримечательности</a></li>
+        <li><a href="https://kzavidovo.ru/where_nature">Природа и прогулки</a></li>
+      </ul>
+    </div>
+  </footer>
+</div><!-- /.kzPage -->
+
+<!-- ======== ОВЕРЛЕЙ MARINA ======== -->
+<div class="kzModal" id="kzModal" role="dialog" aria-modal="true" aria-labelledby="kzModalT" aria-hidden="true">
+  <div class="kzModalC">
+    <img class="kzModalImg" loading="lazy" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-c.jpg" alt="Marina Zavidovo Village: рендер эскизного проекта дома, въезд с улицы">
+    <div class="kzModalB">
+      <span class="kzEy">Marina Zavidovo Village</span>
+      <p class="kzPo kzModalT" id="kzModalT">Сайт в разработке</p>
+      <p class="kzFact">Проект в разработке, своей страницы пока нет. Адрес: Конаковский район, г.п. Новозавидовский, район деревни Лазурная, участок 2410. На кадрах — рендеры эскизного проекта дома.</p>
+      <div class="kzModalActs">
+        <a class="kzBtn" href="#kzForm" data-kz-close="1">Оставить заявку</a>
+        <button class="kzBtnQ" type="button" id="kzModalX" data-kz-close="1">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('kzl');
+  if(!root) return;
+
+  /* --- сдержанное появление. Скрытие ставит только скрипт --- */
+  root.classList.add('kzJs');
+  var rv = root.querySelectorAll('.kzRv');
+  function kzSweep(){
+    for(var i=0;i<rv.length;i++){ rv[i].classList.add('kzOn'); }
+  }
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      for(var i=0;i<entries.length;i++){
+        if(entries[i].isIntersecting){ entries[i].target.classList.add('kzOn'); }
+      }
+    },{rootMargin:'0px 0px -8% 0px',threshold:0.01});
+    for(var j=0;j<rv.length;j++){ io.observe(rv[j]); }
+  } else {
+    kzSweep();
+  }
+  /* две страховки: ничего не может остаться невидимым */
+  window.addEventListener('load', kzSweep);
+  setTimeout(kzSweep, 1200);
+
+  /* --- оверлей Marina --- */
+  var modal = document.getElementById('kzModal');
+  var closeBtn = document.getElementById('kzModalX');
+  var lastFocus = null;
+  function kzOpen(){
+    if(!modal) return;
+    lastFocus = document.activeElement;
+    modal.classList.add('kzOpen');
+    modal.setAttribute('aria-hidden','false');
+    if(closeBtn) closeBtn.focus();
+  }
+  function kzClose(){
+    if(!modal) return;
+    modal.classList.remove('kzOpen');
+    modal.setAttribute('aria-hidden','true');
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  var openers = root.querySelectorAll('[data-kz-open]');
+  for(var o=0;o<openers.length;o++){ openers[o].addEventListener('click', kzOpen); }
+  var closers = root.querySelectorAll('[data-kz-close]');
+  for(var c=0;c<closers.length;c++){ closers[c].addEventListener('click', kzClose); }
+  if(modal){
+    modal.addEventListener('click', function(e){ if(e.target === modal) kzClose(); });
+  }
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'Escape' || e.keyCode === 27) && modal && modal.classList.contains('kzOpen')) kzClose();
+  });
+
+  /* --- форма: честная заглушка, отправку подключат в Тильде --- */
+  var form = document.getElementById('kzFormEl');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var row = document.getElementById('kzFRow');
+      var ok = document.getElementById('kzOk');
+      var nm = document.getElementById('kzName');
+      var ph = document.getElementById('kzPhone');
+      if(nm && !nm.value.trim()){ nm.focus(); return; }
+      if(ph && !ph.value.trim()){ ph.focus(); return; }
+      if(row) row.setAttribute('hidden','hidden');
+      if(ok){ ok.removeAttribute('hidden'); }
+    });
+  }
+})();
+</script>
+</div><!-- /#kzl -->
+</body>
+</html>

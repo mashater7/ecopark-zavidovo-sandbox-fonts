@@ -1,0 +1,1165 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Коллекция Завидово — четыре посёлка</title>
+</head>
+<body style="margin:0;padding:0">
+
+<!-- =========================================================================
+     БЛОК ДЛЯ ТИЛЬДЫ (T123). Копировать всё от этой строки до «КОНЕЦ БЛОКА».
+     Самодостаточно: шрифт, стили, разметка и скрипт внутри одного куска.
+     Внешнее — только Google Poiret One и картинки по абсолютным URL.
+     Вариант C — «Кинолента»: первый экран держит горизонтальная лента кадров,
+     которую тянут рукой; ниже та же лента идёт вниз по странице.
+     ========================================================================= -->
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap">
+
+<style>
+#kzl{
+  --bg:#f5f2f0;
+  --bg2:#f0f6f4;
+  --ink:#333;
+  --ink2:#5c6360;
+  --dark:#0f231b;
+  --acc:#bb916b;
+  --line:rgba(15,35,27,.16);
+  --line2:rgba(15,35,27,.30);
+  --e:cubic-bezier(.23,1,.32,1);
+  --sys:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --po:"Poiret One",-apple-system,"Segoe UI",Arial,sans-serif;
+  --pad:clamp(18px,4vw,64px);
+  --f1:min(62vw,820px);
+  --f2:min(52vw,680px);
+  --f3:min(46vw,600px);
+  --f4:min(56vw,740px);
+  position:relative;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sys);
+  font-size:16px;
+  line-height:1.5;
+  text-align:left;
+  -webkit-font-smoothing:antialiased;
+}
+#kzl *,#kzl *::before,#kzl *::after{box-sizing:border-box}
+#kzl h1,#kzl h2,#kzl h3,#kzl p,#kzl ul,#kzl li,#kzl figure,#kzl figcaption{margin:0;padding:0}
+#kzl ul{list-style:none}
+#kzl img{max-width:100%;border:0}
+#kzl [hidden]{display:none}
+#kzl a{color:inherit}
+#kzl button,#kzl input{-webkit-appearance:none;appearance:none;border-radius:0;margin:0}
+
+/* ---------- верхняя строка ---------- */
+#kzl .kzl-top{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:13px var(--pad);border-bottom:1px solid var(--line);
+}
+#kzl .kzl-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+#kzl .kzl-brand img{width:22px;height:22px;object-fit:contain;display:block}
+#kzl .kzl-brand span{
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:600;color:var(--dark);white-space:nowrap;
+}
+#kzl .kzl-top-r{display:flex;align-items:center;gap:clamp(10px,2vw,22px);font-size:13px;color:var(--ink2)}
+#kzl .kzl-tel{font-weight:600;color:var(--dark);text-decoration:none;white-space:nowrap}
+#kzl .kzl-tel:hover{text-decoration:underline}
+
+/* ---------- первый экран ---------- */
+#kzl .kzl-hero{display:flex;flex-direction:column;min-height:100vh}
+@supports (min-height:100svh){#kzl .kzl-hero{min-height:100svh}}
+
+#kzl .kzl-head{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  gap:clamp(14px,3vw,44px);align-items:end;
+  padding:clamp(20px,3.2vw,38px) var(--pad) clamp(14px,1.8vw,22px);
+}
+#kzl .kzl-kicker{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink2);margin-bottom:12px;
+}
+#kzl .kzl-lede{
+  font-family:var(--po);font-weight:400;
+  font-size:clamp(30px,4.3vw,60px);line-height:1.02;letter-spacing:-.015em;
+  color:var(--dark);max-width:22ch;
+}
+#kzl .kzl-sub{
+  margin-top:14px;max-width:56ch;
+  font-size:clamp(14px,1.05vw,16px);line-height:1.55;color:var(--ink2);
+}
+#kzl .kzl-ctl{display:flex;align-items:center;gap:clamp(10px,1.4vw,18px)}
+#kzl .kzl-hint{
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink2);max-width:11ch;line-height:1.45;
+}
+#kzl .kzl-arw{
+  width:46px;height:46px;flex:0 0 auto;border:1px solid var(--line2);
+  border-radius:50%;background:transparent;color:var(--dark);
+  display:grid;place-items:center;cursor:pointer;padding:0;
+  transition:background .35s var(--e),border-color .35s var(--e),opacity .35s var(--e);
+}
+#kzl .kzl-arw svg{width:15px;height:15px;display:block}
+#kzl .kzl-arw:hover{background:#fff;border-color:var(--dark)}
+#kzl .kzl-arw:disabled{opacity:.28;cursor:default;background:transparent;border-color:var(--line)}
+
+/* ---------- лента ---------- */
+#kzl .kzl-strip{display:flex;flex:1 1 auto;min-height:clamp(330px,48vh,600px)}
+#kzl .kzl-track{
+  flex:1 1 100%;min-width:0;display:flex;align-items:stretch;
+  gap:clamp(10px,1vw,16px);padding:0 var(--pad);
+  overflow-x:auto;overflow-y:hidden;position:relative;
+  scroll-snap-type:x mandatory;scroll-padding-left:var(--pad);
+  -webkit-overflow-scrolling:touch;
+}
+#kzl.kzl-js .kzl-track{
+  scroll-snap-type:none;cursor:grab;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+/* горизонталь ведём сами, вертикальную прокрутку страницы отдаём браузеру;
+   класс ставится только если браузер умеет pointer events */
+#kzl.kzl-drag .kzl-track{touch-action:pan-y}
+#kzl.kzl-js .kzl-track::-webkit-scrollbar{width:0;height:0;display:none}
+#kzl.kzl-js .kzl-track.is-drag{cursor:grabbing;user-select:none;-webkit-user-select:none}
+#kzl .kzl-track:focus{outline:none}
+#kzl .kzl-track:focus-visible{outline:2px solid var(--dark);outline-offset:-3px}
+
+#kzl .kzl-frame{
+  flex:0 0 auto;scroll-snap-align:start;
+  display:grid;grid-template-rows:minmax(0,1fr) auto;
+}
+#kzl .kzl-f1{width:var(--f1)}
+#kzl .kzl-f2{width:var(--f2)}
+#kzl .kzl-f3{width:var(--f3)}
+#kzl .kzl-f4{width:var(--f4)}
+
+#kzl .kzl-media{position:relative;overflow:hidden;background:#e8e4e1;min-height:140px}
+#kzl .kzl-media img{
+  position:absolute;left:0;top:0;width:100%;height:100%;
+  object-fit:cover;display:block;
+}
+#kzl.kzl-js .kzl-media img{transform:scale(1.14);will-change:transform;pointer-events:none}
+
+#kzl .kzl-shelf{
+  background:var(--dark);color:#fff;
+  padding:clamp(13px,1.3vw,19px) clamp(15px,1.5vw,24px) clamp(15px,1.5vw,22px);
+  display:grid;gap:7px;align-content:start;
+}
+#kzl .kzl-shelf-top{display:flex;align-items:center;gap:12px}
+#kzl .kzl-num{
+  font-family:var(--po);font-size:clamp(22px,1.7vw,26px);line-height:1;
+  color:#fff;letter-spacing:0;
+}
+#kzl .kzl-hr{flex:1 1 auto;height:1px;background:rgba(255,255,255,.24)}
+#kzl .kzl-tag{
+  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--acc);white-space:nowrap;
+}
+#kzl .kzl-name{
+  font-family:var(--po);font-weight:400;
+  font-size:clamp(26px,2.5vw,38px);line-height:1.04;letter-spacing:-.015em;color:#fff;
+}
+#kzl .kzl-name-lat{font-size:clamp(21px,1.9vw,30px);letter-spacing:-.01em;line-height:1.08}
+#kzl .kzl-fact{
+  font-size:clamp(13px,.95vw,15px);line-height:1.5;
+  color:rgba(255,255,255,.80);max-width:50ch;
+}
+#kzl .kzl-go{
+  justify-self:start;margin-top:4px;display:inline-flex;align-items:center;gap:8px;
+  font-family:inherit;font-size:12px;letter-spacing:.13em;text-transform:uppercase;
+  color:#fff;text-decoration:none;cursor:pointer;
+  background:none;border:0;border-bottom:1px solid var(--acc);
+  padding:0 0 4px;border-radius:0;
+}
+#kzl .kzl-go i{font-style:normal;transition:transform .45s var(--e)}
+#kzl .kzl-go:hover i{transform:translate3d(5px,0,0)}
+#kzl .kzl-go:focus-visible{outline:2px solid var(--acc);outline-offset:4px}
+
+/* конец ленты */
+#kzl .kzl-tail{
+  flex:0 0 auto;width:max(230px,calc(100vw - var(--f4) - 130px));
+  display:flex;flex-direction:column;justify-content:flex-end;gap:10px;
+  padding:0 0 clamp(14px,2vw,26px) clamp(14px,1.8vw,28px);
+  border-left:1px solid var(--line);
+}
+#kzl .kzl-tail-l{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink2)}
+#kzl .kzl-tail-t{
+  font-family:var(--po);font-size:clamp(22px,2vw,30px);line-height:1.1;
+  letter-spacing:-.015em;color:var(--dark);max-width:16ch;
+}
+#kzl .kzl-tail-p{font-size:14px;line-height:1.5;color:var(--ink2);max-width:30ch}
+#kzl .kzl-down{
+  align-self:flex-start;margin-top:4px;display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--dark);
+  text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:4px;
+}
+#kzl .kzl-down:hover{border-bottom-color:var(--dark)}
+
+/* линейка прогресса */
+#kzl .kzl-rail{
+  display:flex;align-items:center;gap:clamp(10px,1.4vw,18px);
+  padding:clamp(12px,1.6vw,20px) var(--pad) clamp(16px,2.2vw,28px);
+}
+#kzl .kzl-count{font-family:var(--po);font-size:clamp(24px,2vw,32px);line-height:1;color:var(--dark)}
+#kzl .kzl-of{font-family:var(--po);font-size:clamp(22px,1.7vw,26px);line-height:1;color:var(--ink2)}
+#kzl .kzl-line{position:relative;flex:1 1 auto;height:1px;background:var(--line);min-width:40px}
+#kzl .kzl-fill{
+  position:absolute;left:0;top:-1px;width:100%;height:3px;background:var(--dark);
+  transform:scaleX(.25);transform-origin:0 50%;
+}
+
+/* ---------- секции: слева перфорация плёнки ---------- */
+#kzl .kzl-sec{
+  display:grid;grid-template-columns:clamp(54px,6vw,92px) minmax(0,1fr);
+  gap:clamp(16px,2.4vw,40px);
+  padding:clamp(52px,7vw,112px) var(--pad);
+}
+#kzl .kzl-sec-alt{background:var(--bg2)}
+#kzl .kzl-gut{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+#kzl .kzl-gut-l{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink2);
+  writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;
+}
+#kzl .kzl-perf{
+  flex:1 1 auto;width:7px;min-height:70px;
+  border-left:1px solid var(--line);
+  background:repeating-linear-gradient(to bottom,rgba(15,35,27,.22) 0 1px,transparent 1px 16px);
+}
+
+#kzl .kzl-h2{
+  font-family:var(--po);font-weight:400;
+  font-size:clamp(28px,3.8vw,54px);line-height:1.05;letter-spacing:-.015em;
+  color:var(--dark);max-width:24ch;
+}
+#kzl .kzl-two{
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+  gap:clamp(18px,3vw,52px);margin-top:clamp(22px,3vw,40px);
+}
+#kzl .kzl-two p{font-size:clamp(15px,1.1vw,17px);line-height:1.6;max-width:46ch}
+#kzl .kzl-two p+p{color:var(--ink2)}
+#kzl .kzl-two-b{margin-top:clamp(0px,1.4vw,26px)}
+
+#kzl .kzl-args{
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,.92fr);
+  gap:clamp(16px,2.4vw,38px);margin-top:clamp(30px,4.4vw,60px);
+}
+#kzl .kzl-arg{border-top:1px solid var(--dark);padding-top:13px}
+#kzl .kzl-arg h3{
+  font-size:12px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;
+  color:var(--dark);margin-bottom:9px;
+}
+#kzl .kzl-arg p{font-size:15px;line-height:1.55;color:var(--ink2)}
+
+/* ---------- курортная зона ---------- */
+#kzl .kzl-quote{
+  font-family:var(--po);font-weight:400;
+  font-size:clamp(26px,3.5vw,50px);line-height:1.06;letter-spacing:-.015em;
+  color:var(--dark);max-width:24ch;
+}
+#kzl .kzl-band{
+  position:relative;overflow:hidden;background:#e8e4e1;
+  margin-top:clamp(24px,3.4vw,48px);
+  height:clamp(240px,40vh,500px);
+}
+#kzl .kzl-band img{
+  position:absolute;left:0;top:-8%;width:100%;height:116%;
+  object-fit:cover;display:block;
+}
+#kzl .kzl-panel{
+  position:relative;z-index:2;background:#fff;
+  width:min(620px,92%);
+  margin:calc(-1 * clamp(36px,4.6vw,74px)) 0 0 clamp(0px,3vw,54px);
+  padding:clamp(20px,2.4vw,36px);
+  border-top:3px solid var(--acc);
+}
+#kzl .kzl-plist li{padding:13px 0;border-top:1px solid var(--line)}
+#kzl .kzl-plist li:first-child{border-top:0;padding-top:0}
+#kzl .kzl-plist b{
+  display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:600;color:var(--dark);margin-bottom:6px;
+}
+#kzl .kzl-plist span{font-size:15px;line-height:1.55;color:var(--ink2)}
+
+#kzl .kzl-rubs{margin-top:clamp(28px,4vw,56px);border-top:1px solid var(--line);padding-top:16px}
+#kzl .kzl-rubs-t{
+  font-size:12px;letter-spacing:.15em;text-transform:uppercase;
+  font-weight:600;color:var(--dark);margin-bottom:14px;
+}
+#kzl .kzl-rubs ul{display:flex;flex-wrap:wrap;gap:10px clamp(16px,2.4vw,34px)}
+#kzl .kzl-rubs a{
+  font-size:15px;color:var(--ink);text-decoration:none;
+  border-bottom:1px solid var(--acc);padding-bottom:3px;
+  transition:border-color .35s var(--e);
+}
+#kzl .kzl-rubs a:hover{border-bottom-color:var(--dark)}
+
+/* ---------- посёлки: лента идёт вниз ---------- */
+#kzl .kzl-cells{margin-top:clamp(28px,4vw,56px)}
+#kzl .kzl-cell{display:grid;gap:clamp(16px,2.6vw,44px);align-items:start}
+#kzl .kzl-cell+.kzl-cell{
+  margin-top:clamp(34px,5vw,80px);padding-top:clamp(30px,4vw,60px);
+  border-top:1px solid var(--line);
+}
+#kzl .kzl-c1{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+#kzl .kzl-c2{grid-template-columns:minmax(0,1.24fr) minmax(0,1fr)}
+#kzl .kzl-c3{grid-template-columns:minmax(0,1fr) minmax(0,1.06fr)}
+#kzl .kzl-c4{grid-template-columns:minmax(0,1.66fr) minmax(0,1fr)}
+
+#kzl .kzl-shot{position:relative;overflow:hidden;background:#e8e4e1;min-height:210px}
+#kzl .kzl-shot img{
+  position:absolute;left:0;top:-8%;width:100%;height:116%;
+  object-fit:cover;display:block;
+}
+#kzl .kzl-a16{aspect-ratio:16/10}
+#kzl .kzl-a14{aspect-ratio:7/5}
+#kzl .kzl-a12{aspect-ratio:5/4}
+#kzl .kzl-mini{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:8px}
+#kzl .kzl-mini .kzl-shot{aspect-ratio:4/3;min-height:0}
+#kzl .kzl-mini-cap{
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2);
+  margin-top:10px;
+}
+
+#kzl .kzl-cell-t{display:grid;gap:12px;align-content:start}
+#kzl .kzl-cell-top{display:flex;align-items:center;gap:12px}
+#kzl .kzl-cnum{font-family:var(--po);font-size:clamp(22px,1.8vw,28px);line-height:1;color:var(--dark)}
+#kzl .kzl-hr2{flex:1 1 auto;height:1px;background:var(--line2)}
+#kzl .kzl-tag2{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink2);white-space:nowrap}
+#kzl .kzl-logo{height:clamp(28px,2.6vw,38px);width:auto;max-width:220px;object-fit:contain;object-position:left center;display:block}
+#kzl .kzl-mono{
+  width:52px;height:52px;display:grid;place-items:center;
+  border:1px solid var(--line2);border-radius:50%;
+  font-family:var(--po);font-size:30px;line-height:1;color:var(--dark);
+}
+#kzl .kzl-cname{
+  font-family:var(--po);font-weight:400;
+  font-size:clamp(27px,2.8vw,44px);line-height:1.04;letter-spacing:-.015em;color:var(--dark);
+}
+#kzl .kzl-cname-lat{font-size:clamp(22px,2.1vw,34px);letter-spacing:-.01em;line-height:1.08}
+#kzl .kzl-facts li{
+  border-top:1px solid var(--line);padding:11px 0;
+  font-size:15px;line-height:1.5;color:var(--ink);
+}
+#kzl .kzl-btn{
+  justify-self:start;margin-top:6px;display:inline-flex;align-items:center;gap:9px;
+  font-family:inherit;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dark);text-decoration:none;cursor:pointer;
+  background:transparent;border:1px solid var(--dark);border-radius:0;
+  padding:13px 22px;
+  transition:background .35s var(--e),color .35s var(--e);
+}
+#kzl .kzl-btn i{font-style:normal;transition:transform .45s var(--e)}
+#kzl .kzl-btn:hover{background:var(--dark);color:#fff}
+#kzl .kzl-btn:hover i{transform:translate3d(4px,0,0)}
+
+/* ---------- заявка ---------- */
+#kzl .kzl-formwrap{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(24px,4vw,68px);align-items:start;
+}
+#kzl .kzl-formwrap .kzl-h2{max-width:20ch}
+#kzl .kzl-cont{margin-top:clamp(18px,2.4vw,30px);display:grid;gap:8px;font-size:15px;color:var(--ink2)}
+#kzl .kzl-cont a{color:var(--dark);text-decoration:none;border-bottom:1px solid var(--line2)}
+#kzl .kzl-form{background:#fff;padding:clamp(20px,2.6vw,40px);border-top:3px solid var(--acc)}
+#kzl .kzl-field{display:block;margin-bottom:20px}
+#kzl .kzl-field span{
+  display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink2);margin-bottom:7px;
+}
+#kzl .kzl-field input{
+  width:100%;font-family:inherit;font-size:16px;color:var(--ink);
+  background:transparent;border:0;border-bottom:1px solid var(--line2);
+  border-radius:0;padding:9px 0;
+  transition:border-color .35s var(--e);
+}
+#kzl .kzl-field input:hover{border-bottom-color:var(--dark)}
+#kzl .kzl-field input:focus{outline:none;border-bottom-color:var(--dark)}
+#kzl .kzl-field input:focus-visible{outline:2px solid var(--dark);outline-offset:4px}
+#kzl .kzl-submit{
+  font-family:inherit;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:#fff;background:var(--dark);border:0;border-radius:0;
+  padding:15px 30px;cursor:pointer;
+  transition:opacity .35s var(--e);
+}
+#kzl .kzl-submit:hover{opacity:.86}
+#kzl .kzl-submit:disabled{opacity:.5;cursor:default}
+#kzl .kzl-note{margin-top:14px;font-size:12px;line-height:1.5;color:var(--ink2);max-width:42ch}
+#kzl .kzl-ok{margin-top:14px;font-size:15px;line-height:1.5;color:var(--dark)}
+
+/* ---------- подвал ---------- */
+#kzl .kzl-ft{
+  border-top:1px solid var(--line);
+  padding:clamp(28px,4vw,56px) var(--pad);
+  display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(20px,3vw,44px);font-size:14px;line-height:1.6;color:var(--ink2);
+}
+#kzl .kzl-ft-l{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink2);margin-bottom:12px}
+#kzl .kzl-ft-brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+#kzl .kzl-ft-brand img{width:26px;height:26px;object-fit:contain;display:block}
+#kzl .kzl-ft-brand span{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--dark)}
+#kzl .kzl-ft ul{display:grid;gap:7px}
+#kzl .kzl-ft a{color:var(--dark);text-decoration:none;border-bottom:1px solid transparent}
+#kzl .kzl-ft a:hover{border-bottom-color:var(--line2)}
+#kzl .kzl-ft-tel{font-weight:600;font-size:17px}
+
+/* ---------- оверлей Marina ---------- */
+#kzl .kzl-ov{
+  position:fixed;left:0;top:0;right:0;bottom:0;z-index:9990;
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  background:rgba(15,35,27,.55);
+  opacity:0;transition:opacity .3s var(--e);
+}
+#kzl .kzl-ov.is-on{opacity:1}
+#kzl .kzl-ov-card{
+  position:relative;background:var(--bg);width:100%;max-width:520px;
+  padding:clamp(22px,3vw,42px);border-top:3px solid var(--acc);
+  transform:translate3d(0,10px,0);transition:transform .45s var(--e);
+}
+#kzl .kzl-ov.is-on .kzl-ov-card{transform:translate3d(0,0,0)}
+#kzl .kzl-ov-l{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink2);margin-bottom:14px}
+#kzl .kzl-ov-t{
+  font-family:var(--po);font-weight:400;font-size:clamp(24px,2.4vw,34px);
+  line-height:1.1;letter-spacing:-.01em;color:var(--dark);margin-bottom:14px;
+}
+#kzl .kzl-ov-p{font-size:15px;line-height:1.6;color:var(--ink2);margin-bottom:8px;max-width:44ch}
+#kzl .kzl-ov-p b{color:var(--dark);font-weight:600}
+#kzl .kzl-ov-x{
+  position:absolute;top:10px;right:10px;width:42px;height:42px;
+  background:transparent;border:0;cursor:pointer;color:var(--dark);
+  display:grid;place-items:center;font-size:22px;line-height:1;font-family:inherit;
+}
+#kzl .kzl-ov-x:hover{color:var(--acc)}
+#kzl .kzl-ov-tel{
+  display:inline-block;margin-top:12px;font-size:17px;font-weight:600;
+  color:var(--dark);text-decoration:none;border-bottom:1px solid var(--acc);
+}
+
+/* ---------- 1024 ---------- */
+@media (max-width:1024px){
+  #kzl .kzl-lede{max-width:20ch}
+  #kzl .kzl-panel{width:min(620px,96%)}
+}
+
+/* ---------- 900: лента вниз в одну колонку ---------- */
+@media (max-width:900px){
+  #kzl .kzl-two{grid-template-columns:minmax(0,1fr);gap:16px}
+  #kzl .kzl-two-b{margin-top:0}
+  #kzl .kzl-args{grid-template-columns:minmax(0,1fr);gap:20px}
+  #kzl .kzl-c1,#kzl .kzl-c2,#kzl .kzl-c3,#kzl .kzl-c4{grid-template-columns:minmax(0,1fr)}
+  #kzl .kzl-formwrap{grid-template-columns:minmax(0,1fr)}
+  #kzl .kzl-ft{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+}
+
+/* ---------- 700: перфорация ложится в строку ---------- */
+@media (max-width:700px){
+  #kzl{--f1:88vw;--f2:80vw;--f3:84vw;--f4:86vw}
+  #kzl .kzl-head{grid-template-columns:minmax(0,1fr);align-items:start}
+  #kzl .kzl-ctl{justify-content:space-between;width:100%}
+  #kzl .kzl-hint{max-width:none}
+  #kzl .kzl-strip{min-height:380px}
+  #kzl .kzl-media{min-height:150px}
+  #kzl .kzl-sec{grid-template-columns:minmax(0,1fr);gap:14px}
+  #kzl .kzl-gut{flex-direction:row;align-items:center;gap:12px;width:100%}
+  #kzl .kzl-gut-l{writing-mode:horizontal-tb;transform:none}
+  #kzl .kzl-perf{
+    flex:1 1 auto;width:auto;height:7px;min-height:0;
+    border-left:0;border-top:1px solid var(--line);
+    background:repeating-linear-gradient(to right,rgba(15,35,27,.22) 0 1px,transparent 1px 16px);
+  }
+  #kzl .kzl-panel{width:100%;margin-left:0}
+  #kzl .kzl-mini{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  #kzl .kzl-mini figure:first-child{grid-column:1 / -1}
+  #kzl .kzl-ft{grid-template-columns:minmax(0,1fr)}
+}
+
+/* ---------- 500 ---------- */
+@media (max-width:500px){
+  #kzl .kzl-top-r{font-size:12px}
+  #kzl .kzl-top-r span{display:none}
+  #kzl .kzl-strip{min-height:380px}
+  #kzl .kzl-arw{width:42px;height:42px}
+  #kzl .kzl-tail{width:max(200px,68vw)}
+  #kzl .kzl-form{padding:18px}
+}
+
+/* ---------- меньше движения ---------- */
+@media (prefers-reduced-motion:reduce){
+  #kzl *,#kzl *::before,#kzl *::after{
+    transition-duration:.01ms !important;
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+  }
+  #kzl .kzl-ov-card{transform:none}
+  #kzl.kzl-js .kzl-media img{transform:none}
+}
+</style>
+
+<div id="kzl">
+
+  <!-- верхняя строка -->
+  <div class="kzl-top">
+    <a class="kzl-brand" href="https://kzavidovo.ru">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="Коллекция Завидово">
+      <span>Коллекция&nbsp;Завидово</span>
+    </a>
+    <div class="kzl-top-r">
+      <span>Конаковский район, Тверская область</span>
+      <a class="kzl-tel" href="tel:+74993091245">+7 499 309 12 45</a>
+    </div>
+  </div>
+
+  <!-- ================= первый экран: кинолента ================= -->
+  <div class="kzl-hero">
+
+    <div class="kzl-head">
+      <div>
+        <p class="kzl-kicker">Коллекция Завидово · четыре посёлка</p>
+        <h1 class="kzl-lede">Четыре посёлка в курортной зоне Завидово</h1>
+        <p class="kzl-sub">Берег Волги, хвойный лес, обжитой коттеджный посёлок и новый проект. Час от Москвы, десять минут до курорта. Участок под дачу или под постоянную жизнь.</p>
+      </div>
+      <div class="kzl-ctl">
+        <p class="kzl-hint">Тяните ленту в сторону</p>
+        <button class="kzl-arw" type="button" data-kzl-dir="-1" aria-label="Предыдущий кадр">
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 2 4 8l6 6" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+        </button>
+        <button class="kzl-arw" type="button" data-kzl-dir="1" aria-label="Следующий кадр">
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="kzl-strip">
+      <div class="kzl-track" tabindex="0" role="region" aria-roledescription="кинолента"
+           aria-label="Кинолента: четыре посёлка Коллекции Завидово. Ленту тянут мышью или пальцем, листают стрелками влево и вправо">
+
+        <!-- 01 -->
+        <article class="kzl-frame kzl-f1" role="group" aria-label="Кадр 1 из 4. Акватория Завидово">
+          <div class="kzl-media">
+            <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg"
+                 alt="Акватория Завидово: берег Волги" decoding="async">
+          </div>
+          <div class="kzl-shelf">
+            <div class="kzl-shelf-top"><span class="kzl-num">01</span><span class="kzl-hr"></span><span class="kzl-tag">вода</span></div>
+            <h2 class="kzl-name">Акватория Завидово</h2>
+            <p class="kzl-fact">Свой берег Волги: до воды идут пешком — свой пляж, свой яхт-клуб, свои причалы.</p>
+            <a class="kzl-go" href="https://kzavidovo.ru/akvatoria">Открыть посёлок <i aria-hidden="true">&rarr;</i></a>
+          </div>
+        </article>
+
+        <!-- 02 -->
+        <article class="kzl-frame kzl-f2" role="group" aria-label="Кадр 2 из 4. Экопарк Лесной">
+          <div class="kzl-media">
+            <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg"
+                 alt="Экопарк Лесной: хвойно-лиственный лес на участках" decoding="async">
+          </div>
+          <div class="kzl-shelf">
+            <div class="kzl-shelf-top"><span class="kzl-num">02</span><span class="kzl-hr"></span><span class="kzl-tag">лес</span></div>
+            <h2 class="kzl-name">Экопарк Лесной</h2>
+            <p class="kzl-fact">324 участка в хвойно-лиственном лесу на берегу реки Дойбица.</p>
+            <a class="kzl-go" href="https://ecopark-zavidovo.ru/lesnoy">Открыть посёлок <i aria-hidden="true">&rarr;</i></a>
+          </div>
+        </article>
+
+        <!-- 03 -->
+        <article class="kzl-frame kzl-f3" role="group" aria-label="Кадр 3 из 4. Экопарк Завидово">
+          <div class="kzl-media">
+            <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg"
+                 alt="Курортная зона Завидово рядом с Экопарком Завидово" loading="lazy" decoding="async">
+          </div>
+          <div class="kzl-shelf">
+            <div class="kzl-shelf-top"><span class="kzl-num">03</span><span class="kzl-hr"></span><span class="kzl-tag">обжитой</span></div>
+            <h2 class="kzl-name">Экопарк Завидово</h2>
+            <p class="kzl-fact">Коттеджный посёлок: участки и готовые дома, интерактивная карта свободных участков.</p>
+            <a class="kzl-go" href="https://ecopark-zavidovo.ru">Открыть посёлок <i aria-hidden="true">&rarr;</i></a>
+          </div>
+        </article>
+
+        <!-- 04 -->
+        <article class="kzl-frame kzl-f4" role="group" aria-label="Кадр 4 из 4. MARINA ZAVIDOVO VILLAGE, проект в разработке">
+          <div class="kzl-media">
+            <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-a.jpg"
+                 alt="MARINA ZAVIDOVO VILLAGE: рендер эскизного проекта дома, общий вид" loading="lazy" decoding="async">
+          </div>
+          <div class="kzl-shelf">
+            <div class="kzl-shelf-top"><span class="kzl-num">04</span><span class="kzl-hr"></span><span class="kzl-tag">проект</span></div>
+            <h2 class="kzl-name kzl-name-lat">MARINA<br>ZAVIDOVO VILLAGE</h2>
+            <p class="kzl-fact">Новый проект в разработке: Конаковский район, район деревни Лазурная. На кадре — рендер эскизного проекта дома.</p>
+            <button class="kzl-go kzl-ov-open" type="button">О проекте <i aria-hidden="true">&rarr;</i></button>
+          </div>
+        </article>
+
+        <!-- конец ленты -->
+        <div class="kzl-tail">
+          <p class="kzl-tail-l">Конец ленты</p>
+          <p class="kzl-tail-t">Дальше страница идёт вниз</p>
+          <p class="kzl-tail-p">Ниже — курортная зона вокруг и каждый посёлок отдельно, с фактами и переходом на сайт.</p>
+          <a class="kzl-down" href="#kzl-poselki">К посёлкам <i aria-hidden="true">&darr;</i></a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="kzl-rail">
+      <span class="kzl-count"><span class="kzl-cur">01</span></span>
+      <span class="kzl-line"><span class="kzl-fill"></span></span>
+      <span class="kzl-of">04</span>
+    </div>
+
+  </div>
+
+  <!-- ================= что такое Коллекция ================= -->
+  <section class="kzl-sec">
+    <div class="kzl-gut"><p class="kzl-gut-l">Коллекция</p><div class="kzl-perf" aria-hidden="true"></div></div>
+    <div>
+      <h2 class="kzl-h2">Одна курортная зона — четыре разных посёлка</h2>
+      <div class="kzl-two">
+        <p>Коллекция Завидово — зонтичный бренд. Под ним четыре посёлка в курортной зоне Завидово: Конаковский район Тверской области, час от Москвы, десять минут до курорта.</p>
+        <p class="kzl-two-b">Посёлки разные. В Акватории до Волги идут пешком. В Лесном взрослые деревья растут прямо на участке. В Экопарке Завидово продают участки и готовые дома. Marina Zavidovo Village пока в разработке.</p>
+      </div>
+      <ul class="kzl-args">
+        <li class="kzl-arg">
+          <h3>Четыре формата</h3>
+          <p>Берег Волги, хвойный лес, обжитой коттеджный посёлок с готовыми домами и новый проект — в одной зоне.</p>
+        </li>
+        <li class="kzl-arg">
+          <h3>Курорт на всех</h3>
+          <p>Гольф, марина, спа, рестораны и аквапарк работают уже сейчас. Десять минут от каждого посёлка.</p>
+        </li>
+        <li class="kzl-arg">
+          <h3>Дорога</h3>
+          <p>Час от Москвы: до Акватории по платной М-11, до Экопарков по М-10.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= курортная зона ================= -->
+  <section class="kzl-sec kzl-sec-alt">
+    <div class="kzl-gut"><p class="kzl-gut-l">Курортная зона</p><div class="kzl-perf" aria-hidden="true"></div></div>
+    <div>
+      <h2 class="kzl-quote">Курорт — чтобы приезжать. Посёлок — чтобы жить.</h2>
+      <div class="kzl-band">
+        <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg"
+             alt="Лес в курортной зоне Завидово, Конаковский район Тверской области" loading="lazy" decoding="async" data-kzl-px="6">
+      </div>
+      <div class="kzl-panel">
+        <ul class="kzl-plist">
+          <li><b>Курорт Завидово</b><span>Растущий туристический центр на берегу Волги, по соседству. Гольф, марина, спа, рестораны и аквапарк работают уже сейчас.</span></li>
+          <li><b>Национальный парк «Завидово»</b><span>133 000 гектаров леса, лугов и воды, в десяти минутах.</span></li>
+          <li><b>Дорога</b><span>Час от Москвы по платной М-11, десять минут до курорта.</span></li>
+        </ul>
+      </div>
+      <div class="kzl-rubs">
+        <p class="kzl-rubs-t">88 страниц о местах рядом</p>
+        <ul>
+          <li><a href="https://kzavidovo.ru/where_eat">Кафе и рестораны</a></li>
+          <li><a href="https://kzavidovo.ru/where_spa">Спа и бани</a></li>
+          <li><a href="https://kzavidovo.ru/where_admire">Достопримечательности</a></li>
+          <li><a href="https://kzavidovo.ru/where_nature">Природа и прогулки</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= четыре посёлка подробнее ================= -->
+  <section class="kzl-sec" id="kzl-poselki">
+    <div class="kzl-gut"><p class="kzl-gut-l">Посёлки 01–04</p><div class="kzl-perf" aria-hidden="true"></div></div>
+    <div>
+      <h2 class="kzl-h2">Четыре посёлка подробнее</h2>
+
+      <div class="kzl-cells">
+
+        <!-- 01 -->
+        <article class="kzl-cell kzl-c1">
+          <figure class="kzl-shot kzl-a16">
+            <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg"
+                 alt="Акватория Завидово: берег Волги и свой пляж" loading="lazy" decoding="async" data-kzl-px="6">
+          </figure>
+          <div class="kzl-cell-t">
+            <div class="kzl-cell-top"><span class="kzl-cnum">01</span><span class="kzl-hr2"></span><span class="kzl-tag2">вода</span></div>
+            <img class="kzl-logo" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png"
+                 alt="Логотип Акватории Завидово" loading="lazy" decoding="async">
+            <h3 class="kzl-cname">Акватория Завидово</h3>
+            <ul class="kzl-facts">
+              <li>Посёлок на берегу Волги: до воды идут пешком — свой пляж, свой яхт-клуб, свои причалы.</li>
+              <li>Премиум-очередь: 14 участков первой линии, причал у каждого.</li>
+              <li>Парк на 15 гектарах: детская площадка, футбольное поле, баскетбольная и теннисная площадки, берёзовые аллеи.</li>
+              <li>Спорткомплекс с бассейном, детский центр, ресторан с панорамным залом на реку.</li>
+            </ul>
+            <a class="kzl-btn" href="https://kzavidovo.ru/akvatoria">Сайт посёлка <i aria-hidden="true">&rarr;</i></a>
+          </div>
+        </article>
+
+        <!-- 02 -->
+        <article class="kzl-cell kzl-c2">
+          <figure class="kzl-shot kzl-a14">
+            <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg"
+                 alt="Экопарк Лесной: взрослые хвойные деревья на участках" loading="lazy" decoding="async" data-kzl-px="6">
+          </figure>
+          <div class="kzl-cell-t">
+            <div class="kzl-cell-top"><span class="kzl-cnum">02</span><span class="kzl-hr2"></span><span class="kzl-tag2">лес</span></div>
+            <img class="kzl-logo" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-lesnoy.png"
+                 alt="Логотип Экопарка Лесной" loading="lazy" decoding="async">
+            <h3 class="kzl-cname">Экопарк Лесной</h3>
+            <ul class="kzl-facts">
+              <li>324 участка в хвойно-лиственном лесу на берегу реки Дойбица.</li>
+              <li>Взрослые деревья растут прямо на участке.</li>
+              <li>Свой пляж и зоны отдыха на реке Дойбица.</li>
+              <li>Идёт старт продаж третьей очереди, рассрочка 0%.</li>
+            </ul>
+            <a class="kzl-btn" href="https://ecopark-zavidovo.ru/lesnoy">Сайт посёлка <i aria-hidden="true">&rarr;</i></a>
+          </div>
+        </article>
+
+        <!-- 03 -->
+        <article class="kzl-cell kzl-c3">
+          <figure class="kzl-shot kzl-a12">
+            <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg"
+                 alt="Курортная зона Завидово рядом с Экопарком Завидово" loading="lazy" decoding="async" data-kzl-px="5">
+          </figure>
+          <div class="kzl-cell-t">
+            <div class="kzl-cell-top"><span class="kzl-cnum">03</span><span class="kzl-hr2"></span><span class="kzl-tag2">обжитой</span></div>
+            <img class="kzl-logo" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-zavidovo.png"
+                 alt="Логотип Экопарка Завидово" loading="lazy" decoding="async">
+            <h3 class="kzl-cname">Экопарк Завидово</h3>
+            <ul class="kzl-facts">
+              <li>Коттеджный посёлок: участки и готовые дома.</li>
+              <li>Земля под дачи (ДНП), участки в собственность.</li>
+              <li>Рассрочка, акции, программа Trade-In.</li>
+              <li>На сайте — интерактивная карта свободных участков.</li>
+            </ul>
+            <a class="kzl-btn" href="https://ecopark-zavidovo.ru">Сайт посёлка <i aria-hidden="true">&rarr;</i></a>
+          </div>
+        </article>
+
+        <!-- 04 -->
+        <article class="kzl-cell kzl-c4">
+          <div>
+            <div class="kzl-mini">
+              <figure class="kzl-shot">
+                <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-a.jpg"
+                     alt="MARINA ZAVIDOVO VILLAGE: рендер эскизного проекта дома, общий вид" loading="lazy" decoding="async" data-kzl-px="5">
+              </figure>
+              <figure class="kzl-shot">
+                <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-b.jpg"
+                     alt="MARINA ZAVIDOVO VILLAGE: рендер эскизного проекта дома, вечер, бассейн" loading="lazy" decoding="async" data-kzl-px="5">
+              </figure>
+              <figure class="kzl-shot">
+                <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-c.jpg"
+                     alt="MARINA ZAVIDOVO VILLAGE: рендер эскизного проекта дома, въезд с улицы" loading="lazy" decoding="async" data-kzl-px="5">
+              </figure>
+            </div>
+            <p class="kzl-mini-cap">Три кадра — рендеры эскизного проекта дома, не фотографии посёлка</p>
+          </div>
+          <div class="kzl-cell-t">
+            <div class="kzl-cell-top"><span class="kzl-cnum">04</span><span class="kzl-hr2"></span><span class="kzl-tag2">проект</span></div>
+            <span class="kzl-mono" aria-hidden="true">M</span>
+            <h3 class="kzl-cname kzl-cname-lat">MARINA<br>ZAVIDOVO VILLAGE</h3>
+            <ul class="kzl-facts">
+              <li>Конаковский район, г.п. Новозавидовский, район деревни Лазурная, участок 2410.</li>
+              <li>Проект в разработке, своей страницы пока нет.</li>
+              <li>Показываем рендеры эскизного проекта дома.</li>
+            </ul>
+            <button class="kzl-btn kzl-ov-open" type="button">Сайт в разработке <i aria-hidden="true">&rarr;</i></button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= заявка ================= -->
+  <section class="kzl-sec kzl-sec-alt" id="kzl-form">
+    <div class="kzl-gut"><p class="kzl-gut-l">Заявка</p><div class="kzl-perf" aria-hidden="true"></div></div>
+    <div class="kzl-formwrap">
+      <div>
+        <h2 class="kzl-h2">Перезвоним и поможем выбрать посёлок</h2>
+        <div class="kzl-cont">
+          <span>Отдел продаж: <a class="kzl-tel" href="tel:+74993091245">+7 499 309 12 45</a></span>
+          <span>Почта: <a href="mailto:info@ecoparkz.ru">info@ecoparkz.ru</a></span>
+          <span>Тверская область, Конаковский район, с/п Завидово</span>
+        </div>
+      </div>
+      <form class="kzl-form" aria-label="Заявка на консультацию">
+        <label class="kzl-field">
+          <span>Имя</span>
+          <input type="text" name="name" autocomplete="name" required>
+        </label>
+        <label class="kzl-field">
+          <span>Телефон</span>
+          <input type="tel" name="phone" inputmode="tel" autocomplete="tel" required>
+        </label>
+        <button class="kzl-submit" type="submit">Отправить заявку</button>
+        <p class="kzl-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+        <p class="kzl-ok" role="status" hidden>Спасибо. Мы позвоним вам на указанный номер.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= подвал ================= -->
+  <footer class="kzl-ft">
+    <div>
+      <div class="kzl-ft-brand">
+        <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="Коллекция Завидово" loading="lazy">
+        <span>Коллекция&nbsp;Завидово</span>
+      </div>
+      <p>Четыре посёлка в курортной зоне Завидово.<br>Тверская область, Конаковский район, с/п Завидово.</p>
+    </div>
+    <div>
+      <p class="kzl-ft-l">Посёлки</p>
+      <ul>
+        <li><a href="https://kzavidovo.ru/akvatoria">Акватория Завидово</a></li>
+        <li><a href="https://ecopark-zavidovo.ru/lesnoy">Экопарк Лесной</a></li>
+        <li><a href="https://ecopark-zavidovo.ru">Экопарк Завидово</a></li>
+        <li><button class="kzl-go kzl-ov-open" type="button" style="color:#333;border-bottom-color:#bb916b;font-size:14px;letter-spacing:0;text-transform:none;margin:0;padding:0 0 2px">Marina Zavidovo Village</button></li>
+      </ul>
+    </div>
+    <div>
+      <p class="kzl-ft-l">Связаться</p>
+      <ul>
+        <li><a class="kzl-ft-tel" href="tel:+74993091245">+7 499 309 12 45</a></li>
+        <li><a href="mailto:info@ecoparkz.ru">info@ecoparkz.ru</a></li>
+        <li><a href="#kzl-form">Оставить заявку</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ================= оверлей Marina ================= -->
+  <div class="kzl-ov" role="dialog" aria-modal="true" aria-label="MARINA ZAVIDOVO VILLAGE — сайт в разработке" hidden>
+    <div class="kzl-ov-card">
+      <button class="kzl-ov-x" type="button" aria-label="Закрыть">&times;</button>
+      <p class="kzl-ov-l">Marina Zavidovo Village</p>
+      <p class="kzl-ov-t">Сайт в разработке</p>
+      <p class="kzl-ov-p">Проект в разработке, своей страницы пока нет. Кадры, которые мы показываем, — рендеры эскизного проекта дома.</p>
+      <p class="kzl-ov-p"><b>Адрес:</b> Конаковский район, г.п. Новозавидовский, район деревни Лазурная, участок 2410.</p>
+      <p class="kzl-ov-p">О проекте расскажет отдел продаж:</p>
+      <a class="kzl-ov-tel" href="tel:+74993091245">+7 499 309 12 45</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('kzl');
+  if(!root){ return; }
+  var track  = root.querySelector('.kzl-track');
+  var frames = Array.prototype.slice.call(root.querySelectorAll('.kzl-frame'));
+  var fill   = root.querySelector('.kzl-fill');
+  var curEl  = root.querySelector('.kzl-cur');
+  var arws   = Array.prototype.slice.call(root.querySelectorAll('.kzl-arw'));
+  var mq     = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+
+  function calm(){ return !!(mq && mq.matches); }
+  function raf(fn){ return (window.requestAnimationFrame || function(f){ return setTimeout(function(){ f(Date.now()); }, 16); })(fn); }
+  function unraf(id){ (window.cancelAnimationFrame || clearTimeout)(id); }
+
+  /* --- easing cubic-bezier(.23,1,.32,1) --- */
+  var X1 = 0.23, Y1 = 1, X2 = 0.32, Y2 = 1;
+  function bx(u){ return 3*X1*u*(1-u)*(1-u) + 3*X2*u*u*(1-u) + u*u*u; }
+  function by(u){ return 3*Y1*u*(1-u)*(1-u) + 3*Y2*u*u*(1-u) + u*u*u; }
+  function bd(u){ return 3*X1*(1-u)*(1-3*u) + 3*X2*(2*u-3*u*u) + 3*u*u; }
+  function ease(t){
+    if(t <= 0){ return 0; }
+    if(t >= 1){ return 1; }
+    var u = t, i, d, nu;
+    for(i = 0; i < 8; i++){
+      d = bd(u);
+      if(d < 0.000001 && d > -0.000001){ break; }
+      nu = u - (bx(u) - t) / d;
+      if(nu < 0){ nu = 0; }
+      if(nu > 1){ nu = 1; }
+      if(nu - u < 0.00001 && u - nu < 0.00001){ u = nu; break; }
+      u = nu;
+    }
+    return by(u);
+  }
+
+  /* ================= кинолента ================= */
+  if(track && frames.length){
+    root.className = root.className + ' kzl-js';
+
+    var anim = null, drag = null, suppress = false, idle = null, ticking = false;
+
+    function padL(){
+      var cs = window.getComputedStyle ? window.getComputedStyle(track) : null;
+      return cs ? (parseFloat(cs.paddingLeft) || 0) : 0;
+    }
+    function maxScroll(){ return Math.max(0, track.scrollWidth - track.clientWidth); }
+    function targetFor(i){
+      var t = frames[i].offsetLeft - padL();
+      var m = maxScroll();
+      if(t < 0){ t = 0; }
+      if(t > m){ t = m; }
+      return t;
+    }
+    function nearestTo(pos){
+      var best = 0, bd2 = 1e9, i, d;
+      for(i = 0; i < frames.length; i++){
+        d = Math.abs(targetFor(i) - pos);
+        if(d < bd2 - 0.5){ bd2 = d; best = i; }
+      }
+      return best;
+    }
+    function activeIndex(){
+      var m = maxScroll();
+      if(track.scrollLeft >= m - 2){ return frames.length - 1; }
+      return nearestTo(track.scrollLeft);
+    }
+    function pad2(n){ return (n < 10 ? '0' : '') + n; }
+
+    function paint(){
+      var m = Math.max(1, maxScroll());
+      var s = track.scrollLeft;
+      var p = s / m; if(p < 0){ p = 0; } if(p > 1){ p = 1; }
+      if(fill){ fill.style.transform = 'scaleX(' + (0.25 + 0.75 * p).toFixed(4) + ')'; }
+      var a = activeIndex();
+      if(curEl){
+        var txt = pad2(a + 1);
+        if(curEl.firstChild ? curEl.firstChild.nodeValue !== txt : true){ curEl.textContent = txt; }
+      }
+      for(var k = 0; k < arws.length; k++){
+        var dir = parseInt(arws[k].getAttribute('data-kzl-dir'), 10);
+        arws[k].disabled = (dir < 0) ? (a <= 0) : (a >= frames.length - 1);
+      }
+      if(!calm()){
+        var w = track.clientWidth || 1;
+        for(var i = 0; i < frames.length; i++){
+          var f = frames[i], img = f.querySelector('img');
+          if(!img){ continue; }
+          var rel = (f.offsetLeft + f.offsetWidth / 2 - s - w / 2) / w;
+          if(rel > 1.2){ rel = 1.2; }
+          if(rel < -1.2){ rel = -1.2; }
+          img.style.transform = 'translate3d(' + (-rel * 5).toFixed(2) + '%,0,0) scale(1.14)';
+        }
+      }
+    }
+
+    function animTo(to){
+      if(anim){ unraf(anim.id); anim = null; }
+      var from = track.scrollLeft, dist = to - from;
+      if(Math.abs(dist) < 1.5 || calm()){ track.scrollLeft = to; paint(); return; }
+      var dur = 300 + Math.min(380, Math.abs(dist) * 0.55); /* 300–680 мс */
+      var o = { id: 0, t0: 0 };
+      anim = o;
+      function step(now){
+        if(!o.t0){ o.t0 = now; }
+        var t = (now - o.t0) / dur;
+        if(t > 1){ t = 1; }
+        track.scrollLeft = from + dist * ease(t);
+        paint();
+        if(t < 1){ o.id = raf(step); } else if(anim === o){ anim = null; }
+      }
+      o.id = raf(step);
+    }
+    function go(i){
+      if(i < 0){ i = 0; }
+      if(i > frames.length - 1){ i = frames.length - 1; }
+      animTo(targetFor(i));
+    }
+
+    /* стрелки */
+    for(var a1 = 0; a1 < arws.length; a1++){
+      (function(btn){
+        btn.addEventListener('click', function(){
+          go(activeIndex() + parseInt(btn.getAttribute('data-kzl-dir'), 10));
+        });
+      })(arws[a1]);
+    }
+
+    /* клавиатура: стрелки листают кадры, вертикальная прокрутка не перехватывается */
+    track.addEventListener('keydown', function(e){
+      var k = e.key;
+      if(k === 'ArrowRight' || k === 'Right'){ e.preventDefault(); go(activeIndex() + 1); }
+      else if(k === 'ArrowLeft' || k === 'Left'){ e.preventDefault(); go(activeIndex() - 1); }
+      else if(k === 'Home'){ e.preventDefault(); go(0); }
+      else if(k === 'End'){ e.preventDefault(); go(frames.length - 1); }
+    });
+
+    /* Tab по кадрам: лента доводит кадр до места */
+    track.addEventListener('focusin', function(e){
+      var n = e.target, i;
+      while(n && n !== track){
+        i = frames.indexOf(n);
+        if(i > -1){ go(i); return; }
+        n = n.parentNode;
+      }
+    });
+
+    /* pointer events: работает мышью, пальцем и пером */
+    if(window.PointerEvent){
+      root.className = root.className + ' kzl-drag';
+      track.addEventListener('pointerdown', function(e){
+        if(e.pointerType === 'mouse' && e.button !== 0){ return; }
+        if(anim){ unraf(anim.id); anim = null; }
+        drag = { id: e.pointerId, x: e.clientX, s0: track.scrollLeft, lx: e.clientX, lt: e.timeStamp || Date.now(), v: 0, moved: false };
+        if(track.setPointerCapture){ try{ track.setPointerCapture(e.pointerId); }catch(err){} }
+        track.className = track.className.replace(/\s*is-drag/g, '') + ' is-drag';
+      });
+      track.addEventListener('pointermove', function(e){
+        if(!drag || e.pointerId !== drag.id){ return; }
+        var dx = e.clientX - drag.x;
+        if(!drag.moved && Math.abs(dx) > 5){ drag.moved = true; }
+        if(!drag.moved){ return; }
+        track.scrollLeft = drag.s0 - dx;
+        var now = e.timeStamp || Date.now(), dt = now - drag.lt;
+        if(dt > 0){ drag.v = drag.v * 0.7 + ((e.clientX - drag.lx) / dt) * 0.3; }
+        drag.lx = e.clientX; drag.lt = now;
+        paint();
+        if(e.cancelable){ e.preventDefault(); }
+      }, { passive: false });
+
+      var endDrag = function(e){
+        if(!drag){ return; }
+        var d = drag; drag = null;
+        track.className = track.className.replace(/\s*is-drag/g, '');
+        if(track.releasePointerCapture && e && e.pointerId != null){
+          try{ track.releasePointerCapture(e.pointerId); }catch(err){}
+        }
+        if(!d.moved){ paint(); return; }
+        suppress = true;
+        setTimeout(function(){ suppress = false; }, 80);
+        var s = track.scrollLeft;
+        var i = nearestTo(s - d.v * 170);
+        if(Math.abs(d.v) > 0.35){
+          var here = nearestTo(s), forced = here + (d.v < 0 ? 1 : -1);
+          if(d.v < 0 && i < forced){ i = forced; }
+          if(d.v > 0 && i > forced){ i = forced; }
+        }
+        go(i);
+      };
+      track.addEventListener('pointerup', endDrag);
+      track.addEventListener('pointercancel', endDrag);
+      track.addEventListener('lostpointercapture', function(e){ if(drag){ endDrag(e); } });
+      track.addEventListener('click', function(e){
+        if(suppress){ e.preventDefault(); e.stopPropagation(); }
+      }, true);
+      track.addEventListener('dragstart', function(e){ e.preventDefault(); });
+    }
+
+    /* трекпад и колесо: лента сама доводит до кадра, страницу не держим */
+    track.addEventListener('scroll', function(){
+      if(!ticking){
+        ticking = true;
+        raf(function(){ ticking = false; paint(); });
+      }
+      if(drag || anim){ return; }
+      if(idle){ clearTimeout(idle); }
+      idle = setTimeout(function(){
+        if(drag || anim){ return; }
+        var t = targetFor(nearestTo(track.scrollLeft));
+        if(Math.abs(t - track.scrollLeft) > 2){ animTo(t); }
+      }, 160);
+    });
+
+    var rsz = null;
+    window.addEventListener('resize', function(){
+      paint();
+      if(rsz){ clearTimeout(rsz); }
+      rsz = setTimeout(function(){
+        if(drag || anim){ return; }
+        var t = targetFor(activeIndex());
+        if(Math.abs(t - track.scrollLeft) > 2){ animTo(t); }
+      }, 220);
+    });
+    window.addEventListener('load', function(){ paint(); });
+    setTimeout(paint, 400);
+    setTimeout(paint, 1200);
+    paint();
+  }
+
+  /* ================= кадр едет медленнее текста (не больше 6%) ================= */
+  var pxs = Array.prototype.slice.call(root.querySelectorAll('[data-kzl-px]'));
+  var vTick = false;
+  function paintV(){
+    if(calm() || !pxs.length){ return; }
+    var vh = window.innerHeight || 800, i, el, r, p, amt;
+    for(i = 0; i < pxs.length; i++){
+      el = pxs[i];
+      r = el.getBoundingClientRect();
+      if(r.bottom < -240 || r.top > vh + 240){ continue; }
+      amt = parseFloat(el.getAttribute('data-kzl-px')) || 6;
+      if(amt > 6){ amt = 6; }
+      p = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2);
+      if(p > 1){ p = 1; }
+      if(p < -1){ p = -1; }
+      el.style.transform = 'translate3d(0,' + (-p * amt).toFixed(2) + '%,0)';
+    }
+  }
+  function onScroll(){
+    if(vTick){ return; }
+    vTick = true;
+    raf(function(){ vTick = false; paintV(); });
+  }
+  window.addEventListener('scroll', onScroll);
+  window.addEventListener('resize', onScroll);
+  window.addEventListener('load', paintV);
+  setTimeout(paintV, 400);
+  setTimeout(paintV, 1200);
+  paintV();
+
+  /* ================= оверлей Marina ================= */
+  var ov = root.querySelector('.kzl-ov');
+  var opens = Array.prototype.slice.call(root.querySelectorAll('.kzl-ov-open'));
+  if(ov && opens.length){
+    var lastFocus = null, ovTimer = null;
+    function ovFocusables(){
+      return Array.prototype.slice.call(ov.querySelectorAll('button, a[href]'));
+    }
+    function ovKey(e){
+      if(e.key === 'Escape' || e.key === 'Esc'){ e.preventDefault(); ovClose(); return; }
+      if(e.key === 'Tab'){
+        var f = ovFocusables();
+        if(!f.length){ return; }
+        var first = f[0], last = f[f.length - 1];
+        if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+        else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+      }
+    }
+    function ovOpen(){
+      lastFocus = document.activeElement;
+      if(ovTimer){ clearTimeout(ovTimer); ovTimer = null; }
+      ov.hidden = false;
+      raf(function(){ ov.className = ov.className.replace(/\s*is-on/g, '') + ' is-on'; });
+      var x = ov.querySelector('.kzl-ov-x');
+      if(x){ x.focus(); }
+      document.addEventListener('keydown', ovKey, true);
+    }
+    function ovClose(){
+      ov.className = ov.className.replace(/\s*is-on/g, '');
+      document.removeEventListener('keydown', ovKey, true);
+      if(calm()){ ov.hidden = true; }
+      else { ovTimer = setTimeout(function(){ ov.hidden = true; ovTimer = null; }, 300); }
+      if(lastFocus && lastFocus.focus){ lastFocus.focus(); }
+    }
+    for(var o1 = 0; o1 < opens.length; o1++){
+      opens[o1].addEventListener('click', function(e){ e.preventDefault(); ovOpen(); });
+    }
+    var xb = ov.querySelector('.kzl-ov-x');
+    if(xb){ xb.addEventListener('click', ovClose); }
+    ov.addEventListener('click', function(e){ if(e.target === ov){ ovClose(); } });
+  }
+
+  /* ================= заявка: честная заглушка ================= */
+  var form = root.querySelector('.kzl-form');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var n = form.querySelector('[name="name"]');
+      var p = form.querySelector('[name="phone"]');
+      if(n && !n.value.replace(/\s/g, '')){ n.focus(); return; }
+      if(p && !p.value.replace(/\s/g, '')){ p.focus(); return; }
+      var ok = form.querySelector('.kzl-ok');
+      if(ok){ ok.hidden = false; }
+      var btn = form.querySelector('.kzl-submit');
+      if(btn){ btn.disabled = true; btn.textContent = 'Заявка отправлена'; }
+    });
+  }
+})();
+</script>
+
+<!-- ===================== КОНЕЦ БЛОКА ===================== -->
+
+</body>
+</html>
