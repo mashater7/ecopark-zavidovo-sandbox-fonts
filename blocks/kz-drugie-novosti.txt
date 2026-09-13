@@ -57,13 +57,14 @@
 .r[data-alias-record-type="404"]:not(.azNHide) .t404{margin:0!important;padding:0!important}
 
 /* ── шапка секции: линейка сверху, имя слева, ссылка справа ─────────────── */
-/* обёртка держит ширину и поля, линейка — на внутренней строке,
-   поэтому она начинается и кончается ровно там, где хайрлайны карточек */
+/* Линейки-отбивки сверху НЕТ (правка 13.09.2026): она шла в паре с
+   хайрлайнами карточек — две полосы рядом читались как мусор. Секцию
+   отделяет воздух, как у «Жизни посёлка» на главной. */
 .azd-h{
   width:100%;max-width:1420px;margin:0 auto clamp(28px,3.2vw,46px);
   padding-inline:var(--gutter)}
 .azd-hin{
-  border-top:1px solid var(--line);padding-top:var(--sec);
+  padding-top:var(--sec);
   display:flex;align-items:flex-end;justify-content:space-between;
   gap:24px;flex-wrap:wrap}
 .azd-h2{
