@@ -1,5 +1,5 @@
 
-<!-- ===== ОДЁЖКА ЛЕНТЫ НОВОСТЕЙ (карусель, стрелки по краям) — ленту T404 rec3850933201 ===== -->
+<!-- ===== ОДЁЖКА ЛЕНТЫ НОВОСТЕЙ (карусель, стрелки по краям, ряды склеены) ===== -->
 <!-- ============================================================================
      АКВАТОРИЯ ЗАВИДОВО · ОДЁЖКА ДЛЯ ТИЛЬДИНОЙ ЛЕНТЫ НОВОСТЕЙ НА ГЛАВНОЙ
      Тильда: блок T123 (HTML). Контейнер 100%, отступы блока 0.
@@ -201,12 +201,17 @@
 
   var MES = {january:'января',february:'февраля',march:'марта',april:'апреля',
     may:'мая',june:'июня',july:'июля',august:'августа',september:'сентября',
-    october:'октября',november:'ноября',december:'декабря'};
+    october:'октября',november:'ноября',december:'декабря',
+    jan:'января',feb:'февраля',mar:'марта',apr:'апреля',jun:'июня',jul:'июля',
+    aug:'августа',sep:'сентября',sept:'сентября',oct:'октября',nov:'ноября',dec:'декабря'};
+  var SKOLKO = 12;   /* сколько новостей оставить в карусели */
   var EMO = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu;
 
   function poRusski(t){
     var s = t.toLowerCase(), mon = null;
-    for (var k in MES) if (s.indexOf(k) > -1) { mon = k; break; }
+    var dlinnye = ['january','february','march','april','september','october','november','december','june','july','august','may'];
+    for (var i = 0; i < dlinnye.length; i++) if (s.indexOf(dlinnye[i]) > -1) { mon = dlinnye[i]; break; }
+    if (!mon) { var m = s.match(/\b(jan|feb|mar|apr|may|jun|jul|aug|sept|sep|oct|nov|dec)\b/); if (m) mon = m[1]; }
     if (!mon) return null;                       /* дата уже не английская */
     var bezGoda = s.replace(/20\d{2}/,'');
     var d = bezGoda.match(/\d{1,2}/);
@@ -227,6 +232,25 @@
 
     var lenta = rec.querySelector('.t404'), cont = rec.querySelector('.t-container');
     if (!lenta || !cont) return;
+
+    /* Тильда раскладывает ленту по рядам: у каждого ряда свой .t-container.
+       Собираем все карточки в первый контейнер, лишние ряды убираем,
+       иначе горизонтальной прокрутке нечего листать. */
+    (function(){
+      var ryady = lenta.querySelectorAll('.t-container');
+      if (ryady.length < 2) return;
+      for (var i = 1; i < ryady.length; i++) {
+        var kartochki = ryady[i].querySelectorAll('.t404__col');
+        for (var j = 0; j < kartochki.length; j++) cont.appendChild(kartochki[j]);
+        ryady[i].parentNode.removeChild(ryady[i]);
+      }
+    })();
+
+    /* оставляем только свежие */
+    (function(){
+      var vse = cont.querySelectorAll('.t404__col');
+      for (var i = SKOLKO; i < vse.length; i++) vse[i].parentNode.removeChild(vse[i]);
+    })();
 
     /* шапка секции */
     if (ZAGOLOVOK) {
