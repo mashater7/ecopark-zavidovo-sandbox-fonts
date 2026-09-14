@@ -1,0 +1,413 @@
+
+<!-- ===== ОДЁЖКА ЛЕНТЫ НОВОСТЕЙ (карусель) — красит тильдину ленту T404 rec3850933201 ===== -->
+<!-- ============================================================================
+     АКВАТОРИЯ ЗАВИДОВО · ОДЁЖКА ДЛЯ ТИЛЬДИНОЙ ЛЕНТЫ НОВОСТЕЙ НА ГЛАВНОЙ
+     Тильда: блок T123 (HTML). Контейнер 100%, отступы блока 0.
+     Ставить на /akvatoria ПОСЛЕ ленты (rec3837320601, блок IX02 / T404).
+
+     Что делает: красит тильдину ленту точно как кодовый блок «Жизнь посёлка»
+     на той же странице — хайрлайн сверху карточки, кадр 16:10, дата мелким
+     изумрудным капсом, заголовок Poiret One; при наведении линейка зеленеет
+     и кадр наезжает. Плюс переводит английские даты Тильды на русский
+     («Tuesday, September 8» → «8 сентября») и рисует шапку секции
+     «Жизнь посёлка» + ссылку «Все новости», которой у тильдиного блока нет.
+
+     ПЕРЕКЛЮЧАТЕЛИ — в начале скрипта:
+       ZAGOLOVOK    true  — рисовать шапку секции (поставить false, если
+                            кодовый блок «Жизнь посёлка» остаётся стоять выше)
+       IMYA         «Жизнь посёлка»
+       VSE_NOVOSTI  «/news»
+       DATY_RU      true  — переводить даты на русский
+       UBRAT_EMOJI  true  — чистить эмодзи из заголовков и текстов
+       SPRYATAT_KODOVYY true — прятать кодовый блок «Жизнь посёлка»
+                            (rec3475954201): его шесть карточек ведут на
+                            akvatoriya-news-item.html, которой на сайте нет.
+                            false — вернуть блок на страницу
+
+     ГРАБЛИ (проверено на боевой /news 05.09, повторены здесь):
+       1. t404_unifyHeights пишет высоты в style → height:auto!important;
+       2. .t-container::before/after — распорки сетки, в гриде рвут ряды;
+       3. пропорции кадра Тильда пишет в style → --ar и aspect-ratio важностью.
+
+     Файл самодостаточный: внизу демо-лента в разметке T404 с настоящими
+     новостями. На странице Тильды скрипт снимает демо сам (признак
+     #allrecords), поэтому блок копируется целиком, вырезать ничего не надо.
+     ============================================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+/* ── корень: тильдина лента T404 на этой странице ───────────────────────── */
+.r[data-record-type="404"]{
+  --emerald:#09763F; --accent:#09763F;
+  --ink:#1d2723; --ink-2:#4a5551; --muted:#8b918e;
+  --line:#e7e4df; --cream:#f7f6f4;
+  --fs-h2:clamp(30px,4.6vw,62px);
+  --gutter:clamp(24px,6vw,86px); --sec:clamp(64px,7.2vw,110px);
+  --ease:cubic-bezier(.22,.75,.24,1);
+  background:#fff;
+  padding-top:var(--sec)!important; padding-bottom:var(--sec)!important;
+}
+/* шапки нет — верхний отступ отдаём блоку, который стоит выше */
+.r[data-record-type="404"].azl-noh{padding-top:0!important}
+.r[data-record-type="404"] *,
+.r[data-record-type="404"] *::before,
+.r[data-record-type="404"] *::after{box-sizing:border-box}
+.r[data-record-type="404"] .t404{margin:0!important;padding:0!important}
+
+/* ── шапка секции: заголовок слева, «Все новости» справа ────────────────── */
+.r[data-record-type="404"]{--gap:clamp(20px,2.6vw,38px)}
+.r[data-record-type="404"] .azl-right{display:flex;align-items:center;gap:16px}
+.r[data-record-type="404"] .azl-nav{display:flex;gap:8px}
+.r[data-record-type="404"] .azl-nav button{
+  width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;
+  cursor:pointer;font-size:17px;line-height:1;color:var(--ink);
+  transition:border-color .35s var(--ease),color .35s var(--ease),opacity .35s}
+.r[data-record-type="404"] .azl-nav button:hover{border-color:var(--emerald);color:var(--emerald)}
+.r[data-record-type="404"] .azl-nav button[disabled]{opacity:.32;cursor:default;border-color:var(--line);color:var(--ink)}
+.r[data-record-type="404"] .t404__descr{display:none!important}
+.r[data-record-type="404"] .t404__title{
+  display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.r[data-record-type="404"] .azl-h{
+  width:100%;max-width:1420px;margin:0 auto clamp(32px,3.6vw,54px);
+  padding-inline:var(--gutter);
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:24px;flex-wrap:wrap}
+.r[data-record-type="404"] .azl-h2{
+  margin:0;font-family:'Poiret One',sans-serif;font-weight:400;
+  font-size:var(--fs-h2);line-height:1.02;letter-spacing:.015em;color:var(--ink)}
+.r[data-record-type="404"] .azl-all{
+  font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;
+  position:relative;padding-bottom:6px;display:inline-block;white-space:nowrap}
+.r[data-record-type="404"] .azl-all::after{
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;
+  background:currentColor;transform-origin:right;transition:transform .45s var(--ease)}
+.r[data-record-type="404"] .azl-all:hover::after{animation:azlSweep .55s var(--ease)}
+@keyframes azlSweep{0%{transform:scaleX(1);transform-origin:right}
+  49%{transform:scaleX(0);transform-origin:right}
+  50%{transform:scaleX(0);transform-origin:left}100%{transform:scaleX(1);transform-origin:left}}
+
+/* ── сетка вместо тильдиных колонок ────────────────────────────────────── */
+.r[data-record-type="404"] .t-container{
+  width:100%!important;max-width:1420px!important;margin:0 auto!important;
+  padding-inline:var(--gutter)!important;
+  display:flex!important;grid-template-columns:none!important;
+  gap:var(--gap);
+  overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  scroll-padding-inline:var(--gutter);
+  scrollbar-width:none;-ms-overflow-style:none;
+  padding-bottom:6px!important}
+.r[data-record-type="404"] .t-container::-webkit-scrollbar{display:none}
+.r[data-record-type="404"] .t-container::before,
+.r[data-record-type="404"] .t-container::after{display:none!important}
+.r[data-record-type="404"] .t404__col{
+  width:auto!important;max-width:none!important;min-width:0!important;
+  margin:0!important;padding:0!important;float:none!important;
+  min-height:0!important;height:auto!important;
+  flex:0 0 calc((100% - 2*var(--gap))/3);scroll-snap-align:start}
+
+/* ── карточка = .ni из блока «Жизнь посёлка» ────────────────────────────── */
+.r[data-record-type="404"] .t404__link{
+  display:flex!important;flex-direction:column;gap:12px;
+  padding-top:24px;border-top:1px solid var(--line);
+  text-decoration:none!important;color:var(--ink)!important;
+  transition:border-color .5s var(--ease)}
+.r[data-record-type="404"] .t404__col:hover .t404__link{border-top-color:var(--emerald)}
+
+.r[data-record-type="404"] .t404__imgbox{
+  margin:0 0 6px!important;padding:0!important;height:auto!important;
+  overflow:hidden;background:var(--cream)}
+.r[data-record-type="404"] .t404__img{
+  position:static!important;width:100%!important;height:auto!important;
+  aspect-ratio:16/10;--ar:16/10!important;
+  background-size:cover!important;background-position:center!important;
+  transition:transform 1.3s var(--ease)}
+.r[data-record-type="404"] .t404__col:hover .t404__img{transform:scale(1.05)}
+.r[data-record-type="404"] .t404__separator{display:none!important}
+
+.r[data-record-type="404"] .t404__textwrapper{
+  display:flex;flex-direction:column;gap:12px;padding:0!important;margin:0!important}
+.r[data-record-type="404"] .t404__uptitle{margin:0!important;padding:0!important}
+.r[data-record-type="404"] .t404__date{
+  font-family:'Montserrat',sans-serif!important;font-weight:300!important;
+  font-size:11px!important;letter-spacing:.24em!important;line-height:1.4!important;
+  text-transform:uppercase!important;color:var(--accent)!important}
+.r[data-record-type="404"] .t404__title{
+  font-family:'Poiret One',sans-serif!important;font-weight:400!important;
+  font-size:clamp(19px,1.75vw,25px)!important;line-height:1.24!important;
+  color:var(--ink)!important;margin:0!important;height:auto!important;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  transition:color .4s var(--ease)}
+.r[data-record-type="404"] .t404__col:hover .t404__title{color:var(--emerald)!important}
+.r[data-record-type="404"] .t404__descr{
+  font-family:'Montserrat',sans-serif!important;font-weight:300!important;
+  font-size:15.5px!important;line-height:1.85!important;color:var(--ink-2)!important;
+  margin:0!important;height:auto!important;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ── появление на скролле, как у соседнего блока ────────────────────────── */
+.r[data-record-type="404"] .t404__col{
+  opacity:0;transform:translateY(22px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease);
+  transition-delay:calc(var(--d,0)*90ms)}
+.r[data-record-type="404"] .t404__col.azl-in{opacity:1;transform:none}
+
+@media (max-width:1080px){
+  .r[data-record-type="404"] .t-container{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){
+  .r[data-record-type="404"] .t-container{grid-template-columns:minmax(0,1fr)}
+  .r[data-record-type="404"] .t404__img{aspect-ratio:3/2;--ar:3/2!important}}
+@media (prefers-reduced-motion:reduce){
+  .r[data-record-type="404"] .t404__col{opacity:1!important;transform:none!important;transition:none!important}
+  .r[data-record-type="404"] .t404__img{transition:none!important}}
+
+/* ── карусель: сколько карточек видно ───────────────────────────────────── */
+@media (max-width:1100px){
+  .r[data-record-type="404"] .t404__col{flex:0 0 calc((100% - var(--gap))/2)}
+}
+@media (max-width:680px){
+  .r[data-record-type="404"] .t404__col{flex:0 0 82%}
+  .r[data-record-type="404"] .azl-h{align-items:center}
+  .r[data-record-type="404"] .azl-right{gap:12px}
+}
+</style>
+
+<script>
+(function(){
+  /* ── переключатели ─────────────────────────────────────────────────── */
+  var ZAGOLOVOK   = true;
+  var IMYA        = 'Новости посёлка';
+  var VSE_NOVOSTI = '/news';
+  var DATY_RU     = true;
+  var UBRAT_EMOJI = true;
+  /* Кодовый блок «Жизнь посёлка» (шесть демо-карточек со ссылками на
+     akvatoriya-news-item.html — такой страницы на kzavidovo.ru нет).
+     Лента заменяет его. false — вернуть блок на страницу. */
+  var SPRYATAT_KODOVYY = false;
+  var KODOVYY = '';
+
+  var MES = {january:'января',february:'февраля',march:'марта',april:'апреля',
+    may:'мая',june:'июня',july:'июля',august:'августа',september:'сентября',
+    october:'октября',november:'ноября',december:'декабря'};
+  var EMO = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu;
+
+  function poRusski(t){
+    var s = t.toLowerCase(), mon = null;
+    for (var k in MES) if (s.indexOf(k) > -1) { mon = k; break; }
+    if (!mon) return null;                       /* дата уже не английская */
+    var bezGoda = s.replace(/20\d{2}/,'');
+    var d = bezGoda.match(/\d{1,2}/);
+    if (!d) return null;
+    var y = s.match(/20\d{2}/);
+    return parseInt(d[0],10) + ' ' + MES[mon] + (y ? ' ' + y[0] : '');
+  }
+
+  function snyatVysoty(rec){
+    [].forEach.call(rec.querySelectorAll('.t404__title,.t404__descr,.t404__col'), function(el){
+      if (el.style.height && el.style.height !== 'auto') el.style.height = 'auto';
+    });
+  }
+
+  function odet(rec){
+    if (rec.getAttribute('data-azl') === 'y') { snyatVysoty(rec); return; }
+    rec.setAttribute('data-azl','y');
+
+    var lenta = rec.querySelector('.t404'), cont = rec.querySelector('.t-container');
+    if (!lenta || !cont) return;
+
+    /* шапка секции */
+    if (ZAGOLOVOK) {
+      var h = document.createElement('div');
+      h.className = 'azl-h';
+      h.innerHTML = '<h2 class="azl-h2"></h2>'
+        + '<span class="azl-right">'
+        + '<span class="azl-nav"><button type="button" data-d="-1" aria-label="Предыдущие новости">&#8592;</button>'
+        + '<button type="button" data-d="1" aria-label="Следующие новости">&#8594;</button></span>'
+        + '<a class="azl-all"></a></span>';
+      h.querySelector('.azl-h2').textContent = IMYA;
+      var a = h.querySelector('.azl-all');
+      a.textContent = 'Все новости';
+      a.setAttribute('href', VSE_NOVOSTI);
+      lenta.insertBefore(h, cont);
+    } else {
+      rec.classList.add('azl-noh');
+    }
+
+    /* прокрутка ленты стрелками */
+    (function(){
+      var nav = rec.querySelector('.azl-nav');
+      if (!nav) return;
+      var knopki = nav.querySelectorAll('button');
+      function shag(){
+        var c = cont.querySelector('.t404__col');
+        if (!c) return 320;
+        var g = parseFloat(getComputedStyle(cont).gap) || 24;
+        return c.getBoundingClientRect().width + g;
+      }
+      function osvezhit(){
+        var max = cont.scrollWidth - cont.clientWidth - 2;
+        knopki[0].disabled = cont.scrollLeft <= 2;
+        knopki[1].disabled = cont.scrollLeft >= max;
+        nav.style.display = max > 4 ? 'flex' : 'none';
+      }
+      [].forEach.call(knopki, function(b){
+        b.addEventListener('click', function(){
+          cont.scrollBy({left: shag() * parseInt(b.getAttribute('data-d'),10), behavior:'smooth'});
+        });
+      });
+      cont.addEventListener('scroll', osvezhit, {passive:true});
+      window.addEventListener('resize', osvezhit);
+      setTimeout(osvezhit, 120); setTimeout(osvezhit, 800);
+    })();
+
+    var cols = rec.querySelectorAll('.t404__col');
+    [].forEach.call(cols, function(col, i){
+      col.style.setProperty('--d', i % 3);
+
+      var dt = col.querySelector('.t404__date');
+      if (DATY_RU && dt) {
+        var r = poRusski(dt.textContent.trim());
+        if (r) dt.textContent = r;
+      }
+      if (UBRAT_EMOJI) {
+        [].forEach.call(col.querySelectorAll('.t404__title,.t404__descr'), function(el){
+          el.textContent = el.textContent.replace(EMO,'').replace(/\s{2,}/g,' ').trim();
+        });
+      }
+    });
+    snyatVysoty(rec);
+
+    /* появление + страховка: ни одна карточка не остаётся невидимой */
+    function pokazat(el){ el.classList.add('azl-in'); }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if (e.isIntersecting) { pokazat(e.target); io.unobserve(e.target); } });
+      }, {rootMargin:'0px 0px -8% 0px', threshold:.05});
+      [].forEach.call(cols, function(c){ io.observe(c); });
+      setTimeout(function(){ [].forEach.call(cols, pokazat); }, 2200);
+    } else {
+      [].forEach.call(cols, pokazat);
+    }
+
+    /* Тильда ровняет высоты после загрузки картинок — чистим ещё раз */
+    [400, 1200, 2500].forEach(function(ms){ setTimeout(function(){ snyatVysoty(rec); }, ms); });
+  }
+
+  function start(){
+    var demo = document.getElementById('azl-demo');
+    if (demo && document.getElementById('allrecords')) demo.remove();  /* на странице Тильды демо не нужно */
+
+    if (SPRYATAT_KODOVYY && document.getElementById(KODOVYY) && !document.getElementById('azl-hide')) {
+      var st = document.createElement('style');
+      st.id = 'azl-hide';
+      st.textContent = '#' + KODOVYY + '{display:none!important}';
+      document.head.appendChild(st);
+    }
+
+    [].forEach.call(document.querySelectorAll('.r[data-record-type="404"]'), odet);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+  window.addEventListener('load', start);
+})();
+</script>
+
+<!-- ▼▼▼ ДЕМО: так лента выглядит в одёжке. На странице Тильды снимается само ▼▼▼ -->
+<div id="azl-demo">
+<div class="r t-rec" data-record-type="404" style="padding-top:90px;padding-bottom:90px">
+ <div class="t404">
+  <div class="t-container">
+
+   <div class="t404__col t-col t-col_4 t-align_left">
+    <a class="t404__link" href="/vivayachts">
+     <div class="t404__imgbox">
+      <div class="t404__img t-bgimg" style="background-image:url('https://static.tildacdn.com/tild6364-3638-4430-b633-396363666461/i.jpg')"></div>
+      <div class="t404__separator"></div>
+     </div>
+     <div class="t404__textwrapper">
+      <div class="t404__uptitle t-uptitle"><span class="t404__date">Tuesday, September 8</span></div>
+      <div class="t404__title t-heading t-heading_xs">С 3 по 6 сентября проходит ежегодная выставка яхт, в которой мы принимаем участие</div>
+      <div class="t404__descr t-descr t-descr_xs">Программа события охватывает территорию курорта в 56 гектаров.</div>
+     </div>
+    </a>
+   </div>
+
+   <div class="t404__col t-col t-col_4 t-align_left">
+    <a class="t404__link" href="/aquaopen">
+     <div class="t404__imgbox">
+      <div class="t404__img t-bgimg" style="background-image:url('https://static.tildacdn.com/tild3230-6135-4964-a461-343638643839/de-1200.jpg')"></div>
+      <div class="t404__separator"></div>
+     </div>
+     <div class="t404__textwrapper">
+      <div class="t404__uptitle t-uptitle"><span class="t404__date">Friday, November 21</span></div>
+      <div class="t404__title t-heading t-heading_xs">Аквапарк открыт</div>
+      <div class="t404__descr t-descr t-descr_xs">Пока работает для гостей отелей курорта и прессы. Полностью для посетителей откроется позже.</div>
+     </div>
+    </a>
+   </div>
+
+   <div class="t404__col t-col t-col_4 t-align_left">
+    <a class="t404__link" href="/tpu">
+     <div class="t404__imgbox">
+      <div class="t404__img t-bgimg" style="background-image:url('https://static.tildacdn.com/tild3230-6131-4830-b133-666236363438/_wF80hgOphc.jpg')"></div>
+      <div class="t404__separator"></div>
+     </div>
+     <div class="t404__textwrapper">
+      <div class="t404__uptitle t-uptitle"><span class="t404__date">Tuesday, June 10</span></div>
+      <div class="t404__title t-heading t-heading_xs">Последние новости о ТПУ «Завидово»</div>
+      <div class="t404__descr t-descr t-descr_xs">Проект, который превратит Завидово в центр туризма федерального уровня.</div>
+     </div>
+    </a>
+   </div>
+
+   <div class="t404__col t-col t-col_4 t-align_left">
+    <a class="t404__link" href="/teplohod">
+     <div class="t404__imgbox">
+      <div class="t404__img t-bgimg" style="background-image:url('https://static.tildacdn.com/tild3136-3934-4436-b838-376239623561/Frame_2784.jpg')"></div>
+      <div class="t404__separator"></div>
+     </div>
+     <div class="t404__textwrapper">
+      <div class="t404__uptitle t-uptitle"><span class="t404__date">Tuesday, June 17</span></div>
+      <div class="t404__title t-heading t-heading_xs">Расписание теплохода в Конаково</div>
+      <div class="t404__descr t-descr t-descr_xs">Речные прогулки по Волге начались — публикуем расписание рейсов на сезон.</div>
+     </div>
+    </a>
+   </div>
+
+   <div class="t404__col t-col t-col_4 t-align_left">
+    <a class="t404__link" href="/rzhd">
+     <div class="t404__imgbox">
+      <div class="t404__img t-bgimg" style="background-image:url('https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/news/02-stroysezon.jpg')"></div>
+      <div class="t404__separator"></div>
+     </div>
+     <div class="t404__textwrapper">
+      <div class="t404__uptitle t-uptitle"><span class="t404__date">Tuesday, April 1</span></div>
+      <div class="t404__title t-heading t-heading_xs">Строительство железной дороги до Завидово</div>
+      <div class="t404__descr t-descr t-descr_xs">Ветка сократит дорогу из Москвы: рассказываем, что уже сделано.</div>
+     </div>
+    </a>
+   </div>
+
+   <div class="t404__col t-col t-col_4 t-align_left">
+    <a class="t404__link" href="/kafe-i-restorani">
+     <div class="t404__imgbox">
+      <div class="t404__img t-bgimg" style="background-image:url('https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/news/05-sup.jpg')"></div>
+      <div class="t404__separator"></div>
+     </div>
+     <div class="t404__textwrapper">
+      <div class="t404__uptitle t-uptitle"><span class="t404__date">Tuesday, November 26</span></div>
+      <div class="t404__title t-heading t-heading_xs">Кафе и рестораны рядом</div>
+      <div class="t404__descr t-descr t-descr_xs">Собрали места, куда можно доехать за десять минут от посёлка.</div>
+     </div>
+    </a>
+   </div>
+
+  </div>
+ </div>
+</div>
+</div>
+<!-- ▲▲▲ КОНЕЦ ДЕМО ▲▲▲ -->
+
