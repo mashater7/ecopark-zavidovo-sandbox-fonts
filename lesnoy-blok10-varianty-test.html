@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Блок «Вокруг посёлка» — три варианта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2f2f2f;--muted:#5c5c5c;--green:#09763F;--g2:#15a06a;--line:#e3e3de;--sand:#f6f3ee}
+*{box-sizing:border-box}
+body{margin:0;background:#eceae5;font-family:'Poiret One','Century Gothic',sans-serif;color:var(--ink)}
+.page{max-width:1340px;margin:0 auto;padding:36px 20px 80px}
+.page h1{font-size:30px;font-weight:400;margin:0 0 6px}
+.page .lead{font-size:17px;color:var(--muted);margin:0 0 34px;line-height:1.6;max-width:80ch}
+.case{margin:0 0 44px}
+.case__n{display:flex;align-items:baseline;gap:12px;margin:0 0 6px}
+.case__tag{font-family:'Montserrat',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--green);padding:5px 10px;border-radius:3px}
+.case__name{font-size:24px}
+.case__why{font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 14px;max-width:80ch}
+.frame{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 20px 44px -34px rgba(20,40,25,.6)}
+
+/* ============ ОБЩЕЕ ДЛЯ ВАРИАНТОВ ============ */
+.sec{padding:52px 48px}
+.sec h2{font-size:clamp(26px,3.4vw,40px);text-transform:uppercase;font-weight:400;letter-spacing:.02em;margin:0 0 6px;line-height:1.06}
+.sec h2 i{font-style:normal;color:var(--green)}
+.sec .dek{font-size:17px;color:var(--muted);margin:0 0 30px;max-width:62ch;line-height:1.55}
+.num{font-family:'Poiret One',sans-serif;color:var(--green);line-height:.9}
+.lbl{font-family:'Montserrat',Arial,sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#8d8d87}
+
+/* ============ A · РАЗВОРОТ ============ */
+#lesA .a-wrap{display:grid;grid-template-columns:1.25fr .95fr;gap:36px;align-items:stretch}
+#lesA .a-stage{position:relative;border-radius:8px;overflow:hidden;min-height:430px;background:var(--sand)}
+#lesA .a-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s cubic-bezier(.23,1,.32,1)}
+#lesA .a-stage img.on{opacity:1}
+#lesA .a-stage .a-cap{position:absolute;left:0;right:0;bottom:0;padding:22px 24px;color:#fff;
+  background:linear-gradient(to top,rgba(18,28,20,.72),rgba(18,28,20,0));font-size:17px;line-height:1.5}
+#lesA .a-list{display:flex;flex-direction:column;justify-content:center}
+#lesA .a-row{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:baseline;padding:20px 4px;border-top:1px solid var(--line);cursor:pointer;
+  transition:padding-left .35s cubic-bezier(.23,1,.32,1)}
+#lesA .a-row:last-child{border-bottom:1px solid var(--line)}
+#lesA .a-row:hover{padding-left:10px}
+#lesA .a-row.on{padding-left:10px}
+#lesA .a-row .num{font-size:30px}
+#lesA .a-row h3{margin:0;font-size:21px;text-transform:uppercase;letter-spacing:.05em;font-weight:400;transition:color .3s}
+#lesA .a-row.on h3{color:var(--green)}
+#lesA .a-row p{margin:6px 0 0;font-size:15.5px;color:var(--muted);line-height:1.55;max-width:46ch;
+  max-height:0;opacity:0;overflow:hidden;transition:max-height .45s cubic-bezier(.23,1,.32,1),opacity .35s}
+#lesA .a-row.on p{max-height:140px;opacity:1}
+
+/* ============ B · ПОЛОСА ============ */
+#lesB .b-strip{display:flex;gap:6px;height:440px;border-radius:8px;overflow:hidden}
+#lesB .b-pan{position:relative;flex:1;min-width:176px;overflow:hidden;cursor:pointer;background:#123;
+  transition:flex .6s cubic-bezier(.23,1,.32,1)}
+#lesB .b-pan.on{flex:2.6}
+#lesB .b-pan img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.85);transition:transform .8s cubic-bezier(.23,1,.32,1)}
+#lesB .b-pan.on img{transform:scale(1.04)}
+#lesB .b-pan::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(14,24,16,.86),rgba(14,24,16,.12) 55%),linear-gradient(to bottom,rgba(14,24,16,.55),rgba(14,24,16,0) 26%)}
+#lesB .b-pan:not(.on)::after{background:linear-gradient(to top,rgba(14,24,16,.92),rgba(14,24,16,.30) 72%)}
+#lesB .b-in h3{color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+#lesB .b-pan--flat{background:var(--green)}
+#lesB .b-pan--flat::after{background:none}
+#lesB .b-in{position:absolute;inset:auto 0 0 0;padding:22px 20px;color:#fff;z-index:1}
+#lesB .b-in h3{margin:0;font-size:19px;text-transform:uppercase;letter-spacing:.06em;font-weight:400;line-height:1.2}
+#lesB .b-pan:not(.on) .b-in{padding:22px 18px}
+#lesB .b-in p{margin:10px 0 0;font-size:15.5px;line-height:1.5;color:rgba(255,255,255,.88);max-width:40ch;
+  opacity:0;transform:translateY(8px);transition:opacity .45s .12s,transform .45s .12s cubic-bezier(.23,1,.32,1)}
+#lesB .b-pan.on p{opacity:1;transform:none}
+#lesB .b-fact{position:absolute;top:20px;left:20px;z-index:1;color:#fff}
+#lesB .b-fact b{display:block;font-weight:400;font-size:34px;line-height:1}
+#lesB .b-fact span{font-family:'Montserrat',Arial,sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.82}
+
+/* ============ C · РЕЕСТР ============ */
+#lesC .c-hold{position:relative;border-radius:8px;overflow:hidden;background:#fff}
+#lesC .c-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.11;filter:saturate(.3) blur(2px)}
+#lesC .c-in{position:relative;padding:40px 40px 34px}
+#lesC .c-row{display:grid;grid-template-columns:200px 1fr 150px;gap:28px;align-items:center;padding:24px 0;border-bottom:1px solid var(--line)}
+#lesC .c-row:first-child{border-top:1px solid var(--line)}
+#lesC .c-row h3{margin:0;font-size:22px;text-transform:uppercase;letter-spacing:.05em;font-weight:400}
+#lesC .c-row p{margin:0;font-size:16px;color:var(--muted);line-height:1.55;max-width:62ch}
+#lesC .c-fact{text-align:right}
+#lesC .c-fact b{display:block;font-weight:400;font-size:32px;color:var(--green);line-height:1}
+#lesC .c-fact span{font-family:'Montserrat',Arial,sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8d8d87}
+
+@media (max-width:980px){
+  .sec{padding:34px 20px}
+  #lesA .a-wrap{grid-template-columns:1fr;gap:20px}
+  #lesA .a-stage{min-height:260px}
+  #lesB .b-strip{flex-direction:column;height:auto}
+  #lesB .b-pan{height:132px}
+  #lesB .b-pan.on{height:300px;flex:none}
+  #lesB .b-in h3{white-space:normal}
+  #lesC .c-row{grid-template-columns:1fr;gap:8px}
+  #lesC .c-fact{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms !important}}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Блок «Вокруг посёлка» — три варианта</h1>
+  <p class="lead">Содержание одно и то же — активный отдых, заповедник и река, безопасность, логистика. Отличается принцип подачи. Кликайте: все три живые.</p>
+
+  <!-- ================= A ================= -->
+  <section class="case">
+    <div class="case__n"><span class="case__tag">Вариант A</span><span class="case__name">Разворот</span></div>
+    <p class="case__why">Один большой кадр вместо четырёх мелких. Справа — оглавление из четырёх строк: выбираете тему, кадр меняется, текст раскрывается под строкой. Спокойно и по-журнальному.</p>
+    <div class="frame"><div class="sec" id="lesA">
+      <h2>Вокруг <i>посёлка</i></h2>
+      <p class="dek">Заповедник, река и лес рядом. Трасса и станция — в получасе.</p>
+      <div class="a-wrap">
+        <div class="a-stage">
+          <img class="on" data-k="1" src="https://static.tildacdn.com/tild6562-6464-4666-a639-326138303630/Rectangle_11_1.jpg" alt="Активный отдых">
+          <img data-k="2" src="https://static.tildacdn.com/tild6635-6134-4834-a632-623238656566/CV3WHLM1ItI.jpg" alt="Заповедник и река">
+          <img data-k="3" src="https://static.tildacdn.com/tild6463-3361-4531-a163-336566623564/Rectangle_289_1.jpg" alt="Безопасность">
+          <img data-k="4" src="https://static.tildacdn.com/tild6562-6464-4666-a639-326138303630/Rectangle_11_1.jpg" alt="Логистика">
+          <div class="a-cap">Пять пляжей в округе, инструкторы водных активностей для взрослых и детей</div>
+        </div>
+        <div class="a-list">
+          <div class="a-row on" data-k="1">
+            <span class="num">01</span>
+            <div><h3>Активный отдых</h3>
+              <p>Водный спорт, велопрогулки, квадроциклы, гольф и теннис. Грибы, ягоды, рыбалка и охота — в лесах вокруг.</p></div>
+          </div>
+          <div class="a-row" data-k="2">
+            <span class="num">02</span>
+            <div><h3>Заповедник и река</h3>
+              <p>Национальный заповедник Завидово в трёх километрах. По границе посёлка течёт Дойбица, в ста метрах начинается лес.</p></div>
+          </div>
+          <div class="a-row" data-k="3">
+            <span class="num">03</span>
+            <div><h3>Безопасность</h3>
+              <p>Закрытая территория, круглосуточная охрана, видеонаблюдение. Уборка и содержание — на управляющей компании.</p></div>
+          </div>
+          <div class="a-row" data-k="4">
+            <span class="num">04</span>
+            <div><h3>Логистика</h3>
+              <p>Собственный выезд на трассу М-11. Автобусы из Конаково и Твери, станция Путепроводная в двух километрах.</p></div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ================= B ================= -->
+  <section class="case">
+    <div class="case__n"><span class="case__tag">Вариант B</span><span class="case__name">Полоса</span></div>
+    <p class="case__why">Четыре кадра стоят рядом во всю ширину. Наводите — панель разворачивается и показывает текст, остальные сжимаются. Занимает одну полосу, а выглядит как кино.</p>
+    <div class="frame"><div class="sec" id="lesB">
+      <h2>Вокруг <i>посёлка</i></h2>
+      <p class="dek">Наведите на кадр — панель раскроется.</p>
+      <div class="b-strip">
+        <div class="b-pan on">
+          <img src="https://static.tildacdn.com/tild6562-6464-4666-a639-326138303630/Rectangle_11_1.jpg" alt="Активный отдых">
+          <div class="b-fact"><b>5</b><span>пляжей рядом</span></div>
+          <div class="b-in"><h3>Активный отдых</h3>
+            <p>Водный спорт, велопрогулки, квадроциклы, гольф и теннис. Инструкторы для взрослых и детей.</p></div>
+        </div>
+        <div class="b-pan">
+          <img src="https://static.tildacdn.com/tild6635-6134-4834-a632-623238656566/CV3WHLM1ItI.jpg" alt="Заповедник и река">
+          <div class="b-fact"><b>3 км</b><span>до заповедника</span></div>
+          <div class="b-in"><h3>Заповедник и река</h3>
+            <p>По границе посёлка течёт Дойбица, в ста метрах начинается лес, богатый грибами и ягодами.</p></div>
+        </div>
+        <div class="b-pan">
+          <img src="https://static.tildacdn.com/tild6463-3361-4531-a163-336566623564/Rectangle_289_1.jpg" alt="Безопасность">
+          <div class="b-fact"><b>24/7</b><span>охрана и камеры</span></div>
+          <div class="b-in"><h3>Безопасность</h3>
+            <p>Закрытая территория, въезд по пропускам. Содержание и уборка — на управляющей компании.</p></div>
+        </div>
+        <div class="b-pan b-pan--flat">
+          <div class="b-fact"><b>2 км</b><span>до станции</span></div>
+          <div class="b-in"><h3>Логистика</h3>
+            <p>Собственный выезд на трассу М-11, автобусы из Конаково и Твери, станция Путепроводная рядом.</p></div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ================= C ================= -->
+  <section class="case">
+    <div class="case__n"><span class="case__tag">Вариант C</span><span class="case__name">Реестр</span></div>
+    <p class="case__why">Никаких карточек: четыре строки, разделённые линиями, справа — числа. Кадр леса лежит бледной подложкой под всей секцией. Самый тихий и самый короткий вариант.</p>
+    <div class="frame"><div class="sec" id="lesC">
+      <h2>Вокруг <i>посёлка</i></h2>
+      <p class="dek">Заповедник, река и лес рядом. Трасса и станция — в получасе.</p>
+      <div class="c-hold">
+        <img class="c-bg" src="https://static.tildacdn.com/tild6635-6134-4834-a632-623238656566/CV3WHLM1ItI.jpg" alt="">
+        <div class="c-in">
+          <div class="c-row">
+            <h3>Активный отдых</h3>
+            <p>Водный спорт, велопрогулки, квадроциклы, гольф и теннис. Грибы, ягоды, рыбалка и охота в лесах вокруг.</p>
+            <div class="c-fact"><b>5</b><span>пляжей рядом</span></div>
+          </div>
+          <div class="c-row">
+            <h3>Заповедник и река</h3>
+            <p>По границе посёлка течёт Дойбица, в ста метрах начинается лес. Национальный заповедник — в трёх километрах.</p>
+            <div class="c-fact"><b>100 м</b><span>до леса</span></div>
+          </div>
+          <div class="c-row">
+            <h3>Безопасность</h3>
+            <p>Закрытая территория, въезд по пропускам, круглосуточная охрана и видеонаблюдение по периметру.</p>
+            <div class="c-fact"><b>24/7</b><span>охрана</span></div>
+          </div>
+          <div class="c-row">
+            <h3>Логистика</h3>
+            <p>Собственный выезд на трассу М-11. Автобусы из Конаково и Твери, станция Путепроводная в двух километрах.</p>
+            <div class="c-fact"><b>2 км</b><span>до станции</span></div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+</div>
+
+<script>
+// A — выбор строки меняет кадр
+(function(){
+  var root=document.getElementById('lesA'); if(!root) return;
+  var caps={1:'Пять пляжей в округе, инструкторы водных активностей для взрослых и детей',
+            2:'Река Дойбица по границе посёлка, лес начинается в ста метрах',
+            3:'Закрытый периметр, въезд по пропускам, круглосуточная охрана',
+            4:'Собственный выезд на М-11, станция Путепроводная в двух километрах'};
+  root.querySelectorAll('.a-row').forEach(function(row){
+    var act=function(){
+      root.querySelectorAll('.a-row').forEach(function(r){r.classList.toggle('on', r===row);});
+      var k=row.getAttribute('data-k');
+      root.querySelectorAll('.a-stage img').forEach(function(im){im.classList.toggle('on', im.getAttribute('data-k')===k);});
+      root.querySelector('.a-cap').textContent=caps[k];
+    };
+    row.addEventListener('mouseenter', act);
+    row.addEventListener('click', act);
+  });
+})();
+// B — панели
+(function(){
+  var root=document.getElementById('lesB'); if(!root) return;
+  root.querySelectorAll('.b-pan').forEach(function(p){
+    var act=function(){ root.querySelectorAll('.b-pan').forEach(function(x){x.classList.toggle('on', x===p);}); };
+    p.addEventListener('mouseenter', act);
+    p.addEventListener('click', act);
+  });
+})();
+</script>
+
+<script>
+// ?only=a|b|c — показать один вариант (для скриншотов)
+(function(){
+  var k=(new URLSearchParams(location.search).get('only')||'').toLowerCase();
+  if(!k) return;
+  var map={a:0,b:1,c:2};
+  document.querySelectorAll('.case').forEach(function(c,i){ c.style.display = (i===map[k]) ? '' : 'none'; });
+  document.querySelectorAll('.case__n,.case__why').forEach(function(e){e.style.display='none';});
+  var h1=document.querySelector('.page h1'), lead=document.querySelector('.page .lead');
+  if(h1) h1.style.display='none'; if(lead) lead.style.display='none';
+  document.querySelector('.page').style.padding='12px 20px';
+})();
+</script>
+</body>
+</html>
