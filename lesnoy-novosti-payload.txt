@@ -1,5 +1,5 @@
 
-<!-- ===== ОДЁЖКА ЛЕНТЫ НОВОСТЕЙ (карусель, стрелки по краям, ряды склеены) ===== -->
+<!-- ===== ОДЁЖКА ЛЕНТЫ НОВОСТЕЙ (карусель, стрелки по краям) ===== -->
 <!-- ============================================================================
      АКВАТОРИЯ ЗАВИДОВО · ОДЁЖКА ДЛЯ ТИЛЬДИНОЙ ЛЕНТЫ НОВОСТЕЙ НА ГЛАВНОЙ
      Тильда: блок T123 (HTML). Контейнер 100%, отступы блока 0.
@@ -183,6 +183,12 @@
   .r[data-record-type="404"] .azl-h{align-items:center}
   .r[data-record-type="404"] .azl-right{gap:12px}
 }
+
+/* родная кнопка «Показать ещё» не нужна — листаем стрелками */
+.r[data-record-type="404"] .t404__showmore,
+.r[data-record-type="404"] .t-btnflex,
+.r[data-record-type="404"] .t404__btn-wrapper,
+.r[data-record-type="404"] .t-feed__showmore-btn{display:none!important}
 </style>
 
 <script>
@@ -321,7 +327,7 @@
       }
       if (UBRAT_EMOJI) {
         [].forEach.call(col.querySelectorAll('.t404__title,.t404__descr'), function(el){
-          el.textContent = el.textContent.replace(EMO,'').replace(/\s{2,}/g,' ').trim();
+          el.textContent = el.textContent.replace(EMO,'').replace(/\s{2,}/g,' ').replace(/\s+([!?,.;:])/g,'$1').replace(/[\s!]+$/,'').trim();
         });
       }
     });
