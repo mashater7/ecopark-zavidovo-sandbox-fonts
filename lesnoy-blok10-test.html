@@ -1,0 +1,118 @@
+<!-- =========================================================================
+     БЛОК 10 «ВОКРУГ ПОСЁЛКА» — компактная замена четырёх длинных полотен
+     (было 1900 px, стало ~700). Вставлять в HTML-блок (T123) Tilda.
+     Всё scoped под #lesAround. Шрифт и цвета — как на странице.
+     ========================================================================= -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+#lesAround{--ink:#333;--muted:#5f5f5f;--green:#09763F;--line:#e6e6e1;--sand:#f6f3ee;
+  max-width:1200px;margin:0 auto;padding:56px 20px 40px;font-family:'Poiret One','Century Gothic',sans-serif;color:var(--ink)}
+#lesAround *{box-sizing:border-box}
+#lesAround .la-h{font-size:clamp(26px,4vw,44px);text-transform:uppercase;letter-spacing:.02em;line-height:1.05;margin:0 0 10px;font-weight:400}
+#lesAround .la-h em{font-style:normal;color:var(--green)}
+#lesAround .la-sub{font-size:18px;color:var(--muted);margin:0 0 34px;max-width:60ch;line-height:1.55}
+
+#lesAround .la-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+#lesAround .la-card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;
+  transition:box-shadow .3s cubic-bezier(.23,1,.32,1), transform .3s cubic-bezier(.23,1,.32,1)}
+#lesAround .la-card:hover{box-shadow:0 22px 40px -30px rgba(20,40,25,.55);transform:translateY(-2px)}
+#lesAround .la-ph{aspect-ratio:4/3;width:100%;object-fit:cover;display:block;background:var(--sand)}
+#lesAround .la-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+#lesAround .la-t{font-size:20px;text-transform:uppercase;letter-spacing:.05em;line-height:1.15;margin:0}
+#lesAround .la-d{font-size:16px;line-height:1.55;color:var(--muted);margin:0}
+#lesAround .la-tags{display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:auto;padding-top:6px}
+#lesAround .la-tags span{font-family:'Montserrat',Arial,sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#9a9a95}
+#lesAround .la-more{align-self:flex-start;background:none;border:0;padding:0;margin-top:4px;cursor:pointer;
+  font-family:'Poiret One',sans-serif;font-size:15px;color:var(--green);border-bottom:1px solid rgba(9,118,63,.35);line-height:1.5}
+#lesAround .la-full{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.23,1,.32,1)}
+#lesAround .la-full > div{overflow:hidden}
+#lesAround .la-card.open .la-full{grid-template-rows:1fr}
+#lesAround .la-full p{font-size:15px;line-height:1.6;color:var(--muted);margin:10px 0 0}
+
+/* четвёртая плитка — маршрут, без фото */
+#lesAround .la-card--way .la-ph{aspect-ratio:4/3;background:var(--sand);display:flex;align-items:center;justify-content:center}
+#lesAround .la-way{display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center;padding:16px}
+#lesAround .la-way b{font-size:34px;font-weight:400;color:var(--green);line-height:1}
+#lesAround .la-way span{font-family:'Montserrat',Arial,sans-serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#9a9a95}
+
+@media (max-width:1000px){#lesAround .la-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){#lesAround{padding:40px 16px 28px}#lesAround .la-grid{grid-template-columns:1fr;gap:16px}}
+@media (prefers-reduced-motion:reduce){#lesAround *{transition-duration:.01ms !important}}
+</style>
+
+<section id="lesAround">
+  <h2 class="la-h">Вокруг <em>посёлка</em></h2>
+  <p class="la-sub">Заповедник, река и лес — в шаговой доступности, трасса и станция — в получасе.</p>
+
+  <div class="la-grid">
+
+    <article class="la-card">
+      <img class="la-ph" loading="lazy" alt="Активный отдых в окрестностях"
+           src="https://static.tildacdn.com/tild6562-6464-4666-a639-326138303630/Rectangle_11_1.jpg">
+      <div class="la-body">
+        <h3 class="la-t">Активный отдых</h3>
+        <p class="la-d">Водный спорт, велопрогулки, квадроциклы, гольф и теннис. В округе пять пляжей с кафе.</p>
+        <div class="la-full"><div><p>Все виды водного спорта, бег, велопрогулки, катание на квадроциклах, гольф, теннис, волейбол. Для любителей природы — прогулки в лесах и заповедниках, грибы и ягоды, походы, рыбалка и охота. На пляжах работают инструкторы водных активностей для взрослых и детей.</p></div></div>
+        <button class="la-more" type="button">Подробнее</button>
+        <div class="la-tags"><span>водный спорт</span><span>грибы и ягоды</span><span>рыбалка</span></div>
+      </div>
+    </article>
+
+    <article class="la-card">
+      <img class="la-ph" loading="lazy" alt="Заповедник, леса и реки"
+           src="https://static.tildacdn.com/tild6635-6134-4834-a632-623238656566/CV3WHLM1ItI.jpg">
+      <div class="la-body">
+        <h3 class="la-t">Заповедник и река</h3>
+        <p class="la-d">Национальный заповедник Завидово в трёх километрах. По границе посёлка течёт Дойбица.</p>
+        <div class="la-full"><div><p>Река Дойбица впадает в Волгу, а в ста метрах от посёлка начинается лесной массив, богатый грибами и ягодами. По оценкам ЮНЕСКО заповедник «Завидово» — одно из самых чистых мест на Земле, он включён в первый реестр ключевых орнитологических территорий Европы.</p></div></div>
+        <button class="la-more" type="button">Подробнее</button>
+        <div class="la-tags"><span>лес в 100 метрах</span><span>река по границе</span></div>
+      </div>
+    </article>
+
+    <article class="la-card">
+      <img class="la-ph" loading="lazy" alt="Безопасность и комфорт"
+           src="https://static.tildacdn.com/tild6463-3361-4531-a163-336566623564/Rectangle_289_1.jpg">
+      <div class="la-body">
+        <h3 class="la-t">Безопасность</h3>
+        <p class="la-d">Закрытая территория, круглосуточная охрана и видеонаблюдение по периметру.</p>
+        <div class="la-full"><div><p>Обслуживающая компания отвечает за комфортную среду: чистоту, порядок, вывоз мусора и уборку дорог зимой. Въезд по пропускам, периметр огорожен.</p></div></div>
+        <button class="la-more" type="button">Подробнее</button>
+        <div class="la-tags"><span>огороженный периметр</span><span>пропуска</span><span>видеонаблюдение</span></div>
+      </div>
+    </article>
+
+    <article class="la-card la-card--way">
+      <div class="la-ph">
+        <div class="la-way">
+          <b>110 км</b><span>по трассе М-11</span>
+          <b>2 км</b><span>до станции</span>
+        </div>
+      </div>
+      <div class="la-body">
+        <h3 class="la-t">Логистика</h3>
+        <p class="la-d">Час от Москвы, собственный выезд на М-11. Рядом автобусы и железная дорога.</p>
+        <div class="la-full"><div><p>Поблизости остановка, куда идут прямые автобусы из Конаково, Новозавидовского, Мокшино и Вахонино. В двух километрах — станция Путепроводная Конаковской ветки, до неё можно доехать из Москвы, Клина и Твери.</p></div></div>
+        <button class="la-more" type="button">Подробнее</button>
+        <div class="la-tags"><span>свой выезд на трассу</span><span>автобусы</span><span>электричка</span></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  var root=document.getElementById('lesAround');
+  if(!root) return;
+  root.addEventListener('click', function(e){
+    var b=e.target.closest('.la-more'); if(!b) return;
+    var card=b.closest('.la-card');
+    var open=card.classList.toggle('open');
+    b.textContent = open ? 'Свернуть' : 'Подробнее';
+  });
+})();
+</script>
