@@ -1,5 +1,5 @@
 
-<!-- ===== ОДЁЖКА ЛЕНТЫ НОВОСТЕЙ (карусель) — красит тильдину ленту T404 rec3850933201 ===== -->
+<!-- ===== ОДЁЖКА ЛЕНТЫ НОВОСТЕЙ (карусель, стрелки по краям) — ленту T404 rec3850933201 ===== -->
 <!-- ============================================================================
      АКВАТОРИЯ ЗАВИДОВО · ОДЁЖКА ДЛЯ ТИЛЬДИНОЙ ЛЕНТЫ НОВОСТЕЙ НА ГЛАВНОЙ
      Тильда: блок T123 (HTML). Контейнер 100%, отступы блока 0.
@@ -59,14 +59,24 @@
 
 /* ── шапка секции: заголовок слева, «Все новости» справа ────────────────── */
 .r[data-record-type="404"]{--gap:clamp(20px,2.6vw,38px)}
-.r[data-record-type="404"] .azl-right{display:flex;align-items:center;gap:16px}
-.r[data-record-type="404"] .azl-nav{display:flex;gap:8px}
-.r[data-record-type="404"] .azl-nav button{
-  width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;
-  cursor:pointer;font-size:17px;line-height:1;color:var(--ink);
-  transition:border-color .35s var(--ease),color .35s var(--ease),opacity .35s}
-.r[data-record-type="404"] .azl-nav button:hover{border-color:var(--emerald);color:var(--emerald)}
-.r[data-record-type="404"] .azl-nav button[disabled]{opacity:.32;cursor:default;border-color:var(--line);color:var(--ink)}
+.r[data-record-type="404"] .t404{position:relative}
+.r[data-record-type="404"] .azl-arr{
+  position:absolute;top:var(--azl-mid,42%);transform:translateY(-50%);z-index:6;
+  width:52px;height:52px;border-radius:50%;border:1px solid rgba(20,40,25,.10);
+  background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
+  box-shadow:0 10px 26px -14px rgba(20,40,25,.5);
+  cursor:pointer;font-size:19px;line-height:1;color:var(--ink);
+  display:grid;place-items:center;
+  transition:opacity .35s var(--ease),color .35s var(--ease),box-shadow .35s var(--ease),transform .35s var(--ease)}
+.r[data-record-type="404"] .azl-arr:hover{color:var(--emerald);box-shadow:0 14px 30px -14px rgba(20,40,25,.6);transform:translateY(-50%) scale(1.06)}
+.r[data-record-type="404"] .azl-arr--l{left:14px}
+.r[data-record-type="404"] .azl-arr--r{right:14px}
+.r[data-record-type="404"] .azl-arr[disabled]{opacity:.28;pointer-events:none;box-shadow:none}
+@media (max-width:680px){
+  .r[data-record-type="404"] .azl-arr{width:44px;height:44px;font-size:17px}
+  .r[data-record-type="404"] .azl-arr--l{left:6px}
+  .r[data-record-type="404"] .azl-arr--r{right:6px}
+}
 .r[data-record-type="404"] .t404__descr{display:none!important}
 .r[data-record-type="404"] .t404__title{
   display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -222,11 +232,7 @@
     if (ZAGOLOVOK) {
       var h = document.createElement('div');
       h.className = 'azl-h';
-      h.innerHTML = '<h2 class="azl-h2"></h2>'
-        + '<span class="azl-right">'
-        + '<span class="azl-nav"><button type="button" data-d="-1" aria-label="Предыдущие новости">&#8592;</button>'
-        + '<button type="button" data-d="1" aria-label="Следующие новости">&#8594;</button></span>'
-        + '<a class="azl-all"></a></span>';
+      h.innerHTML = '<h2 class="azl-h2"></h2><a class="azl-all"></a>';
       h.querySelector('.azl-h2').textContent = IMYA;
       var a = h.querySelector('.azl-all');
       a.textContent = 'Все новости';
@@ -236,11 +242,27 @@
       rec.classList.add('azl-noh');
     }
 
-    /* прокрутка ленты стрелками */
+    /* прокрутка ленты стрелками по краям */
     (function(){
-      var nav = rec.querySelector('.azl-nav');
-      if (!nav) return;
-      var knopki = nav.querySelectorAll('button');
+      var knopki = [];
+      ['-1','1'].forEach(function(d){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'azl-arr azl-arr--' + (d === '-1' ? 'l' : 'r');
+        b.setAttribute('data-d', d);
+        b.setAttribute('aria-label', d === '-1' ? 'Предыдущие новости' : 'Следующие новости');
+        b.innerHTML = d === '-1' ? '&#8592;' : '&#8594;';
+        lenta.appendChild(b);
+        knopki.push(b);
+      });
+      function poseredineKadra(){
+        var ph = cont.querySelector('.t404__imgbox') || cont.querySelector('.t404__img');
+        if (!ph) return;
+        var r1 = ph.getBoundingClientRect(), r0 = lenta.getBoundingClientRect();
+        rec.style.setProperty('--azl-mid', Math.round(r1.top - r0.top + r1.height / 2) + 'px');
+      }
+      window.addEventListener('resize', poseredineKadra);
+      setTimeout(poseredineKadra, 150); setTimeout(poseredineKadra, 900);
       function shag(){
         var c = cont.querySelector('.t404__col');
         if (!c) return 320;
@@ -249,11 +271,12 @@
       }
       function osvezhit(){
         var max = cont.scrollWidth - cont.clientWidth - 2;
-        knopki[0].disabled = cont.scrollLeft <= 2;
-        knopki[1].disabled = cont.scrollLeft >= max;
-        nav.style.display = max > 4 ? 'flex' : 'none';
+        var listaetsya = max > 4;
+        knopki[0].disabled = !listaetsya || cont.scrollLeft <= 2;
+        knopki[1].disabled = !listaetsya || cont.scrollLeft >= max;
+        poseredineKadra();
       }
-      [].forEach.call(knopki, function(b){
+      knopki.forEach(function(b){
         b.addEventListener('click', function(){
           cont.scrollBy({left: shag() * parseInt(b.getAttribute('data-d'),10), behavior:'smooth'});
         });
