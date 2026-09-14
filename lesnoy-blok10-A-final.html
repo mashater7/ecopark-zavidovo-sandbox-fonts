@@ -1,0 +1,110 @@
+<!-- =========================================================================
+     БЛОК «ВОКРУГ ПОСЁЛКА» — вариант A «Разворот»
+     Замена четырёх длинных полотен (было 1900 px, стало ~640).
+     Вставлять в HTML-блок (T123) Tilda. Всё scoped под #lesAround.
+     Кадры взяты максимального разрешения из имеющихся на сайте.
+     ========================================================================= -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+#lesAround{--ink:#2f2f2f;--muted:#5c5c5c;--green:#09763F;--line:#e3e3de;--sand:#f6f3ee;
+  max-width:1200px;margin:0 auto;padding:56px 20px 44px;font-family:'Poiret One','Century Gothic',sans-serif;color:var(--ink)}
+#lesAround *{box-sizing:border-box}
+#lesAround h2{font-size:clamp(26px,3.4vw,40px);text-transform:uppercase;font-weight:400;letter-spacing:.02em;margin:0 0 6px;line-height:1.06}
+#lesAround h2 i{font-style:normal;color:var(--green)}
+#lesAround .la-dek{font-size:17px;color:var(--muted);margin:0 0 30px;max-width:62ch;line-height:1.55}
+
+#lesAround .la-wrap{display:grid;grid-template-columns:1.15fr 1fr;gap:36px;align-items:stretch}
+#lesAround .la-stage{position:relative;border-radius:8px;overflow:hidden;min-height:430px;background:var(--sand)}
+#lesAround .la-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
+  transition:opacity .6s cubic-bezier(.23,1,.32,1),transform 6s linear}
+#lesAround .la-stage img.on{opacity:1;transform:scale(1.03)}
+#lesAround .la-cap{position:absolute;left:0;right:0;bottom:0;padding:22px 24px;color:#fff;z-index:1;
+  background:linear-gradient(to top,rgba(16,26,18,.78),rgba(16,26,18,0));font-size:16.5px;line-height:1.5}
+
+#lesAround .la-list{display:flex;flex-direction:column;justify-content:center}
+#lesAround .la-row{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:baseline;padding:20px 4px;
+  border-top:1px solid var(--line);cursor:pointer;transition:padding-left .35s cubic-bezier(.23,1,.32,1)}
+#lesAround .la-row:last-child{border-bottom:1px solid var(--line)}
+#lesAround .la-row:hover,#lesAround .la-row.on{padding-left:10px}
+#lesAround .la-row .la-n{font-size:30px;color:var(--green);line-height:.9}
+#lesAround .la-row h3{margin:0;font-size:21px;text-transform:uppercase;letter-spacing:.05em;font-weight:400;transition:color .3s}
+#lesAround .la-row.on h3{color:var(--green)}
+#lesAround .la-row p{margin:6px 0 0;font-size:15.5px;color:var(--muted);line-height:1.55;max-width:46ch;
+  max-height:0;opacity:0;overflow:hidden;transition:max-height .45s cubic-bezier(.23,1,.32,1),opacity .35s}
+#lesAround .la-row.on p{max-height:170px;opacity:1}
+#lesAround .la-row:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+
+@media (max-width:980px){
+  #lesAround{padding:40px 16px 30px}
+  #lesAround .la-wrap{grid-template-columns:1fr;gap:20px}
+  #lesAround .la-stage{min-height:240px}
+  #lesAround .la-row p{max-width:none}
+}
+@media (prefers-reduced-motion:reduce){#lesAround *{transition-duration:.01ms !important}}
+</style>
+
+<section id="lesAround">
+  <h2>Вокруг <i>посёлка</i></h2>
+  <p class="la-dek">Заповедник, река и лес рядом. Трасса и станция — в получасе.</p>
+
+  <div class="la-wrap">
+    <div class="la-stage">
+      <img class="on" data-k="1" alt="Спорт и активный отдых в посёлке"
+           src="https://static.tildacdn.com/tild3134-3730-4864-a161-353033633536/08-min.jpg">
+      <img data-k="2" alt="Лес и река рядом с посёлком"
+           src="https://static.tildacdn.com/tild6635-6134-4834-a632-623238656566/CV3WHLM1ItI.jpg">
+      <img data-k="3" alt="Освещённая территория посёлка вечером"
+           src="https://static.tildacdn.com/tild6437-3461-4636-b430-323266663733/XXXL.jpg">
+      <img data-k="4" alt="Аллея и дороги посёлка"
+           src="https://static.tildacdn.com/tild3763-6431-4761-b538-336234323863/03-min.jpg">
+      <div class="la-cap">Футбольное поле, площадки и спорт рядом с домом</div>
+    </div>
+
+    <div class="la-list">
+      <div class="la-row on" data-k="1" tabindex="0">
+        <span class="la-n">01</span>
+        <div><h3>Активный отдых</h3>
+          <p>Водный спорт, велопрогулки, квадроциклы, гольф и теннис. Грибы, ягоды, рыбалка и охота — в лесах вокруг.</p></div>
+      </div>
+      <div class="la-row" data-k="2" tabindex="0">
+        <span class="la-n">02</span>
+        <div><h3>Заповедник и река</h3>
+          <p>Национальный заповедник Завидово в трёх километрах. По границе посёлка течёт Дойбица, в ста метрах начинается лес.</p></div>
+      </div>
+      <div class="la-row" data-k="3" tabindex="0">
+        <span class="la-n">03</span>
+        <div><h3>Безопасность</h3>
+          <p>Закрытая территория, круглосуточная охрана, видеонаблюдение. Уборка и содержание — на управляющей компании.</p></div>
+      </div>
+      <div class="la-row" data-k="4" tabindex="0">
+        <span class="la-n">04</span>
+        <div><h3>Логистика</h3>
+          <p>Собственный выезд на трассу М-11. Автобусы из Конаково и Твери, станция Путепроводная в двух километрах.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var root=document.getElementById('lesAround'); if(!root) return;
+  var caps={1:'Футбольное поле, площадки и спорт рядом с домом',
+            2:'Река Дойбица по границе посёлка, лес начинается в ста метрах',
+            3:'Освещённые улицы, закрытый периметр, круглосуточная охрана',
+            4:'Свой выезд на М-11, станция Путепроводная в двух километрах'};
+  function act(row){
+    root.querySelectorAll('.la-row').forEach(function(r){ r.classList.toggle('on', r===row); });
+    var k=row.getAttribute('data-k');
+    root.querySelectorAll('.la-stage img').forEach(function(im){ im.classList.toggle('on', im.getAttribute('data-k')===k); });
+    root.querySelector('.la-cap').textContent=caps[k];
+  }
+  root.querySelectorAll('.la-row').forEach(function(row){
+    row.addEventListener('mouseenter', function(){ act(row); });
+    row.addEventListener('click', function(){ act(row); });
+    row.addEventListener('focus', function(){ act(row); });
+  });
+})();
+</script>
