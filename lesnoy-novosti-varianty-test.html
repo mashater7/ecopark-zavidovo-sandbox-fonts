@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Новости Лесного — три варианта</title>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2f2f2f;--muted:#5c5c5c;--green:#09763F;--line:#e3e3de;--sand:#f6f3ee}
+*{box-sizing:border-box}
+body{margin:0;background:#eceae5;font-family:'Poiret One','Century Gothic',sans-serif;color:var(--ink)}
+.page{max-width:1340px;margin:0 auto;padding:36px 20px 80px}
+.page h1{font-size:30px;font-weight:400;margin:0 0 6px}
+.page .lead{font-size:17px;color:var(--muted);margin:0 0 34px;line-height:1.6;max-width:90ch}
+.case{margin:0 0 44px}
+.case__n{display:flex;align-items:baseline;gap:12px;margin:0 0 6px}
+.case__tag{font-family:'Montserrat',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--green);padding:5px 10px;border-radius:3px}
+.case__name{font-size:24px}
+.case__why{font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 14px;max-width:80ch}
+.frame{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 20px 44px -34px rgba(20,40,25,.6)}
+
+.nw{padding:50px 48px 42px}
+.nw-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;margin:0 0 26px}
+.nw-head h2{font-size:clamp(26px,3.2vw,38px);text-transform:uppercase;font-weight:400;letter-spacing:.02em;margin:0;line-height:1.05}
+.nw-head h2 i{font-style:normal;color:var(--green)}
+.nw-all{font-size:16px;color:var(--green);text-decoration:none;border-bottom:1px solid rgba(9,118,63,.35);padding-bottom:2px}
+.nw-card{display:block;text-decoration:none;color:inherit;border-top:1px solid var(--line);padding-top:16px}
+.nw-ph{display:block;aspect-ratio:16/10;overflow:hidden;border-radius:6px;background:var(--sand)}
+.nw-ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.23,1,.32,1)}
+.nw-card:hover .nw-ph img{transform:scale(1.045)}
+.nw-date{display:block;font-family:'Montserrat',Arial,sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin:14px 0 6px}
+.nw-t{display:block;font-size:19px;line-height:1.3}
+.nw-card:hover .nw-t{color:var(--green)}
+
+#nwA .nw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+
+#nwB .nw-track{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;scrollbar-width:none}
+#nwB .nw-track::-webkit-scrollbar{display:none}
+#nwB .nw-slide{flex:0 0 calc((100% - 44px)/3);scroll-snap-align:start}
+#nwB .nw-nav{display:flex;gap:10px;margin-top:18px}
+#nwB .nw-nav button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:18px;color:var(--ink);line-height:1;transition:border-color .3s,color .3s}
+#nwB .nw-nav button:hover{border-color:var(--green);color:var(--green)}
+
+#nwC .nw-show{display:grid;grid-template-columns:1.15fr 1fr;gap:34px;align-items:start}
+#nwC .nw-big{display:block;text-decoration:none;color:inherit;border-top:1px solid var(--line);padding-top:16px}
+#nwC .nw-big .nw-ph{aspect-ratio:3/2}
+#nwC .nw-big .nw-t{font-size:26px;line-height:1.2}
+#nwC .nw-list{display:flex;flex-direction:column}
+#nwC .nw-row{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:baseline;text-decoration:none;color:inherit;padding:18px 2px;border-top:1px solid var(--line);transition:padding-left .3s cubic-bezier(.23,1,.32,1)}
+#nwC .nw-row:last-child{border-bottom:1px solid var(--line)}
+#nwC .nw-row:hover{padding-left:8px}
+#nwC .nw-row:hover .nw-t{color:var(--green)}
+#nwC .nw-row .nw-date{margin:0}
+#nwC .nw-row .nw-t{font-size:18px}
+
+@media (max-width:980px){
+  .nw{padding:32px 18px}
+  #nwA .nw-grid{grid-template-columns:1fr}
+  #nwB .nw-slide{flex:0 0 78%}
+  #nwC .nw-show{grid-template-columns:1fr;gap:22px}
+}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms !important}}
+</style></head>
+<body>
+<div class="page">
+  <h1>Новости на странице Лесного — три варианта</h1>
+  <p class="lead">Ленту вы по-прежнему ведёте в Тильде — это «одёжка» поверх неё: даты переводятся на русский, эмодзи из заголовков убираются, лишние карточки скрываются. Сейчас блок занимает 2959 px, во всех трёх — около 600.</p>
+
+  <section class="case">
+    <div class="case__n"><span class="case__tag">Вариант A</span><span class="case__name">Три свежих</span></div>
+    <p class="case__why">Три последние новости в ряд и ссылка на все. Самое спокойное: страница не превращается в блог.</p>
+    <div class="frame"><div class="nw" id="nwA">
+      <div class="nw-head"><h2>Новости <i>посёлка</i></h2><a class="nw-all" href="/news">Все новости &rarr;</a></div>
+      <div class="nw-grid">
+        <a class="nw-card" href="/premium"><span class="nw-ph"><img loading="lazy" src="https://static.tildacdn.com/tild6232-3739-4832-a335-383033663065/Group_31.png" alt=""></span><span class="nw-date">25 апреля</span><span class="nw-t">Топ-10 лучших участков у пруда</span></a>
+        <a class="nw-card" href="/affordable"><span class="nw-ph"><img loading="lazy" src="https://static.tildacdn.com/tild6133-3634-4633-b334-626665303033/Group_31.png" alt=""></span><span class="nw-date">20 апреля</span><span class="nw-t">Самые доступные участки нашего посёлка</span></a>
+        <a class="nw-card" href="/spring"><span class="nw-ph"><img loading="lazy" src="https://static.tildacdn.com/tild3137-6439-4330-a135-333032653639/photo_2026-04-17_21-.jpg" alt=""></span><span class="nw-date">31 марта</span><span class="nw-t">Весенний Экопарк Завидово</span></a>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="case">
+    <div class="case__n"><span class="case__tag">Вариант B</span><span class="case__name">Карусель</span></div>
+    <p class="case__why">Лента листается вбок: видно три карточки, всего шесть. Занимает столько же места, а новостей показывает вдвое больше.</p>
+    <div class="frame"><div class="nw" id="nwB">
+      <div class="nw-head"><h2>Новости <i>посёлка</i></h2><a class="nw-all" href="/news">Все новости &rarr;</a></div>
+      <div class="nw-track">
+          <a class="nw-card nw-slide" href="/premium"><span class="nw-ph"><img loading="lazy" src="https://static.tildacdn.com/tild6232-3739-4832-a335-383033663065/Group_31.png" alt=""></span><span class="nw-date">25 апреля</span><span class="nw-t">Топ-10 лучших участков у пруда</span></a>
+          <a class="nw-card nw-slide" href="/affordable"><span class="nw-ph"><img loading="lazy" src="https://static.tildacdn.com/tild6133-3634-4633-b334-626665303033/Group_31.png" alt=""></span><span class="nw-date">20 апреля</span><span class="nw-t">Самые доступные участки нашего посёлка</span></a>
+          <a class="nw-card nw-slide" href="/spring"><span class="nw-ph"><img loading="lazy" src="https://static.tildacdn.com/tild3137-6439-4330-a135-333032653639/photo_2026-04-17_21-.jpg" alt=""></span><span class="nw-date">31 марта</span><span class="nw-t">Весенний Экопарк Завидово</span></a>
+          <a class="nw-card nw-slide" href="/buildseason"><span class="nw-ph"><img loading="lazy" src="https://static.tildacdn.com/tild6566-6563-4163-b630-653439636539/Group_31.png" alt=""></span><span class="nw-date">31 марта</span><span class="nw-t">Начинаем строительный сезон в экопарке</span></a>
+          <a class="nw-card nw-slide" href="/ecoparkview"><span class="nw-ph"><img loading="lazy" src="https://static.tildacdn.com/tild3366-3733-4262-a330-613132623063/2026-05-11_20-00-02.png" alt=""></span><span class="nw-date">10 февраля</span><span class="nw-t">Панорамы нашего поселка</span></a>
+          <a class="nw-card nw-slide" href="/beautyzavidovo"><span class="nw-ph"><img loading="lazy" src="https://static.tildacdn.com/tild3335-3636-4262-b038-316130623362/photo_2026-03-08_19-.jpg" alt=""></span><span class="nw-date">8 марта</span><span class="nw-t">Бьюти в Завидово</span></a>
+      </div>
+      <div class="nw-nav"><button type="button" data-d="-1" aria-label="Назад">&larr;</button><button type="button" data-d="1" aria-label="Вперёд">&rarr;</button></div>
+    </div></div>
+  </section>
+
+  <section class="case">
+    <div class="case__n"><span class="case__tag">Вариант C</span><span class="case__name">Витрина</span></div>
+    <p class="case__why">Последняя новость крупным кадром, остальные — строками справа. Заголовки читаются сразу, место экономится.</p>
+    <div class="frame"><div class="nw" id="nwC">
+      <div class="nw-head"><h2>Новости <i>посёлка</i></h2><a class="nw-all" href="/news">Все новости &rarr;</a></div>
+      <div class="nw-show">
+        <a class="nw-big" href="/premium">
+          <span class="nw-ph"><img loading="lazy" src="https://static.tildacdn.com/tild6232-3739-4832-a335-383033663065/Group_31.png" alt=""></span>
+          <span class="nw-date">25 апреля</span>
+          <span class="nw-t">Топ-10 лучших участков у пруда</span>
+        </a>
+        <div class="nw-list">
+          <a class="nw-row" href="/affordable"><span class="nw-date">20 апреля</span><span class="nw-t">Самые доступные участки нашего посёлка</span></a>
+          <a class="nw-row" href="/spring"><span class="nw-date">31 марта</span><span class="nw-t">Весенний Экопарк Завидово</span></a>
+          <a class="nw-row" href="/buildseason"><span class="nw-date">31 марта</span><span class="nw-t">Начинаем строительный сезон в экопарке</span></a>
+          <a class="nw-row" href="/ecoparkview"><span class="nw-date">10 февраля</span><span class="nw-t">Панорамы нашего поселка</span></a>
+        </div>
+      </div>
+    </div></div>
+  </section>
+</div>
+<script>
+(function(){
+  var t=document.querySelector('#nwB .nw-track');
+  if(t){
+    document.querySelectorAll('#nwB .nw-nav button').forEach(function(b){
+      b.addEventListener('click', function(){
+        var step=t.querySelector('.nw-slide').getBoundingClientRect().width+22;
+        t.scrollBy({left:step*parseInt(b.getAttribute('data-d')), behavior:'smooth'});
+      });
+    });
+  }
+})();
+(function(){
+  var k=(new URLSearchParams(location.search).get('only')||'').toLowerCase();
+  if(!k) return; var map={a:0,b:1,c:2};
+  document.querySelectorAll('.case').forEach(function(c,i){ c.style.display=(i===map[k])?'':'none'; });
+  document.querySelectorAll('.case__n,.case__why,.page h1,.page .lead').forEach(function(e){e.style.display='none';});
+  document.querySelector('.page').style.padding='12px 20px';
+})();
+</script>
+</body></html>
