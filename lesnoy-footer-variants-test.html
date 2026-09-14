@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Подвал «Экопарк Лесной» — три варианта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+@font-face{
+  font-family:'a-avantetck';
+  src:url('https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/efcf5651_a-avantetck-heavy.woff') format('woff');
+  font-weight:700; font-display:block;
+}
+@font-face{
+  font-family:'a-avantetck';
+  src:url('https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/65b746e5_a-avantetck-medium.woff') format('woff');
+  font-weight:500; font-display:block;
+}
+
+:root{
+  --green:#49763F;      /* цвет слова ЭКОПАРК из фирменного логотипа */
+  --blue:#3EB5F1;       /* цвет слова ЗАВИДОВО из фирменного логотипа */
+  --ink:#333;
+  --muted:#6b6b6b;      /* 5.7:1 на белом — читается */
+  --line:#e4e4e0;
+  --sand:#faf8f4;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#eceae5;font-family:'Poiret One','Century Gothic',sans-serif;color:var(--ink)}
+
+/* ——— обёртка страницы сравнения ——— */
+.page{max-width:1320px;margin:0 auto;padding:40px 24px 80px}
+.page h1{font-size:34px;font-weight:400;margin:0 0 6px}
+.page .sub{font-family:'Montserrat',Arial,sans-serif;font-size:13px;color:#5a5a5a;margin:0 0 36px;line-height:1.6}
+.case{margin:0 0 46px}
+.case__head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:0 0 6px}
+.case__tag{font-family:'Montserrat',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--green);padding:5px 10px;border-radius:3px}
+.case__name{font-size:26px}
+.case__why{font-family:'Montserrat',Arial,sans-serif;font-size:13px;line-height:1.65;color:#5a5a5a;margin:0 0 16px;max-width:760px}
+.frame{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 18px 40px -28px rgba(20,40,25,.5)}
+
+/* ——— общее для всех подвалов ——— */
+.ftr{padding:56px 56px 28px;font-family:'Poiret One',sans-serif}
+.ftr a{color:inherit;text-decoration:none}
+.ftr a:hover{color:var(--green)}
+.lg{font-family:'a-avantetck','Montserrat',sans-serif;font-weight:700;line-height:.96;letter-spacing:.01em;display:block}
+.lg .e{color:var(--green);display:block}
+.lg .l{color:var(--blue);display:block}
+.cap{font-family:'Montserrat',Arial,sans-serif;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.nav{list-style:none;margin:0;padding:0}
+.nav li{margin:0 0 10px}
+.nav a{font-size:17px}
+.col__t{font-family:'Montserrat',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#9a9a95;margin:0 0 16px}
+.phone{font-size:21px;letter-spacing:.02em}
+.msg{display:flex;gap:10px;margin-top:14px}
+.msg i{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center}
+.msg svg{width:15px;height:15px;stroke:var(--ink);fill:none;stroke-width:1.6}
+.rule{height:1px;background:var(--line);margin:34px 0 16px}
+.btm{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-family:'Montserrat',Arial,sans-serif;font-size:11px;color:#9a9a95;letter-spacing:.04em}
+.dia{height:16px;width:auto;vertical-align:-3px;margin-right:7px;opacity:.9}
+
+/* ——— A. Подпись рода ——— */
+#a .ftr{background:#fff}
+#a .grid{display:grid;grid-template-columns:1.25fr 1fr 1fr 1.15fr;gap:40px}
+#a .lg{font-size:31px}
+#a .mark{margin-top:18px;display:flex;align-items:center}
+
+/* ——— B. Знак и слово ——— */
+#b .ftr{background:var(--sand)}
+#b .top{display:flex;align-items:center;gap:18px;margin:0 0 34px}
+#b .emb{width:56px;height:56px;flex:none}
+#b .lg{font-size:25px}
+#b .grid{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:40px}
+#b .imprint{display:flex;align-items:center;color:var(--muted)}
+
+/* ——— C. Логотип как подложка ——— */
+#c .ftr{background:#fff;position:relative;overflow:hidden;padding-bottom:104px}
+#c .ghost{position:absolute;left:0;right:0;bottom:-24px;text-align:center;font-family:'a-avantetck',sans-serif;font-weight:700;
+  font-size:clamp(64px,9vw,132px);line-height:.8;color:transparent;-webkit-text-stroke:1px #e6e9e3;letter-spacing:.04em;pointer-events:none;user-select:none}
+#c .inner{position:relative;z-index:1}
+#c .top{display:flex;align-items:center;gap:14px;margin:0 0 30px}
+#c .emb{width:38px;height:38px;flex:none}
+#c .lg{font-size:19px}
+#c .grid{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:40px}
+
+@media (max-width:820px){
+  .ftr{padding:36px 22px 22px}
+  #a .grid,#b .grid,#c .grid{grid-template-columns:1fr 1fr;gap:26px}
+  #a .grid > :first-child,#b .grid > :first-child{grid-column:1/-1}
+}
+</style>
+</head>
+<body>
+
+<!-- эмблема ель+волны, один раз, дальше через <use> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2EA84A"/><stop offset="100%" stop-color="#1E8FC9"/>
+    </linearGradient>
+    <g id="treewave">
+      <path d="M550 170 L230 580 L870 580 Z" fill="none" stroke="url(#brand)" stroke-width="48" stroke-linejoin="round"/>
+      <path d="M550 360 L330 640 L770 640 Z" fill="none" stroke="url(#brand)" stroke-width="48" stroke-linejoin="round"/>
+      <path d="M550 530 L440 670 L660 670 Z" fill="none" stroke="url(#brand)" stroke-width="48" stroke-linejoin="round"/>
+      <path d="M230 800 C330 740, 430 860, 550 800 C670 740, 770 860, 870 800" fill="none" stroke="#1E8FC9" stroke-width="44" stroke-linecap="round"/>
+      <path d="M230 920 C330 860, 430 980, 550 920 C670 860, 770 980, 870 920" fill="none" stroke="#1E8FC9" stroke-width="44" stroke-linecap="round"/>
+    </g>
+  </defs>
+</svg>
+
+<div class="page">
+  <h1>Подвал «Экопарк Лесной» — три варианта</h1>
+  <p class="sub">Во всех трёх одно и то же содержимое и одни и те же фирменные цвета из логотипа: зелёный #49763F и голубой #3EB5F1.<br>
+  Отличается только то, как показан логотип посёлка и его связь с «Коллекцией Завидово».</p>
+
+  <!-- ================= A ================= -->
+  <section class="case" id="a">
+    <div class="case__head"><span class="case__tag">Вариант A</span><span class="case__name">Подпись рода</span></div>
+    <p class="case__why">Логотип посёлка набран тем же шрифтом, что и «Экопарк Завидово», и теми же двумя цветами — выглядит как родной, а не как подмена. Под ним мелкой строкой бриллиант и «посёлок Коллекции Завидово»: родительский бренд виден, но не спорит с посёлком. Самый спокойный вариант.</p>
+    <div class="frame">
+      <footer class="ftr">
+        <div class="grid">
+          <div>
+            <span class="lg"><span class="e">ЭКОПАРК</span><span class="l">ЛЕСНОЙ</span></span>
+            <div class="mark">
+              <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+              <span class="cap">посёлок Коллекции Завидово</span>
+            </div>
+          </div>
+          <div>
+            <p class="col__t">Посёлок</p>
+            <ul class="nav">
+              <li><a href="#1">О посёлке</a></li>
+              <li><a href="#2">Генплан</a></li>
+              <li><a href="#region">Участки</a></li>
+              <li><a href="#4">Активности</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="col__t">Покупка</p>
+            <ul class="nav">
+              <li><a href="#akcii">Акции и рассрочка</a></li>
+              <li><a href="#how">Как купить</a></li>
+              <li><a href="#6">Вопросы и ответы</a></li>
+              <li><a href="#5">Новости</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="col__t">Контакты</p>
+            <a class="phone" href="tel:+74993091245">+7 499 309 12 45</a>
+            <div style="margin-top:10px;font-size:16px;color:var(--muted);line-height:1.55">
+              Тверская область, Конаковский район,<br>с. п. Завидово, КП «Экопарк Лесной»<br>10:00 — 20:00, без выходных
+            </div>
+            <div class="msg">
+              <i><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 20.5l1.7-5.5A8.4 8.4 0 1 1 21 11.5z"/></svg></i>
+              <i><svg viewBox="0 0 24 24"><path d="M21 4 3 11l5 2 2 6 3-4 5 4z"/></svg></i>
+              <i><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg></i>
+            </div>
+          </div>
+        </div>
+        <div class="rule"></div>
+        <div class="btm">
+          <span>© 2026 · Экопарк Лесной</span>
+          <a href="/privacy" style="color:#9a9a95">Политика конфиденциальности</a>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ================= B ================= -->
+  <section class="case" id="b">
+    <div class="case__head"><span class="case__tag">Вариант B</span><span class="case__name">Знак и слово</span></div>
+    <p class="case__why">У посёлка появляется собственный знак — ель и две волны: лес и река Дойбица. Он уже нарисован, лежит у нас в макетах. Название стоит рядом в две строки, а «Коллекция Завидово» уходит вниз, в выходные данные — как издательская марка в конце книги.</p>
+    <div class="frame">
+      <footer class="ftr">
+        <div class="top">
+          <svg class="emb" viewBox="0 0 1100 1100"><use href="#treewave"/></svg>
+          <span class="lg"><span class="e">ЭКОПАРК</span><span class="l">ЛЕСНОЙ</span></span>
+        </div>
+        <div class="grid">
+          <div>
+            <p class="col__t">Посёлок</p>
+            <ul class="nav">
+              <li><a href="#1">О посёлке</a></li>
+              <li><a href="#2">Генплан</a></li>
+              <li><a href="#region">Участки</a></li>
+              <li><a href="#4">Активности</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="col__t">Покупка</p>
+            <ul class="nav">
+              <li><a href="#akcii">Акции и рассрочка</a></li>
+              <li><a href="#how">Как купить</a></li>
+              <li><a href="#6">Вопросы и ответы</a></li>
+              <li><a href="#5">Новости</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="col__t">Контакты</p>
+            <a class="phone" href="tel:+74993091245">+7 499 309 12 45</a>
+            <div style="margin-top:10px;font-size:16px;color:var(--muted);line-height:1.55">
+              Тверская область, Конаковский район,<br>с. п. Завидово, КП «Экопарк Лесной»<br>10:00 — 20:00, без выходных
+            </div>
+            <div class="msg">
+              <i><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 20.5l1.7-5.5A8.4 8.4 0 1 1 21 11.5z"/></svg></i>
+              <i><svg viewBox="0 0 24 24"><path d="M21 4 3 11l5 2 2 6 3-4 5 4z"/></svg></i>
+              <i><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg></i>
+            </div>
+          </div>
+        </div>
+        <div class="rule"></div>
+        <div class="btm">
+          <span>© 2026 · Экопарк Лесной · <a href="/privacy" style="color:#9a9a95">Политика конфиденциальности</a></span>
+          <span class="imprint">
+            <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+            <span class="cap">Коллекция Завидово</span>
+          </span>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ================= C ================= -->
+  <section class="case" id="c">
+    <div class="case__head"><span class="case__tag">Вариант C</span><span class="case__name">Имя на просвет</span></div>
+    <p class="case__why">Слово ЛЕСНОЙ лежит во всю ширину подвала, но нарисовано тонким контуром почти в цвет бумаги. Издалека читается как фактура, вблизи — как подпись под страницей. Приём с дорогих сайтов: размер большой, а звучит тихо.</p>
+    <div class="frame">
+      <footer class="ftr">
+        <div class="ghost">ЛЕСНОЙ</div>
+        <div class="inner">
+          <div class="top">
+            <svg class="emb" viewBox="0 0 1100 1100"><use href="#treewave"/></svg>
+            <span class="lg"><span class="e">ЭКОПАРК</span><span class="l">ЛЕСНОЙ</span></span>
+            <span style="margin-left:auto;display:flex;align-items:center">
+              <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+              <span class="cap">Коллекция Завидово</span>
+            </span>
+          </div>
+          <div class="grid">
+            <div>
+              <p class="col__t">Посёлок</p>
+              <ul class="nav">
+                <li><a href="#1">О посёлке</a></li>
+                <li><a href="#2">Генплан</a></li>
+                <li><a href="#region">Участки</a></li>
+                <li><a href="#4">Активности</a></li>
+              </ul>
+            </div>
+            <div>
+              <p class="col__t">Покупка</p>
+              <ul class="nav">
+                <li><a href="#akcii">Акции и рассрочка</a></li>
+                <li><a href="#how">Как купить</a></li>
+                <li><a href="#6">Вопросы и ответы</a></li>
+                <li><a href="#5">Новости</a></li>
+              </ul>
+            </div>
+            <div>
+              <p class="col__t">Контакты</p>
+              <a class="phone" href="tel:+74993091245">+7 499 309 12 45</a>
+              <div style="margin-top:10px;font-size:16px;color:var(--muted);line-height:1.55">
+                Тверская область, Конаковский район,<br>с. п. Завидово, КП «Экопарк Лесной»<br>10:00 — 20:00, без выходных
+              </div>
+              <div class="msg">
+                <i><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 20.5l1.7-5.5A8.4 8.4 0 1 1 21 11.5z"/></svg></i>
+                <i><svg viewBox="0 0 24 24"><path d="M21 4 3 11l5 2 2 6 3-4 5 4z"/></svg></i>
+                <i><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg></i>
+              </div>
+            </div>
+          </div>
+          <div class="rule"></div>
+          <div class="btm">
+            <span>© 2026 · Экопарк Лесной</span>
+            <a href="/privacy" style="color:#9a9a95">Политика конфиденциальности</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
