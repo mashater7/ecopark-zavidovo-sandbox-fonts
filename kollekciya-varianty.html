@@ -463,6 +463,52 @@ a{color:inherit;text-decoration:none}
 }
 
 /* ==========================================================================
+   ВАРИАНТ 10 — «КАК НА САЙТЕ». Точная копия того, что сейчас на kzavidovo.ru:
+   тёмно-зелёная шапка, панели с фото на всю ширину, имя поверх кадра,
+   круглый знак посёлка и кнопка-пилюля с фирменным градиентом. Без контактов.
+   ========================================================================== */
+.lv{background:#10231b}
+.lv-head{background:#10231b;color:#fff;text-align:center;
+     padding:clamp(34px,6vw,64px) 20px clamp(26px,4vw,44px)}
+.lv-head img.dia{width:52px;margin:0 auto 18px}
+.lv-head h1{margin:0;font-weight:400;font-size:clamp(20px,5.2vw,30px);
+     line-height:1.2;letter-spacing:.14em;text-transform:uppercase}
+.lv-head p{margin:12px 0 0;color:#ffffee;font-size:11px;letter-spacing:.28em;
+     text-transform:uppercase;line-height:1.5}
+
+.lv-strip{display:grid;grid-template-columns:1fr}
+.lv-panel{position:relative;display:flex;flex-direction:column;justify-content:flex-end;
+     align-items:center;text-align:center;min-height:62vh;overflow:hidden;color:#fff;
+     padding:0 22px clamp(28px,5vw,44px)}
+.lv-panel img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.lv-panel::after{content:'';position:absolute;inset:0;z-index:1;
+     background:linear-gradient(180deg,rgba(6,18,13,.30) 0%,rgba(6,18,13,.05) 34%,rgba(6,18,13,.62) 100%)}
+.lv-in{position:relative;z-index:2;width:100%}
+.lv-mark{width:60px;height:60px;margin:0 auto 18px;border-radius:50%;
+     background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center}
+.lv-mark img{width:38px;height:auto}
+.lv-mark span{font-size:26px;color:#10231b;line-height:1}
+.lv-kick{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#ffffee;opacity:.92}
+.lv-panel h3{margin:6px 0 0;font-weight:400;font-size:clamp(24px,6.4vw,30px);
+     line-height:1.15;letter-spacing:.14em;text-transform:uppercase;
+     text-shadow:0 2px 16px rgba(0,0,0,.55)}
+.lv-panel h3 small{display:block;font-size:.52em;letter-spacing:.2em;margin-top:6px;opacity:.9}
+.lv-panel p{margin:14px auto 0;max-width:34ch;font-size:15.5px;line-height:1.5;
+     text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.lv-btn{display:inline-flex;align-items:center;gap:8px;margin-top:20px;min-height:44px;
+     padding:12px 26px;border-radius:40px;color:#fff;font-size:14px;
+     background:linear-gradient(100deg,#1bad03,#15a06a 45%,#007fe2);
+     transition:transform .4s cubic-bezier(.23,1,.32,1),filter .3s}
+.lv-panel:hover .lv-btn{transform:translateY(-2px);filter:brightness(1.06)}
+.lv-soon{display:inline-block;margin-top:18px;padding:11px 22px;border-radius:40px;
+     border:1px solid rgba(255,255,255,.5);color:#fff;font-size:13px}
+@media (min-width:900px){
+  .lv-strip{grid-template-columns:repeat(4,1fr)}
+  .lv-panel{min-height:78vh;padding-bottom:44px}
+  .lv-panel p{font-size:15px}
+}
+
+/* ==========================================================================
    БЛОК КОНТАКТОВ — общий для всех вариантов.
    Данные взяты из подвала боевого сайта: телефон, почта и мессенджеры те же.
    В Тильде это блок «Контакты в три колонки» T129/T131 либо тот же HTML-блок.
@@ -623,6 +669,7 @@ a{color:inherit;text-decoration:none}
   <button data-go="v5" aria-pressed="false">Полосы<i>только ПК</i></button>
   <button data-go="v8" aria-pressed="false">Экраны</button>
   <button data-go="v9" aria-pressed="false">Мягкий</button>
+  <button data-go="v10" aria-pressed="false">Как на сайте</button>
 </nav>
 
 <!-- ========================== ВАРИАНТ 1 ========================== -->
@@ -1397,6 +1444,57 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 
+</section>
+
+<!-- ================== ВАРИАНТ 10 · КАК НА САЙТЕ ================== -->
+<section class="variant lv" id="v10">
+  <div class="lv-head">
+    <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+    <h1>Коллекция Завидово</h1>
+    <p>Четыре посёлка — один курорт</p>
+  </div>
+  <div class="lv-strip">
+    <a class="lv-panel" href="https://ecopark-zavidovo.ru/lesnoy">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg" alt="Лесной" loading="lazy">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-lesnoy.png" alt=""></div>
+        <div class="lv-kick">экопарк</div>
+        <h3>Лесной</h3>
+        <p>Посёлок в хвойном лесу на берегу Дойбицы: 324 участка, деревья остаются на участке.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+    <a class="lv-panel" href="https://ecopark-zavidovo.ru/">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Завидово" loading="lazy">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-zavidovo.png" alt=""></div>
+        <div class="lv-kick">экопарк</div>
+        <h3>Завидово</h3>
+        <p>Заповедник в 3 км, лес в 100 метрах и река Дойбица по границе посёлка.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+    <a class="lv-panel" href="/akvatoria">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="Акватория" loading="lazy">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt=""></div>
+        <div class="lv-kick">акватория</div>
+        <h3>Акватория</h3>
+        <p>Посёлок на берегу Волги: свой пляж, яхт-клуб и причалы, парк 15 га.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+    <a class="lv-panel" href="#">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-a.jpg" alt="Marina" loading="lazy">
+      <div class="lv-in">
+        <div class="lv-mark"><span>M</span></div>
+        <div class="lv-kick">завидово</div>
+        <h3>Marina<small>Zavidovo Village</small></h3>
+        <p>Новый проект Коллекции. Сайт в разработке.</p>
+        <span class="lv-soon">Сайт в разработке</span>
+      </div>
+    </a>
+  </div>
 </section>
 
 <script>
