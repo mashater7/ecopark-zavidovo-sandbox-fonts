@@ -415,11 +415,6 @@ a{color:inherit;text-decoration:none}
 }
 
 /* сноска-памятка внизу каждого варианта */
-.note{max-width:900px;margin:0 auto;padding:26px 24px 64px;color:#9a9a9a;
-      font-family:'Montserrat',sans-serif;font-size:12px;line-height:1.7;text-align:center}
-.note b{font-weight:500;color:#6a6a6a}
-.note--dark{color:rgba(255,255,255,.55)}
-.note--dark b{color:rgba(255,255,255,.8)}
 </style>
 </head>
 <body>
@@ -427,9 +422,9 @@ a{color:inherit;text-decoration:none}
 <!-- панель показа: в Тильду не переносится -->
 <nav class="sw">
   <b>Вариант</b>
-  <button data-go="v1" aria-pressed="true">Тильда · плитки</button>
-  <button data-go="v6" aria-pressed="false">Тильда · развороты</button>
-  <button data-go="v7" aria-pressed="false">Тильда · журнал</button>
+  <button data-go="v1" aria-pressed="true">Плитки</button>
+  <button data-go="v6" aria-pressed="false">Развороты</button>
+  <button data-go="v7" aria-pressed="false">Журнал</button>
   <button data-go="v3" data-mod="panel" aria-pressed="false">Оглавление</button>
   <button data-go="v4" aria-pressed="false">Apple · лента</button>
   <button data-go="v5" aria-pressed="false">Полосы</button>
@@ -471,7 +466,7 @@ a{color:inherit;text-decoration:none}
       <div class="tn-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Завидово"></div>
       <div class="tn-head"><span class="lbl">обжитой посёлок</span></div>
       <h3>Экопарк Завидово</h3>
-      <p>Старший посёлок Коллекции: участки и готовые дома, куда можно заехать сразу.</p>
+      <p>Участки и готовые дома, куда можно заехать сразу.</p>
       <span class="tn-go">Смотреть посёлок</span>
     </a>
     <a class="tn-card rv" href="/akvatoria">
@@ -486,7 +481,7 @@ a{color:inherit;text-decoration:none}
         <span class="tn-soon lbl">сайт в разработке</span></div>
       <div class="tn-head"><span class="lbl">новый проект</span></div>
       <h3>Marina<br>Zavidovo Village</h3>
-      <p>Четвёртый посёлок Коллекции. Сайт в разработке.</p>
+      <p>Новый проект. Сайт в разработке.</p>
       <span class="tn-go">Скоро</span>
     </a>
   </div>
@@ -529,11 +524,6 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 
-  <div class="note">
-    <b>Что здесь из базовых блоков Тильды:</b> обложка — T203 (фото + текст по центру), текст и цифры — T015 + T480,
-    четыре посёлка — «Плитки с фото» T534 в две колонки с вертикальным кадром. Кода нет, всё правится в редакторе.<br>
-    На обложке сейчас стоит кадр Завидова — под неё лучше дать отдельное фото курорта.
-  </div>
 </section>
 
 <!-- ========================== ВАРИАНТ 3 ========================== -->
@@ -580,7 +570,7 @@ a{color:inherit;text-decoration:none}
           <img class="thumb" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-c.jpg" alt="">
           <span class="num">04</span>
           <span class="body"><h3>Marina Zavidovo Village<small>сайт в разработке</small></h3>
-            <p>Четвёртый посёлок Коллекции. Сайт в разработке.</p></span>
+            <p>Новый проект. Сайт в разработке.</p></span>
           <span class="arw">→</span>
         </a>
       </div>
@@ -624,9 +614,6 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 
-  <div class="note" style="margin:0;max-width:none;background:#faf9f7">
-    <b>Сборка в Тильде:</b> один HTML-блок T123 на весь экран. Базовые блоки здесь не подойдут — смена кадра при наведении в них не настраивается.<br>Фото ничем не накрыто: контент лежит на молочной панели рядом с кадром.
-  </div>
 </section>
 
 <!-- ========================== ВАРИАНТ 4 · APPLE ========================== -->
@@ -657,7 +644,7 @@ a{color:inherit;text-decoration:none}
         <div class="ap-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Экопарк Завидово" draggable="false"></div>
         <h3>Экопарк Завидово</h3>
         <div class="sub lbl">обжитой посёлок</div>
-        <p>Старший посёлок Коллекции: участки и готовые дома, куда можно заехать сразу.</p>
+        <p>Участки и готовые дома, куда можно заехать сразу.</p>
         <span class="ap-go">Открыть сайт</span>
       </a>
       <a class="ap-card" href="#" draggable="false">
@@ -665,7 +652,7 @@ a{color:inherit;text-decoration:none}
           <span class="ap-mark lbl">сайт в разработке</span></div>
         <h3>Marina<br>Zavidovo Village</h3>
         <div class="sub lbl">новый проект</div>
-        <p>Четвёртый посёлок Коллекции. Сайт в разработке.</p>
+        <p>Новый проект. Сайт в разработке.</p>
         <span class="ap-go">Скоро</span>
       </a>
     </div>
@@ -711,10 +698,6 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 
-  <div class="note">
-    <b>Сборка в Тильде:</b> один HTML-блок T123. Лента тащится мышью и пальцем: скорость броска
-    переходит в инерцию, карточка долетает до ближайшей позиции пружиной, у краёв лента пружинит.
-  </div>
 </section>
 
 <!-- ========================== ВАРИАНТ 5 · СРЕДЫ ========================== -->
@@ -774,7 +757,7 @@ a{color:inherit;text-decoration:none}
       <div class="env-body">
         <div class="lbl">новый проект</div>
         <h3 class="env-name">Marina<br>Zavidovo Village</h3>
-        <p class="env-fact">Четвёртый посёлок только строится</p>
+        <p class="env-fact">Посёлок только строится</p>
         <p class="env-note">Резиденции в камне и дереве, авторская архитектура каждого дома. Участки и цены откроются вместе с сайтом.</p>
         <div class="env-go"><span>Скоро</span><span class="arw">→</span></div>
       </div>
@@ -818,10 +801,6 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 
-  <div class="note">
-    <b>Сборка в Тильде:</b> один HTML-блок T123. Цифры взяты из проверенного пакета фактов:
-    14 участков первой линии, 324 участка в лесу, парк 15 га, национальный парк 133 000 га.
-  </div>
 </section>
 
 <!-- ================== ВАРИАНТ 6 · ТИЛЬДА, РАЗВОРОТЫ ================== -->
@@ -845,7 +824,7 @@ a{color:inherit;text-decoration:none}
       <div class="tb-body">
         <div class="lbl">обжитой посёлок</div>
         <h3>Экопарк Завидово</h3>
-        <p>Старший посёлок Коллекции: участки и готовые дома, куда можно заехать сразу.</p>
+        <p>Участки и готовые дома, куда можно заехать сразу.</p>
         <span class="tb-go">Смотреть посёлок</span>
       </div>
     </a>
@@ -864,7 +843,7 @@ a{color:inherit;text-decoration:none}
       <div class="tb-body">
         <div class="lbl">новый проект</div>
         <h3>Marina<br>Zavidovo Village</h3>
-        <p>Четвёртый посёлок Коллекции. Сайт в разработке.</p>
+        <p>Новый проект. Сайт в разработке.</p>
         <span class="tb-go">Скоро</span>
       </div>
     </a>
@@ -906,11 +885,6 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 
-  <div class="note">
-    <b>Что здесь из базовых блоков Тильды:</b> шапка — «Изображение» T107 (фото без текста поверх),
-    заголовок и абзац — T015, четыре посёлка — «Фото и текст в две колонки» T490, у чётных фото справа.
-    Кода нет, затемнение не нужно: текст нигде не лежит на кадре.<br>На обложке временно стоит кадр Акватории — под неё нужен отдельный кадр курорта.
-  </div>
 </section>
 
 <!-- ================== ВАРИАНТ 7 · ТИЛЬДА, ЖУРНАЛ ================== -->
@@ -944,7 +918,7 @@ a{color:inherit;text-decoration:none}
           <h3>Экопарк Завидово</h3>
         </div>
         <div>
-          <p>Старший посёлок Коллекции: участки и готовые дома, куда можно заехать сразу.</p>
+          <p>Участки и готовые дома, куда можно заехать сразу.</p>
           <span class="tj-go">Смотреть посёлок</span>
         </div>
       </div>
@@ -971,7 +945,7 @@ a{color:inherit;text-decoration:none}
           <h3>Marina<br>Zavidovo Village</h3>
         </div>
         <div>
-          <p>Четвёртый посёлок Коллекции. Сайт в разработке.</p>
+          <p>Новый проект. Сайт в разработке.</p>
           <span class="tj-go">Скоро</span>
         </div>
       </div>
@@ -1014,11 +988,6 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 
-  <div class="note">
-    <b>Что здесь из базовых блоков Тильды:</b> обложка — «Изображение» T107, имя на молочной полке
-    под кадром — T015, каждый посёлок — широкое «Изображение» T107 плюс «Две колонки текста» T142.
-    Кадр остаётся чистым, подпись живёт под ним.<br>На обложке временно стоит кадр Акватории — под неё нужен отдельный кадр курорта.
-  </div>
 </section>
 
 <script>
