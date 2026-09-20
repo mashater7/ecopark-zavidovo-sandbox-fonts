@@ -159,9 +159,9 @@ a{color:inherit;text-decoration:none}
    ВЕРСИЯ 3 — «РАЗВОРОТ». Три панели, под ними Marina во весь экран:
    кадр во всю ширину, поверх — молочная полка с именем и кнопкой.
    ========================================================================== */
-.vr{position:relative;min-height:76vh;display:flex;align-items:flex-end;overflow:hidden}
-.vr-ph{position:absolute;inset:0;z-index:0}
-.vr-ph img{width:100%;height:100%;object-fit:cover;object-position:center 72%}
+.vr{position:relative;display:block;overflow:hidden;background:#0c1c15}
+.vr-ph{position:relative;z-index:0;line-height:0}
+.vr-ph img{width:100%;height:auto}   /* кадр целиком, во всю ширину, без обрезки */
 .vr-shelf{position:relative;z-index:2;width:100%;background:#faf9f7;color:#1a1a1a;
      padding:clamp(28px,3.4vw,48px) clamp(20px,4vw,56px)}
 .vr-in{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:18px}
