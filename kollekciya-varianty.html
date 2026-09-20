@@ -415,6 +415,83 @@ a{color:inherit;text-decoration:none}
 }
 
 /* сноска-памятка внизу каждого варианта */
+
+/* ==========================================================================
+   МОБИЛЬНАЯ КОМПОЗИЦИЯ — у каждого варианта своя, а не общий столбик.
+   Тап-зоны 44px, корпусный текст от 16px, кадры разной пропорции и ширины.
+   ========================================================================== */
+@media (max-width:640px){
+
+  /* тап-зона у всех строк-ссылок */
+  .tn-go,.tb-go,.tj-go,.ap-go{min-height:44px;display:flex;align-items:center}
+  .env-go{min-height:44px}
+  .ct-ms a{min-height:44px;display:flex;align-items:center}
+
+  /* ——— ПЛИТКИ: витрина 2×2, все четыре посёлка видно сразу ——— */
+  #v1 .tn-grid{grid-template-columns:1fr 1fr;gap:30px 14px;padding:44px 16px 72px}
+  #v1 .tn-ph{aspect-ratio:3/4}
+  #v1 .tn-head{margin-top:14px;padding-top:12px}
+  #v1 .tn-head .lbl{font-size:9.5px;letter-spacing:.12em}
+  #v1 .tn-card h3{margin-top:10px;font-size:20px;letter-spacing:.02em}
+  #v1 .tn-card p{margin-top:8px;font-size:13.5px;line-height:1.55}
+  #v1 .tn-go{margin-top:6px;font-size:10px;letter-spacing:.12em}
+  #v1 .tn-usp{grid-template-columns:1fr 1fr;gap:20px 16px}
+  #v1 .tn-usp p{font-size:14.5px;line-height:1.5}
+  #v1 .tn-lead h2{font-size:25px;line-height:1.32}
+
+  /* ——— РАЗВОРОТЫ: кадр выходит за край, текст в полях, стороны чередуются ——— */
+  #v6 .tb-row{padding-left:0;padding-right:0;gap:16px;
+       padding-top:34px;padding-bottom:34px}
+  #v6 .tb-ph{aspect-ratio:16/11}
+  #v6 .tb-row:nth-of-type(odd) .tb-ph{margin-right:38px}
+  #v6 .tb-row:nth-of-type(even) .tb-ph{margin-left:38px}
+  #v6 .tb-body{padding:0 20px}
+  #v6 .tb-body h3{font-size:25px}
+  #v6 .tb-body p{font-size:16px;line-height:1.7}
+  #v6 .tb-top{padding-left:20px;padding-right:20px}
+
+  /* ——— ЖУРНАЛ: широкий кадр во всю ширину, подпись под ним ——— */
+  #v7 .tj-item{padding:0 0 30px}
+  #v7 .tj-ph{aspect-ratio:16/9}
+  #v7 .tj-cap{padding:20px 20px 0;gap:10px}
+  #v7 .tj-cap h3{font-size:25px}
+  #v7 .tj-cap p{font-size:16px;line-height:1.7}
+  #v7 .tj-shelf{padding-left:20px;padding-right:20px}
+  #v7 .tj-shelf h1{font-size:27px}
+
+  /* ——— ОГЛАВЛЕНИЕ: компактный список, кадр-шапка тише ——— */
+  #v3 .og-bg{height:28vh}
+  #v3 .og-row{padding:13px 0;gap:14px}
+  #v3 .og-row .thumb{flex:0 0 62px;width:62px;height:72px}
+  #v3 .og-row h3{font-size:19px}
+  #v3 .og-row h3 small{margin-top:5px;font-size:9.5px}
+  #v3 .og-row p{font-size:15px;line-height:1.45;
+       display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  #v3 .og-l h1{font-size:30px}
+  #v3 .og-l p{font-size:16px}
+
+  /* ——— ЛЕНТА: карта почти во весь экран, тап-зона у точек 44px ——— */
+  #v4 .ap-card{flex:0 0 82vw}
+  #v4 .ap-ph{aspect-ratio:4/5}
+  #v4 .ap-dots{gap:14px}
+  #v4 .ap-dots button{position:relative}
+  #v4 .ap-dots button::after{content:'';position:absolute;inset:-18px}
+  #v4 .ap-top h1{font-size:28px}
+  #v4 .ap-card p{font-size:15.5px}
+
+  /* ——— ПОЛОСЫ: один посёлок — один экран, крупное имя и квадратный кадр ——— */
+  #v5 .env-ph{min-height:0;aspect-ratio:1/1}
+  #v5 .env-body{padding:26px 20px 34px}
+  #v5 .env-name{font-size:32px;line-height:1.1}
+  #v5 .env-fact{font-size:18.5px;line-height:1.45;margin-top:18px}
+  #v5 .env-note{font-size:16px;line-height:1.65}
+  #v5 .env-top{padding-left:20px;padding-right:20px}
+  #v5 .env-top h1{font-size:30px}
+
+  /* контакты: имена и должности крупнее, портреты меньше */
+  .ct-person img{width:72px;height:72px;margin-bottom:12px}
+  .ct-person b{font-size:18px}
+}
 </style>
 </head>
 <body>
