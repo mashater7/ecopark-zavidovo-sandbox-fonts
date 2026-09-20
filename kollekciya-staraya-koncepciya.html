@@ -47,9 +47,19 @@ a{color:inherit;text-decoration:none}
   .sw button{flex:0 0 auto;padding:7px 12px;font-size:11px}
 }
 
-/* ——— шапка ——— */
+/* ——— лок-ап: на компьютере лежит поверх панелей, как на боевом сайте ———
+   На телефоне остаётся тёмной полосой над панелями. */
+.lv-hero{position:relative}
 .lv-head{background:#10231b;text-align:center;
      padding:clamp(76px,8vw,104px) 20px clamp(26px,4vw,44px)}
+@media (min-width:900px){
+  .lv-head{position:absolute;z-index:5;left:0;right:0;top:0;background:none;
+       padding:clamp(34px,4vw,54px) 20px 0;pointer-events:none;
+       text-shadow:0 2px 18px rgba(0,0,0,.55)}
+  .lv-head img.dia{width:46px;margin-bottom:14px}
+  .lv-head h1{font-size:clamp(28px,2.7vw,40px)}
+  .lv-head p{margin-top:8px}
+}
 .lv-head img.dia{width:52px;margin:0 auto 18px}
 .lv-head h1{margin:0;font-weight:400;font-size:clamp(20px,4vw,34px);
      line-height:1.2;letter-spacing:.14em;text-transform:uppercase}
@@ -60,7 +70,7 @@ a{color:inherit;text-decoration:none}
 .lv-strip{display:grid;grid-template-columns:1fr}
 .lv-panel{position:relative;display:flex;flex-direction:column;justify-content:flex-end;
      align-items:center;text-align:center;min-height:62vh;overflow:hidden;color:#fff;
-     padding:0 22px clamp(28px,5vw,44px)}
+     padding:0 22px clamp(28px,5vw,54px)}
 .lv-panel img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .lv-panel::after{content:'';position:absolute;inset:0;z-index:1;
      background:linear-gradient(180deg,rgba(6,18,13,.30) 0%,rgba(6,18,13,.05) 34%,rgba(6,18,13,.62) 100%)}
@@ -83,7 +93,7 @@ a{color:inherit;text-decoration:none}
 .lv-panel:hover .lv-btn{transform:translateY(-2px);filter:brightness(1.06)}
 
 @media (min-width:900px){
-  .lv-strip{display:flex;width:100%;height:80vh}
+  .lv-strip{display:flex;width:100%;height:100vh;height:100dvh}
   .lv-panel{flex:1 1 0;min-width:0;min-height:0;
        transition:flex-grow .7s cubic-bezier(.23,1,.32,1)}
   .lv-strip:hover .lv-panel{flex-grow:.86}
@@ -183,6 +193,7 @@ a{color:inherit;text-decoration:none}
 
 <!-- ===================== ВЕРСИЯ 1 · ПОЛОСА ===================== -->
 <div class="ver on" id="p1">
+  <div class="lv-hero">
   <header class="lv-head">
     <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
     <h1>Коллекция Завидово</h1>
@@ -221,6 +232,7 @@ a{color:inherit;text-decoration:none}
       </div>
     </a>
   </div>
+  </div>
 
   <section class="vp">
     <div class="vp-txt">
@@ -239,6 +251,7 @@ a{color:inherit;text-decoration:none}
 
 <!-- ===================== ВЕРСИЯ 2 · ГАЛЕРЕЯ ===================== -->
 <div class="ver" id="p2">
+  <div class="lv-hero">
   <header class="lv-head">
     <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
     <h1>Коллекция Завидово</h1>
@@ -277,6 +290,7 @@ a{color:inherit;text-decoration:none}
       </div>
     </a>
       </div>
+  </div>
 
   <section class="gal" id="p2gal">
     <div class="gal-in">
@@ -298,6 +312,7 @@ a{color:inherit;text-decoration:none}
 
 <!-- ===================== ВЕРСИЯ 3 · РАЗВОРОТ ===================== -->
 <div class="ver" id="p3">
+  <div class="lv-hero">
   <header class="lv-head">
     <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
     <h1>Коллекция Завидово</h1>
@@ -335,6 +350,7 @@ a{color:inherit;text-decoration:none}
         <span class="lv-btn">Выбрать <span>→</span></span>
       </div>
     </a>
+  </div>
   </div>
 
   <section class="vr">
