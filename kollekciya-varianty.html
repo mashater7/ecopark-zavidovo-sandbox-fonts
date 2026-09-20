@@ -508,6 +508,43 @@ a{color:inherit;text-decoration:none}
   .lv-panel p{font-size:15px}
 }
 
+/* ——— ВИП-участки: полоса внизу старой концепции ——— */
+.vip{position:relative;overflow:hidden;background:#10231b;color:#fff}
+.vip-ph{position:absolute;inset:0;z-index:0}
+.vip-ph img{width:100%;height:100%;object-fit:cover;opacity:.55}
+.vip::after{content:'';position:absolute;inset:0;z-index:1;
+     background:linear-gradient(90deg,rgba(9,24,17,.92) 0%,rgba(9,24,17,.72) 52%,rgba(9,24,17,.45) 100%)}
+.vip-in{position:relative;z-index:2;max-width:1320px;margin:0 auto;
+     padding:clamp(46px,6vw,86px) clamp(20px,4vw,56px)}
+.vip-kick{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#cfe8d8}
+.vip h2{margin:14px 0 0;font-weight:400;font-size:clamp(26px,3.6vw,46px);
+     line-height:1.12;letter-spacing:.06em;text-transform:uppercase}
+.vip p{margin:16px 0 0;max-width:46ch;font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.88)}
+.vip-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.vip-btn{display:inline-flex;align-items:center;gap:9px;min-height:46px;padding:12px 26px;
+     border-radius:40px;color:#fff;font-size:14px;
+     background:linear-gradient(100deg,#1bad03,#15a06a 45%,#007fe2);
+     transition:transform .4s cubic-bezier(.23,1,.32,1),filter .3s}
+.vip-btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
+.vip-btn--ghost{background:none;border:1px solid rgba(255,255,255,.45)}
+.vip-btn--ghost:hover{background:rgba(255,255,255,.08)}
+@media (max-width:640px){ .vip p{max-width:none} .vip-row{flex-direction:column} .vip-btn{justify-content:center} }
+
+/* ——— второй вариант старой концепции: панель раскрывается при наведении ——— */
+@media (min-width:900px){
+  #v11 .lv-strip{display:flex;width:100%;height:82vh}
+  #v11 .lv-panel{flex:1 1 0;min-width:0;min-height:0;
+       transition:flex-grow .7s cubic-bezier(.23,1,.32,1)}
+  #v11 .lv-strip:hover .lv-panel{flex-grow:.86}
+  #v11 .lv-strip .lv-panel:hover{flex-grow:1.9}
+  #v11 .lv-panel p{opacity:0;max-height:0;overflow:hidden;margin-top:0;
+       transition:opacity .45s ease,max-height .6s cubic-bezier(.23,1,.32,1),margin-top .6s}
+  #v11 .lv-panel:hover p{opacity:1;max-height:160px;margin-top:14px}
+  #v11 .lv-btn,#v11 .lv-soon{opacity:0;transform:translateY(6px);
+       transition:opacity .45s ease,transform .5s cubic-bezier(.23,1,.32,1)}
+  #v11 .lv-panel:hover .lv-btn,#v11 .lv-panel:hover .lv-soon{opacity:1;transform:none}
+}
+
 /* ==========================================================================
    БЛОК КОНТАКТОВ — общий для всех вариантов.
    Данные взяты из подвала боевого сайта: телефон, почта и мессенджеры те же.
@@ -670,6 +707,7 @@ a{color:inherit;text-decoration:none}
   <button data-go="v8" aria-pressed="false">Экраны</button>
   <button data-go="v9" aria-pressed="false">Мягкий</button>
   <button data-go="v10" aria-pressed="false">Как на сайте</button>
+  <button data-go="v11" aria-pressed="false">Как на сайте · раскрытие</button>
 </nav>
 
 <!-- ========================== ВАРИАНТ 1 ========================== -->
@@ -1495,7 +1533,86 @@ a{color:inherit;text-decoration:none}
       </div>
     </a>
   </div>
+  <section class="vip">
+    <div class="vip-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="" loading="lazy"></div>
+    <div class="vip-in">
+      <div class="vip-kick">Отдельная очередь</div>
+      <h2>Вип-участки в Завидово</h2>
+      <p>Первая линия воды в Акватории — 14 участков, у каждого свой причал. Такой очереди в посёлке больше не будет. Свою подборку лучших участков ведёт и Экопарк Завидово.</p>
+      <div class="vip-row">
+        <a class="vip-btn" href="/akvatoria">Первая линия в Акватории <span>→</span></a>
+        <a class="vip-btn vip-btn--ghost" href="https://ecopark-zavidovo.ru/premium">Подборка Экопарка <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
 </section>
+
+<!-- ================== ВАРИАНТ 11 · КАК НА САЙТЕ, С РАСКРЫТИЕМ ================== -->
+<section class="variant lv" id="v11">
+  <div class="lv-head">
+    <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+    <h1>Коллекция Завидово</h1>
+    <p>Четыре посёлка — один курорт</p>
+  </div>
+  <div class="lv-strip">
+    <a class="lv-panel" href="https://ecopark-zavidovo.ru/lesnoy">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg" alt="Лесной" loading="lazy">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-lesnoy.png" alt=""></div>
+        <div class="lv-kick">экопарк</div>
+        <h3>Лесной</h3>
+        <p>Посёлок в хвойном лесу на берегу Дойбицы: 324 участка, деревья остаются на участке.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+    <a class="lv-panel" href="https://ecopark-zavidovo.ru/">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Завидово" loading="lazy">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-zavidovo.png" alt=""></div>
+        <div class="lv-kick">экопарк</div>
+        <h3>Завидово</h3>
+        <p>Заповедник в 3 км, лес в 100 метрах и река Дойбица по границе посёлка.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+    <a class="lv-panel" href="/akvatoria">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="Акватория" loading="lazy">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt=""></div>
+        <div class="lv-kick">акватория</div>
+        <h3>Акватория</h3>
+        <p>Посёлок на берегу Волги: свой пляж, яхт-клуб и причалы, парк 15 га.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+    <a class="lv-panel" href="#">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-a.jpg" alt="Marina" loading="lazy">
+      <div class="lv-in">
+        <div class="lv-mark"><span>M</span></div>
+        <div class="lv-kick">завидово</div>
+        <h3>Marina<small>Zavidovo Village</small></h3>
+        <p>Новый проект Коллекции. Сайт в разработке.</p>
+        <span class="lv-soon">Сайт в разработке</span>
+      </div>
+    </a>
+  </div>
+  <section class="vip">
+    <div class="vip-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="" loading="lazy"></div>
+    <div class="vip-in">
+      <div class="vip-kick">Отдельная очередь</div>
+      <h2>Вип-участки в Завидово</h2>
+      <p>Первая линия воды в Акватории — 14 участков, у каждого свой причал. Такой очереди в посёлке больше не будет. Свою подборку лучших участков ведёт и Экопарк Завидово.</p>
+      <div class="vip-row">
+        <a class="vip-btn" href="/akvatoria">Первая линия в Акватории <span>→</span></a>
+        <a class="vip-btn vip-btn--ghost" href="https://ecopark-zavidovo.ru/premium">Подборка Экопарка <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+</section>
+
+
 
 <script>
 /* переключатель вариантов и под-вариантов */
