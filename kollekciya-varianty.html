@@ -404,6 +404,49 @@ a{color:inherit;text-decoration:none}
 }
 
 /* ==========================================================================
+   ВАРИАНТ 9 — «МЯГКИЙ». Скруглённые карточки, мягкая тень, кнопка-пилюля.
+   Собран от телефона: карточка во всю ширину, кадр сверху, текст под ним.
+   ========================================================================== */
+.sf{background:#f1efea}
+.sf-top{max-width:1320px;margin:0 auto;padding:clamp(92px,12vw,150px) clamp(20px,4vw,56px) clamp(34px,4vw,54px)}
+.sf-top img.dia{width:36px;margin:0 0 22px}
+.sf-top h1{margin:0;font-weight:400;font-size:clamp(29px,4.6vw,58px);
+     line-height:1.1;letter-spacing:.02em;max-width:16ch}
+.sf-top p{margin:20px 0 0;max-width:52ch;font-size:16.5px;line-height:1.7;color:#5d5952}
+
+.sf-grid{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;
+     gap:clamp(18px,2.4vw,32px);padding:0 clamp(20px,4vw,56px) clamp(70px,9vw,110px)}
+.sf-card{display:block;background:#fff;border-radius:24px;overflow:hidden;
+     box-shadow:0 8px 28px rgba(60,52,40,.07);
+     transition:transform .55s cubic-bezier(.23,1,.32,1),box-shadow .55s cubic-bezier(.23,1,.32,1)}
+.sf-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(60,52,40,.12)}
+.sf-ph{position:relative;aspect-ratio:4/3;overflow:hidden;background:#eceae6}
+.sf-ph img{width:100%;height:100%;object-fit:cover;
+     transition:transform 1.2s cubic-bezier(.23,1,.32,1)}
+.sf-card:hover .sf-ph img{transform:scale(1.045)}
+.sf-mark{position:absolute;left:14px;top:14px;padding:8px 13px;border-radius:999px;
+     background:rgba(255,255,255,.92);color:#6b655d}
+.sf-body{padding:clamp(20px,2.2vw,28px) clamp(20px,2.2vw,28px) clamp(22px,2.4vw,30px)}
+.sf-body .lbl{color:#a09a90}
+.sf-body h3{margin:12px 0 0;font-weight:400;font-size:clamp(23px,2.4vw,30px);
+     line-height:1.14;letter-spacing:.03em}
+.sf-body p{margin:12px 0 0;font-size:16px;line-height:1.6;color:#5d5952}
+.sf-btn{display:inline-flex;align-items:center;gap:10px;margin-top:20px;
+     min-height:46px;padding:0 22px;border-radius:999px;background:#f1efea;color:#3a352e;
+     font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;
+     letter-spacing:.14em;text-transform:uppercase;
+     transition:background .3s,color .3s}
+.sf-card:hover .sf-btn{background:#1a1a1a;color:#fff}
+.sf-btn .arw{font-size:16px;letter-spacing:0}
+.sf-card.soon .sf-btn{background:transparent;border:1px solid #ded9d1;color:#8a857d}
+@media (max-width:820px){
+  .sf-grid{grid-template-columns:1fr;gap:16px;padding-bottom:64px}
+  .sf-card{border-radius:20px}
+  .sf-ph{aspect-ratio:16/11}
+  .sf-body h3{font-size:24px}
+}
+
+/* ==========================================================================
    БЛОК КОНТАКТОВ — общий для всех вариантов.
    Данные взяты из подвала боевого сайта: телефон, почта и мессенджеры те же.
    В Тильде это блок «Контакты в три колонки» T129/T131 либо тот же HTML-блок.
@@ -565,6 +608,7 @@ a{color:inherit;text-decoration:none}
   <button data-go="v4" aria-pressed="false">Apple · лента</button>
   <button data-go="v5" aria-pressed="false">Полосы</button>
   <button data-go="v8" aria-pressed="false">Экраны</button>
+  <button data-go="v9" aria-pressed="false">Мягкий</button>
 </nav>
 
 <!-- ========================== ВАРИАНТ 1 ========================== -->
@@ -1170,6 +1214,93 @@ a{color:inherit;text-decoration:none}
       <span class="sc-go">Скоро<span class="arw">→</span></span>
     </div>
   </a>
+
+  <div class="ct">
+    <div class="ct-team">
+      <span class="lbl">Наши лица</span>
+      <div class="ct-people">
+        <div class="ct-person"><img src="https://thb.tildacdn.com/tild3430-6364-4935-b039-343339363163/-/resize/240x/Ellipse_62.png" alt="Александр" loading="lazy"><b>Александр</b><span>руководитель проекта</span></div>
+        <div class="ct-person"><img src="https://thb.tildacdn.com/tild6535-6561-4534-b135-326163636430/-/resize/240x/noroot.png" alt="Эмиль" loading="lazy"><b>Эмиль</b><span>руководитель отдела продаж</span></div>
+        <div class="ct-person"><img src="https://thb.tildacdn.com/tild6339-3634-4266-b331-633664616561/-/resize/240x/noroot.png" alt="Мария" loading="lazy"><b>Мария</b><span>менеджер</span></div>
+        <div class="ct-person"><img src="https://thb.tildacdn.com/tild3833-3361-4565-b338-646633663539/-/resize/240x/noroot.png" alt="Екатерина" loading="lazy"><b>Екатерина</b><span>менеджер</span></div>
+      </div>
+    </div>
+
+    <div class="ct-in">
+      <div class="ct-col">
+        <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+        <div class="ct-name">Коллекция Завидово</div>
+        <p>Тверская область, Конаковский район, сельское поселение Завидово</p>
+      </div>
+      <div class="ct-col">
+        <span class="lbl">Отдел продаж</span>
+        <a class="ct-tel" href="tel:+74993091245">+7 499 309 12 45</a>
+        <a class="ct-mail" href="mailto:info@ecoparkz.ru">info@ecoparkz.ru</a>
+        <span class="ct-hours">10:00 — 20:00, без выходных</span>
+      </div>
+      <div class="ct-col">
+        <span class="lbl">Мессенджеры</span>
+        <div class="ct-ms">
+          <a href="https://wa.me/79201598272">WhatsApp</a>
+          <a href="https://t.me/ecoparkzavidovo">Telegram</a>
+          <a href="#">МАКС</a>
+        </div>
+      </div>
+    </div>
+    <div class="ct-foot">
+      <span>Не является публичной офертой</span>
+      <a href="#">Политика конфиденциальности</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ========================== ВАРИАНТ 9 · МЯГКИЙ ========================== -->
+<section class="variant sf" id="v9">
+  <div class="sf-top">
+    <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+    <h1>Четыре посёлка у одного курорта</h1>
+    <p>Группа посёлков в курортной зоне Завидово. В 10 минутах от курорта, в окружении заповедников, лесов и рек. В часе езды от Москвы.</p>
+  </div>
+
+  <div class="sf-grid">
+    <a class="sf-card" href="/akvatoria">
+      <div class="sf-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="Акватория Завидово" loading="lazy"></div>
+      <div class="sf-body">
+        <div class="lbl">берег Волги · флагман</div>
+        <h3>Акватория Завидово</h3>
+        <p>14 участков первой линии — у каждого свой причал, пляж и марина на территории.</p>
+        <span class="sf-btn">Смотреть посёлок<span class="arw">→</span></span>
+      </div>
+    </a>
+    <a class="sf-card" href="https://ecopark-zavidovo.ru/lesnoy">
+      <div class="sf-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg" alt="Экопарк Лесной" loading="lazy"></div>
+      <div class="sf-body">
+        <div class="lbl">хвойный лес</div>
+        <h3>Экопарк Лесной</h3>
+        <p>324 участка в хвойном лесу на берегу Дойбицы, деревья остаются на участке.</p>
+        <span class="sf-btn">Смотреть посёлок<span class="arw">→</span></span>
+      </div>
+    </a>
+    <a class="sf-card" href="https://ecopark-zavidovo.ru/">
+      <div class="sf-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Экопарк Завидово" loading="lazy"></div>
+      <div class="sf-body">
+        <div class="lbl">готовые дома</div>
+        <h3>Экопарк Завидово</h3>
+        <p>Участки и готовые дома, куда можно заехать сразу.</p>
+        <span class="sf-btn">Смотреть посёлок<span class="arw">→</span></span>
+      </div>
+    </a>
+    <a class="sf-card soon" href="#">
+      <div class="sf-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-b.jpg" alt="Marina Zavidovo Village" loading="lazy"><span class="sf-mark lbl">сайт в разработке</span></div>
+      <div class="sf-body">
+        <div class="lbl">новый проект</div>
+        <h3>Marina<br>Zavidovo Village</h3>
+        <p>Посёлок только строится. Участки, цены и сайт откроются позже.</p>
+        <span class="sf-btn">Скоро<span class="arw">→</span></span>
+      </div>
+    </a>
+  </div>
 
   <div class="ct">
     <div class="ct-team">
