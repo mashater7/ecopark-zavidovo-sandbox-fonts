@@ -459,16 +459,24 @@ a{color:inherit;text-decoration:none}
   #v7 .tj-shelf{padding-left:20px;padding-right:20px}
   #v7 .tj-shelf h1{font-size:27px}
 
-  /* ——— ОГЛАВЛЕНИЕ: компактный список, кадр-шапка тише ——— */
-  #v3 .og-bg{height:28vh}
-  #v3 .og-row{padding:13px 0;gap:14px}
-  #v3 .og-row .thumb{flex:0 0 62px;width:62px;height:72px}
-  #v3 .og-row h3{font-size:19px}
-  #v3 .og-row h3 small{margin-top:5px;font-size:9.5px}
-  #v3 .og-row p{font-size:15px;line-height:1.45;
-       display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  #v3 .og-l h1{font-size:30px}
-  #v3 .og-l p{font-size:16px}
+  /* ——— ОГЛАВЛЕНИЕ: чистое меню. Кадр-шапки нет (на телефоне он не меняется
+     при наведении и только занимает экран), строки — крупное превью и имя ——— */
+  #v3 .og-bg{display:none}
+  #v3 .og{padding:92px 0 40px}
+  #v3 .og-in{padding:0 20px}
+  #v3 .og-l img.dia{width:34px;margin-bottom:18px}
+  #v3 .og-l h1{font-size:29px;line-height:1.12}
+  #v3 .og-l .grad{margin:20px 0 18px}
+  #v3 .og-l p{font-size:16px;line-height:1.65}
+  #v3 .og-list{margin-top:30px}
+  #v3 .og-row{padding:0;gap:16px;min-height:112px;align-items:center}
+  #v3 .og-row .thumb{display:block;flex:0 0 88px;width:88px;height:88px;object-fit:cover}
+  #v3 .og-row .body{padding:4px 0}
+  #v3 .og-row h3{font-size:21px;line-height:1.15;letter-spacing:.02em}
+  #v3 .og-row h3 small{margin-top:7px;font-size:10px;letter-spacing:.14em}
+  #v3 .og-row p{display:none}
+  #v3 .og-row .arw{font-size:18px}
+  #v3 .og-row:hover>*{transform:none}
 
   /* ——— ЛЕНТА: карта почти во весь экран, тап-зона у точек 44px ——— */
   #v4 .ap-card{flex:0 0 82vw}
@@ -479,14 +487,21 @@ a{color:inherit;text-decoration:none}
   #v4 .ap-top h1{font-size:28px}
   #v4 .ap-card p{font-size:15.5px}
 
-  /* ——— ПОЛОСЫ: один посёлок — один экран, крупное имя и квадратный кадр ——— */
-  #v5 .env-ph{min-height:0;aspect-ratio:1/1}
-  #v5 .env-body{padding:26px 20px 34px}
-  #v5 .env-name{font-size:32px;line-height:1.1}
-  #v5 .env-fact{font-size:18.5px;line-height:1.45;margin-top:18px}
-  #v5 .env-note{font-size:16px;line-height:1.65}
-  #v5 .env-top{padding-left:20px;padding-right:20px}
-  #v5 .env-top h1{font-size:30px}
+  /* ——— ПОЛОСЫ: карточка-посёлок. Вертикальный кадр, под ним имя и один факт
+     с цифрой; длинное описание на телефоне убрано, оно дублирует факт ——— */
+  #v5 .env-top{padding:92px 20px 26px}
+  #v5 .env-top h1{font-size:29px;line-height:1.12}
+  #v5 .env-top p{font-size:16px;line-height:1.65;margin-top:18px}
+  #v5 .env-top .env-sub{gap:8px 20px;margin-top:20px}
+  #v5 .env-row{border-top:0}
+  #v5 .env-row:last-of-type{border-bottom:0}
+  #v5 .env-ph{min-height:0;aspect-ratio:4/5}
+  #v5 .env-body{padding:20px 20px 34px}
+  #v5 .env-body>.lbl{margin-bottom:12px;font-size:10px;letter-spacing:.14em}
+  #v5 .env-name{font-size:28px;line-height:1.12}
+  #v5 .env-fact{font-size:17px;line-height:1.5;margin-top:14px;color:#5d5952}
+  #v5 .env-note{display:none}
+  #v5 .env-go{margin-top:20px;padding-top:16px}
 
   /* контакты: имена и должности крупнее, портреты меньше */
   .ct-person img{width:72px;height:72px;margin-bottom:12px}
