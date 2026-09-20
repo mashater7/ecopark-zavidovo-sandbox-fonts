@@ -80,7 +80,7 @@ a{color:inherit;text-decoration:none}
    волосяные линии вместо рамок, ноль теней и скруглений.
    ========================================================================== */
 .tn{background:#faf9f7}
-.tn-cover{position:relative;min-height:620px;height:100vh;display:flex;
+.tn-cover{position:relative;min-height:560px;height:100vh;height:100dvh;display:flex;
      align-items:center;justify-content:center;text-align:center;color:#fff;overflow:hidden}
 .tn-cover-bg{position:absolute;inset:0;
      background:url(https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg) center/cover no-repeat}
@@ -144,7 +144,7 @@ a{color:inherit;text-decoration:none}
    Наведение на строку меняет кадр во всю секцию — выбор без скролла.
    Мобилка: строки превращаются в карточки со своим кадром.
    ========================================================================== */
-.og{position:relative;min-height:100vh;display:flex;align-items:center;
+.og{position:relative;min-height:100vh;min-height:100dvh;display:flex;align-items:center;
     overflow:hidden;padding:clamp(88px,10vw,120px) 0}
 .og-bg{position:absolute;inset:0;z-index:0}
 .og-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
@@ -427,16 +427,21 @@ a{color:inherit;text-decoration:none}
   .env-go{min-height:44px}
   .ct-ms a{min-height:44px;display:flex;align-items:center}
 
+  /* телефон и почта — полноценные тап-зоны */
+  .ct-tel{min-height:48px;display:flex;align-items:center}
+  .ct-mail{min-height:44px;display:flex;align-items:center}
+  .ct-hours{font-size:16px}
+
   /* ——— ПЛИТКИ: витрина 2×2, все четыре посёлка видно сразу ——— */
   #v1 .tn-grid{grid-template-columns:1fr 1fr;gap:30px 14px;padding:44px 16px 72px}
   #v1 .tn-ph{aspect-ratio:3/4}
   #v1 .tn-head{margin-top:14px;padding-top:12px}
   #v1 .tn-head .lbl{font-size:9.5px;letter-spacing:.12em}
   #v1 .tn-card h3{margin-top:10px;font-size:20px;letter-spacing:.02em}
-  #v1 .tn-card p{margin-top:8px;font-size:13.5px;line-height:1.55}
-  #v1 .tn-go{margin-top:6px;font-size:10px;letter-spacing:.12em}
+  #v1 .tn-card p{display:none}
+  #v1 .tn-go{margin-top:4px;font-size:10px;letter-spacing:.12em;min-height:36px}
   #v1 .tn-usp{grid-template-columns:1fr 1fr;gap:20px 16px}
-  #v1 .tn-usp p{font-size:14.5px;line-height:1.5}
+  #v1 .tn-usp p{font-size:16px;line-height:1.55}
   #v1 .tn-lead h2{font-size:25px;line-height:1.32}
 
   /* ——— РАЗВОРОТЫ: кадр выходит за край, текст в полях, стороны чередуются ——— */
@@ -483,7 +488,8 @@ a{color:inherit;text-decoration:none}
   #v4 .ap-ph{aspect-ratio:4/5}
   #v4 .ap-dots{gap:14px}
   #v4 .ap-dots button{position:relative}
-  #v4 .ap-dots button::after{content:'';position:absolute;inset:-18px}
+  #v4 .ap-dots button{width:9px;height:9px}
+  #v4 .ap-dots button::after{content:'';position:absolute;inset:-20px}
   #v4 .ap-top h1{font-size:28px}
   #v4 .ap-card p{font-size:15.5px}
 
@@ -556,7 +562,7 @@ a{color:inherit;text-decoration:none}
     </a>
     <a class="tn-card rv" href="https://ecopark-zavidovo.ru/">
       <div class="tn-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Завидово"></div>
-      <div class="tn-head"><span class="lbl">обжитой посёлок</span></div>
+      <div class="tn-head"><span class="lbl">готовые дома</span></div>
       <h3>Экопарк Завидово</h3>
       <p>Участки и готовые дома, куда можно заехать сразу.</p>
       <span class="tn-go">Смотреть посёлок</span>
@@ -647,7 +653,7 @@ a{color:inherit;text-decoration:none}
         <a class="og-row" data-k="1" href="https://ecopark-zavidovo.ru/">
           <img class="thumb" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="">
           <span class="num">02</span>
-          <span class="body"><h3>Экопарк Завидово<small>обжитой посёлок</small></h3>
+          <span class="body"><h3>Экопарк Завидово<small>готовые дома</small></h3>
             <p>Участки и готовые дома, куда можно заехать сразу.</p></span>
           <span class="arw">→</span>
         </a>
@@ -735,7 +741,7 @@ a{color:inherit;text-decoration:none}
       <a class="ap-card" href="https://ecopark-zavidovo.ru/" draggable="false">
         <div class="ap-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Экопарк Завидово" draggable="false"></div>
         <h3>Экопарк Завидово</h3>
-        <div class="sub lbl">обжитой посёлок</div>
+        <div class="sub lbl">готовые дома</div>
         <p>Участки и готовые дома, куда можно заехать сразу.</p>
         <span class="ap-go">Открыть сайт</span>
       </a>
@@ -837,7 +843,7 @@ a{color:inherit;text-decoration:none}
     <a class="env-row" href="https://ecopark-zavidovo.ru/">
       <div class="env-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Экопарк Завидово"></div>
       <div class="env-body">
-        <div class="lbl">обжитой посёлок</div>
+        <div class="lbl">готовые дома</div>
         <h3 class="env-name">Экопарк Завидово</h3>
         <p class="env-fact">Дома построены, посёлок живёт</p>
         <p class="env-note">Готовые дома, работающее обслуживание и соседи, которые уже переехали. Смотреть можно не по генплану, а по улице.</p>
@@ -914,7 +920,7 @@ a{color:inherit;text-decoration:none}
     <a class="tb-row rv" href="https://ecopark-zavidovo.ru/">
       <div class="tb-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Экопарк Завидово"></div>
       <div class="tb-body">
-        <div class="lbl">обжитой посёлок</div>
+        <div class="lbl">готовые дома</div>
         <h3>Экопарк Завидово</h3>
         <p>Участки и готовые дома, куда можно заехать сразу.</p>
         <span class="tb-go">Смотреть посёлок</span>
@@ -1006,7 +1012,7 @@ a{color:inherit;text-decoration:none}
       <div class="tj-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Экопарк Завидово"></div>
       <div class="tj-cap">
         <div>
-          <div class="lbl">обжитой посёлок</div>
+          <div class="lbl">готовые дома</div>
           <h3>Экопарк Завидово</h3>
         </div>
         <div>
