@@ -235,7 +235,6 @@ a{color:inherit;text-decoration:none}
 .ap-dots button{width:7px;height:7px;padding:0;border:0;border-radius:50%;
      background:#d6d1c8;cursor:pointer;transition:background .3s,transform .45s cubic-bezier(.23,1,.32,1)}
 .ap-dots button[aria-current="true"]{background:#1a1a1a;transform:scale(1.35)}
-.ap-hint{text-align:center;margin-top:20px;color:#b5aea4}
 
 /* ==========================================================================
    ВАРИАНТ 5 — «СРЕДЫ»
@@ -363,6 +362,45 @@ a{color:inherit;text-decoration:none}
   .tj-ph{aspect-ratio:4/3}
   .tj-hero{height:44vh}
   .tj-cap p{max-width:none}
+}
+
+/* ==========================================================================
+   ВАРИАНТ 8 — «ЭКРАНЫ». Сделан от телефона: один посёлок = один экран.
+   Кадр занимает верх, снизу молочная полка с именем и фактом — фотография
+   ничем не накрыта, текст лежит на своём фоне.
+   ========================================================================== */
+.sc{background:#faf9f7}
+.sc-intro{padding:clamp(92px,13vw,150px) clamp(20px,4vw,56px) clamp(40px,5vw,60px);
+     max-width:1320px;margin:0 auto}
+.sc-intro img.dia{width:36px;margin:0 0 22px}
+.sc-intro h1{margin:0;font-weight:400;font-size:clamp(29px,4.6vw,58px);
+     line-height:1.1;letter-spacing:.02em;max-width:16ch}
+.sc-intro p{margin:20px 0 0;max-width:52ch;font-size:16.5px;line-height:1.7;color:#5d5952}
+
+.sc-screen{display:block;position:relative;min-height:100vh;min-height:100dvh;
+     display:grid;grid-template-rows:1fr auto;border-top:1px solid #e2ded7}
+.sc-ph{position:relative;overflow:hidden;background:#eceae6}
+.sc-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+     transition:transform 1.4s cubic-bezier(.23,1,.32,1)}
+.sc-screen:hover .sc-ph img{transform:scale(1.04)}
+.sc-num{position:absolute;left:20px;top:20px;z-index:2;padding:8px 13px;
+     background:rgba(250,249,247,.94);color:#6b655d}
+.sc-shelf{padding:clamp(22px,3vw,40px) clamp(20px,4vw,56px) clamp(28px,4vw,44px);
+     background:#faf9f7}
+.sc-shelf .lbl{color:#a09a90}
+.sc-shelf h3{margin:12px 0 0;font-weight:400;font-size:clamp(27px,3.4vw,44px);
+     line-height:1.1;letter-spacing:.03em}
+.sc-shelf p{margin:14px 0 0;font-size:17px;line-height:1.55;color:#5d5952;max-width:44ch}
+.sc-go{display:flex;align-items:center;gap:12px;margin-top:20px;min-height:44px;
+     color:#4a453e;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;
+     letter-spacing:.16em;text-transform:uppercase}
+.sc-go .arw{color:#b5aea4;font-size:18px;letter-spacing:0;
+     transition:transform .45s cubic-bezier(.23,1,.32,1),color .3s}
+.sc-screen:hover .sc-go .arw{transform:translateX(7px);color:#1a1a1a}
+@media (min-width:900px){
+  .sc-screen{grid-template-rows:none;grid-template-columns:1.25fr 1fr;align-items:stretch}
+  .sc-shelf{display:flex;flex-direction:column;justify-content:center}
+  .sc-screen:nth-of-type(even) .sc-ph{order:2}
 }
 
 /* ==========================================================================
@@ -526,6 +564,7 @@ a{color:inherit;text-decoration:none}
   <button data-go="v3" data-mod="panel" aria-pressed="false">Оглавление</button>
   <button data-go="v4" aria-pressed="false">Apple · лента</button>
   <button data-go="v5" aria-pressed="false">Полосы</button>
+  <button data-go="v8" aria-pressed="false">Экраны</button>
 </nav>
 
 <!-- ========================== ВАРИАНТ 1 ========================== -->
@@ -756,7 +795,6 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
   <div class="ap-dots" id="apDots"></div>
-  <div class="ap-hint lbl">тащите ленту · или нажимайте точки</div>
 
   <div class="ct">
     <div class="ct-team">
@@ -1048,6 +1086,91 @@ a{color:inherit;text-decoration:none}
         </div>
       </div>
     </a>
+  <div class="ct">
+    <div class="ct-team">
+      <span class="lbl">Наши лица</span>
+      <div class="ct-people">
+        <div class="ct-person"><img src="https://thb.tildacdn.com/tild3430-6364-4935-b039-343339363163/-/resize/240x/Ellipse_62.png" alt="Александр" loading="lazy"><b>Александр</b><span>руководитель проекта</span></div>
+        <div class="ct-person"><img src="https://thb.tildacdn.com/tild6535-6561-4534-b135-326163636430/-/resize/240x/noroot.png" alt="Эмиль" loading="lazy"><b>Эмиль</b><span>руководитель отдела продаж</span></div>
+        <div class="ct-person"><img src="https://thb.tildacdn.com/tild6339-3634-4266-b331-633664616561/-/resize/240x/noroot.png" alt="Мария" loading="lazy"><b>Мария</b><span>менеджер</span></div>
+        <div class="ct-person"><img src="https://thb.tildacdn.com/tild3833-3361-4565-b338-646633663539/-/resize/240x/noroot.png" alt="Екатерина" loading="lazy"><b>Екатерина</b><span>менеджер</span></div>
+      </div>
+    </div>
+
+    <div class="ct-in">
+      <div class="ct-col">
+        <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+        <div class="ct-name">Коллекция Завидово</div>
+        <p>Тверская область, Конаковский район, сельское поселение Завидово</p>
+      </div>
+      <div class="ct-col">
+        <span class="lbl">Отдел продаж</span>
+        <a class="ct-tel" href="tel:+74993091245">+7 499 309 12 45</a>
+        <a class="ct-mail" href="mailto:info@ecoparkz.ru">info@ecoparkz.ru</a>
+        <span class="ct-hours">10:00 — 20:00, без выходных</span>
+      </div>
+      <div class="ct-col">
+        <span class="lbl">Мессенджеры</span>
+        <div class="ct-ms">
+          <a href="https://wa.me/79201598272">WhatsApp</a>
+          <a href="https://t.me/ecoparkzavidovo">Telegram</a>
+          <a href="#">МАКС</a>
+        </div>
+      </div>
+    </div>
+    <div class="ct-foot">
+      <span>Не является публичной офертой</span>
+      <a href="#">Политика конфиденциальности</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ========================== ВАРИАНТ 8 · ЭКРАНЫ ========================== -->
+<section class="variant sc" id="v8">
+  <div class="sc-intro">
+    <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+    <h1>Четыре посёлка у одного курорта</h1>
+    <p>Группа посёлков в курортной зоне Завидово. В 10 минутах от курорта, в окружении заповедников, лесов и рек. В часе езды от Москвы.</p>
+  </div>
+
+  <a class="sc-screen" href="/akvatoria">
+    <div class="sc-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="Акватория Завидово"><span class="sc-num lbl">01 / 04</span></div>
+    <div class="sc-shelf">
+      <div class="lbl">берег Волги · флагман</div>
+      <h3>Акватория Завидово</h3>
+      <p>14 участков первой линии — у каждого свой причал</p>
+      <span class="sc-go">Смотреть посёлок<span class="arw">→</span></span>
+    </div>
+  </a>
+  <a class="sc-screen" href="https://ecopark-zavidovo.ru/lesnoy">
+    <div class="sc-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg" alt="Экопарк Лесной"><span class="sc-num lbl">02 / 04</span></div>
+    <div class="sc-shelf">
+      <div class="lbl">хвойный лес</div>
+      <h3>Экопарк Лесной</h3>
+      <p>324 участка в хвойном лесу на берегу Дойбицы</p>
+      <span class="sc-go">Смотреть посёлок<span class="arw">→</span></span>
+    </div>
+  </a>
+  <a class="sc-screen" href="https://ecopark-zavidovo.ru/">
+    <div class="sc-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Экопарк Завидово"><span class="sc-num lbl">03 / 04</span></div>
+    <div class="sc-shelf">
+      <div class="lbl">готовые дома</div>
+      <h3>Экопарк Завидово</h3>
+      <p>Дома построены, посёлок живёт</p>
+      <span class="sc-go">Смотреть посёлок<span class="arw">→</span></span>
+    </div>
+  </a>
+  <a class="sc-screen" href="#">
+    <div class="sc-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-b.jpg" alt="Marina Zavidovo Village"><span class="sc-num lbl">04 / 04</span></div>
+    <div class="sc-shelf">
+      <div class="lbl">новый проект</div>
+      <h3>Marina<br>Zavidovo Village</h3>
+      <p>Посёлок только строится</p>
+      <span class="sc-go">Скоро<span class="arw">→</span></span>
+    </div>
+  </a>
+
   <div class="ct">
     <div class="ct-team">
       <span class="lbl">Наши лица</span>
