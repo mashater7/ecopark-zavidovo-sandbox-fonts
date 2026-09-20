@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Коллекция Завидово — старая концепция, три версии</title>
+<meta name="description" content="Коллекция Завидово: панели посёлков и вип-участки Marina Zavidovo Village. Три версии оформления для компьютера.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   КОЛЛЕКЦИЯ ЗАВИДОВО — старая концепция (как на kzavidovo.ru) в трёх версиях.
+   Вип-участки = Marina Zavidovo Village: в каждой версии она подана по-своему.
+   Параметры сняты с живого сайта: фон #10231b, кик 11px/.28em,
+   имя 26px/.14em с тенью, круг знака 60px, кнопка-пилюля с градиентом.
+   ========================================================================== */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#10231b;color:#fff;
+     font-family:'Poiret One',cursive;font-size:17px;line-height:1.5;
+     -webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.lbl{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;
+     letter-spacing:.18em;text-transform:uppercase;line-height:1.4}
+
+/* ——— переключатель версий: только для показа ——— */
+.sw{position:fixed;z-index:999;left:50%;transform:translateX(-50%);top:14px;
+    display:flex;gap:6px;align-items:center;padding:7px 9px;
+    background:rgba(255,255,255,.82);backdrop-filter:blur(20px) saturate(180%);
+    border-radius:999px;box-shadow:0 6px 24px rgba(0,0,0,.24)}
+.sw b{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:500;
+      letter-spacing:.14em;text-transform:uppercase;color:#8a8a8a;padding:0 6px}
+.sw button{font-family:'Montserrat',sans-serif;font-size:12px;border:0;cursor:pointer;
+     padding:8px 16px;border-radius:999px;background:transparent;color:#3a352e;
+     transition:background .2s,color .2s}
+.sw button:hover{background:rgba(0,0,0,.06)}
+.sw button[aria-pressed="true"]{background:#10231b;color:#fff}
+.ver{display:none}
+.ver.on{display:block}
+@media (max-width:640px){
+  .sw{top:8px;padding:5px 6px;gap:4px;max-width:94vw;overflow-x:auto;justify-content:flex-start}
+  .sw b{display:none}
+  .sw button{flex:0 0 auto;padding:7px 12px;font-size:11px}
+}
+
+/* ——— шапка ——— */
+.lv-head{background:#10231b;text-align:center;
+     padding:clamp(76px,8vw,104px) 20px clamp(26px,4vw,44px)}
+.lv-head img.dia{width:52px;margin:0 auto 18px}
+.lv-head h1{margin:0;font-weight:400;font-size:clamp(20px,4vw,34px);
+     line-height:1.2;letter-spacing:.14em;text-transform:uppercase}
+.lv-head p{margin:12px 0 0;color:#ffffee;font-size:11px;letter-spacing:.28em;
+     text-transform:uppercase;line-height:1.5}
+
+/* ——— панели посёлков ——— */
+.lv-strip{display:grid;grid-template-columns:1fr}
+.lv-panel{position:relative;display:flex;flex-direction:column;justify-content:flex-end;
+     align-items:center;text-align:center;min-height:62vh;overflow:hidden;color:#fff;
+     padding:0 22px clamp(28px,5vw,44px)}
+.lv-panel img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.lv-panel::after{content:'';position:absolute;inset:0;z-index:1;
+     background:linear-gradient(180deg,rgba(6,18,13,.30) 0%,rgba(6,18,13,.05) 34%,rgba(6,18,13,.62) 100%)}
+.lv-in{position:relative;z-index:2;width:100%}
+.lv-mark{width:60px;height:60px;margin:0 auto 18px;border-radius:50%;
+     background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center}
+.lv-mark img{width:38px;height:auto}
+.lv-mark span{font-size:26px;color:#10231b;line-height:1}
+.lv-kick{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#ffffee;opacity:.92}
+.lv-panel h3{margin:6px 0 0;font-weight:400;font-size:clamp(24px,2.6vw,30px);
+     line-height:1.15;letter-spacing:.14em;text-transform:uppercase;
+     text-shadow:0 2px 16px rgba(0,0,0,.55)}
+.lv-panel h3 small{display:block;font-size:.52em;letter-spacing:.2em;margin-top:6px;opacity:.9}
+.lv-panel p{margin:14px auto 0;max-width:34ch;font-size:15.5px;line-height:1.5;
+     text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.lv-btn{display:inline-flex;align-items:center;gap:8px;margin-top:20px;min-height:44px;
+     padding:12px 26px;border-radius:40px;color:#fff;font-size:14px;
+     background:linear-gradient(100deg,#1bad03,#15a06a 45%,#007fe2);
+     transition:transform .4s cubic-bezier(.23,1,.32,1),filter .3s}
+.lv-panel:hover .lv-btn{transform:translateY(-2px);filter:brightness(1.06)}
+
+@media (min-width:900px){
+  .lv-strip{display:flex;width:100%;height:80vh}
+  .lv-panel{flex:1 1 0;min-width:0;min-height:0;
+       transition:flex-grow .7s cubic-bezier(.23,1,.32,1)}
+  .lv-strip:hover .lv-panel{flex-grow:.86}
+  .lv-strip .lv-panel:hover{flex-grow:1.9}
+  .lv-panel p{opacity:0;max-height:0;overflow:hidden;margin-top:0;
+       transition:opacity .45s ease,max-height .6s cubic-bezier(.23,1,.32,1),margin-top .6s}
+  .lv-panel:hover p{opacity:1;max-height:160px;margin-top:14px}
+  .lv-btn{opacity:0;transform:translateY(6px);
+       transition:opacity .45s ease,transform .5s cubic-bezier(.23,1,.32,1)}
+  .lv-panel:hover .lv-btn{opacity:1;transform:none}
+}
+
+/* ==========================================================================
+   ВЕРСИЯ 1 — «ПОЛОСА». Три посёлка панелями, Marina — широкой полосой внизу:
+   кадр справа, текст слева на тёмном. Читается как отдельная очередь.
+   ========================================================================== */
+.vp{position:relative;display:grid;grid-template-columns:1fr;background:#0c1c15}
+.vp-txt{padding:clamp(46px,5.4vw,80px) clamp(20px,4vw,64px)}
+.vp-kick{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#cfe8d8}
+.vp h2{margin:16px 0 0;font-weight:400;font-size:clamp(28px,3.4vw,46px);
+     line-height:1.1;letter-spacing:.1em;text-transform:uppercase}
+.vp h2 small{display:block;font-size:.46em;letter-spacing:.24em;margin-top:10px;opacity:.85}
+.vp p{margin:18px 0 0;max-width:44ch;font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.86)}
+.vp-note{margin-top:14px;color:rgba(255,255,255,.5);font-size:12px;letter-spacing:.06em}
+.vp-btn{display:inline-flex;align-items:center;gap:9px;margin-top:26px;min-height:46px;
+     padding:12px 28px;border-radius:40px;color:#fff;font-size:14px;
+     background:linear-gradient(100deg,#1bad03,#15a06a 45%,#007fe2);
+     transition:transform .4s cubic-bezier(.23,1,.32,1),filter .3s}
+.vp-btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
+.vp-ph{position:relative;min-height:46vw;overflow:hidden}
+.vp-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vp-badge{position:absolute;left:20px;top:20px;z-index:2;padding:9px 15px;border-radius:40px;
+     background:rgba(12,28,21,.78);color:#fff}
+@media (min-width:900px){
+  .vp{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:center}
+  .vp-ph{min-height:62vh}
+}
+
+/* ==========================================================================
+   ВЕРСИЯ 2 — «ГАЛЕРЕЯ». Четыре панели, Marina помечена как вип-очередь,
+   ниже три кадра проекта в ряд с подписью «эскизный проект».
+   ========================================================================== */
+.vip-tag{position:absolute;left:50%;top:22px;transform:translateX(-50%);z-index:3;
+     padding:8px 16px;border-radius:40px;background:rgba(255,255,255,.92);color:#10231b;
+     white-space:nowrap}
+.gal{background:#0c1c15;padding:clamp(48px,6vw,88px) clamp(20px,4vw,56px) clamp(56px,7vw,96px)}
+.gal-in{max-width:1320px;margin:0 auto}
+.gal-kick{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#cfe8d8}
+.gal h2{margin:16px 0 0;font-weight:400;font-size:clamp(28px,3.4vw,46px);
+     line-height:1.1;letter-spacing:.1em;text-transform:uppercase}
+.gal h2 small{display:block;font-size:.46em;letter-spacing:.24em;margin-top:10px;opacity:.85}
+.gal>.gal-in>p{margin:18px 0 0;max-width:52ch;font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.86)}
+.gal-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:clamp(28px,3.4vw,44px)}
+.gal-grid figure{margin:0;position:relative;overflow:hidden;aspect-ratio:4/3;background:#132a20}
+.gal-grid img{width:100%;height:100%;object-fit:cover;
+     transition:transform 1.2s cubic-bezier(.23,1,.32,1)}
+.gal-grid figure:hover img{transform:scale(1.05)}
+.gal-foot{display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;margin-top:26px}
+.gal-note{color:rgba(255,255,255,.5);font-size:12px;letter-spacing:.06em}
+@media (min-width:900px){ .gal-grid{grid-template-columns:repeat(3,1fr)} }
+
+/* ==========================================================================
+   ВЕРСИЯ 3 — «РАЗВОРОТ». Три панели, под ними Marina во весь экран:
+   кадр во всю ширину, поверх — молочная полка с именем и кнопкой.
+   ========================================================================== */
+.vr{position:relative;min-height:88vh;display:flex;align-items:flex-end;overflow:hidden}
+.vr-ph{position:absolute;inset:0;z-index:0}
+.vr-ph img{width:100%;height:100%;object-fit:cover}
+.vr-shelf{position:relative;z-index:2;width:100%;background:#faf9f7;color:#1a1a1a;
+     padding:clamp(28px,3.4vw,48px) clamp(20px,4vw,56px)}
+.vr-in{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:18px}
+.vr-kick{color:#a09a90}
+.vr h2{margin:10px 0 0;font-weight:400;font-size:clamp(28px,3.2vw,42px);
+     line-height:1.1;letter-spacing:.08em;text-transform:uppercase}
+.vr h2 small{display:block;font-size:.46em;letter-spacing:.22em;margin-top:9px;color:#6b655d}
+.vr p{margin:0;font-size:16.5px;line-height:1.7;color:#5d5952;max-width:46ch}
+.vr-note{margin-top:12px;color:#a09a90;font-size:12px;letter-spacing:.06em}
+.vr-btn{display:inline-flex;align-items:center;gap:9px;min-height:46px;padding:12px 28px;
+     border-radius:40px;color:#fff;font-size:14px;align-self:start;
+     background:linear-gradient(100deg,#1bad03,#15a06a 45%,#007fe2);
+     transition:transform .4s cubic-bezier(.23,1,.32,1),filter .3s}
+.vr-btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
+@media (min-width:900px){
+  .vr-in{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;
+       align-items:center;gap:clamp(24px,4vw,64px)}
+}
+</style>
+</head>
+<body>
+
+<nav class="sw">
+  <b>Версия</b>
+  <button data-go="p1" aria-pressed="true">Полоса</button>
+  <button data-go="p2" aria-pressed="false">Галерея</button>
+  <button data-go="p3" aria-pressed="false">Разворот</button>
+</nav>
+
+<!-- ===================== ВЕРСИЯ 1 · ПОЛОСА ===================== -->
+<div class="ver on" id="p1">
+  <header class="lv-head">
+    <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+    <h1>Коллекция Завидово</h1>
+    <p>Три посёлка — один курорт</p>
+  </header>
+
+  <div class="lv-strip">
+    <a class="lv-panel" href="https://ecopark-zavidovo.ru/lesnoy">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg" alt="Экопарк Лесной">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-lesnoy.png" alt=""></div>
+        <div class="lv-kick">экопарк</div>
+        <h3>Лесной</h3>
+        <p>Посёлок в хвойном лесу на берегу Дойбицы: 324 участка, деревья остаются на участке.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+    <a class="lv-panel" href="https://ecopark-zavidovo.ru/">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Экопарк Завидово">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-zavidovo.png" alt=""></div>
+        <div class="lv-kick">экопарк</div>
+        <h3>Завидово</h3>
+        <p>Заповедник в 3 км, лес в 100 метрах и река Дойбица по границе посёлка.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+    <a class="lv-panel" href="/akvatoria">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="Акватория Завидово">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt=""></div>
+        <div class="lv-kick">акватория</div>
+        <h3>Акватория</h3>
+        <p>Посёлок на берегу Волги: свой пляж, яхт-клуб и причалы, парк 15 га.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+  </div>
+
+  <section class="vp">
+    <div class="vp-txt">
+      <div class="vp-kick">Вип-участки в Завидово</div>
+      <h2>Marina<small>Zavidovo Village</small></h2>
+      <p>Четвёртый посёлок Коллекции у деревни Лазурная. Отдельная очередь: авторская архитектура каждого дома, камень и дерево. Участки и цены откроются вместе с сайтом.</p>
+      <div class="vp-note">На изображениях — эскизный проект</div>
+      <a class="vp-btn" href="#">Узнать первым <span>→</span></a>
+    </div>
+    <div class="vp-ph">
+      <span class="vp-badge lbl">Сайт в разработке</span>
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-b.jpg" alt="Marina Zavidovo Village" loading="lazy">
+    </div>
+  </section>
+</div>
+
+<!-- ===================== ВЕРСИЯ 2 · ГАЛЕРЕЯ ===================== -->
+<div class="ver" id="p2">
+  <header class="lv-head">
+    <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+    <h1>Коллекция Завидово</h1>
+    <p>Три посёлка — один курорт</p>
+  </header>
+
+  <div class="lv-strip">
+    <a class="lv-panel" href="https://ecopark-zavidovo.ru/lesnoy">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg" alt="Экопарк Лесной">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-lesnoy.png" alt=""></div>
+        <div class="lv-kick">экопарк</div>
+        <h3>Лесной</h3>
+        <p>Посёлок в хвойном лесу на берегу Дойбицы: 324 участка, деревья остаются на участке.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+    <a class="lv-panel" href="https://ecopark-zavidovo.ru/">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Экопарк Завидово">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-zavidovo.png" alt=""></div>
+        <div class="lv-kick">экопарк</div>
+        <h3>Завидово</h3>
+        <p>Заповедник в 3 км, лес в 100 метрах и река Дойбица по границе посёлка.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+    <a class="lv-panel" href="/akvatoria">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="Акватория Завидово">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt=""></div>
+        <div class="lv-kick">акватория</div>
+        <h3>Акватория</h3>
+        <p>Посёлок на берегу Волги: свой пляж, яхт-клуб и причалы, парк 15 га.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+      </div>
+
+  <section class="gal" id="p2gal">
+    <div class="gal-in">
+      <div class="gal-kick">Вип-участки в Завидово</div>
+      <h2>Marina<small>Zavidovo Village</small></h2>
+      <p>Четвёртый посёлок Коллекции. Камень и дерево, авторская архитектура каждого дома. Участки, цены и сайт откроются позже.</p>
+      <div class="gal-grid">
+        <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-a.jpg" alt="Marina — общий вид" loading="lazy"></figure>
+        <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-b.jpg" alt="Marina — вечер" loading="lazy"></figure>
+        <figure><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-c.jpg" alt="Marina — въезд" loading="lazy"></figure>
+      </div>
+      <div class="gal-foot">
+        <a class="vp-btn" href="#">Узнать первым <span>→</span></a>
+        <span class="gal-note">На изображениях — эскизный проект</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== ВЕРСИЯ 3 · РАЗВОРОТ ===================== -->
+<div class="ver" id="p3">
+  <header class="lv-head">
+    <img class="dia" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-diamond.png" alt="">
+    <h1>Коллекция Завидово</h1>
+    <p>Три посёлка — один курорт</p>
+  </header>
+
+  <div class="lv-strip">
+    <a class="lv-panel" href="https://ecopark-zavidovo.ru/lesnoy">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-lesnoy.jpg" alt="Экопарк Лесной">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-lesnoy.png" alt=""></div>
+        <div class="lv-kick">экопарк</div>
+        <h3>Лесной</h3>
+        <p>Посёлок в хвойном лесу на берегу Дойбицы: 324 участка, деревья остаются на участке.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+    <a class="lv-panel" href="https://ecopark-zavidovo.ru/">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-zavidovo.jpg" alt="Экопарк Завидово">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-zavidovo.png" alt=""></div>
+        <div class="lv-kick">экопарк</div>
+        <h3>Завидово</h3>
+        <p>Заповедник в 3 км, лес в 100 метрах и река Дойбица по границе посёлка.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+    <a class="lv-panel" href="/akvatoria">
+      <img class="bg" src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-akvatoriya.jpg" alt="Акватория Завидово">
+      <div class="lv-in">
+        <div class="lv-mark"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/logo-akvatoriya.png" alt=""></div>
+        <div class="lv-kick">акватория</div>
+        <h3>Акватория</h3>
+        <p>Посёлок на берегу Волги: свой пляж, яхт-клуб и причалы, парк 15 га.</p>
+        <span class="lv-btn">Выбрать <span>→</span></span>
+      </div>
+    </a>
+  </div>
+
+  <section class="vr">
+    <div class="vr-ph"><img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/photo-marina-c.jpg" alt="Marina Zavidovo Village" loading="lazy"></div>
+    <div class="vr-shelf">
+      <div class="vr-in">
+        <div>
+          <div class="vr-kick lbl">Вип-участки в Завидово</div>
+          <h2>Marina<small>Zavidovo Village</small></h2>
+        </div>
+        <div>
+          <p>Четвёртый посёлок Коллекции у деревни Лазурная: камень, дерево и авторская архитектура каждого дома. Участки и цены откроются вместе с сайтом.</p>
+          <div class="vr-note">На изображениях — эскизный проект</div>
+        </div>
+        <a class="vr-btn" href="#">Узнать первым <span>→</span></a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+document.querySelectorAll('.sw button').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.sw button').forEach(function(x){x.setAttribute('aria-pressed','false')});
+    b.setAttribute('aria-pressed','true');
+    document.querySelectorAll('.ver').forEach(function(v){v.classList.remove('on')});
+    document.getElementById(b.dataset.go).classList.add('on');
+    window.scrollTo(0,0);
+  });
+});
+</script>
+</body>
+</html>
