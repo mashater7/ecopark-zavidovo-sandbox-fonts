@@ -69,22 +69,30 @@
 #bcA a.bc-item:hover::after,#bcA a.bc-item:focus-visible::after{transform:scaleX(1)}
 #bcA a.bc-item:focus-visible{outline:2px solid var(--g3);outline-offset:3px}
 /* текущий — приглушён, с точкой */
-#bcA .bc-item.is-here b{color:rgba(9,118,63,.46)}
-#bcA .bc-item.is-here .bc-dot{
-  width:5px;height:5px;border-radius:50%;background:var(--g2);flex:none;
+#bcA .bc-item.is-here b{color:var(--ink)}
+/* текущая страница: сплошная линия под именем + подпись, чтобы было ясно, где человек сейчас */
+#bcA .bc-item.is-here::after{
+  content:"";position:absolute;left:35px;right:0;bottom:0;height:1px;
+  background:linear-gradient(90deg,var(--g1),var(--g2) 45%,var(--g3));
 }
-#bcA .bc-item.is-here img{opacity:.62}
+#bcA .bc-item.is-here .bc-here{
+  font-family:'Poiret One','Century Gothic',sans-serif;
+  text-transform:uppercase;letter-spacing:.14em;font-size:12px;
+  color:var(--g2);white-space:nowrap;opacity:.85;
+}
+#bcA .bc-item.is-here img{opacity:1}
 
 @media(max-width:560px){
-  #bcA{padding:14px 12px 8px}
+  #bcA{padding:20px 12px 14px}
   #bcA .bc-mark{width:38px;height:38px;margin-bottom:6px}
   #bcA .bc-name{font-size:clamp(21px,7.4vw,30px);letter-spacing:.16em}
-  #bcA .bc-rule{margin-top:10px;max-width:280px}
-  #bcA .bc-row{margin-top:8px}
-  #bcA .bc-item{gap:7px}
+  #bcA .bc-rule{margin-top:13px;max-width:300px}
+  #bcA .bc-row{margin-top:13px;gap:20px;row-gap:12px}
+  #bcA .bc-item{gap:8px;padding-bottom:6px}
   #bcA .bc-item img{width:22px;height:22px}
-  #bcA .bc-item b{font-size:14px;letter-spacing:.14em}
-  #bcA a.bc-item::after{left:29px}
+  #bcA .bc-item b{font-size:13px;letter-spacing:.13em}
+  #bcA a.bc-item::after,#bcA .bc-item.is-here::after{left:30px}
+  #bcA .bc-item.is-here .bc-here{font-size:11px}
   #bcA .bc-pre{display:none}
 }
 @media(prefers-reduced-motion:reduce){#bcA *{transition:none!important}}
@@ -104,7 +112,7 @@
       <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/brand-lesnoy-64.webp"
            width="26" height="26" alt="" decoding="async" fetchpriority="low">
       <b><i class="bc-pre" style="font-style:normal">Экопарк </i>Лесной</b>
-      <span class="bc-dot" aria-hidden="true"></span>
+      <i class="bc-here">вы здесь</i>
     </span>
   </div>
 </div>
