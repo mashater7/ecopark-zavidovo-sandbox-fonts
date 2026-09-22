@@ -1,0 +1,157 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Полоска «Коллекция Завидово» — было и стало</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#fff;font-family:'Poiret One','Century Gothic',sans-serif;color:#222}
+  .tag{max-width:1200px;margin:0 auto;padding:22px 20px 0;font-family:'Montserrat',sans-serif;
+       font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9aa5a0}
+  .tag b{color:#15a06a;font-weight:600}
+  .sep{max-width:1200px;margin:34px auto 0;border-top:1px dashed #dfe6e2}
+  .hero{max-width:1200px;margin:0 auto;padding:6px 20px 40px;display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+  .hero h1{font-size:clamp(26px,4vw,44px);text-transform:uppercase;font-weight:400;line-height:1.1;margin:0 0 12px}
+  .hero h1 b{color:#1a8a3c;font-weight:400}
+  .hero p{color:#666;max-width:420px;margin:0;font-size:15px}
+  .hero .col{flex:1 1 320px}
+  .hero .ph{flex:1 1 320px;height:250px;border-radius:12px;
+            background:linear-gradient(120deg,#cfe3d2,#9dc2a6);display:flex;align-items:center;justify-content:center;
+            font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.16em;color:#fff;text-transform:uppercase}
+  .note{max-width:1200px;margin:0 auto;padding:0 20px 46px;color:#7d8a85;font-size:14px;line-height:1.6}
+  .note code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#f3f6f4;padding:1px 5px;border-radius:4px}
+</style></head><body>
+
+<div class="tag"><b>стало</b> — логотипы, по плашкам можно нажимать</div>
+<style>
+#brandcollection *{box-sizing:border-box;margin:0;padding:0}
+#brandcollection{
+  text-align:center;
+  padding:34px 16px 8px;
+  font-family:'Poiret One','Century Gothic',sans-serif;
+}
+
+/* заголовок — ссылка на «Коллекцию Завидово» */
+#brandcollection .bc-big{
+  display:inline-block;
+  font-family:'Poiret One','Century Gothic',sans-serif;
+  text-transform:uppercase;font-weight:400;letter-spacing:.2em;line-height:1.04;
+  font-size:clamp(30px,5.4vw,56px);
+  background:linear-gradient(100deg,#1bad03 0%,#15a06a 45%,#1f9be6 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  text-decoration:none;cursor:pointer;transition:opacity .2s ease;
+}
+#brandcollection a.bc-big:hover{opacity:.72}
+
+/* два посёлка — кликабельные плашки с логотипами */
+#brandcollection .bc-nav{display:flex;justify-content:center;align-items:stretch;gap:8px;flex-wrap:wrap;margin-top:10px}
+#brandcollection .bc-chip{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:5px 12px 5px 6px;
+  border:1px solid rgba(21,160,106,.34);border-radius:999px;background:#fff;
+  text-decoration:none;cursor:pointer;
+  transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;
+}
+#brandcollection .bc-chip img{width:28px;height:28px;object-fit:contain;display:block;flex:none}
+#brandcollection .bc-chip span{
+  font-family:'Montserrat',sans-serif;text-transform:uppercase;font-weight:600;
+  letter-spacing:.14em;font-size:clamp(11px,1.6vw,13px);color:#09763F;white-space:nowrap;
+}
+#brandcollection .bc-chip .bc-pre{font-style:normal}
+#brandcollection .bc-chip .bc-go{
+  font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;color:#15a06a;line-height:1;
+  transition:transform .2s ease;
+}
+#brandcollection a.bc-chip:hover{border-color:#15a06a;box-shadow:0 2px 12px rgba(21,160,106,.18);transform:translateY(-1px)}
+#brandcollection a.bc-chip:hover .bc-go{transform:translateX(3px)}
+#brandcollection a.bc-chip:focus-visible{outline:2px solid #1f9be6;outline-offset:2px}
+
+/* текущий посёлок — не ссылка */
+#brandcollection .bc-chip.is-here{background:rgba(21,160,106,.08);border-color:rgba(21,160,106,.5);cursor:default}
+#brandcollection .bc-chip.is-here .bc-here{
+  font-family:'Montserrat',sans-serif;font-weight:600;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:#15a06a;opacity:.75;white-space:nowrap;
+}
+
+#brandcollection .bc-line{display:block;width:70px;height:1px;background:#15a06a;opacity:.5;margin:12px auto 0}
+
+@media(max-width:768px){
+  #brandcollection{padding:26px 14px 6px}
+  #brandcollection .bc-big{font-size:clamp(26px,6.4vw,40px);letter-spacing:.16em}
+  #brandcollection .bc-nav{margin-top:9px;gap:7px}
+}
+@media(max-width:480px){
+  #brandcollection{padding:18px 12px 4px}
+  #brandcollection .bc-big{font-size:clamp(22px,8.5vw,32px);letter-spacing:.12em;line-height:1.1}
+  #brandcollection .bc-nav{margin-top:8px;gap:6px}
+  #brandcollection .bc-chip{padding:4px 10px 4px 5px;gap:6px}
+  #brandcollection .bc-chip img{width:24px;height:24px}
+  #brandcollection .bc-chip span{font-size:11px;letter-spacing:.08em}
+  /* на узком экране плашки не помещаются в строку и переносятся, добавляя высоту.
+     Убираем повторяющееся слово «Экопарк» — посёлок понятен по логотипу и названию. */
+  #brandcollection .bc-chip .bc-pre{display:none}
+  #brandcollection .bc-chip.is-here .bc-here{font-size:8px}
+  #brandcollection .bc-line{width:54px;margin:10px auto 0}
+}
+@media(prefers-reduced-motion:reduce){
+  #brandcollection .bc-chip,#brandcollection .bc-chip .bc-go,#brandcollection .bc-big{transition:none}
+}
+</style>
+<div id="brandcollection">
+  <a class="bc-big" href="https://kzavidovo.ru/" title="Все посёлки Коллекции Завидово">Коллекция Завидово</a>
+  <nav class="bc-nav" aria-label="Посёлки Коллекции">
+    <a class="bc-chip" href="https://ecopark-zavidovo.ru/" title="Перейти на сайт посёлка «Экопарк Завидово»">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/brand-zavidovo-64.webp"
+           width="28" height="28" alt="" decoding="async" fetchpriority="low">
+      <span><i class="bc-pre">Экопарк </i>Завидово</span>
+      <i class="bc-go" aria-hidden="true">&rarr;</i>
+    </a>
+    <span class="bc-chip is-here" aria-current="page">
+      <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/brand-lesnoy-64.webp"
+           width="28" height="28" alt="" decoding="async" fetchpriority="low">
+      <span><i class="bc-pre">Экопарк </i>Лесной</span>
+      <i class="bc-here">вы здесь</i>
+    </span>
+  </nav>
+  <span class="bc-line"></span>
+</div>
+
+<div class="hero">
+  <div class="col"><h1>Участки и дома<br>в поселке рядом<br><b>с курортом Завидово</b></h1>
+  <p>Постройте дачу рядом с курортной зоной Завидово в окружении заповедников, лесов и рек.</p></div>
+  <div class="ph">здесь на сайте фото первого экрана</div>
+</div>
+
+<div class="sep"></div>
+<div class="tag">было — просто текст, нажимать нечего</div>
+<style>
+#brandcollectionOLD *{box-sizing:border-box;margin:0;padding:0}
+#brandcollectionOLD{text-align:center;padding:48px 16px 10px;font-family:'Poiret One','Century Gothic',sans-serif}
+#brandcollectionOLD .bc-big{font-family:'Poiret One','Century Gothic',sans-serif;text-transform:uppercase;font-weight:400;
+ letter-spacing:.2em;line-height:1.04;font-size:clamp(30px,5.4vw,56px);
+ background:linear-gradient(100deg,#1bad03 0%,#15a06a 45%,#1f9be6 100%);-webkit-background-clip:text;background-clip:text;
+ -webkit-text-fill-color:transparent;color:transparent}
+#brandcollectionOLD .bc-sub{font-family:'Montserrat',sans-serif;text-transform:uppercase;font-weight:600;letter-spacing:.22em;
+ color:#09763F;font-size:clamp(13px,2.2vw,16px);margin-top:14px}
+#brandcollectionOLD .bc-line{display:block;width:70px;height:1px;background:#15a06a;opacity:.5;margin:18px auto 0}
+@media(max-width:768px){#brandcollectionOLD{padding:36px 14px 8px}}
+@media(max-width:480px){#brandcollectionOLD{padding:28px 12px 6px}#brandcollectionOLD .bc-line{width:54px;margin-top:14px}}
+</style>
+<div id="brandcollectionOLD">
+  <div class="bc-big">Коллекция Завидово</div>
+  <div class="bc-sub">Экопарк Завидово&nbsp;·&nbsp;Экопарк Лесной</div>
+  <span class="bc-line"></span>
+</div>
+<div class="hero">
+  <div class="col"><h1>Участки и дома<br>в поселке рядом<br><b>с курортом Завидово</b></h1>
+  <p>Постройте дачу рядом с курортной зоной Завидово в окружении заповедников, лесов и рек.</p></div>
+  <div class="ph">здесь на сайте фото первого экрана</div>
+</div>
+
+<div class="note">
+  Плашки рабочие — нажмите и проверьте: «Завидово» ведёт на ecopark-zavidovo.ru,
+  «Коллекция Завидово» — на kzavidovo.ru, «Лесной» помечен как текущая страница и не нажимается.
+  На телефоне подпись короче («Завидово» / «Лесной») — так плашки встают в одну строку.
+  Высота полоски: телефон 145&nbsp;px против 161&nbsp;px у старой, компьютер 163 против 168.
+</div>
+</body></html>
