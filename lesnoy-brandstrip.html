@@ -70,15 +70,10 @@
 #bcA a.bc-item:focus-visible{outline:2px solid var(--g3);outline-offset:3px}
 /* текущий — приглушён, с точкой */
 #bcA .bc-item.is-here b{color:var(--ink)}
-/* текущая страница: сплошная линия под именем + подпись, чтобы было ясно, где человек сейчас */
+/* текущая страница помечена сплошной линией под именем — без слов */
 #bcA .bc-item.is-here::after{
   content:"";position:absolute;left:35px;right:0;bottom:0;height:1px;
   background:linear-gradient(90deg,var(--g1),var(--g2) 45%,var(--g3));
-}
-#bcA .bc-item.is-here .bc-here{
-  font-family:'Poiret One','Century Gothic',sans-serif;
-  text-transform:uppercase;letter-spacing:.14em;font-size:12px;
-  color:var(--g2);white-space:nowrap;opacity:.85;
 }
 #bcA .bc-item.is-here img{opacity:1}
 
@@ -92,8 +87,7 @@
   #bcA .bc-item img{width:22px;height:22px}
   #bcA .bc-item b{font-size:13px;letter-spacing:.13em}
   #bcA a.bc-item::after,#bcA .bc-item.is-here::after{left:30px}
-  #bcA .bc-item.is-here .bc-here{font-size:11px}
-  #bcA .bc-pre{display:none}
+    #bcA .bc-pre{display:none}
 }
 @media(prefers-reduced-motion:reduce){#bcA *{transition:none!important}}
 </style>
@@ -112,7 +106,6 @@
       <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/brand-lesnoy-64.webp"
            width="26" height="26" alt="" decoding="async" fetchpriority="low">
       <b><i class="bc-pre" style="font-style:normal">Экопарк </i>Лесной</b>
-      <i class="bc-here">вы здесь</i>
     </span>
   </div>
 </div>
@@ -167,10 +160,6 @@
   content:"";position:absolute;left:0;right:0;top:0;height:2px;
   background:linear-gradient(90deg,var(--g1),var(--g2) 45%,var(--g3));
 }
-#bcB .bc-panel.is-here small{flex:none;
-  font-family:'Montserrat',sans-serif;font-weight:600;font-size:9px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--g2);opacity:.8;white-space:nowrap;
-}
 
 @media(max-width:560px){
   #bcB{padding:14px 12px 8px}
@@ -198,7 +187,6 @@
       <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/brand-lesnoy-64.webp"
            width="26" height="26" alt="" decoding="async" fetchpriority="low">
       <b><i class="bc-pre" style="font-style:normal">Экопарк </i>Лесной</b>
-      <small>вы здесь</small>
     </span>
   </div>
 </div>
@@ -224,7 +212,7 @@
 <div class="ph">здесь на сайте фото первого экрана</div></div>
 <div class="note">
   В обоих вариантах: бриллиант Коллекции вернулся на место, «Коллекция Завидово» ведёт на kzavidovo.ru,
-  «Экопарк Завидово» — на свой сайт, «Экопарк Лесной» помечен как текущая страница.
+  «Экопарк Завидово» — на свой сайт, «Экопарк Лесной» помечен линией как текущая страница.
   Наведите мышью на посёлки — увидите, как отзывается линия. На телефоне слово «Экопарк» скрыто,
   чтобы имена встали в одну строку.
 </div>
