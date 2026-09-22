@@ -20,7 +20,7 @@
  .note{max-width:1200px;margin:0 auto;padding:6px 20px 50px;color:#7d8a85;font-size:14px;line-height:1.65}
 </style></head><body>
 
-<div class="tag"><b>Вариант A — лок-ап</b> &nbsp;знак, имя, волосяная линия, посёлки в строку</div>
+<div class="tag"><b>Вариант A — лок-ап</b> &nbsp;знак, имя, волосяная линия, посёлки в строку — без стрелок и разделителей</div>
 <style>
 /* ВАРИАНТ A — «лок-ап Коллекции»: знак, имя, волосяная линия, два посёлка в строку */
 #bcA *{box-sizing:border-box;margin:0;padding:0}
@@ -48,8 +48,8 @@
 }
 
 /* два посёлка: имя в строку, между ними волосок */
-#bcA .bc-row{display:flex;justify-content:center;align-items:center;gap:0;flex-wrap:wrap;margin-top:11px}
-#bcA .bc-sep{width:1px;align-self:stretch;margin:2px 16px;background:rgba(9,118,63,.22)}
+#bcA .bc-row{display:flex;justify-content:center;align-items:center;gap:clamp(22px,4vw,52px);flex-wrap:wrap;margin-top:11px}
+#bcA .bc-sep{width:0;margin:0}
 #bcA .bc-item{
   display:inline-flex;align-items:center;gap:9px;padding:3px 2px 5px;
   text-decoration:none;position:relative;
@@ -64,21 +64,16 @@
 #bcA a.bc-item::after{
   content:"";position:absolute;left:35px;right:0;bottom:0;height:1px;
   background:linear-gradient(90deg,var(--g2),var(--g3));
-  transform:scaleX(.42);transform-origin:left;transition:transform .28s cubic-bezier(.4,0,.2,1);
+  transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(.4,0,.2,1);
 }
 #bcA a.bc-item:hover::after,#bcA a.bc-item:focus-visible::after{transform:scaleX(1)}
-#bcA a.bc-item .bc-go{
-  font-family:'Montserrat',sans-serif;font-weight:600;font-size:12px;color:var(--g2);
-  line-height:1;transition:transform .28s cubic-bezier(.4,0,.2,1);
-}
-#bcA a.bc-item:hover .bc-go{transform:translateX(4px)}
 #bcA a.bc-item:focus-visible{outline:2px solid var(--g3);outline-offset:3px}
 /* текущий — приглушён, с точкой */
-#bcA .bc-item.is-here b{color:rgba(9,118,63,.62)}
+#bcA .bc-item.is-here b{color:rgba(9,118,63,.46)}
 #bcA .bc-item.is-here .bc-dot{
   width:5px;height:5px;border-radius:50%;background:var(--g2);flex:none;
 }
-#bcA .bc-item.is-here img{opacity:.85}
+#bcA .bc-item.is-here img{opacity:.62}
 
 @media(max-width:560px){
   #bcA{padding:14px 12px 8px}
@@ -86,7 +81,6 @@
   #bcA .bc-name{font-size:clamp(21px,7.4vw,30px);letter-spacing:.16em}
   #bcA .bc-rule{margin-top:10px;max-width:280px}
   #bcA .bc-row{margin-top:8px}
-  #bcA .bc-sep{margin:2px 11px}
   #bcA .bc-item{gap:7px}
   #bcA .bc-item img{width:22px;height:22px}
   #bcA .bc-item b{font-size:14px;letter-spacing:.14em}
@@ -105,9 +99,7 @@
       <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/brand-zavidovo-64.webp"
            width="26" height="26" alt="" decoding="async" fetchpriority="low">
       <b><i class="bc-pre" style="font-style:normal">Экопарк </i>Завидово</b>
-      <i class="bc-go" aria-hidden="true">&rarr;</i>
     </a>
-    <span class="bc-sep"></span>
     <span class="bc-item is-here" aria-current="page">
       <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/brand-lesnoy-64.webp"
            width="26" height="26" alt="" decoding="async" fetchpriority="low">
@@ -161,11 +153,6 @@
 #bcB a.bc-panel:hover,#bcB a.bc-panel:focus-visible{background:rgba(21,160,106,.045)}
 #bcB a.bc-panel:hover::after,#bcB a.bc-panel:focus-visible::after{transform:scaleX(1)}
 #bcB a.bc-panel:focus-visible{outline:2px solid var(--g3);outline-offset:-2px}
-#bcB a.bc-panel .bc-go{
-  font-family:'Montserrat',sans-serif;font-weight:600;font-size:12px;color:var(--g2);line-height:1;
-  transition:transform .3s cubic-bezier(.4,0,.2,1);
-}
-#bcB a.bc-panel:hover .bc-go{transform:translateX(4px)}
 /* текущая панель: заливка и градиентная полоса сверху */
 #bcB .bc-panel.is-here{background:rgba(21,160,106,.07);cursor:default}
 #bcB .bc-panel.is-here::before{
@@ -198,7 +185,6 @@
       <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/brand-zavidovo-64.webp"
            width="26" height="26" alt="" decoding="async" fetchpriority="low">
       <b><i class="bc-pre" style="font-style:normal">Экопарк </i>Завидово</b>
-      <i class="bc-go" aria-hidden="true">&rarr;</i>
     </a>
     <span class="bc-panel is-here" aria-current="page">
       <img src="https://mashater7.github.io/ecopark-zavidovo-sandbox-fonts/assets/collection/brand-lesnoy-64.webp"
