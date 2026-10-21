@@ -509,6 +509,8 @@ svg.addEventListener('wheel',function(e){if(!(e.ctrlKey||e.metaKey))return;e.pre
 
   function applyToImage(bg){
     if (!bg) return;
+    /* 22.10.2026: подложка с data-kz-href ещё не нужна — её подставит ленивый загрузчик блока при подходе к карте */
+    if (bg.hasAttribute('data-kz-href') && !bg.hasAttribute('href')) return;
 
     if (bg.getAttribute('href') !== BG_URL) {
       bg.setAttribute('href', BG_URL);
